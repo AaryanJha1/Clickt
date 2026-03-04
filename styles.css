@@ -1,0 +1,300 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-main: #111111;
+    --text-muted: #555555;
+    --border-color: #e5e5e5;
+    --accent: #000000;
+    --bg-alt: #fafafa;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 3rem; margin-bottom: 1rem; }
+h2 { font-size: 2rem; margin-bottom: 1rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+/* Layout & Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.brand img {
+    height: 32px;
+    width: auto;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background-color: var(--accent);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--bg-alt);
+}
+
+/* Hero Section */
+.hero {
+    padding: 6rem 0;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: 2rem;
+}
+
+/* Features Section */
+.features {
+    padding: 4rem 0;
+    background-color: var(--bg-alt);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: var(--bg-color);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Platform Showcase */
+.showcase {
+    padding: 6rem 0;
+}
+
+.platform-section {
+    margin-bottom: 6rem;
+}
+
+.platform-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 190px));
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 190px;
+    max-width: 100%;
+}
+
+/* Unified screenshot frame rules */
+.gallery-item img {
+    width: 100%;
+    height: 250px;           /* Fixed frame height so object-fit/object-position apply reliably */
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background-color: var(--bg-alt);
+    display: block;
+}
+
+/* Platform-specific framing tweaks */
+.gallery-item.iphone img {
+    height: 420px;           /* Taller frame to crop more horizontal empty space */
+    object-position: 6% 58%; /* Bias crop to left and slightly lower for device focus */
+}
+
+.gallery-item.ipad img {
+    height: 280px;
+    object-position: left center;
+}
+
+.gallery-item.mac img {
+    height: 120px;
+    object-position: center bottom; /* Crops out top blank region from source files */
+}
+
+.gallery-item span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-top: 0.5rem;
+}
+
+/* Support Page Specific */
+.support-content {
+    max-width: 600px;
+    margin: 4rem auto 8rem;
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: var(--bg-color);
+}
+
+.support-content ul {
+    margin: 1rem 0 2rem 2rem;
+    color: var(--text-muted);
+}
+
+.support-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(3, minmax(0, 180px));
+        justify-content: center;
+    }
+
+    .gallery-item {
+        width: 180px;
+    }
+
+    .gallery-item img {
+        height: 236px;
+    }
+
+    .gallery-item.iphone img {
+        height: 390px;
+    }
+
+    .gallery-item.ipad img {
+        height: 264px;
+    }
+
+    .gallery-item.mac img {
+        height: 112px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .hero { padding: 4rem 0; }
+    .gallery { 
+        display: flex; 
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory; 
+    }
+    .gallery-item { 
+        flex: 0 0 62%;
+        max-width: 240px;
+        scroll-snap-align: center; 
+    }
+
+    .gallery-item img {
+        height: 290px;
+    }
+
+    .gallery-item.iphone img {
+        height: 420px;
+    }
+
+    .gallery-item.ipad img {
+        height: 310px;
+    }
+
+    .gallery-item.mac img {
+        height: 140px;
+    }
+}

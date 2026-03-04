@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clickt | Team Execution Simplified</title>
+  <meta
+    name="description"
+    content="Clickt helps teams plan, collaborate, run checklists, build workflows, and present progress across iPhone, iPad, and Mac."
+  />
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --surface: #fffdf8;
+      --line: #dbd4c9;
+      --ink: #1a2433;
+      --muted: #556073;
+      --accent: #155eef;
+      --dark: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: radial-gradient(1200px 700px at 100% -10%, #efe9dd 0%, transparent 68%), var(--bg);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    .wrap {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: color-mix(in srgb, var(--bg) 88%, white 12%);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 62%, transparent 38%);
+    }
+
+    .topbar-inner {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      object-fit: contain;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.94rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background-color 0.18s ease;
+    }
+
+    .nav a:hover {
+      background: #ece7dc;
+      color: var(--ink);
+    }
+
+    .nav .primary {
+      background: var(--dark);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .nav .primary:hover {
+      background: #111827;
+      color: #fff;
+    }
+
+    .hero {
+      padding: clamp(34px, 6vw, 74px) 0 36px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(24px, 4vw, 56px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6d7787;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      font-size: clamp(2.1rem, 5.2vw, 4.2rem);
+      max-width: 12ch;
+      color: #111827;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.17rem);
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(23, 30, 42, 0.08);
+    }
+
+    .btn-dark {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .btn-light {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 430px;
+      background: linear-gradient(175deg, #faf8f2 0%, #f0ece1 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .hero-grid {
+      height: 100%;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    .hero-card {
+      border-radius: 14px;
+      border: 1px solid #d4cec3;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(22, 30, 43, 0.09);
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+
+    .hero-card.main {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .meta span {
+      border: 1px solid #d8d0c3;
+      color: #5f6776;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      background: #fffdfa;
+    }
+
+    .section-head {
+      margin: 24px 0 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      letter-spacing: -0.02em;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.1;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 14px;
+      margin: 18px 0 34px;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: clamp(14px, 1.7vw, 20px);
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+    }
+
+    .feature h3 {
+      margin: 0;
+      font-size: clamp(1.1rem, 2.1vw, 1.5rem);
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .feature .labels {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .feature .labels span {
+      font-size: 0.78rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #626d7f;
+      background: #fff;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .shot {
+      margin: 0;
+      border: 1px solid #d9d2c7;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .shot img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: fill;
+      display: block;
+      background: #f0ede7;
+    }
+
+    .shot figcaption {
+      font-size: 0.75rem;
+      color: #646f80;
+      border-top: 1px solid #e2dbcf;
+      padding: 6px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .closing {
+      margin: 8px 0 56px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fffdf8 0%, #f4f0e8 100%);
+      border-radius: 20px;
+      padding: clamp(18px, 3vw, 30px);
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .closing h4 {
+      margin: 0;
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+      letter-spacing: -0.01em;
+    }
+
+    .closing p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .availability {
+      margin: 0 0 34px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 20px;
+      padding: clamp(18px, 3vw, 30px);
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 1.35fr;
+      align-items: start;
+    }
+
+    .availability h3 {
+      margin: 0;
+      font-size: clamp(1.2rem, 2.1vw, 1.7rem);
+      letter-spacing: -0.01em;
+    }
+
+    .availability p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 46ch;
+    }
+
+    .device-column {
+      border: 1px solid #d9d2c7;
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+      max-width: 380px;
+    }
+
+    .device-column h4 {
+      margin: 0;
+      font-size: 0.83rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5f6b7d;
+      padding: 10px 12px;
+      border-bottom: 1px solid #e6dfd4;
+      background: #fbf8f1;
+    }
+
+    .scroll-column {
+      max-height: 540px;
+      overflow-y: auto;
+      padding: 10px;
+      display: grid;
+      gap: 10px;
+      scrollbar-gutter: stable;
+    }
+
+    .mini-shot {
+      margin: 0;
+      border: 1px solid #e0d9cd;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .mini-shot img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: fill;
+      display: block;
+      background: #f0ede7;
+    }
+
+    .mini-shot figcaption {
+      font-size: 0.72rem;
+      color: #6b7688;
+      border-top: 1px solid #ece5d9;
+      padding: 5px 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      padding: 0 0 36px;
+      color: #707b8d;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: #374151;
+    }
+
+    @media (max-width: 1040px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        grid-template-columns: 1fr;
+      }
+
+      .availability {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner {
+        min-height: 66px;
+      }
+
+      .nav a {
+        padding: 7px 10px;
+        font-size: 0.86rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .device-column {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <img src="./click_logo.png" alt="Clickt logo" />
+        <span>CLICKT</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#availability">Platforms</a>
+        <a class="primary" href="./support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <span class="eyebrow">Team Execution Platform</span>
+        <h1 id="hero-title">From planning to presentations, Clickt keeps every team in sync.</h1>
+        <p>
+          Clickt brings team collaboration, checklist utilities, workflow builder tools, and presentation-ready updates into one calm workspace.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#features">Explore Features</a>
+          <a class="btn btn-light" href="./support.html">Get Support</a>
+        </div>
+        <div class="meta">
+          <span>Team Collaboration</span>
+          <span>Checklist Utilities</span>
+          <span>Workflow Builder</span>
+          <span>Presentations</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-grid">
+          <figure class="hero-card main"><img src="./iphone-presentation.png" alt="Clickt presentation on iPhone" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section-head">
+      <h2>iPhone Workflows</h2>
+      <p>Primary showcase is focused on iPhone screens for each core Clickt workflow.</p>
+    </section>
+
+    <section id="platforms" class="feature-list" aria-label="Feature Promotions">
+      <article class="feature">
+        <div>
+          <h3>Introduction</h3>
+          <p>Give users a focused starting point with homepage and settings views that make priorities clear from the first tap.</p>
+          <div class="labels"><span>Homepage</span><span>Settings</span><span>Orientation</span></div>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="./iphone-homepage.png" alt="Introduction on iPhone" /><figcaption>iPhone</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div>
+          <h3>Team Collaboration</h3>
+          <p>Keep ownership, updates, and progress visible so every contributor can coordinate in real time with less friction.</p>
+          <div class="labels"><span>Alignment</span><span>Visibility</span><span>Handoffs</span></div>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="./iphone-teams.png" alt="Team collaboration on iPhone" /><figcaption>iPhone</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div>
+          <h3>Check-list Utilities</h3>
+          <p>Turn recurring processes into reliable check flows, reduce missed steps, and raise execution consistency across teams.</p>
+          <div class="labels"><span>Consistency</span><span>Repeatability</span><span>Reliability</span></div>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="./iphone-checklist.png" alt="Checklist utilities on iPhone" /><figcaption>iPhone</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div>
+          <h3>Builder Workflow</h3>
+          <p>Create workflows that match your process, adapt as teams grow, and standardize execution without adding complexity.</p>
+          <div class="labels"><span>Custom Logic</span><span>Scalable</span><span>Operational Flow</span></div>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="./iphone-builder.png" alt="Builder workflow on iPhone" /><figcaption>iPhone</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div>
+          <h3>Presentation</h3>
+          <p>Share project outcomes with presentation-ready visuals that keep stakeholders aligned and decisions moving forward.</p>
+          <div class="labels"><span>Storytelling</span><span>Progress</span><span>Decisions</span></div>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="./iphone-presentation.png" alt="Presentation on iPhone" /><figcaption>iPhone</figcaption></figure>
+        </div>
+      </article>
+    </section>
+
+    <section id="availability" class="availability">
+      <div>
+        <h3>Also available on iPad and Mac</h3>
+        <p>
+          Clickt experience is consistent across devices. Scroll through iPad and Mac previews below to see the same five workflows on larger screens.
+        </p>
+      </div>
+
+      <article class="device-column">
+        <h4>iPad + Mac (Scroll)</h4>
+        <div class="scroll-column">
+          <figure class="mini-shot"><img src="./ipad-homepage.png" alt="Introduction on iPad" /><figcaption>iPad • Introduction</figcaption></figure>
+          <figure class="mini-shot"><img src="./ipad-teams.png" alt="Team collaboration on iPad" /><figcaption>iPad • Team Collaboration</figcaption></figure>
+          <figure class="mini-shot"><img src="./ipad-checklist.png" alt="Check-list utilities on iPad" /><figcaption>iPad • Check-list Utilities</figcaption></figure>
+          <figure class="mini-shot"><img src="./ipad-builder.png" alt="Builder workflow on iPad" /><figcaption>iPad • Builder Workflow</figcaption></figure>
+          <figure class="mini-shot"><img src="./ipad-presentation.png" alt="Presentation on iPad" /><figcaption>iPad • Presentation</figcaption></figure>
+          <figure class="mini-shot"><img src="./mac-homepage.png" alt="Introduction on Mac" /><figcaption>Mac • Introduction</figcaption></figure>
+          <figure class="mini-shot"><img src="./mac-teams.png" alt="Team collaboration on Mac" /><figcaption>Mac • Team Collaboration</figcaption></figure>
+          <figure class="mini-shot"><img src="./mac-checklist.png" alt="Check-list utilities on Mac" /><figcaption>Mac • Check-list Utilities</figcaption></figure>
+          <figure class="mini-shot"><img src="./mac-builder.png" alt="Builder workflow on Mac" /><figcaption>Mac • Builder Workflow</figcaption></figure>
+          <figure class="mini-shot"><img src="./mac-presentation.png" alt="Presentation on Mac" /><figcaption>Mac • Presentation</figcaption></figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="closing">
+      <div>
+        <h4>Ready to introduce Clickt on the App Store?</h4>
+        <p>Use this page as your promo reference and keep support visible for users across every Apple platform.</p>
+      </div>
+      <a class="btn btn-dark" href="./support.html">Open Support Page</a>
+    </section>
+  </main>
+
+  <footer>
+    Need help? Email <a href="mailto:ingredient.toolkit@gmail.com">ingredient.toolkit@gmail.com</a>
+  </footer>
+</body>
+</html>

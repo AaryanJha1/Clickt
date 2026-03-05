@@ -217,6 +217,15 @@ header {
     margin-bottom: 0.5rem;
 }
 
+.policy-content h3 {
+    margin-top: 1.5rem;
+}
+
+.policy-meta {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
 /* Footer */
 footer {
     padding: 3rem 0;

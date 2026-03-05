@@ -69,7 +69,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#9679;</span>
                             <h3>Unified Workspace</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Unified Workspace</h3>
@@ -83,7 +82,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#10022;</span>
                             <h3>Team Collaboration</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Team Collaboration</h3>
@@ -97,7 +95,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#10003;</span>
                             <h3>Checklist Utilities</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Checklist Utilities</h3>
@@ -111,7 +108,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#9881;</span>
                             <h3>Builder Workflow Tools</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Builder Workflow Tools</h3>
@@ -125,7 +121,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#9651;</span>
                             <h3>Presentation-Ready Progress</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Presentation-Ready Progress</h3>
@@ -139,7 +134,6 @@
                             <span class="feature-kicker">CLICKT MODULE</span>
                             <span class="feature-symbol" aria-hidden="true">&#8644;</span>
                             <h3>Cross-Platform Continuity</h3>
-                            <span class="feature-hint">Hover or tap to flip</span>
                         </div>
                         <div class="feature-card-face feature-card-back">
                             <h3>Cross-Platform Continuity</h3>
@@ -256,18 +250,19 @@
             const cards = document.querySelectorAll(".feature-card.feature-flip");
             if (!cards.length) return;
 
-            const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
-
             cards.forEach((card) => {
                 card.addEventListener("click", () => {
-                    if (canHover.matches) return;
-                    card.classList.toggle("is-flipped");
+                    const shouldFlip = !card.classList.contains("is-flipped");
+                    cards.forEach((item) => item.classList.remove("is-flipped"));
+                    if (shouldFlip) card.classList.add("is-flipped");
                 });
 
                 card.addEventListener("keydown", (event) => {
                     if (event.key !== "Enter" && event.key !== " ") return;
                     event.preventDefault();
-                    card.classList.toggle("is-flipped");
+                    const shouldFlip = !card.classList.contains("is-flipped");
+                    cards.forEach((item) => item.classList.remove("is-flipped"));
+                    if (shouldFlip) card.classList.add("is-flipped");
                 });
             });
 

@@ -22,6 +22,74 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.floating-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-dots .dot {
+    position: absolute;
+    display: block;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    animation:
+        dot-float 8s ease-in-out infinite,
+        dot-pulse 3.4s ease-in-out infinite;
+}
+
+.floating-dots .dot:nth-child(1) { width: 12px; height: 12px; left: 6%; top: 82%; animation-duration: 7.2s; animation-delay: -1.8s; }
+.floating-dots .dot:nth-child(2) { width: 10px; height: 10px; left: 14%; top: 66%; animation-duration: 9.1s; animation-delay: -2.6s; }
+.floating-dots .dot:nth-child(3) { width: 16px; height: 16px; left: 22%; top: 90%; animation-duration: 8.3s; animation-delay: -3.7s; }
+.floating-dots .dot:nth-child(4) { width: 9px; height: 9px; left: 30%; top: 74%; animation-duration: 7.8s; animation-delay: -2.1s; }
+.floating-dots .dot:nth-child(5) { width: 14px; height: 14px; left: 38%; top: 88%; animation-duration: 8.6s; animation-delay: -4.2s; }
+.floating-dots .dot:nth-child(6) { width: 11px; height: 11px; left: 46%; top: 68%; animation-duration: 9.4s; animation-delay: -1.3s; }
+.floating-dots .dot:nth-child(7) { width: 15px; height: 15px; left: 54%; top: 84%; animation-duration: 7.6s; animation-delay: -3.5s; }
+.floating-dots .dot:nth-child(8) { width: 8px; height: 8px; left: 62%; top: 72%; animation-duration: 8.8s; animation-delay: -2.9s; }
+.floating-dots .dot:nth-child(9) { width: 13px; height: 13px; left: 70%; top: 92%; animation-duration: 9.2s; animation-delay: -5.1s; }
+.floating-dots .dot:nth-child(10) { width: 10px; height: 10px; left: 78%; top: 76%; animation-duration: 7.9s; animation-delay: -3.2s; }
+.floating-dots .dot:nth-child(11) { width: 14px; height: 14px; left: 86%; top: 86%; animation-duration: 8.7s; animation-delay: -4.9s; }
+.floating-dots .dot:nth-child(12) { width: 9px; height: 9px; left: 93%; top: 64%; animation-duration: 9.5s; animation-delay: -1.5s; }
+.floating-dots .dot:nth-child(13) { width: 11px; height: 11px; left: 18%; top: 52%; animation-duration: 8.1s; animation-delay: -6.1s; }
+.floating-dots .dot:nth-child(14) { width: 13px; height: 13px; left: 44%; top: 56%; animation-duration: 7.4s; animation-delay: -2.8s; }
+.floating-dots .dot:nth-child(15) { width: 10px; height: 10px; left: 67%; top: 58%; animation-duration: 8.9s; animation-delay: -4.6s; }
+.floating-dots .dot:nth-child(16) { width: 12px; height: 12px; left: 88%; top: 50%; animation-duration: 9.7s; animation-delay: -3.4s; }
+.floating-dots .dot:nth-child(17) { width: 8px; height: 8px; left: 8%; top: 42%; animation-duration: 7.7s; animation-delay: -2.3s; }
+.floating-dots .dot:nth-child(18) { width: 11px; height: 11px; left: 19%; top: 34%; animation-duration: 9.3s; animation-delay: -4.7s; }
+.floating-dots .dot:nth-child(19) { width: 9px; height: 9px; left: 31%; top: 46%; animation-duration: 8.5s; animation-delay: -1.2s; }
+.floating-dots .dot:nth-child(20) { width: 10px; height: 10px; left: 43%; top: 30%; animation-duration: 7.9s; animation-delay: -3.3s; }
+.floating-dots .dot:nth-child(21) { width: 12px; height: 12px; left: 57%; top: 38%; animation-duration: 8.8s; animation-delay: -5.4s; }
+.floating-dots .dot:nth-child(22) { width: 9px; height: 9px; left: 68%; top: 32%; animation-duration: 9.1s; animation-delay: -2.7s; }
+.floating-dots .dot:nth-child(23) { width: 8px; height: 8px; left: 82%; top: 40%; animation-duration: 8.2s; animation-delay: -4.1s; }
+.floating-dots .dot:nth-child(24) { width: 10px; height: 10px; left: 93%; top: 28%; animation-duration: 9.6s; animation-delay: -3.8s; }
+
+@keyframes dot-float {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.35;
+    }
+    50% {
+        transform: translate3d(18px, -42px, 0);
+        opacity: 0.72;
+    }
+    100% {
+        transform: translate3d(-14px, -96px, 0);
+        opacity: 0.25;
+    }
+}
+
+@keyframes dot-pulse {
+    0%, 100% {
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.28);
+    }
+}
+
 /* Typography */
 h1, h2, h3, h4 {
     font-weight: 600;
@@ -97,6 +165,14 @@ header {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.hero > *:not(.floating-dots) {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-logo {
@@ -121,15 +197,83 @@ header {
 }
 
 .feature-card {
-    background: var(--bg-color);
-    padding: 2rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    background: transparent;
+    min-height: 250px;
+    perspective: 1200px;
+    border-radius: 14px;
+    cursor: pointer;
+    outline: none;
 }
 
-.feature-card p {
+.feature-card-inner {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+.feature-card-face {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--bg-color);
+    padding: 1.5rem;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-card-front {
+    justify-content: space-between;
+}
+
+.feature-card-back {
+    transform: rotateY(180deg);
+    justify-content: center;
+    text-align: left;
+}
+
+.feature-card-back p {
+    margin: 0;
     font-size: 1rem;
-    margin-bottom: 0;
+    color: var(--text-muted);
+}
+
+.feature-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+}
+
+.feature-symbol {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #111111;
+}
+
+.feature-hint {
+    font-size: 0.82rem;
+    color: #7a7a7a;
+}
+
+.feature-card:hover .feature-card-inner,
+.feature-card:focus-visible .feature-card-inner,
+.feature-card.is-flipped .feature-card-inner {
+    transform: rotateY(180deg);
+}
+
+.feature-card:focus-visible .feature-card-face {
+    border-color: #9ca3af;
 }
 
 /* Platform Showcase */
@@ -305,5 +449,21 @@ footer a:hover {
 
     .gallery-item.mac img {
         height: 140px;
+    }
+
+    .feature-card,
+    .feature-card-inner {
+        min-height: 220px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-dots .dot {
+        animation: none;
+        opacity: 0.12;
+    }
+
+    .feature-card-inner {
+        transition: none;
     }
 }

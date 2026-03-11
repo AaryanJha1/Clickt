@@ -376,6 +376,7 @@ header {
     font-weight: 700;
     cursor: help;
     user-select: none;
+    padding: 0;
 }
 
 .device-help-tooltip {
@@ -399,10 +400,17 @@ header {
     pointer-events: none;
 }
 
-.device-help-inline:hover .device-help-tooltip,
-.device-help-inline:focus-visible .device-help-tooltip {
+.device-help-inline:focus-visible .device-help-tooltip,
+.device-help-inline.is-open .device-help-tooltip {
     opacity: 1;
     visibility: visible;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .device-help-inline:hover .device-help-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .device-carousel {
@@ -423,6 +431,7 @@ header {
     justify-items: center;
     gap: var(--space-3);
     padding: var(--space-2) 0;
+    overflow: hidden;
 }
 
 .device-caption {
@@ -437,6 +446,7 @@ header {
 .device-shell {
     position: relative;
     margin: 0 auto;
+    max-width: 100%;
     background: linear-gradient(145deg, #1b1b1b 0%, #070707 100%);
     box-shadow: none;
 }
@@ -626,6 +636,7 @@ header {
 
 .tablet-shell {
     width: min(520px, 92vw);
+    max-width: 100%;
     padding: 11px;
     border-radius: 34px;
 }
@@ -648,8 +659,15 @@ header {
     aspect-ratio: 2064 / 2752;
 }
 
+.tablet-shell .device-screen-image {
+    object-fit: contain;
+    object-position: center;
+    background: #f4f4f4;
+}
+
 .desktop-shell {
     width: min(780px, 95vw);
+    max-width: 100%;
     padding: 14px 14px 34px;
     border-radius: 20px;
 }
@@ -940,7 +958,7 @@ footer a:hover {
         padding: var(--space-2);
     }
 
-    .feature-slider-card { flex-basis: 240px; min-height: 250px; }
+    .feature-slider-card { flex-basis: min(300px, 82vw); min-height: 250px; }
 
     .feature-slider-card h3 {
         font-size: 0.95rem;
@@ -1028,18 +1046,23 @@ footer a:hover {
     }
 
     .tablet-shell {
-        width: min(430px, 92vw);
-        padding: 10px;
-        border-radius: 30px;
+        width: min(360px, 92vw);
+        padding: 8px;
+        border-radius: 26px;
     }
 
     .tablet-shell .device-screen {
-        border-radius: 22px;
+        border-radius: 20px;
     }
 
     .desktop-shell {
-        width: min(620px, 95vw);
-        padding: 12px 12px 28px;
+        width: min(360px, 92vw);
+        padding: 8px 8px 20px;
+        border-radius: 14px;
+    }
+
+    .desktop-shell .device-screen {
+        border-radius: 7px;
     }
 
     .hotspot-back-chip {

@@ -44,6 +44,7 @@ function initFeatureSlider(featureStacksController) {
     let lastTime = 0;
     let reachedEndInCycle = false;
     const speedPxPerMs = 0.018;
+    const canHoverPause = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     const maxScroll = () => Math.max(0, sliderFrame.scrollWidth - sliderFrame.clientWidth);
 
@@ -59,11 +60,11 @@ function initFeatureSlider(featureStacksController) {
         }
 
         let next = sliderFrame.scrollLeft + direction * speedPxPerMs * delta;
-        if (next >= max) {
+        if (next >= max - 0.5) {
             next = max;
             direction = -1;
             reachedEndInCycle = true;
-        } else if (next <= 0) {
+        } else if (next <= 0.5) {
             next = 0;
             direction = 1;
             if (reachedEndInCycle && featureStacksController?.nextDevice) {
@@ -89,8 +90,10 @@ function initFeatureSlider(featureStacksController) {
         lastTime = 0;
     };
 
-    sliderFrame.addEventListener("pointerenter", stop);
-    sliderFrame.addEventListener("pointerleave", start);
+    if (canHoverPause) {
+        sliderFrame.addEventListener("pointerenter", stop);
+        sliderFrame.addEventListener("pointerleave", start);
+    }
     sliderFrame.addEventListener("focusin", stop);
     sliderFrame.addEventListener("focusout", (event) => {
         if (sliderFrame.contains(event.relatedTarget)) return;
@@ -206,6 +209,7 @@ function initDeviceExperience() {
     const detailHotspotButtons = Array.from(experience.querySelectorAll("[data-when-module]"));
     const backHotspots = Array.from(experience.querySelectorAll("[data-hotspot-back]"));
     const screenImages = Array.from(experience.querySelectorAll("[data-platform-screen]"));
+    const helpToggle = experience.querySelector(".device-help-inline");
 
     const imageMap = {
         iphone: {
@@ -312,6 +316,35 @@ function initDeviceExperience() {
             setModule(module);
         });
     });
+
+    if (helpToggle) {
+        const closeHelp = () => {
+            helpToggle.classList.remove("is-open");
+            helpToggle.setAttribute("aria-expanded", "false");
+        };
+
+        helpToggle.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const shouldOpen = !helpToggle.classList.contains("is-open");
+            if (!shouldOpen) {
+                closeHelp();
+                return;
+            }
+            helpToggle.classList.add("is-open");
+            helpToggle.setAttribute("aria-expanded", "true");
+        });
+
+        helpToggle.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+            closeHelp();
+            helpToggle.blur();
+        });
+
+        document.addEventListener("click", (event) => {
+            if (helpToggle.contains(event.target)) return;
+            closeHelp();
+        });
+    }
 
     updatePlatformUI();
     updateHotspotUI();

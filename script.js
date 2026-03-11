@@ -1,0 +1,320 @@
+(function () {
+    const featureStacksController = initFeatureStacks();
+    initScrollReveal();
+    initFeatureSlider(featureStacksController);
+    initTypingHeadline();
+    initDeviceExperience();
+})();
+
+function initScrollReveal() {
+    const observedItems = Array.from(document.querySelectorAll("[data-observe]"));
+    if (!observedItems.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        observedItems.forEach((item) => item.classList.add("is-visible"));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries, io) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.24,
+            rootMargin: "0px 0px -12% 0px",
+        }
+    );
+
+    observedItems.forEach((item) => observer.observe(item));
+}
+
+function initFeatureSlider(featureStacksController) {
+    const sliderFrame = document.querySelector("[data-feature-slider]");
+    if (!sliderFrame) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    let rafId = 0;
+    let direction = 1;
+    let lastTime = 0;
+    let reachedEndInCycle = false;
+    const speedPxPerMs = 0.018;
+
+    const maxScroll = () => Math.max(0, sliderFrame.scrollWidth - sliderFrame.clientWidth);
+
+    const tick = (time) => {
+        if (!lastTime) lastTime = time;
+        const delta = time - lastTime;
+        lastTime = time;
+
+        const max = maxScroll();
+        if (max <= 0) {
+            rafId = window.requestAnimationFrame(tick);
+            return;
+        }
+
+        let next = sliderFrame.scrollLeft + direction * speedPxPerMs * delta;
+        if (next >= max) {
+            next = max;
+            direction = -1;
+            reachedEndInCycle = true;
+        } else if (next <= 0) {
+            next = 0;
+            direction = 1;
+            if (reachedEndInCycle && featureStacksController?.nextDevice) {
+                featureStacksController.nextDevice();
+            }
+            reachedEndInCycle = false;
+        }
+
+        sliderFrame.scrollLeft = next;
+        rafId = window.requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+        if (rafId) return;
+        lastTime = 0;
+        rafId = window.requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+        if (!rafId) return;
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+        lastTime = 0;
+    };
+
+    sliderFrame.addEventListener("pointerenter", stop);
+    sliderFrame.addEventListener("pointerleave", start);
+    sliderFrame.addEventListener("focusin", stop);
+    sliderFrame.addEventListener("focusout", (event) => {
+        if (sliderFrame.contains(event.relatedTarget)) return;
+        start();
+    });
+
+    window.addEventListener("resize", () => {
+        const max = maxScroll();
+        if (sliderFrame.scrollLeft > max) sliderFrame.scrollLeft = max;
+    });
+
+    start();
+}
+
+function initFeatureStacks() {
+    const stacks = Array.from(document.querySelectorAll("[data-feature-stack]"));
+    const switchButton = document.querySelector("[data-feature-device-switch]");
+    if (!stacks.length) return null;
+
+    const deviceOrder = ["iphone", "ipad", "mac"];
+    let activeIndex = 0;
+
+    const setDevice = (device) => {
+        stacks.forEach((stack) => {
+            const images = Array.from(stack.querySelectorAll(".feature-stack-image"));
+            images.forEach((image) => {
+                image.classList.toggle("is-active", image.dataset.device === device);
+            });
+
+            const label = stack.querySelector("[data-feature-device]");
+            if (label) label.textContent = device.charAt(0).toUpperCase() + device.slice(1);
+        });
+    };
+
+    const nextDevice = () => {
+        activeIndex = (activeIndex + 1) % deviceOrder.length;
+        setDevice(deviceOrder[activeIndex]);
+    };
+
+    setDevice(deviceOrder[0]);
+
+    if (switchButton) {
+        switchButton.addEventListener("click", nextDevice);
+    }
+
+    return { nextDevice };
+}
+
+function initTypingHeadline() {
+    const headline = document.getElementById("typing-headline");
+    if (!headline) return;
+
+    const phrases = (headline.dataset.phrases || "")
+        .split("|")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    if (!phrases.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        headline.textContent = phrases[0];
+        return;
+    }
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const typeSpeed = 85;
+    const deleteSpeed = 45;
+    const holdAfterType = 1250;
+    const holdAfterDelete = 250;
+
+    const tick = () => {
+        const currentPhrase = phrases[phraseIndex];
+
+        if (!isDeleting) {
+            charIndex += 1;
+            headline.textContent = currentPhrase.slice(0, charIndex);
+            if (charIndex === currentPhrase.length) {
+                isDeleting = true;
+                window.setTimeout(tick, holdAfterType);
+                return;
+            }
+            window.setTimeout(tick, typeSpeed);
+            return;
+        }
+
+        charIndex -= 1;
+        headline.textContent = currentPhrase.slice(0, Math.max(0, charIndex));
+        if (charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            window.setTimeout(tick, holdAfterDelete);
+            return;
+        }
+        window.setTimeout(tick, deleteSpeed);
+    };
+
+    headline.textContent = "";
+    window.setTimeout(tick, 220);
+}
+
+function initDeviceExperience() {
+    const experience = document.getElementById("hero-device-experience");
+    const track = document.getElementById("device-track");
+    if (!experience || !track) return;
+
+    const platformOrder = ["iphone", "ipad", "mac"];
+    const platformButtons = Array.from(experience.querySelectorAll(".platform-pill"));
+    const hotspotButtons = Array.from(experience.querySelectorAll("[data-module-target]"));
+    const homeHotspots = Array.from(experience.querySelectorAll("[data-hotspots-home]"));
+    const detailHotspots = Array.from(experience.querySelectorAll("[data-hotspots-detail]"));
+    const detailHotspotButtons = Array.from(experience.querySelectorAll("[data-when-module]"));
+    const backHotspots = Array.from(experience.querySelectorAll("[data-hotspot-back]"));
+    const screenImages = Array.from(experience.querySelectorAll("[data-platform-screen]"));
+
+    const imageMap = {
+        iphone: {
+            homepage: "IOS Promotion/Clickt Images/iphone-homepage.webp",
+            teams: "IOS Promotion/Clickt Images/iphone-team1.webp",
+            teams2: "IOS Promotion/Clickt Images/iphone-team2.webp",
+            builder: "IOS Promotion/Clickt Images/iphone-builder1.webp",
+            builder2: "IOS Promotion/Clickt Images/iphone-builder2.png",
+            presentation: "IOS Promotion/Clickt Images/iphone-presentation.webp",
+            checklist: "IOS Promotion/Clickt Images/iphone-checklist.webp",
+        },
+        ipad: {
+            homepage: "IOS Promotion/Clickt Images/ipad-homepage.webp",
+            teams: "IOS Promotion/Clickt Images/ipad-team1.webp",
+            teams2: "IOS Promotion/Clickt Images/ipad-team2.webp",
+            builder: "IOS Promotion/Clickt Images/ipad-builder1.webp",
+            builder2: "IOS Promotion/Clickt Images/ipad-builder2.webp",
+            presentation: "IOS Promotion/Clickt Images/ipad-presentation.webp",
+            checklist: "IOS Promotion/Clickt Images/ipad-checklist.webp",
+        },
+        mac: {
+            homepage: "IOS Promotion/Clickt Images/Mac-homepage.webp",
+            teams: "IOS Promotion/Clickt Images/Mac-Team1.webp",
+            teams2: "IOS Promotion/Clickt Images/Mac-Team2.webp",
+            builder: "IOS Promotion/Clickt Images/Mac-Builder2.webp",
+            builder2: "IOS Promotion/Clickt Images/Mac-Builder1.webp",
+            presentation: "IOS Promotion/Clickt Images/Mac-presentation.webp",
+            checklist: "IOS Promotion/Clickt Images/Mac-checklist.webp",
+        },
+    };
+
+    let activePlatformIndex = 0;
+    let activeModule = "homepage";
+
+    const updatePlatformUI = () => {
+        track.style.transform = `translateX(-${activePlatformIndex * 100}%)`;
+        platformButtons.forEach((button) => {
+            const isActive = button.dataset.platform === platformOrder[activePlatformIndex];
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
+        });
+    };
+
+    const updateHotspotUI = () => {
+        const isHomepage = activeModule === "homepage";
+        homeHotspots.forEach((overlay) => {
+            overlay.hidden = !isHomepage;
+        });
+        detailHotspots.forEach((overlay) => {
+            overlay.hidden = isHomepage;
+        });
+        detailHotspotButtons.forEach((button) => {
+            const onlyFor = button.dataset.whenModule;
+            button.hidden = !onlyFor || onlyFor !== activeModule;
+        });
+        backHotspots.forEach((button) => {
+            button.hidden = isHomepage;
+        });
+    };
+
+    const updateVariantUI = () => {
+        const activePlatform = platformOrder[activePlatformIndex];
+        experience.classList.toggle("is-iphone-builder2", activeModule === "builder2" && activePlatform === "iphone");
+    };
+
+    const updateScreens = () => {
+        screenImages.forEach((image) => {
+            const platform = image.dataset.platformScreen;
+            const platformImages = imageMap[platform] || {};
+            const src = platformImages[activeModule] || platformImages.homepage;
+            if (!src) return;
+            image.src = src;
+            image.alt = `Clickt ${platform} ${activeModule} preview`;
+        });
+    };
+
+    const setPlatform = (platform) => {
+        const nextIndex = platformOrder.indexOf(platform);
+        if (nextIndex < 0) return;
+        activePlatformIndex = nextIndex;
+        updatePlatformUI();
+        updateVariantUI();
+    };
+
+    const setModule = (module) => {
+        if (!module) return;
+        if (!["homepage", "teams", "teams2", "builder", "builder2", "presentation", "checklist"].includes(module)) return;
+        activeModule = module;
+        updateHotspotUI();
+        updateVariantUI();
+        updateScreens();
+    };
+
+    platformButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            setPlatform(button.dataset.platform);
+        });
+    });
+
+    hotspotButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const module = button.dataset.moduleTarget;
+            if (!module) return;
+            setModule(module);
+        });
+    });
+
+    updatePlatformUI();
+    updateHotspotUI();
+    updateVariantUI();
+    updateScreens();
+}

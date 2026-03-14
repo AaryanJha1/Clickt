@@ -243,6 +243,31 @@ function initDeviceExperience() {
 
     let activePlatformIndex = 0;
     let activeModule = "homepage";
+    let autoplayTimerId = 0;
+
+    const autoplaySequence = [
+        { module: "teams", delay: 2000 },
+        { module: "teams2", delay: 2000 },
+        { module: "homepage", delay: 2000 },
+        { module: "checklist", delay: 1000 },
+        { module: "homepage", delay: 2000 },
+        { module: "builder", delay: 1000 },
+        { module: "builder2", delay: 2000 },
+        { module: "homepage", delay: 2000 },
+        { module: "presentation", delay: 1000 },
+        { module: "homepage", delay: 2000 },
+    ];
+    const autoplayEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const nextStepByModule = {
+        homepage: 0,
+        teams: 1,
+        teams2: 2,
+        checklist: 4,
+        builder: 6,
+        builder2: 7,
+        presentation: 9,
+    };
+    let autoplayStepIndex = 0;
 
     const updatePlatformUI = () => {
         track.style.transform = `translateX(-${activePlatformIndex * 100}%)`;
@@ -303,9 +328,34 @@ function initDeviceExperience() {
         updateScreens();
     };
 
+    const stopAutoplay = () => {
+        if (!autoplayTimerId) return;
+        window.clearTimeout(autoplayTimerId);
+        autoplayTimerId = 0;
+    };
+
+    const scheduleAutoplayStep = () => {
+        if (!autoplayEnabled) return;
+        stopAutoplay();
+        const step = autoplaySequence[autoplayStepIndex] || autoplaySequence[0];
+        autoplayTimerId = window.setTimeout(() => {
+            setModule(step.module);
+            autoplayStepIndex = (autoplayStepIndex + 1) % autoplaySequence.length;
+            scheduleAutoplayStep();
+        }, step.delay);
+    };
+
+    const restartAutoplay = (fromModule = activeModule, delayMs = 1600) => {
+        if (!autoplayEnabled) return;
+        stopAutoplay();
+        autoplayStepIndex = nextStepByModule[fromModule] ?? 0;
+        autoplayTimerId = window.setTimeout(scheduleAutoplayStep, delayMs);
+    };
+
     platformButtons.forEach((button) => {
         button.addEventListener("click", () => {
             setPlatform(button.dataset.platform);
+            restartAutoplay();
         });
     });
 
@@ -314,6 +364,7 @@ function initDeviceExperience() {
             const module = button.dataset.moduleTarget;
             if (!module) return;
             setModule(module);
+            restartAutoplay(module);
         });
     });
 
@@ -350,4 +401,15 @@ function initDeviceExperience() {
     updateHotspotUI();
     updateVariantUI();
     updateScreens();
+
+    if (autoplayEnabled) {
+        scheduleAutoplayStep();
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopAutoplay();
+                return;
+            }
+            restartAutoplay(activeModule, 500);
+        });
+    }
 }

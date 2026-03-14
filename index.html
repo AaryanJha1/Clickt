@@ -157,65 +157,113 @@
         </main>
     </div>
 
-    <section class="features">
-        <div class="container">
-            <div class="features-header">
-                <div class="features-header-row">
-                    <h2>Features</h2>
-                    <button type="button" class="feature-switch-button" data-feature-device-switch aria-label="Switch feature device preview" title="Switch feature device preview">↻</button>
-                </div>
+    <section class="features workflow-features scene-intro" id="workflow-features">
+        <div class="container workflow-container">
+            <div class="features-header workflow-header">
+                <h2>How Clickt Works</h2>
             </div>
-            <div class="feature-slider-frame" data-feature-slider>
-                <div class="feature-slider-track">
-                    <article class="feature-slider-card">
-                        <h3>Introduction</h3>
-                        <p>Start with a clear overview of tasks and workspace context.</p>
-                        <figure class="feature-slider-media feature-slider-stack" data-feature-stack>
-                            <span class="feature-stack-device" data-feature-device>iPhone</span>
-                            <img src="IOS Promotion/3.webp" alt="Clickt iPhone introduction screen" class="feature-stack-image is-active" data-device="iphone" loading="lazy">
-                            <img src="IOS Promotion/8.webp" alt="Clickt iPad introduction screen" class="feature-stack-image" data-device="ipad" loading="lazy">
-                            <img src="IOS Promotion/13.webp" alt="Clickt Mac introduction screen" class="feature-stack-image" data-device="mac" loading="lazy">
-                        </figure>
+            <div class="workflow-story" id="workflow-story">
+                <div class="workflow-timeline">
+                    <article class="workflow-card">
+                        <div class="workflow-card-visual wf-unified" aria-hidden="true">
+                            <span class="wf-clutter c1">App</span>
+                            <span class="wf-clutter c2">Chat</span>
+                            <span class="wf-clutter c3">File</span>
+                            <span class="wf-clutter c4">Note</span>
+                            <span class="wf-clutter c5">Task</span>
+                            <span class="wf-clutter c6">Mail</span>
+                            <div class="wf-window">
+                                <div class="wf-window-head">Clickt Dashboard</div>
+                                <div class="wf-window-body">
+                                    <span class="wf-pane blue">Tasks</span>
+                                    <span class="wf-pane yellow">Builder</span>
+                                    <span class="wf-pane green">Presentation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="workflow-card-copy">
+                            <h3>Unified Workspace</h3>
+                            <p>Clickt pulls scattered work into one clean dashboard, then organizes it into Tasks, Builder, and Presentation.</p>
+                        </div>
                     </article>
-                    <article class="feature-slider-card">
-                        <h3>Team Collaboration</h3>
-                        <p>Create teams and move directly into Task View.</p>
-                        <figure class="feature-slider-media feature-slider-stack" data-feature-stack>
-                            <span class="feature-stack-device" data-feature-device>iPhone</span>
-                            <img src="IOS Promotion/5.webp" alt="Clickt iPhone team collaboration screen" class="feature-stack-image is-active" data-device="iphone" loading="lazy">
-                            <img src="IOS Promotion/10.webp" alt="Clickt iPad team collaboration screen" class="feature-stack-image" data-device="ipad" loading="lazy">
-                            <img src="IOS Promotion/15.webp" alt="Clickt Mac team collaboration screen" class="feature-stack-image" data-device="mac" loading="lazy">
-                        </figure>
+
+                    <article class="workflow-card">
+                        <div class="workflow-card-visual wf-team-collab" aria-hidden="true">
+                            <div class="wf-avatar manager">Manager</div>
+                            <div class="wf-avatar employee">Employee</div>
+                            <div class="wf-assigned-task">Finalize Q3 Strategy</div>
+                            <div class="wf-toast">Added to Checklist</div>
+                            <div class="wf-complete-check">✓</div>
+                            <div class="wf-ping-up"></div>
+                        </div>
+                        <div class="workflow-card-copy">
+                            <h3>Team Collaboration</h3>
+                            <p>Managers assign work with clear ownership, employees complete it, and status returns instantly without follow-up noise.</p>
+                        </div>
                     </article>
-                    <article class="feature-slider-card">
-                        <h3>Checklist Utilities</h3>
-                        <p>Standardize recurring process steps for reliable delivery.</p>
-                        <figure class="feature-slider-media feature-slider-stack" data-feature-stack>
-                            <span class="feature-stack-device" data-feature-device>iPhone</span>
-                            <img src="IOS Promotion/2.webp" alt="Clickt iPhone checklist screen" class="feature-stack-image is-active" data-device="iphone" loading="lazy">
-                            <img src="IOS Promotion/7.webp" alt="Clickt iPad checklist screen" class="feature-stack-image" data-device="ipad" loading="lazy">
-                            <img src="IOS Promotion/12.webp" alt="Clickt Mac checklist screen" class="feature-stack-image" data-device="mac" loading="lazy">
-                        </figure>
+
+                    <article class="workflow-card">
+                        <div class="workflow-card-visual wf-checklist-utils" aria-hidden="true">
+                            <div class="wf-template-icon">
+                                Master Template
+                                <small>Weekly Client Onboarding</small>
+                            </div>
+                            <button type="button" class="wf-duplicate-btn">Duplicate</button>
+                            <div class="wf-template-fan">
+                                <div class="wf-fan-card fan-a">Client A</div>
+                                <div class="wf-fan-card fan-b">Client B</div>
+                                <div class="wf-fan-card fan-c">Client C</div>
+                            </div>
+                            <ul class="wf-rapid-list">
+                                <li>Kickoff call</li>
+                                <li>Account setup</li>
+                                <li>First report</li>
+                            </ul>
+                        </div>
+                        <div class="workflow-card-copy">
+                            <h3>Checklist Utilities</h3>
+                            <p>Build a process once, duplicate it instantly, and run standardized checklists with rapid completion flow.</p>
+                        </div>
                     </article>
-                    <article class="feature-slider-card">
-                        <h3>Builder</h3>
-                        <p>Turn raw data into charts, analysis, and deliverables.</p>
-                        <figure class="feature-slider-media feature-slider-stack" data-feature-stack>
-                            <span class="feature-stack-device" data-feature-device>iPhone</span>
-                            <img src="IOS Promotion/1.webp" alt="Clickt iPhone builder screen" class="feature-stack-image is-active" data-device="iphone" loading="lazy">
-                            <img src="IOS Promotion/6.webp" alt="Clickt iPad builder screen" class="feature-stack-image" data-device="ipad" loading="lazy">
-                            <img src="IOS Promotion/11.webp" alt="Clickt Mac builder screen" class="feature-stack-image" data-device="mac" loading="lazy">
-                        </figure>
+
+                    <article class="workflow-card">
+                        <div class="workflow-card-visual wf-builder-tools" aria-hidden="true">
+                            <div class="wf-sheet-grid"></div>
+                            <div class="wf-builder-output">
+                                <div class="wf-output-title">Q3 Performance Snapshot</div>
+                                <div class="wf-output-bars">
+                                    <span style="--h:38%"></span>
+                                    <span style="--h:74%"></span>
+                                    <span style="--h:52%"></span>
+                                    <span style="--h:86%"></span>
+                                </div>
+                                <div class="wf-output-table">
+                                    <div></div><div></div><div></div>
+                                    <div></div><div></div><div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="workflow-card-copy">
+                            <h3>Builder Workflow Tools</h3>
+                            <p>Drop dense data into Builder and convert it into readable charts, tables, and decision-ready context.</p>
+                        </div>
                     </article>
-                    <article class="feature-slider-card">
-                        <h3>Presentation</h3>
-                        <p>Share execution updates as clear visual narratives.</p>
-                        <figure class="feature-slider-media feature-slider-stack" data-feature-stack>
-                            <span class="feature-stack-device" data-feature-device>iPhone</span>
-                            <img src="IOS Promotion/4.webp" alt="Clickt iPhone presentation screen" class="feature-stack-image is-active" data-device="iphone" loading="lazy">
-                            <img src="IOS Promotion/9.webp" alt="Clickt iPad presentation screen" class="feature-stack-image" data-device="ipad" loading="lazy">
-                            <img src="IOS Promotion/14.webp" alt="Clickt Mac presentation screen" class="feature-stack-image" data-device="mac" loading="lazy">
-                        </figure>
+
+                    <article class="workflow-card">
+                        <div class="workflow-card-visual wf-presentation-ready" aria-hidden="true">
+                            <div class="wf-builder-assets">
+                                <span>Bar Chart</span>
+                                <span>Summary Table</span>
+                            </div>
+                            <div class="wf-send-btn">Send to Presentation</div>
+                            <div class="wf-slide-layout">Multi-Page Layout</div>
+                            <div class="wf-export-btn">Export PDF</div>
+                            <div class="wf-paper-plane">PDF</div>
+                        </div>
+                        <div class="workflow-card-copy">
+                            <h3>Presentation-Ready Progress</h3>
+                            <p>Move Builder outputs into presentation layout and export as polished stakeholder-ready reports in one flow.</p>
+                        </div>
                     </article>
                 </div>
             </div>

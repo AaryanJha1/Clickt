@@ -917,6 +917,10 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
+
     h1 { font-size: 2.5rem; }
     .hero { padding: 4rem 0; }
 
@@ -1012,8 +1016,12 @@ footer a:hover {
         margin-top: var(--space-6);
     }
 
+    .device-slide {
+        padding-inline: 2px;
+    }
+
     .phone-shell {
-        width: min(252px, 76vw);
+        width: min(252px, 100%);
         padding: 12px;
         border-radius: 36px;
     }
@@ -1022,8 +1030,15 @@ footer a:hover {
         border-radius: 26px;
     }
 
+    .phone-shell .device-screen-image {
+        object-fit: contain;
+        object-position: center;
+        background: #f4f4f4;
+    }
+
     .hero-device-experience.is-iphone-builder2 .phone-shell {
-        width: min(92vw, 560px);
+        width: min(100%, 560px);
+        max-width: 100%;
         padding: 0;
         border-radius: 0;
         transform: none;
@@ -1046,7 +1061,8 @@ footer a:hover {
     }
 
     .tablet-shell {
-        width: min(360px, 92vw);
+        width: min(100%, 360px);
+        max-width: 100%;
         padding: 8px;
         border-radius: 26px;
     }
@@ -1056,7 +1072,8 @@ footer a:hover {
     }
 
     .desktop-shell {
-        width: min(360px, 92vw);
+        width: min(100%, 360px);
+        max-width: 100%;
         padding: 8px 8px 20px;
         border-radius: 14px;
     }

@@ -7,7 +7,7 @@
     <meta name="description" content="Clickt is a productivity and collaboration app built to help teams plan clearly, execute consistently, and communicate progress with confidence.">
     <meta property="og:title" content="Clickt | Team Execution, Simplified">
     <meta property="og:description" content="Bring your daily workflow into one focused workspace. Available on iPhone, iPad, and Mac.">
-    <link rel="stylesheet" href="styles.css?v=20260314a">
+    <link rel="stylesheet" href="styles.css?v=20260314d">
 </head>
 <body>
     <div class="container">
@@ -157,7 +157,7 @@
         </main>
     </div>
 
-    <section class="features workflow-features scene-intro" id="workflow-features">
+    <section class="features workflow-features" id="workflow-features">
         <div class="container workflow-container">
             <div class="features-header workflow-header">
                 <h2>How Clickt Works</h2>
@@ -172,10 +172,12 @@
                             <span class="wf-clutter c4">Note</span>
                             <span class="wf-clutter c5">Task</span>
                             <span class="wf-clutter c6">Mail</span>
+                            <span class="wf-clutter c7">Checklist</span>
                             <div class="wf-window">
                                 <div class="wf-window-head">Clickt Dashboard</div>
                                 <div class="wf-window-body">
                                     <span class="wf-pane blue">Tasks</span>
+                                    <span class="wf-pane checklist">Checklist</span>
                                     <span class="wf-pane yellow">Builder</span>
                                     <span class="wf-pane green">Presentation</span>
                                 </div>
@@ -183,7 +185,7 @@
                         </div>
                         <div class="workflow-card-copy">
                             <h3>Unified Workspace</h3>
-                            <p>Clickt pulls scattered work into one clean dashboard, then organizes it into Tasks, Builder, and Presentation.</p>
+                            <p>Clickt pulls scattered work into one clean dashboard, then organizes it into Tasks, Checklist, Builder, and Presentation.</p>
                         </div>
                     </article>
 
@@ -204,42 +206,64 @@
 
                     <article class="workflow-card">
                         <div class="workflow-card-visual wf-checklist-utils" aria-hidden="true">
-                            <div class="wf-template-icon">
-                                Master Template
-                                <small>Weekly Client Onboarding</small>
+                            <div class="wf-check-incoming incoming-assigned">Assigned by Manager</div>
+                            <div class="wf-check-incoming incoming-personal">Weekly Personal Routine</div>
+                            <div class="wf-check-board">
+                                <div class="wf-check-sections">
+                                    <span>Work Task</span>
+                                    <span>To do List</span>
+                                </div>
+                                <div class="wf-check-progress">
+                                    <span class="progress-start">0/5</span>
+                                    <span class="progress-end">3/5</span>
+                                    <div class="wf-check-progress-track">
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <ul class="wf-check-items">
+                                    <li>Finalize Q3 strategy</li>
+                                    <li>Weekly standup prep</li>
+                                    <li>Family logistics routine</li>
+                                </ul>
+                                <div class="wf-check-badges">
+                                    <span>Saved as reusable workflow</span>
+                                    <span>Synced from Teams</span>
+                                </div>
                             </div>
-                            <button type="button" class="wf-duplicate-btn">Duplicate</button>
-                            <div class="wf-template-fan">
-                                <div class="wf-fan-card fan-a">Client A</div>
-                                <div class="wf-fan-card fan-b">Client B</div>
-                                <div class="wf-fan-card fan-c">Client C</div>
-                            </div>
-                            <ul class="wf-rapid-list">
-                                <li>Kickoff call</li>
-                                <li>Account setup</li>
-                                <li>First report</li>
-                            </ul>
                         </div>
                         <div class="workflow-card-copy">
                             <h3>Checklist Utilities</h3>
-                            <p>Build a process once, duplicate it instantly, and run standardized checklists with rapid completion flow.</p>
+                            <p>Checklist combines work tasks and personal to do lists in one place, then tracks completion with reusable routines.</p>
                         </div>
                     </article>
 
                     <article class="workflow-card">
                         <div class="workflow-card-visual wf-builder-tools" aria-hidden="true">
                             <div class="wf-sheet-grid"></div>
+                            <div class="wf-data-particles"></div>
                             <div class="wf-builder-output">
                                 <div class="wf-output-title">Q3 Performance Snapshot</div>
                                 <div class="wf-output-bars">
-                                    <span style="--h:38%"></span>
-                                    <span style="--h:74%"></span>
-                                    <span style="--h:52%"></span>
-                                    <span style="--h:86%"></span>
+                                    <div class="wf-bar-wrap">
+                                        <span style="--h:38%"></span>
+                                        <em data-count-to="38">0</em>
+                                    </div>
+                                    <div class="wf-bar-wrap">
+                                        <span style="--h:74%"></span>
+                                        <em data-count-to="74">0</em>
+                                    </div>
+                                    <div class="wf-bar-wrap">
+                                        <span style="--h:52%"></span>
+                                        <em data-count-to="52">0</em>
+                                    </div>
+                                    <div class="wf-bar-wrap">
+                                        <span style="--h:86%"></span>
+                                        <em data-count-to="86">0</em>
+                                    </div>
                                 </div>
                                 <div class="wf-output-table">
-                                    <div></div><div></div><div></div>
-                                    <div></div><div></div><div></div>
+                                    <div data-count-to="12">0</div><div data-count-to="28">0</div><div data-count-to="42">0</div>
+                                    <div data-count-to="36">0</div><div data-count-to="54">0</div><div data-count-to="68">0</div>
                                 </div>
                             </div>
                         </div>
@@ -256,7 +280,14 @@
                                 <span>Summary Table</span>
                             </div>
                             <div class="wf-send-btn">Send to Presentation</div>
-                            <div class="wf-slide-layout">Multi-Page Layout</div>
+                            <div class="wf-slide-layout">
+                                <div class="wf-slide-pages">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <strong>Multi-Page Layout</strong>
+                            </div>
                             <div class="wf-export-btn">Export PDF</div>
                             <div class="wf-paper-plane">PDF</div>
                         </div>
@@ -277,6 +308,6 @@
         </footer>
     </div>
 
-    <script src="script.js?v=20260314a"></script>
+    <script src="script.js?v=20260314d"></script>
 </body>
 </html>

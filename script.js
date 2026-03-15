@@ -4,6 +4,7 @@
     initFeatureSlider(featureStacksController);
     initTypingHeadline();
     initDeviceExperience();
+    initWorkflowCounters();
 })();
 
 function initScrollReveal() {
@@ -412,4 +413,59 @@ function initDeviceExperience() {
             restartAutoplay(activeModule, 500);
         });
     }
+}
+
+function initWorkflowCounters() {
+    const targets = Array.from(document.querySelectorAll("[data-count-to]"));
+    if (!targets.length) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+        targets.forEach((target) => {
+            target.textContent = target.dataset.countTo || target.textContent;
+        });
+        return;
+    }
+
+    const animateValue = (el) => {
+        if (el.dataset.counted === "true") return;
+        const maxValue = Number(el.dataset.countTo || "0");
+        if (!Number.isFinite(maxValue) || maxValue <= 0) {
+            el.dataset.counted = "true";
+            return;
+        }
+
+        const durationMs = 1100;
+        const startTime = performance.now();
+
+        const tick = (now) => {
+            const progress = Math.min(1, (now - startTime) / durationMs);
+            const value = Math.round(maxValue * progress);
+            el.textContent = String(value);
+            if (progress < 1) {
+                window.requestAnimationFrame(tick);
+                return;
+            }
+            el.textContent = String(maxValue);
+            el.dataset.counted = "true";
+        };
+
+        el.textContent = "0";
+        window.requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                animateValue(entry.target);
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.4,
+        }
+    );
+
+    targets.forEach((target) => observer.observe(target));
 }

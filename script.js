@@ -247,16 +247,16 @@ function initDeviceExperience() {
     let autoplayTimerId = 0;
 
     const autoplaySequence = [
-        { module: "teams", delay: 2000 },
-        { module: "teams2", delay: 2000 },
-        { module: "homepage", delay: 2000 },
-        { module: "checklist", delay: 1000 },
-        { module: "homepage", delay: 2000 },
-        { module: "builder", delay: 1000 },
-        { module: "builder2", delay: 2000 },
-        { module: "homepage", delay: 2000 },
-        { module: "presentation", delay: 1000 },
-        { module: "homepage", delay: 2000 },
+        { module: "teams", delay: 3500 },
+        { module: "teams2", delay: 3500 },
+        { module: "homepage", delay: 3500 },
+        { module: "checklist", delay: 2200 },
+        { module: "homepage", delay: 3500 },
+        { module: "builder", delay: 2200 },
+        { module: "builder2", delay: 3500 },
+        { module: "homepage", delay: 3500 },
+        { module: "presentation", delay: 2200 },
+        { module: "homepage", delay: 3500 },
     ];
     const autoplayEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nextStepByModule = {
@@ -346,7 +346,7 @@ function initDeviceExperience() {
         }, step.delay);
     };
 
-    const restartAutoplay = (fromModule = activeModule, delayMs = 1600) => {
+    const restartAutoplay = (fromModule = activeModule, delayMs = 2800) => {
         if (!autoplayEnabled) return;
         stopAutoplay();
         autoplayStepIndex = nextStepByModule[fromModule] ?? 0;

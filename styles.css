@@ -2121,12 +2121,41 @@ footer a:hover {
 }
 
 .user-guide-page .content-intro {
-    margin-bottom: 6px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 18px 22px;
+    align-items: center;
+    border: 1px solid var(--guide-border);
+    border-radius: 16px;
+    padding: 22px;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+    box-shadow: var(--guide-shadow);
 }
 
-.user-guide-page .content-intro h1 {
-    font-size: clamp(2rem, 3.4vw, 2.7rem);
-    margin-bottom: 0.35rem;
+.user-guide-page .intro-copy h2 {
+    margin: 0 0 6px;
+    font-size: clamp(1.55rem, 2.4vw, 2rem);
+    line-height: 1.15;
+}
+
+.user-guide-page .intro-eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--guide-primary);
+}
+
+.user-guide-page .intro-summary {
+    margin: 0;
+    font-size: 1.02rem;
+    color: #475569;
+}
+
+.user-guide-page .intro-tools {
+    display: grid;
+    gap: 10px;
 }
 
 .user-guide-page .timestamp {
@@ -2138,7 +2167,11 @@ footer a:hover {
 
 .user-guide-page .guide-search {
     position: relative;
-    margin: 26px 0 8px;
+    margin: 0;
+    padding: 12px;
+    border: 1px solid var(--guide-border);
+    border-radius: 12px;
+    background: #ffffff;
 }
 
 .user-guide-page .guide-search label {
@@ -2171,7 +2204,36 @@ footer a:hover {
 .user-guide-page .search-hint {
     font-size: 0.85rem;
     color: var(--guide-text-muted);
-    margin: 0.55rem 0 0;
+    margin: 0.45rem 0 0;
+}
+
+.user-guide-page .quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 0;
+}
+
+.user-guide-page .quick-actions a {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 11px;
+    border: 1px solid var(--guide-border);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--guide-text-main);
+    background: var(--guide-bg-card);
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.user-guide-page .quick-actions a:hover,
+.user-guide-page .quick-actions a:focus-visible {
+    border-color: var(--guide-primary);
+    color: var(--guide-primary);
+    background: #eef2ff;
+    outline: none;
 }
 
 .user-guide-page .guide-no-results {
@@ -2254,35 +2316,99 @@ footer a:hover {
 }
 
 .user-guide-page .workflow-box {
-    border-left: 5px solid var(--guide-primary);
-    background: linear-gradient(180deg, #f7f8ff 0%, #f1f4ff 100%);
+    border: 1px solid #d6dcff;
+    border-left: 6px solid var(--guide-primary);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #fcfcff 0%, #f7f9ff 100%);
+}
+
+.user-guide-page .workflow-head {
+    margin-bottom: 14px;
+}
+
+.user-guide-page .workflow-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4f46e5;
+    background: #eef2ff;
+    border: 1px solid #d9e1ff;
+    border-radius: 999px;
+    padding: 4px 9px;
+}
+
+.user-guide-page .workflow-subtitle {
+    margin: 8px 0 0;
+    font-size: 0.95rem;
+    color: #64748b;
 }
 
 .user-guide-page .step-grid {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 20px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
 }
 
 .user-guide-page .step {
-    background: #eef2ff;
-    border: 1px solid #dfe4ff;
-    padding: 15px;
-    border-radius: 8px;
-    flex: 1;
-    text-align: center;
+    background: #ffffff;
+    border: 1px solid #dbe2f0;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: left;
     font-size: 0.9rem;
     color: #1f2937;
+    box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+    position: relative;
 }
 
-.user-guide-page .step span {
+.user-guide-page .step::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.user-guide-page .step-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #e8edff;
+    color: #3730a3;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.user-guide-page .step-letter {
     display: block;
     font-weight: 700;
     color: var(--guide-primary);
-    font-size: 1.45rem;
+    font-size: 1.05rem;
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+}
+
+.user-guide-page .step strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.user-guide-page .step p {
+    margin: 0;
+    font-size: 0.83rem;
+    color: #475569;
 }
 
 .user-guide-page .module-card {
@@ -2509,6 +2635,11 @@ footer a:hover {
 }
 
 @media (max-width: 900px) {
+    .user-guide-page .content-intro {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
     .user-guide-page .guide-layout {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -2520,7 +2651,7 @@ footer a:hover {
     }
 
     .user-guide-page .step-grid {
-        flex-direction: column;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .user-guide-page .tabs-mockup {
@@ -2534,7 +2665,11 @@ footer a:hover {
         padding: 18px;
     }
 
-    .user-guide-page .content-intro h1 {
+    .user-guide-page .step-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-guide-page .intro-copy h2 {
         font-size: 1.8rem;
     }
 

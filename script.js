@@ -221,8 +221,8 @@ function initDeviceExperience() {
             builder2: "IOS Promotion/Clickt Images/iphone-builder2.png",
             presentation: "IOS Promotion/Clickt Images/iphone-presentation1.png",
             presentation2: "IOS Promotion/Clickt Images/iphone-presentation2.png",
-            checklist: "IOS Promotion/Clickt Images/iphone-checklist.webp",
-            checklist2: "IOS Promotion/Clickt Images/iphone-checklist.webp",
+            checklist: "IOS Promotion/Clickt Images/iphone-checklist.png",
+            checklist2: "IOS Promotion/Clickt Images/iphone-checklist1.png",
             calendar: "IOS Promotion/Clickt Images/iphone-calendar1.png",
         },
         ipad: {
@@ -234,8 +234,8 @@ function initDeviceExperience() {
             builder2: "IOS Promotion/Clickt Images/ipad-builder2.png",
             presentation: "IOS Promotion/Clickt Images/ipad-presentation1.png",
             presentation2: "IOS Promotion/Clickt Images/ipad-presentation2.png",
-            checklist: "IOS Promotion/Clickt Images/ipad-checklist.webp",
-            checklist2: "IOS Promotion/Clickt Images/ipad-checklist.webp",
+            checklist: "IOS Promotion/Clickt Images/ipad-checklist.png",
+            checklist2: "IOS Promotion/Clickt Images/ipad-checklist.png",
             calendar: "IOS Promotion/Clickt Images/ipad-calendar.png",
         },
         mac: {
@@ -247,8 +247,8 @@ function initDeviceExperience() {
             builder2: "IOS Promotion/Clickt Images/mac-builder2.png",
             presentation: "IOS Promotion/Clickt Images/mac-presentation1.png",
             presentation2: "IOS Promotion/Clickt Images/mac-presentation2.png",
-            checklist: "IOS Promotion/Clickt Images/Mac-checklist.webp",
-            checklist2: "IOS Promotion/Clickt Images/Mac-checklist.webp",
+            checklist: "IOS Promotion/Clickt Images/Mac-checklist.png",
+            checklist2: "IOS Promotion/Clickt Images/Mac-checklist.png",
             calendar: "IOS Promotion/Clickt Images/mac-calendar1.png",
         },
     };

@@ -106,7 +106,7 @@
                             <button type="button" class="platform-pill" data-platform="mac" aria-pressed="false">Mac</button>
                             <button type="button" class="device-help-inline" aria-label="Preview help" aria-expanded="false">
                                 ?
-                                <span class="device-help-tooltip">Tap inside the preview to open Teams, Builder, Presentation, or Checklist.</span>
+                                <span class="device-help-tooltip">Tap inside the preview to open Teams, Builder, Presentation, Checklist, or Calendar.</span>
                             </button>
                         </div>
                     </div>
@@ -116,18 +116,26 @@
                                 <p class="device-caption">iPhone</p>
                                 <div class="device-shell phone-shell">
                                     <div class="device-screen">
-                                        <img src="IOS Promotion/Clickt Images/iphone-homepage.webp" alt="Clickt iPhone homepage preview" class="device-screen-image" data-platform-screen="iphone">
+                                        <img src="IOS Promotion/Clickt Images/iphone-homepage.png" alt="Clickt iPhone homepage preview" class="device-screen-image" data-platform-screen="iphone">
                                         <div class="screen-hotspots screen-hotspots-home screen-hotspots--iphone" data-hotspots-home>
                                             <button type="button" class="hotspot-target hotspot-teams" data-module-target="teams"><span class="sr-only">Open Teams</span></button>
                                             <button type="button" class="hotspot-target hotspot-builder" data-module-target="builder"><span class="sr-only">Open Builder</span></button>
                                             <button type="button" class="hotspot-target hotspot-presentation" data-module-target="presentation"><span class="sr-only">Open Presentation</span></button>
                                             <button type="button" class="hotspot-target hotspot-checklist" data-module-target="checklist"><span class="sr-only">Open Checklist</span></button>
+                                            <button type="button" class="hotspot-target hotspot-calendar" data-module-target="calendar"><span class="sr-only">Open Calendar</span></button>
                                         </div>
                                         <div class="screen-hotspots screen-hotspots-detail screen-hotspots-detail--iphone" data-hotspots-detail hidden>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-teams" data-module-target="teams2" data-when-module="teams"><span class="sr-only">Open Teams Task View</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-teams-next" data-module-target="teams3" data-when-module="teams2"><span class="sr-only">Open Teams Invite View</span></button>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-builder" data-module-target="builder2" data-when-module="builder"><span class="sr-only">Open Builder Deliverables</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-presentation" data-module-target="presentation2" data-when-module="presentation"><span class="sr-only">Open Presentation Fullscreen</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-checklist" data-module-target="checklist2" data-when-module="checklist"><span class="sr-only">Open Checklist Dark View</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="teams3"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="builder2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="presentation2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="checklist2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-calendar-done" data-module-target="homepage" data-when-module="calendar"><span class="sr-only">Done and return to Homepage</span></button>
                                         </div>
-                                        <button type="button" class="hotspot-back-chip" data-hotspot-back data-module-target="homepage" hidden>Back to Homepage</button>
                                     </div>
                                 </div>
                             </article>
@@ -135,18 +143,26 @@
                                 <p class="device-caption">iPad</p>
                                 <div class="device-shell tablet-shell">
                                     <div class="device-screen">
-                                        <img src="IOS Promotion/Clickt Images/ipad-homepage.webp" alt="Clickt iPad homepage preview" class="device-screen-image" data-platform-screen="ipad">
+                                        <img src="IOS Promotion/Clickt Images/ipad-homepage.png" alt="Clickt iPad homepage preview" class="device-screen-image" data-platform-screen="ipad">
                                         <div class="screen-hotspots screen-hotspots-home screen-hotspots--ipad" data-hotspots-home>
                                             <button type="button" class="hotspot-target hotspot-teams" data-module-target="teams"><span class="sr-only">Open Teams</span></button>
                                             <button type="button" class="hotspot-target hotspot-builder" data-module-target="builder"><span class="sr-only">Open Builder</span></button>
                                             <button type="button" class="hotspot-target hotspot-presentation" data-module-target="presentation"><span class="sr-only">Open Presentation</span></button>
                                             <button type="button" class="hotspot-target hotspot-checklist" data-module-target="checklist"><span class="sr-only">Open Checklist</span></button>
+                                            <button type="button" class="hotspot-target hotspot-calendar" data-module-target="calendar"><span class="sr-only">Open Calendar</span></button>
                                         </div>
                                         <div class="screen-hotspots screen-hotspots-detail screen-hotspots-detail--ipad" data-hotspots-detail hidden>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-teams" data-module-target="teams2" data-when-module="teams"><span class="sr-only">Open Teams Task View</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-teams-next" data-module-target="teams3" data-when-module="teams2"><span class="sr-only">Open Teams Invite View</span></button>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-builder" data-module-target="builder2" data-when-module="builder"><span class="sr-only">Open Builder Deliverables</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-presentation" data-module-target="presentation2" data-when-module="presentation"><span class="sr-only">Open Presentation Fullscreen</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-checklist" data-module-target="checklist2" data-when-module="checklist"><span class="sr-only">Open Checklist Variant</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="teams3"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="builder2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="presentation2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="checklist2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-calendar-done" data-module-target="homepage" data-when-module="calendar"><span class="sr-only">Done and return to Homepage</span></button>
                                         </div>
-                                        <button type="button" class="hotspot-back-chip" data-hotspot-back data-module-target="homepage" hidden>Back to Homepage</button>
                                     </div>
                                 </div>
                             </article>
@@ -154,18 +170,26 @@
                                 <p class="device-caption">Mac</p>
                                 <div class="device-shell desktop-shell">
                                     <div class="device-screen">
-                                        <img src="IOS Promotion/Clickt Images/Mac-homepage.webp" alt="Clickt Mac homepage preview" class="device-screen-image" data-platform-screen="mac">
+                                        <img src="IOS Promotion/Clickt Images/mac-homepage.png" alt="Clickt Mac homepage preview" class="device-screen-image" data-platform-screen="mac">
                                         <div class="screen-hotspots screen-hotspots-home screen-hotspots--mac" data-hotspots-home>
                                             <button type="button" class="hotspot-target hotspot-teams" data-module-target="teams"><span class="sr-only">Open Teams</span></button>
                                             <button type="button" class="hotspot-target hotspot-builder" data-module-target="builder"><span class="sr-only">Open Builder</span></button>
                                             <button type="button" class="hotspot-target hotspot-presentation" data-module-target="presentation"><span class="sr-only">Open Presentation</span></button>
                                             <button type="button" class="hotspot-target hotspot-checklist" data-module-target="checklist"><span class="sr-only">Open Checklist</span></button>
+                                            <button type="button" class="hotspot-target hotspot-calendar" data-module-target="calendar"><span class="sr-only">Open Calendar</span></button>
                                         </div>
                                         <div class="screen-hotspots screen-hotspots-detail screen-hotspots-detail--mac" data-hotspots-detail hidden>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-teams" data-module-target="teams2" data-when-module="teams"><span class="sr-only">Open Teams Task View</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-teams-next" data-module-target="teams3" data-when-module="teams2"><span class="sr-only">Open Teams Invite View</span></button>
                                             <button type="button" class="hotspot-shadow hotspot-shadow-builder" data-module-target="builder2" data-when-module="builder"><span class="sr-only">Open Builder Deliverables</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-presentation" data-module-target="presentation2" data-when-module="presentation"><span class="sr-only">Open Presentation Fullscreen</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-checklist" data-module-target="checklist2" data-when-module="checklist"><span class="sr-only">Open Checklist Variant</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="teams3"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="builder2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="presentation2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-home" data-module-target="homepage" data-when-module="checklist2"><span class="sr-only">Return to Homepage</span></button>
+                                            <button type="button" class="hotspot-shadow hotspot-shadow-calendar-done" data-module-target="homepage" data-when-module="calendar"><span class="sr-only">Done and return to Homepage</span></button>
                                         </div>
-                                        <button type="button" class="hotspot-back-chip" data-hotspot-back data-module-target="homepage" hidden>Back to Homepage</button>
                                     </div>
                                     <span class="desktop-stand" aria-hidden="true"></span>
                                 </div>

@@ -208,37 +208,48 @@ function initDeviceExperience() {
     const homeHotspots = Array.from(experience.querySelectorAll("[data-hotspots-home]"));
     const detailHotspots = Array.from(experience.querySelectorAll("[data-hotspots-detail]"));
     const detailHotspotButtons = Array.from(experience.querySelectorAll("[data-when-module]"));
-    const backHotspots = Array.from(experience.querySelectorAll("[data-hotspot-back]"));
     const screenImages = Array.from(experience.querySelectorAll("[data-platform-screen]"));
     const helpToggle = experience.querySelector(".device-help-inline");
 
     const imageMap = {
         iphone: {
-            homepage: "IOS Promotion/Clickt Images/iphone-homepage.webp",
-            teams: "IOS Promotion/Clickt Images/iphone-team1.webp",
-            teams2: "IOS Promotion/Clickt Images/iphone-team2.webp",
-            builder: "IOS Promotion/Clickt Images/iphone-builder1.webp",
+            homepage: "IOS Promotion/Clickt Images/iphone-homepage.png",
+            teams: "IOS Promotion/Clickt Images/iphone-team1.png",
+            teams2: "IOS Promotion/Clickt Images/iphone-team2.png",
+            teams3: "IOS Promotion/Clickt Images/iphone-team3.png",
+            builder: "IOS Promotion/Clickt Images/iphone-builder1.png",
             builder2: "IOS Promotion/Clickt Images/iphone-builder2.png",
-            presentation: "IOS Promotion/Clickt Images/iphone-presentation.webp",
+            presentation: "IOS Promotion/Clickt Images/iphone-presentation1.png",
+            presentation2: "IOS Promotion/Clickt Images/iphone-presentation2.png",
             checklist: "IOS Promotion/Clickt Images/iphone-checklist.webp",
+            checklist2: "IOS Promotion/Clickt Images/iphone-checklist.webp",
+            calendar: "IOS Promotion/Clickt Images/iphone-calendar1.png",
         },
         ipad: {
-            homepage: "IOS Promotion/Clickt Images/ipad-homepage.webp",
-            teams: "IOS Promotion/Clickt Images/ipad-team1.webp",
-            teams2: "IOS Promotion/Clickt Images/ipad-team2.webp",
-            builder: "IOS Promotion/Clickt Images/ipad-builder1.webp",
-            builder2: "IOS Promotion/Clickt Images/ipad-builder2.webp",
-            presentation: "IOS Promotion/Clickt Images/ipad-presentation.webp",
+            homepage: "IOS Promotion/Clickt Images/ipad-homepage.png",
+            teams: "IOS Promotion/Clickt Images/ipad-team1.png",
+            teams2: "IOS Promotion/Clickt Images/ipad-team2.png",
+            teams3: "IOS Promotion/Clickt Images/ipad-team3.png",
+            builder: "IOS Promotion/Clickt Images/ipad-builder1.png",
+            builder2: "IOS Promotion/Clickt Images/ipad-builder2.png",
+            presentation: "IOS Promotion/Clickt Images/ipad-presentation1.png",
+            presentation2: "IOS Promotion/Clickt Images/ipad-presentation2.png",
             checklist: "IOS Promotion/Clickt Images/ipad-checklist.webp",
+            checklist2: "IOS Promotion/Clickt Images/ipad-checklist.webp",
+            calendar: "IOS Promotion/Clickt Images/ipad-calendar.png",
         },
         mac: {
-            homepage: "IOS Promotion/Clickt Images/Mac-homepage.webp",
-            teams: "IOS Promotion/Clickt Images/Mac-Team1.webp",
-            teams2: "IOS Promotion/Clickt Images/Mac-Team2.webp",
-            builder: "IOS Promotion/Clickt Images/Mac-Builder2.webp",
-            builder2: "IOS Promotion/Clickt Images/Mac-Builder1.webp",
-            presentation: "IOS Promotion/Clickt Images/Mac-presentation.webp",
+            homepage: "IOS Promotion/Clickt Images/mac-homepage.png",
+            teams: "IOS Promotion/Clickt Images/mac-team1.png",
+            teams2: "IOS Promotion/Clickt Images/mac-team2.png",
+            teams3: "IOS Promotion/Clickt Images/mac-team3.png",
+            builder: "IOS Promotion/Clickt Images/mac-builder1.png",
+            builder2: "IOS Promotion/Clickt Images/mac-builder2.png",
+            presentation: "IOS Promotion/Clickt Images/mac-presentation1.png",
+            presentation2: "IOS Promotion/Clickt Images/mac-presentation2.png",
             checklist: "IOS Promotion/Clickt Images/Mac-checklist.webp",
+            checklist2: "IOS Promotion/Clickt Images/Mac-checklist.webp",
+            calendar: "IOS Promotion/Clickt Images/mac-calendar1.png",
         },
     };
 
@@ -249,13 +260,18 @@ function initDeviceExperience() {
     const autoplaySequence = [
         { module: "teams", delay: 3500 },
         { module: "teams2", delay: 3500 },
+        { module: "teams3", delay: 3500 },
         { module: "homepage", delay: 3500 },
         { module: "checklist", delay: 2200 },
+        { module: "checklist2", delay: 2600 },
         { module: "homepage", delay: 3500 },
         { module: "builder", delay: 2200 },
         { module: "builder2", delay: 3500 },
         { module: "homepage", delay: 3500 },
         { module: "presentation", delay: 2200 },
+        { module: "presentation2", delay: 2600 },
+        { module: "homepage", delay: 3500 },
+        { module: "calendar", delay: 2600 },
         { module: "homepage", delay: 3500 },
     ];
     const autoplayEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -263,10 +279,14 @@ function initDeviceExperience() {
         homepage: 0,
         teams: 1,
         teams2: 2,
-        checklist: 4,
-        builder: 6,
-        builder2: 7,
-        presentation: 9,
+        teams3: 3,
+        checklist: 5,
+        checklist2: 6,
+        builder: 8,
+        builder2: 9,
+        presentation: 11,
+        presentation2: 12,
+        calendar: 14,
     };
     let autoplayStepIndex = 0;
 
@@ -291,14 +311,10 @@ function initDeviceExperience() {
             const onlyFor = button.dataset.whenModule;
             button.hidden = !onlyFor || onlyFor !== activeModule;
         });
-        backHotspots.forEach((button) => {
-            button.hidden = isHomepage;
-        });
     };
 
     const updateVariantUI = () => {
-        const activePlatform = platformOrder[activePlatformIndex];
-        experience.classList.toggle("is-iphone-builder2", activeModule === "builder2" && activePlatform === "iphone");
+        experience.classList.remove("is-iphone-builder2");
     };
 
     const updateScreens = () => {
@@ -322,7 +338,7 @@ function initDeviceExperience() {
 
     const setModule = (module) => {
         if (!module) return;
-        if (!["homepage", "teams", "teams2", "builder", "builder2", "presentation", "checklist"].includes(module)) return;
+        if (!["homepage", "teams", "teams2", "teams3", "builder", "builder2", "presentation", "presentation2", "checklist", "checklist2", "calendar"].includes(module)) return;
         activeModule = module;
         updateHotspotUI();
         updateVariantUI();

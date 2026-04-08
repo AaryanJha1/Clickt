@@ -1952,14 +1952,19 @@ footer a:hover {
         border-radius: 36px;
     }
 
+    .phone-shell::after {
+        display: none;
+    }
+
     .phone-shell .device-screen {
         border-radius: 26px;
+        background: #000000;
     }
 
     .phone-shell .device-screen-image {
-        object-fit: contain;
-        object-position: center;
-        background: #f4f4f4;
+        object-fit: cover;
+        object-position: center top;
+        background: #000000;
     }
 
     .hero-device-experience.is-iphone-builder2 .phone-shell {

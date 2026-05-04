@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="https://click-t.com/social-logo.png?v=20260316a">
     <link rel="stylesheet" href="styles.css?v=20260408b">
 </head>
-<body>
+<body class="home-page">
     <div class="container">
         <header>
             <a href="index.html" class="brand">
@@ -29,6 +29,7 @@
                 Clickt
             </a>
             <div class="header-cta">
+                <a href="playbook.html" class="header-nav-link">Playbook</a>
                 <span class="header-cta-label">Available on</span>
                 <a
                     href="https://apps.apple.com/us/app/clickt/id6759891499"
@@ -94,11 +95,11 @@
                 <img src="IOS Promotion/click_logo.webp" alt="Clickt App Logo" class="hero-logo">
                 <h1>Clickt: Plan Faster. Deliver Better.</h1>
                 <p class="hero-subheadline">
-                    <span id="typing-headline" data-phrases="Plan Faster.|Deliver Better.|Stay Aligned.">Plan Faster.</span>
+                    <span id="typing-headline" data-phrases="Plan with clarity.|Execute with confidence.|Show progress, fast.">Plan with clarity.</span>
                     <span class="typing-cursor" aria-hidden="true"></span>
                 </p>
-                <p class="hero-description">Clickt helps individuals and teams turn plans into progress fast. Assign work, track completion in real time, and share polished updates without the usual chaos of disconnected tools.</p>
-                <div class="hero-device-experience" id="hero-device-experience">
+                <p class="hero-description">One place to plan, assign, track, and share — so your team moves faster and everyone stays in sync.</p>
+                <div class="hero-device-experience" id="hero-device-experience" style="display:none" aria-hidden="true">
                     <div class="device-toolbar">
                         <div class="platform-switch" role="tablist" aria-label="Choose device preview">
                             <button type="button" class="platform-pill is-active" data-platform="iphone" aria-pressed="true">iPhone</button>
@@ -201,146 +202,217 @@
         </main>
     </div>
 
-    <section class="features workflow-features" id="workflow-features">
-        <div class="container workflow-container">
-            <div class="features-header workflow-header">
-                <h2>How Clickt Works</h2>
-            </div>
-            <div class="workflow-story" id="workflow-story">
-                <div class="workflow-timeline">
-                    <article class="workflow-card">
-                        <div class="workflow-card-visual wf-unified" aria-hidden="true">
-                            <span class="wf-clutter c1">App</span>
-                            <span class="wf-clutter c2">Chat</span>
-                            <span class="wf-clutter c3">File</span>
-                            <span class="wf-clutter c4">Note</span>
-                            <span class="wf-clutter c5">Task</span>
-                            <span class="wf-clutter c6">Mail</span>
-                            <span class="wf-clutter c7">Checklist</span>
-                            <div class="wf-window">
-                                <div class="wf-window-head">Clickt Dashboard</div>
-                                <div class="wf-window-body">
-                                    <span class="wf-pane blue">Tasks</span>
-                                    <span class="wf-pane checklist">Checklist</span>
-                                    <span class="wf-pane yellow">Builder</span>
-                                    <span class="wf-pane green">Presentation</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="workflow-card-copy">
-                            <h3>Unified Workspace</h3>
-                            <p>Clickt pulls scattered work into one clean dashboard, then organizes it into Tasks, Checklist, Builder, and Presentation.</p>
-                        </div>
-                    </article>
+    <!-- ============================================================
+         DEVICE SHOWCASE CHAPTERS — iPhone / iPad / Mac
+         Each section is tall (creates scroll space); .sc-panel is
+         CSS-sticky so it stays visible while you scroll through it.
+         GSAP ScrollTrigger drives all transforms + Lenis adds inertia.
+         ============================================================ -->
 
-                    <article class="workflow-card">
-                        <div class="workflow-card-visual wf-team-collab" aria-hidden="true">
-                            <div class="wf-avatar manager">Manager</div>
-                            <div class="wf-avatar employee">Employee</div>
-                            <div class="wf-assigned-task">Finalize Q3 Strategy</div>
-                            <div class="wf-toast">Added to Checklist</div>
-                            <div class="wf-complete-check">✓</div>
-                            <div class="wf-ping-up"></div>
+    <section class="sc-chapter sc-chapter--iphone is-active" data-showcase-platform-section="iphone" id="showcase-iphone" aria-label="Explore Clickt on iPhone">
+        <div class="sc-panel">
+            <div class="sc-bg-overlay" id="sc-bg-iphone"></div>
+            <div class="sc-stage">
+                <div class="sc-device-wrap" id="sc-wrap-iphone">
+                    <div class="device-shell phone-shell">
+                        <div class="device-screen">
+                            <img id="sc-img-iphone" src="IOS Promotion/Clickt Images/iphone-homepage.png" class="device-screen-image sc-screen" alt="Clickt on iPhone" draggable="false">
                         </div>
-                        <div class="workflow-card-copy">
-                            <h3>Team Collaboration</h3>
-                            <p>Managers assign work with clear ownership, employees complete it, and status returns instantly without follow-up noise.</p>
-                        </div>
-                    </article>
-
-                    <article class="workflow-card">
-                        <div class="workflow-card-visual wf-checklist-utils" aria-hidden="true">
-                            <div class="wf-check-incoming incoming-assigned">Assigned by Manager</div>
-                            <div class="wf-check-incoming incoming-personal">Weekly Personal Routine</div>
-                            <div class="wf-check-board">
-                                <div class="wf-check-sections">
-                                    <span>Work Task</span>
-                                    <span>To do List</span>
-                                </div>
-                                <div class="wf-check-progress">
-                                    <span class="progress-start">0/5</span>
-                                    <span class="progress-end">3/5</span>
-                                    <div class="wf-check-progress-track">
-                                        <i></i>
-                                    </div>
-                                </div>
-                                <ul class="wf-check-items">
-                                    <li>Finalize Q3 strategy</li>
-                                    <li>Weekly standup prep</li>
-                                    <li>Family logistics routine</li>
-                                </ul>
-                                <div class="wf-check-badges">
-                                    <span>Saved as reusable workflow</span>
-                                    <span>Synced from Teams</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="workflow-card-copy">
-                            <h3>Checklist Utilities</h3>
-                            <p>Checklist combines work tasks and personal to do lists in one place, then tracks completion with reusable routines.</p>
-                        </div>
-                    </article>
-
-                    <article class="workflow-card">
-                        <div class="workflow-card-visual wf-builder-tools" aria-hidden="true">
-                            <div class="wf-sheet-grid"></div>
-                            <div class="wf-data-particles"></div>
-                            <div class="wf-builder-output">
-                                <div class="wf-output-title">Q3 Performance Snapshot</div>
-                                <div class="wf-output-bars">
-                                    <div class="wf-bar-wrap">
-                                        <span style="--h:38%"></span>
-                                        <em data-count-to="38">0</em>
-                                    </div>
-                                    <div class="wf-bar-wrap">
-                                        <span style="--h:74%"></span>
-                                        <em data-count-to="74">0</em>
-                                    </div>
-                                    <div class="wf-bar-wrap">
-                                        <span style="--h:52%"></span>
-                                        <em data-count-to="52">0</em>
-                                    </div>
-                                    <div class="wf-bar-wrap">
-                                        <span style="--h:86%"></span>
-                                        <em data-count-to="86">0</em>
-                                    </div>
-                                </div>
-                                <div class="wf-output-table">
-                                    <div data-count-to="12">0</div><div data-count-to="28">0</div><div data-count-to="42">0</div>
-                                    <div data-count-to="36">0</div><div data-count-to="54">0</div><div data-count-to="68">0</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="workflow-card-copy">
-                            <h3>Builder Workflow Tools</h3>
-                            <p>Drop dense data into Builder and convert it into readable charts, tables, and decision-ready context.</p>
-                        </div>
-                    </article>
-
-                    <article class="workflow-card">
-                        <div class="workflow-card-visual wf-presentation-ready" aria-hidden="true">
-                            <div class="wf-builder-assets">
-                                <span>Bar Chart</span>
-                                <span>Summary Table</span>
-                            </div>
-                            <div class="wf-send-btn">Send to Presentation</div>
-                            <div class="wf-slide-layout">
-                                <div class="wf-slide-pages">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <strong>Multi-Page Layout</strong>
-                            </div>
-                            <div class="wf-export-btn">Export PDF</div>
-                            <div class="wf-paper-plane">PDF</div>
-                        </div>
-                        <div class="workflow-card-copy">
-                            <h3>Presentation-Ready Progress</h3>
-                            <p>Move Builder outputs into presentation layout and export as polished stakeholder-ready reports in one flow.</p>
-                        </div>
-                    </article>
+                    </div>
+                    <img class="sc-sat sc-sat--a" id="sc-sat-iphone-a" src="" alt="" aria-hidden="true" draggable="false">
+                    <img class="sc-sat sc-sat--b" id="sc-sat-iphone-b" src="" alt="" aria-hidden="true" draggable="false">
                 </div>
+            </div>
+            <div class="sc-copy-panel" id="sc-copy-iphone">
+                <div class="sc-copy-slot" data-sc-stop="teams">
+                    <span class="sc-copy-eyebrow">Teams</span>
+                    <h3 class="sc-copy-heading">Assign it.<br>Ship it.</h3>
+                    <p class="sc-copy-body">Launching an event or sprint? Assign tasks, tag owners, and watch progress update live.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="builder">
+                    <span class="sc-copy-eyebrow">Builder</span>
+                    <h3 class="sc-copy-heading">Messy data,<br>clear answers.</h3>
+                    <p class="sc-copy-body">Drop in a CSV from sales, surveys, or school work. Builder turns it into clean charts in seconds.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="presentation">
+                    <span class="sc-copy-eyebrow">Presentation</span>
+                    <h3 class="sc-copy-heading">From notes<br>to deck.</h3>
+                    <p class="sc-copy-body">Turn Builder outputs into slides, sharpen the story, and export a polished PDF fast.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="checklist">
+                    <span class="sc-copy-eyebrow">Checklist</span>
+                    <h3 class="sc-copy-heading">Never miss<br>the little things.</h3>
+                    <p class="sc-copy-body">From daily standups to personal errands, keep every checklist in one place and always in sync.</p>
+                </div>
+            </div>
+            <div class="sc-hud">
+                <span class="sc-platform-label">iPhone</span>
+                <div class="sc-module-pills" id="sc-pills-iphone">
+                    <span class="sc-pill" data-sc-pill="teams">Teams</span>
+                    <span class="sc-pill" data-sc-pill="builder">Builder</span>
+                    <span class="sc-pill" data-sc-pill="presentation">Presentation</span>
+                    <span class="sc-pill" data-sc-pill="checklist">Checklist</span>
+                </div>
+                <div class="showcase-platform-switch sc-platform-switch" role="tablist" aria-label="Choose showcase device">
+                    <button type="button" class="showcase-platform-pill is-active" data-showcase-platform-btn="iphone" aria-selected="true">iPhone</button>
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="ipad" aria-selected="false">iPad</button>
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="mac" aria-selected="false">Mac</button>
+                </div>
+            </div>
+            <div class="sc-scroll-hint" id="sc-hint-iphone" aria-hidden="true">Scroll to explore ↓</div>
+        </div>
+    </section>
+
+    <section class="sc-chapter sc-chapter--ipad" data-showcase-platform-section="ipad" id="showcase-ipad" aria-label="Explore Clickt on iPad" hidden>
+        <div class="sc-panel">
+            <div class="sc-bg-overlay" id="sc-bg-ipad"></div>
+            <div class="sc-stage">
+                <div class="sc-device-wrap" id="sc-wrap-ipad">
+                    <div class="device-shell tablet-shell">
+                        <div class="device-screen">
+                            <img id="sc-img-ipad" src="IOS Promotion/Clickt Images/ipad-homepage.png" class="device-screen-image sc-screen" alt="Clickt on iPad" draggable="false">
+                        </div>
+                    </div>
+                    <img class="sc-sat sc-sat--a" id="sc-sat-ipad-a" src="" alt="" aria-hidden="true" draggable="false">
+                    <img class="sc-sat sc-sat--b" id="sc-sat-ipad-b" src="" alt="" aria-hidden="true" draggable="false">
+                </div>
+            </div>
+            <div class="sc-copy-panel" id="sc-copy-ipad">
+                <div class="sc-copy-slot" data-sc-stop="teams">
+                    <span class="sc-copy-eyebrow">Teams</span>
+                    <h3 class="sc-copy-heading">Big picture,<br>no blind spots.</h3>
+                    <p class="sc-copy-body">Running a sprint? See owners, blockers, and due dates on one screen, then fix gaps fast.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="builder">
+                    <span class="sc-copy-eyebrow">Builder</span>
+                    <h3 class="sc-copy-heading">Spreadsheet power,<br>minus the headache.</h3>
+                    <p class="sc-copy-body">Import your numbers, tap a chart style, and get insights everyone can understand.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="presentation">
+                    <span class="sc-copy-eyebrow">Presentation</span>
+                    <h3 class="sc-copy-heading">Present like you<br>planned all week.</h3>
+                    <p class="sc-copy-body">Build, edit, and rehearse on iPad. Perfect for team reviews, client updates, or class projects.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="checklist">
+                    <span class="sc-copy-eyebrow">Checklist</span>
+                    <h3 class="sc-copy-heading">Track progress<br>at a glance.</h3>
+                    <p class="sc-copy-body">See what is done, what is late, and what is next, without jumping between five apps.</p>
+                </div>
+            </div>
+            <div class="sc-hud">
+                <span class="sc-platform-label">iPad</span>
+                <div class="sc-module-pills" id="sc-pills-ipad">
+                    <span class="sc-pill" data-sc-pill="teams">Teams</span>
+                    <span class="sc-pill" data-sc-pill="builder">Builder</span>
+                    <span class="sc-pill" data-sc-pill="presentation">Presentation</span>
+                    <span class="sc-pill" data-sc-pill="checklist">Checklist</span>
+                </div>
+                <div class="showcase-platform-switch sc-platform-switch" role="tablist" aria-label="Choose showcase device">
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="iphone" aria-selected="false">iPhone</button>
+                    <button type="button" class="showcase-platform-pill is-active" data-showcase-platform-btn="ipad" aria-selected="true">iPad</button>
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="mac" aria-selected="false">Mac</button>
+                </div>
+            </div>
+            <div class="sc-scroll-hint" id="sc-hint-ipad" aria-hidden="true">Keep scrolling ↓</div>
+        </div>
+    </section>
+
+    <section class="sc-chapter sc-chapter--mac" data-showcase-platform-section="mac" id="showcase-mac" aria-label="Explore Clickt on Mac" hidden>
+        <div class="sc-panel">
+            <div class="sc-bg-overlay" id="sc-bg-mac"></div>
+            <div class="sc-stage">
+                <div class="sc-device-wrap" id="sc-wrap-mac">
+                    <div class="device-shell desktop-shell">
+                        <div class="device-screen sc-mac-lid" id="sc-mac-lid">
+                            <img id="sc-img-mac" src="IOS Promotion/Clickt Images/mac-homepage.png" class="device-screen-image sc-screen" alt="Clickt on Mac" draggable="false">
+                        </div>
+                        <span class="desktop-stand" aria-hidden="true"></span>
+                    </div>
+                    <img class="sc-sat sc-sat--a" id="sc-sat-mac-a" src="" alt="" aria-hidden="true" draggable="false">
+                    <img class="sc-sat sc-sat--b" id="sc-sat-mac-b" src="" alt="" aria-hidden="true" draggable="false">
+                </div>
+            </div>
+            <div class="sc-copy-panel" id="sc-copy-mac">
+                <div class="sc-copy-slot" data-sc-stop="teams">
+                    <span class="sc-copy-eyebrow">Teams</span>
+                    <h3 class="sc-copy-heading">Lead with clarity,<br>not chaos.</h3>
+                    <p class="sc-copy-body">From kickoff to launch, everyone knows what to do, when it is due, and who owns it.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="builder">
+                    <span class="sc-copy-eyebrow">Builder</span>
+                    <h3 class="sc-copy-heading">Data in.<br>Decisions out.</h3>
+                    <p class="sc-copy-body">Upload raw exports, build clear tables and charts, and share insight your team can act on.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="presentation">
+                    <span class="sc-copy-eyebrow">Presentation</span>
+                    <h3 class="sc-copy-heading">Story and data,<br>one smooth flow.</h3>
+                    <p class="sc-copy-body">Pull Builder outputs into slides, polish the message, and export a board-ready deck in minutes.</p>
+                </div>
+                <div class="sc-copy-slot" data-sc-stop="checklist">
+                    <span class="sc-copy-eyebrow">Checklist</span>
+                    <h3 class="sc-copy-heading">Stay organized,<br>stay calm.</h3>
+                    <p class="sc-copy-body">Use repeatable routines for weekly ops, onboarding, and personal tasks so nothing slips.</p>
+                </div>
+            </div>
+            <div class="sc-hud">
+                <span class="sc-platform-label">Mac</span>
+                <div class="sc-module-pills" id="sc-pills-mac">
+                    <span class="sc-pill" data-sc-pill="teams">Teams</span>
+                    <span class="sc-pill" data-sc-pill="builder">Builder</span>
+                    <span class="sc-pill" data-sc-pill="presentation">Presentation</span>
+                    <span class="sc-pill" data-sc-pill="checklist">Checklist</span>
+                </div>
+                <div class="showcase-platform-switch sc-platform-switch" role="tablist" aria-label="Choose showcase device">
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="iphone" aria-selected="false">iPhone</button>
+                    <button type="button" class="showcase-platform-pill" data-showcase-platform-btn="ipad" aria-selected="false">iPad</button>
+                    <button type="button" class="showcase-platform-pill is-active" data-showcase-platform-btn="mac" aria-selected="true">Mac</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playbook teaser -->
+    <section class="pb-teaser" id="playbook-teaser">
+        <div class="container pb-teaser-inner">
+            <div class="pb-teaser-header">
+                <span class="pb-teaser-kicker">Playbook</span>
+                <h2 class="pb-teaser-heading">Steal the workflows that work</h2>
+                <p class="pb-teaser-sub">Real examples you can copy, tweak, and run today with your team.</p>
+            </div>
+            <div class="pb-teaser-grid">
+                <a href="playbook.html#teams" class="pb-teaser-card pb-teaser--teams">
+                    <span class="pb-teaser-mod">Teams</span>
+                    <h3>Engineering sprint</h3>
+                    <p>Drop in your sprint tasks, let teammates claim work, and close the week without chasing updates.</p>
+                    <span class="pb-teaser-arrow">Explore Teams workflows →</span>
+                </a>
+                <a href="playbook.html#checklist" class="pb-teaser-card pb-teaser--checklist">
+                    <span class="pb-teaser-mod">Checklist</span>
+                    <h3>Client onboarding</h3>
+                    <p>Turn onboarding into a reusable checklist so every new client gets the same great start.</p>
+                    <span class="pb-teaser-arrow">Explore Checklist workflows →</span>
+                </a>
+                <a href="playbook.html#builder" class="pb-teaser-card pb-teaser--builder">
+                    <span class="pb-teaser-mod">Builder</span>
+                    <h3>Sales pipeline report</h3>
+                    <p>Import CRM exports, build instant KPI charts, and walk into meetings with clear answers.</p>
+                    <span class="pb-teaser-arrow">Explore Builder workflows →</span>
+                </a>
+                <a href="playbook.html#presentation" class="pb-teaser-card pb-teaser--pres">
+                    <span class="pb-teaser-mod">Presentation</span>
+                    <h3>Board deck from data</h3>
+                    <p>Send Builder outputs to slides, polish the story, and export a board-ready deck in minutes.</p>
+                    <span class="pb-teaser-arrow">Explore Presentation workflows →</span>
+                </a>
+                <a href="playbook.html#clicktai" class="pb-teaser-card pb-teaser--ai">
+                    <span class="pb-teaser-mod">ClicktAI</span>
+                    <h3>One prompt, full pipeline</h3>
+                    <p>Type one prompt like "Analyze Q3 and build my deck." ClicktAI runs the workflow end to end.</p>
+                    <span class="pb-teaser-arrow">Explore ClicktAI workflows →</span>
+                </a>
+            </div>
+            <div class="pb-teaser-cta">
+                <a href="playbook.html#clicktai" class="btn">Explore the full Playbook</a>
             </div>
         </div>
     </section>
@@ -348,10 +420,13 @@
     <div class="container">
         <footer>
             <p>Should you require assistance, our support desk stands ready to help.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="support.html">Support Desk</a> | <a href="user-guide.html">User Guide</a> | <a href="privacy.html">Privacy Statement</a></p>
+            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="playbook.html">Playbook</a> | <a href="support.html">Support Desk</a> | <a href="user-guide.html">User Guide</a> | <a href="privacy.html">Privacy Statement</a></p>
         </footer>
     </div>
 
-    <script src="script.js?v=20260314d"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js?v=20260428a"></script>
 </body>
 </html>

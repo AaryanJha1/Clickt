@@ -134,6 +134,14 @@ body {
     }
 }
 
+@keyframes ambient-drift {
+    0% { transform: translate3d(0%, 0%, 0) scale(1) rotate(0deg); }
+    25% { transform: translate3d(3.5%, -4%, 0) scale(1.03) rotate(1.2deg); }
+    50% { transform: translate3d(-5%, -2.5%, 0) scale(1.05) rotate(-1.3deg); }
+    75% { transform: translate3d(4.2%, 3.2%, 0) scale(1.02) rotate(0.8deg); }
+    100% { transform: translate3d(-3.8%, 4.6%, 0) scale(1.04) rotate(-1deg); }
+}
+
 /* Typography */
 h1, h2, h3, h4 {
     font-weight: 600;
@@ -257,6 +265,21 @@ header {
     line-height: 1;
 }
 
+/* Header nav link (Playbook) */
+.header-nav-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    transition: background 0.18s, color 0.18s;
+}
+
+.header-nav-link:hover {
+    background: var(--bg-alt);
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
@@ -292,6 +315,74 @@ header {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+}
+
+.home-page .hero,
+.home-page .pb-teaser {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: #ffffff;
+}
+
+.home-page .hero .floating-dots {
+    display: none;
+}
+
+.home-page .hero::before,
+.home-page .pb-teaser::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.88;
+    background-image:
+        radial-gradient(circle at 6% 12%, rgba(15, 23, 42, 0.14) 0 8px, transparent 9px),
+        radial-gradient(circle at 14% 44%, rgba(15, 23, 42, 0.12) 0 7px, transparent 8px),
+        radial-gradient(circle at 22% 72%, rgba(15, 23, 42, 0.11) 0 9px, transparent 10px),
+        radial-gradient(circle at 30% 26%, rgba(15, 23, 42, 0.13) 0 8px, transparent 9px),
+        radial-gradient(circle at 39% 60%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px),
+        radial-gradient(circle at 48% 18%, rgba(15, 23, 42, 0.12) 0 9px, transparent 10px),
+        radial-gradient(circle at 57% 78%, rgba(15, 23, 42, 0.1) 0 8px, transparent 9px),
+        radial-gradient(circle at 66% 36%, rgba(15, 23, 42, 0.11) 0 7px, transparent 8px),
+        radial-gradient(circle at 74% 66%, rgba(15, 23, 42, 0.12) 0 8px, transparent 9px),
+        radial-gradient(circle at 82% 24%, rgba(15, 23, 42, 0.11) 0 8px, transparent 9px),
+        radial-gradient(circle at 90% 56%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px),
+        radial-gradient(circle at 96% 16%, rgba(15, 23, 42, 0.11) 0 8px, transparent 9px);
+    animation: ambient-drift 12s ease-in-out infinite alternate;
+}
+
+.home-page .pb-teaser > * {
+    position: relative;
+    z-index: 1;
+}
+
+.home-page .sc-bg-overlay {
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.home-page .sc-bg-overlay::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.88;
+    background-image:
+        radial-gradient(circle at 8% 16%, rgba(15, 23, 42, 0.14) 0 8px, transparent 9px),
+        radial-gradient(circle at 16% 52%, rgba(15, 23, 42, 0.11) 0 7px, transparent 8px),
+        radial-gradient(circle at 24% 78%, rgba(15, 23, 42, 0.11) 0 9px, transparent 10px),
+        radial-gradient(circle at 33% 22%, rgba(15, 23, 42, 0.13) 0 8px, transparent 9px),
+        radial-gradient(circle at 42% 62%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 14%, rgba(15, 23, 42, 0.12) 0 9px, transparent 10px),
+        radial-gradient(circle at 58% 74%, rgba(15, 23, 42, 0.1) 0 8px, transparent 9px),
+        radial-gradient(circle at 67% 34%, rgba(15, 23, 42, 0.11) 0 7px, transparent 8px),
+        radial-gradient(circle at 76% 68%, rgba(15, 23, 42, 0.12) 0 8px, transparent 9px),
+        radial-gradient(circle at 85% 26%, rgba(15, 23, 42, 0.11) 0 8px, transparent 9px),
+        radial-gradient(circle at 93% 58%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px);
+    animation: ambient-drift 10s ease-in-out infinite alternate;
 }
 
 .hero > *:not(.floating-dots) {
@@ -2015,6 +2106,143 @@ footer a:hover {
 
 }
 
+/* ── Playbook Teaser (homepage section) ─────────────────── */
+.pb-teaser {
+    padding: 5rem 0;
+    background: var(--brand-surface);
+    border-top: none;
+    border-bottom: none;
+}
+
+.pb-teaser-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.pb-teaser-header {
+    text-align: center;
+    max-width: 600px;
+}
+
+.pb-teaser-kicker {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-muted);
+    margin-bottom: 0.75rem;
+}
+
+.pb-teaser-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--brand-text);
+    margin-bottom: 0.75rem;
+}
+
+.pb-teaser-sub {
+    font-size: 1.05rem;
+    color: var(--brand-muted);
+    margin-bottom: 0;
+}
+
+.pb-teaser-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+.pb-teaser-grid > *:nth-child(4) { grid-column: 1 / span 2; }
+.pb-teaser-grid > *:nth-child(5) { grid-column: 3 / span 1; }
+
+.pb-teaser-card {
+    border: 1px solid var(--brand-border);
+    border-radius: 16px;
+    background: #fff;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.pb-teaser-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.pb-teaser-mod {
+    display: inline-block;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    align-self: flex-start;
+}
+
+.pb-teaser-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-text);
+    margin-bottom: 0;
+}
+
+.pb-teaser-card p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--brand-muted);
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.pb-teaser-arrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--brand-muted);
+    margin-top: 0.25rem;
+}
+
+.pb-teaser-card:hover .pb-teaser-arrow {
+    color: var(--brand-text);
+}
+
+.pb-teaser-cta {
+    text-align: center;
+}
+
+/* Module accent colours for teaser cards */
+.pb-teaser--teams    .pb-teaser-mod { background: #dbeafe; color: #1e40af; }
+.pb-teaser--checklist .pb-teaser-mod { background: #d1fae5; color: #065f46; }
+.pb-teaser--builder  .pb-teaser-mod { background: #fef3c7; color: #92400e; }
+.pb-teaser--pres     .pb-teaser-mod { background: #ede9fe; color: #4c1d95; }
+.pb-teaser--ai       .pb-teaser-mod { background: #f0fdf4; color: #14532d; }
+
+@media (max-width: 1024px) {
+    .pb-teaser-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pb-teaser-grid > *:nth-child(4),
+    .pb-teaser-grid > *:nth-child(5) { grid-column: auto; }
+}
+
+@media (max-width: 640px) {
+    .pb-teaser { padding: 4rem 0; }
+    .pb-teaser-heading { font-size: 1.6rem; }
+    .pb-teaser-grid { grid-template-columns: 1fr; }
+    .pb-teaser-grid > *:nth-child(4),
+    .pb-teaser-grid > *:nth-child(5) { grid-column: auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .floating-dots .dot {
         animation: none;
@@ -2669,4 +2897,326 @@ footer a:hover {
     .user-guide-page .status-row {
         align-items: flex-start;
     }
+}
+
+/* ============================================================
+   DEVICE SHOWCASE CHAPTERS — Lusion-style scroll experience
+   iPhone / iPad / Mac — each is a separate sticky-scroll section
+   ============================================================ */
+
+.showcase-platform-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 999px;
+    border: 1px solid rgba(15,23,42,0.14);
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.showcase-platform-pill {
+    border: 1px solid transparent;
+    background: transparent;
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 0.86rem;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.showcase-platform-pill.is-active {
+    color: #0f172a;
+    border-color: rgba(37, 99, 235, 0.55);
+    background: #dbeafe;
+}
+
+.sc-chapter {
+    position: relative;
+    background: #ffffff;
+}
+
+.home-page .sc-chapter,
+.home-page .pb-teaser {
+    margin-top: -1px;
+}
+
+.sc-chapter.is-active {
+    display: block;
+}
+
+.sc-chapter--iphone { height: 400vh; }
+.sc-chapter--ipad   { height: 360vh; }
+.sc-chapter--mac    { height: 350vh; }
+
+/* Sticky panel — stays pinned while the tall section scrolls past */
+.sc-panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Full-cover background; JS updates its color per module stop */
+.sc-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: #f3f4f6;
+    transition: background-color 0.8s ease;
+    z-index: 0;
+}
+
+/* 3D perspective container — everything inside gets depth */
+.sc-stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* Device wrap: GSAP applies xPercent / rotationY / rotationZ / scale here */
+.sc-device-wrap {
+    position: relative;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+}
+
+/* Smooth image cross-fade on screen swap */
+.sc-screen {
+    transition: opacity 0.25s ease;
+}
+
+/* Device size overrides inside showcase (smaller than the hero carousel) */
+.sc-chapter--iphone .phone-shell  { width: clamp(160px, 20vw, 240px); }
+.sc-chapter--ipad   .tablet-shell { width: clamp(240px, 30vw, 380px); }
+.sc-chapter--mac    .desktop-shell{ width: clamp(420px, 52vw, 680px); }
+
+/* Mac screen lid — clip-path starts closed, JS opens it on scroll entry */
+.sc-mac-lid {
+    clip-path: inset(95% 0 0 0);
+    will-change: clip-path;
+}
+
+/* ── Satellite thumbnails ───────────────────────────────────── */
+.sc-sat {
+    position: absolute;
+    object-fit: cover;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow:
+        0 26px 56px rgba(15, 23, 42, 0.2),
+        0 6px 18px rgba(15, 23, 42, 0.12);
+    will-change: opacity, transform;
+}
+
+/* iPhone — portrait screenshots */
+.sc-chapter--iphone .sc-sat {
+    width: 40%;
+    aspect-ratio: 9 / 19.5;
+    border-radius: 20px;
+}
+.sc-chapter--iphone .sc-sat--a { top: 4%; left: 112%; transform: rotate(6deg); }
+.sc-chapter--iphone .sc-sat--b { top: 52%; left: 109%; transform: rotate(2deg); }
+/* When device is on the right, satellites flip to left */
+.sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 112%; transform: rotate(-6deg); }
+.sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 109%; transform: rotate(-2deg); }
+
+/* iPad — portrait screenshots */
+.sc-chapter--ipad .sc-sat {
+    width: 34%;
+    aspect-ratio: 3 / 4;
+    border-radius: 18px;
+}
+.sc-chapter--ipad .sc-sat--a { top:  6%; left: 110%; transform: rotate(5deg); }
+.sc-chapter--ipad .sc-sat--b { top: 50%; left: 107%; transform: rotate(1deg); }
+.sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 110%; transform: rotate(-5deg); }
+.sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 107%; transform: rotate(-1deg); }
+
+/* Mac — landscape screenshots float above the MacBook */
+.sc-chapter--mac .sc-sat {
+    width: 30%;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+}
+.sc-chapter--mac .sc-sat--a { bottom: 104%; left:  4%; transform: rotate(-4deg); }
+.sc-chapter--mac .sc-sat--b { bottom: 104%; right: 4%; transform: rotate(4deg); }
+
+/* ── Copy panel ─────────────────────────────────────────────── */
+.sc-copy-panel {
+    position: absolute;
+    width: 330px;
+    max-width: 32vw;
+    top: 50%;
+    transform: translateY(-50%);
+    right: max(2vw, 20px);
+    left: auto;
+    z-index: 2;
+    transition:
+        left   0.55s cubic-bezier(0.4, 0, 0.2, 1),
+        right  0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sc-chapter.has-satellites .sc-copy-panel {
+    right: max(1.5vw, 16px);
+    width: 310px;
+    max-width: 30vw;
+}
+
+/* Copy flips to left when device is on right */
+.sc-copy-panel.copy-left {
+    left: max(6vw, 40px);
+    right: auto;
+}
+
+.sc-copy-slot {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+}
+.sc-copy-slot.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.sc-copy-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+.sc-copy-heading {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #0f172a;
+    margin-bottom: 14px;
+}
+.sc-copy-body {
+    font-size: clamp(0.86rem, 1.2vw, 1rem);
+    line-height: 1.65;
+    color: #4b5563;
+}
+
+/* ── HUD: platform label + module pills ─────────────────────── */
+.sc-hud {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+}
+
+.sc-platform-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.sc-module-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sc-pill {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(15,23,42,0.16);
+    color: #64748b;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    user-select: none;
+}
+.sc-pill.is-active {
+    color: #0f172a;
+    border-color: rgba(15,23,42,0.3);
+    background: #f1f5f9;
+}
+
+/* Scroll hint */
+.sc-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    right: max(5vw, 28px);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    z-index: 3;
+    transition: opacity 0.4s ease;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .sc-chapter--iphone .phone-shell  { width: clamp(140px, 28vw, 210px); }
+    .sc-chapter--ipad   .tablet-shell { width: clamp(200px, 40vw, 320px); }
+    .sc-chapter--mac    .desktop-shell{ width: clamp(300px, 68vw, 520px); }
+    .sc-stage { justify-content: center; }
+    .sc-copy-panel { max-width: 48vw; width: 260px; }
+    .sc-scroll-hint { display: none; }
+}
+
+@media (max-width: 640px) {
+    .showcase-platform-switch {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sc-chapter--iphone { height: 360vh; }
+    .sc-chapter--ipad   { height: 330vh; }
+    .sc-chapter--mac    { height: 290vh; }
+
+    .sc-chapter--iphone .phone-shell  { width: clamp(110px, 36vw, 170px); }
+    .sc-chapter--ipad   .tablet-shell { width: clamp(160px, 52vw, 250px); }
+    .sc-chapter--mac    .desktop-shell{ width: clamp(240px, 84vw, 400px); }
+
+    /* On mobile: copy moves below device, full width */
+    .sc-copy-panel,
+    .sc-copy-panel.copy-left {
+        position: absolute;
+        width: 90vw;
+        max-width: 90vw;
+        left: 5vw;
+        right: 5vw;
+        top: auto;
+        bottom: 11%;
+        transform: none;
+        text-align: center;
+    }
+
+    /* Satellites hidden on mobile — not enough space */
+    .sc-sat { display: none; }
+
+    .sc-copy-heading { font-size: 1.3rem; }
+    .sc-copy-body    { font-size: 0.84rem; }
+}
+
+.sc-platform-switch {
+    margin-top: 10px;
+}
+
+.sc-chapter.is-single-frame .sc-stage {
+    justify-content: center;
 }

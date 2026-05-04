@@ -3228,13 +3228,14 @@ footer a:hover {
         justify-content: center;
     }
 
-    .sc-chapter--iphone { height: 360vh; }
-    .sc-chapter--ipad   { height: 330vh; }
-    .sc-chapter--mac    { height: 300vh; }
+    .sc-chapter--iphone { height: 420vh; }
+    .sc-chapter--ipad   { height: 390vh; }
+    .sc-chapter--mac    { height: 370vh; }
 
     .sc-panel {
         position: sticky;
         top: 0;
+        height: 100dvh;
         height: 100svh;
         overflow: hidden;
         padding:
@@ -3250,9 +3251,9 @@ footer a:hover {
         width: 100%;
         height: 100%;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
-        padding-top: clamp(48px, 10svh, 92px);
+        padding-top: clamp(20px, 5svh, 48px);
     }
 
     .sc-chapter--iphone .phone-shell  { width: clamp(198px, 58vw, 244px); }
@@ -3267,16 +3268,16 @@ footer a:hover {
     .sc-copy-panel,
     .sc-copy-panel.copy-left {
         position: absolute;
-        width: min(94vw, 470px);
-        max-width: min(94vw, 470px);
+        width: min(94vw, 560px);
+        max-width: min(94vw, 560px);
         left: 50%;
         right: auto;
         top: auto;
-        bottom: clamp(144px, 19svh, 192px);
+        bottom: clamp(116px, 15svh, 156px);
         transform: translateX(-50%);
         text-align: center;
         margin: 0;
-        min-height: 160px;
+        min-height: 200px;
         padding-top: 0;
     }
 
@@ -3346,17 +3347,17 @@ footer a:hover {
 
     .sc-copy-eyebrow { margin-bottom: 8px; }
     .sc-copy-heading {
-        font-size: 1.18rem;
+        font-size: clamp(1.28rem, 5.1vw, 1.74rem);
         line-height: 1.2;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
     .sc-copy-heading br {
-        display: none;
+        display: inline;
     }
     .sc-copy-body {
-        font-size: 0.98rem;
-        line-height: 1.62;
-        max-width: 38ch;
+        font-size: clamp(0.98rem, 3.8vw, 1.08rem);
+        line-height: 1.68;
+        max-width: 46ch;
         margin: 0 auto;
     }
 }

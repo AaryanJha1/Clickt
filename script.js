@@ -843,10 +843,32 @@ function initShowcaseChapters() {
         { from: 0.95, x:  0, ry:   0, rz: 0, scale: 0.86, module: null,           img: P+"Mac-login.png",              satA: null,                      satB: null,                    bg: SHARED_SHOWCASE_BG },
     ];
 
+    const tuneStopsForCompactMobile = (stops) => {
+        return stops.map((stop) => {
+            const isSingleFrameStop = !stop.module && !stop.satA && !stop.satB;
+            const scaledStop = {
+                ...stop,
+                x: Math.round(stop.x * 0.68),
+                ry: Number((stop.ry * 0.72).toFixed(2)),
+                rz: Number((stop.rz * 0.72).toFixed(2)),
+            };
+
+            if (isSingleFrameStop) {
+                scaledStop.scale = Math.min(1, Number((stop.scale + 0.03).toFixed(3)));
+            }
+
+            return scaledStop;
+        });
+    };
+
+    const iphoneMotionStops = isCompactMobile ? tuneStopsForCompactMobile(iphoneStops) : iphoneStops;
+    const ipadMotionStops = isCompactMobile ? tuneStopsForCompactMobile(ipadStops) : ipadStops;
+    const macMotionStops = isCompactMobile ? tuneStopsForCompactMobile(macStops) : macStops;
+
     const showcaseConfigs = {
-        iphone: { sectionId: "showcase-iphone", wrapId: "sc-wrap-iphone", imgId: "sc-img-iphone", satAId: "sc-sat-iphone-a", satBId: "sc-sat-iphone-b", bgId: "sc-bg-iphone", copyId: "sc-copy-iphone", pillsId: "sc-pills-iphone", hintId: "sc-hint-iphone", macLidId: null, perspective: 1000, stops: iphoneStops },
-        ipad:   { sectionId: "showcase-ipad",   wrapId: "sc-wrap-ipad",   imgId: "sc-img-ipad",   satAId: "sc-sat-ipad-a",   satBId: "sc-sat-ipad-b",   bgId: "sc-bg-ipad",   copyId: "sc-copy-ipad",   pillsId: "sc-pills-ipad",   hintId: "sc-hint-ipad",   macLidId: null, perspective: 1000, stops: ipadStops },
-        mac:    { sectionId: "showcase-mac",    wrapId: "sc-wrap-mac",    imgId: "sc-img-mac",    satAId: "sc-sat-mac-a",    satBId: "sc-sat-mac-b",    bgId: "sc-bg-mac",    copyId: "sc-copy-mac",    pillsId: "sc-pills-mac",    hintId: null,             macLidId: "sc-mac-lid", perspective: 1400, stops: macStops },
+        iphone: { sectionId: "showcase-iphone", wrapId: "sc-wrap-iphone", imgId: "sc-img-iphone", satAId: "sc-sat-iphone-a", satBId: "sc-sat-iphone-b", bgId: "sc-bg-iphone", copyId: "sc-copy-iphone", pillsId: "sc-pills-iphone", hintId: "sc-hint-iphone", macLidId: null, perspective: 1000, stops: iphoneMotionStops },
+        ipad:   { sectionId: "showcase-ipad",   wrapId: "sc-wrap-ipad",   imgId: "sc-img-ipad",   satAId: "sc-sat-ipad-a",   satBId: "sc-sat-ipad-b",   bgId: "sc-bg-ipad",   copyId: "sc-copy-ipad",   pillsId: "sc-pills-ipad",   hintId: "sc-hint-ipad",   macLidId: null, perspective: 1000, stops: ipadMotionStops },
+        mac:    { sectionId: "showcase-mac",    wrapId: "sc-wrap-mac",    imgId: "sc-img-mac",    satAId: "sc-sat-mac-a",    satBId: "sc-sat-mac-b",    bgId: "sc-bg-mac",    copyId: "sc-copy-mac",    pillsId: "sc-pills-mac",    hintId: null,             macLidId: "sc-mac-lid", perspective: 1400, stops: macMotionStops },
     };
     const initializedPlatforms = new Set();
 
@@ -984,9 +1006,7 @@ function setupShowcaseChapter(cfg) {
             }
             const stop = stops[idx];
             const next = stops[idx + 1];
-            const activeStop = !stop.module
-                ? (stops.find((entry) => Boolean(entry.module)) || stop)
-                : stop;
+            const activeStop = stop;
 
             // Local progress within this stop (0→1), eased
             let t = next ? Math.min(1, (p - stop.from) / (next.from - stop.from)) : 1;

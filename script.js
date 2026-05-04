@@ -930,6 +930,43 @@ function setupShowcaseChapter(cfg) {
 
     let prevStopIdx = -1;
     const stops = cfg.stops;
+    const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
+    const applyVisualState = (visualStop, xValue) => {
+        if (!visualStop) return;
+        scSwapImage(img, visualStop.img);
+
+        if (!visualStop.satA && !visualStop.satB) {
+            if (satA) gsap.to(satA, { opacity: 0, duration: 0.3 });
+            if (satB) gsap.to(satB, { opacity: 0, duration: 0.3 });
+        } else {
+            if (satA) {
+                if (visualStop.satA) { satA.src = visualStop.satA; gsap.to(satA, { opacity: 1, duration: 0.45, delay: 0.05 }); }
+                else                 { gsap.to(satA, { opacity: 0, duration: 0.3 }); }
+            }
+            if (satB) {
+                if (visualStop.satB) { satB.src = visualStop.satB; gsap.to(satB, { opacity: 1, duration: 0.45, delay: 0.12 }); }
+                else                 { gsap.to(satB, { opacity: 0, duration: 0.3 }); }
+            }
+        }
+
+        if (wrap) wrap.classList.toggle("sat-left", xValue > 5);
+        copySlots.forEach(function(slot) {
+            slot.classList.toggle("is-active", slot.dataset.scStop === visualStop.module);
+        });
+        if (copyEl) copyEl.classList.toggle("copy-left", xValue > 5);
+        pillEls.forEach(function(pill) {
+            pill.classList.toggle("is-active", pill.dataset.scPill === visualStop.module);
+        });
+
+        section.classList.toggle(
+            "is-single-frame",
+            !visualStop.module && !visualStop.satA && !visualStop.satB
+        );
+        section.classList.toggle(
+            "has-satellites",
+            Boolean(visualStop.satA || visualStop.satB)
+        );
+    };
 
     const chapterTrigger = ScrollTrigger.create({
         trigger: section,
@@ -946,6 +983,9 @@ function setupShowcaseChapter(cfg) {
             }
             const stop = stops[idx];
             const next = stops[idx + 1];
+            const activeStop = (isCompactMobile && !stop.module)
+                ? (stops.find((entry) => Boolean(entry.module)) || stop)
+                : stop;
 
             // Local progress within this stop (0→1), eased
             let t = next ? Math.min(1, (p - stop.from) / (next.from - stop.from)) : 1;
@@ -960,7 +1000,7 @@ function setupShowcaseChapter(cfg) {
             });
 
             // Background color (per-stop, not interpolated)
-            if (bgEl) bgEl.style.backgroundColor = stop.bg;
+            if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
 
             // Mac lid: opens during the entry phase (progress 0 → first stop)
             if (lidEl) {
@@ -972,49 +1012,7 @@ function setupShowcaseChapter(cfg) {
             // Discrete updates whenever the stop changes
             if (idx !== prevStopIdx) {
                 prevStopIdx = idx;
-
-                // Screen image cross-fade
-                scSwapImage(img, stop.img);
-
-                // Satellites
-                if (!stop.satA && !stop.satB) {
-                    if (satA) gsap.to(satA, { opacity: 0, duration: 0.3 });
-                    if (satB) gsap.to(satB, { opacity: 0, duration: 0.3 });
-                } else {
-                    if (satA) {
-                        if (stop.satA) { satA.src = stop.satA; gsap.to(satA, { opacity: 1, duration: 0.45, delay: 0.05 }); }
-                        else           { gsap.to(satA, { opacity: 0, duration: 0.3 }); }
-                    }
-                    if (satB) {
-                        if (stop.satB) { satB.src = stop.satB; gsap.to(satB, { opacity: 1, duration: 0.45, delay: 0.12 }); }
-                        else           { gsap.to(satB, { opacity: 0, duration: 0.3 }); }
-                    }
-                }
-
-                // Satellite CSS side: when device is right, satellites flip to left
-                if (wrap) wrap.classList.toggle("sat-left", stop.x > 5);
-
-                // Copy text
-                copySlots.forEach(function(slot) {
-                    slot.classList.toggle("is-active", slot.dataset.scStop === stop.module);
-                });
-
-                // Copy panel sides moves opposite to device
-                if (copyEl) copyEl.classList.toggle("copy-left", stop.x > 5);
-
-                // Module pills
-                pillEls.forEach(function(pill) {
-                    pill.classList.toggle("is-active", pill.dataset.scPill === stop.module);
-                });
-
-                section.classList.toggle(
-                    "is-single-frame",
-                    !stop.module && !stop.satA && !stop.satB
-                );
-                section.classList.toggle(
-                    "has-satellites",
-                    Boolean(stop.satA || stop.satB)
-                );
+                applyVisualState(activeStop, stop.x);
             }
 
             // Scroll hint fades out after first movement
@@ -1025,6 +1023,23 @@ function setupShowcaseChapter(cfg) {
         },
     });
 
+    if (isCompactMobile) {
+        const initialStop = stops.find((entry) => Boolean(entry.module)) || stops[0];
+        if (initialStop) {
+            prevStopIdx = stops.indexOf(initialStop);
+            if (wrap) {
+                gsap.set(wrap, {
+                    xPercent: 0,
+                    rotationY: 0,
+                    rotationZ: 0,
+                    scale: 1,
+                });
+            }
+            applyVisualState(initialStop, 0);
+            if (bgEl) bgEl.style.backgroundColor = initialStop.bg;
+        }
+    }
+
     pillEls.forEach((pill) => {
         const module = pill.dataset.scPill;
         if (!module) return;
@@ -1033,6 +1048,20 @@ function setupShowcaseChapter(cfg) {
         const jumpToModule = () => {
             const targetStop = stops.find((entry) => entry.module === module);
             if (!targetStop || !chapterTrigger) return;
+            if (isCompactMobile) {
+                prevStopIdx = stops.indexOf(targetStop);
+                if (wrap) {
+                    gsap.set(wrap, {
+                        xPercent: 0,
+                        rotationY: 0,
+                        rotationZ: 0,
+                        scale: 1,
+                    });
+                }
+                applyVisualState(targetStop, 0);
+                if (bgEl) bgEl.style.backgroundColor = targetStop.bg;
+                return;
+            }
             const yStart = Number(chapterTrigger.start) || section.offsetTop || 0;
             const yEnd = Number(chapterTrigger.end) || (yStart + section.offsetHeight - window.innerHeight);
             const targetY = yStart + Math.max(0, Math.min(0.98, targetStop.from + 0.02)) * (yEnd - yStart);

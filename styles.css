@@ -3302,6 +3302,8 @@ footer a:hover {
     /* Override desktop absolute stacking so mobile text cannot overlap the HUD */
     .sc-copy-slot {
         position: static;
+        width: 100vw;
+        max-width: 100vw;
         top: auto;
         left: auto;
         right: auto;
@@ -3310,6 +3312,8 @@ footer a:hover {
         max-height: 0;
         overflow: hidden;
         pointer-events: none;
+        margin-inline: calc(50% - 50vw);
+        padding-inline: 0;
     }
 
     .sc-copy-slot.is-active {
@@ -3387,15 +3391,22 @@ footer a:hover {
     .sc-chapter--mac .sc-sat--a { bottom: 88%; left: 8%; transform: rotate(-4deg); }
     .sc-chapter--mac .sc-sat--b { bottom: 86%; right: 8%; transform: rotate(4deg); }
 
-    .sc-copy-eyebrow { margin-bottom: 8px; }
+    .sc-copy-eyebrow {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 8px;
+        padding-inline: 0;
+    }
     .sc-copy-heading {
         font-size: clamp(1.14rem, 4.5vw, 1.44rem);
         line-height: 2.18;
         margin-bottom: 10px;
         width: 100%;
         max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 0;
+        margin-right: 0;
+        padding-inline: 0;
     }
     .sc-copy-heading br {
         display: revert;
@@ -3405,7 +3416,8 @@ footer a:hover {
         line-height: 2.48;
         width: 100%;
         max-width: 100%;
-        margin: 0 auto;
+        margin: 0;
+        padding-inline: 0;
     }
 }
 

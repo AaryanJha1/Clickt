@@ -3281,8 +3281,8 @@ footer a:hover {
     .sc-copy-panel.copy-left {
         position: relative;
         grid-row: 2;
-        width: min(98vw, 700px);
-        max-width: min(98vw, 700px);
+        width: 100%;
+        max-width: none;
         left: auto;
         right: auto;
         top: auto;
@@ -3290,10 +3290,11 @@ footer a:hover {
         transform: none;
         text-align: center;
         margin: 0;
+        margin-top: clamp(24px, 3.8svh, 46px);
         min-height: clamp(150px, 21svh, 210px);
-        padding-inline: clamp(12px, 3.8vw, 18px);
+        padding-inline: clamp(6px, 2.5vw, 14px);
         padding-top: 0;
-        padding-bottom: clamp(12px, 2svh, 20px);
+        padding-bottom: clamp(8px, 1.4svh, 14px);
         z-index: 3;
     }
 
@@ -3312,7 +3313,7 @@ footer a:hover {
 
     .sc-copy-slot.is-active {
         opacity: 1;
-        max-height: 280px;
+        max-height: 360px;
         pointer-events: auto;
     }
 
@@ -3323,8 +3324,8 @@ footer a:hover {
         left: auto;
         bottom: auto;
         transform: none;
-        margin-top: clamp(8px, 1.6svh, 14px);
-        margin-bottom: max(10px, env(safe-area-inset-bottom));
+        margin-top: clamp(12px, 2.2svh, 22px);
+        margin-bottom: max(0px, env(safe-area-inset-bottom));
         gap: 8px;
         width: min(94vw, 384px);
         align-self: end;
@@ -3390,6 +3391,9 @@ footer a:hover {
         font-size: clamp(1.14rem, 4.5vw, 1.44rem);
         line-height: 1.18;
         margin-bottom: 10px;
+        max-width: min(96vw, 720px);
+        margin-left: auto;
+        margin-right: auto;
     }
     .sc-copy-heading br {
         display: revert;
@@ -3397,7 +3401,7 @@ footer a:hover {
     .sc-copy-body {
         font-size: clamp(0.96rem, 3.6vw, 1.06rem);
         line-height: 1.48;
-        max-width: 50ch;
+        max-width: min(96vw, 720px);
         margin: 0 auto;
     }
 }

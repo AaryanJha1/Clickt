@@ -991,6 +991,11 @@ function setupShowcaseChapter(cfg) {
         );
     };
 
+    // Ensure the chapter always starts from its first frame state.
+    if (stops.length) {
+        applyVisualState(stops[0], stops[0].x);
+    }
+
     const chapterTrigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",

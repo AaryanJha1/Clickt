@@ -3242,19 +3242,25 @@ footer a:hover {
             max(18px, env(safe-area-inset-top))
             14px
             max(22px, env(safe-area-inset-bottom));
-        display: block;
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto auto;
+        justify-items: center;
+        align-items: stretch;
     }
 
     .sc-stage {
-        position: absolute;
-        inset: 0;
+        position: relative;
+        inset: auto;
+        grid-row: 1;
         width: 100%;
-        height: 100%;
+        height: auto;
+        min-height: 0;
         display: flex;
         align-items: flex-start;
         justify-content: center;
-        padding-top: clamp(14px, 3svh, 30px);
-        padding-bottom: clamp(216px, 33svh, 292px);
+        padding-top: clamp(16px, 3svh, 34px);
+        padding-bottom: clamp(20px, 4svh, 44px);
+        z-index: 1;
     }
 
     .sc-chapter--iphone .phone-shell  { width: clamp(184px, 53vw, 226px); }
@@ -3270,32 +3276,40 @@ footer a:hover {
         transform-origin: center center;
     }
 
-    /* On mobile: copy stays near bottom with more readable width */
+    /* Grid row 2: copy block */
     .sc-copy-panel,
     .sc-copy-panel.copy-left {
-        position: absolute;
-        width: min(98vw, 680px);
-        max-width: min(98vw, 680px);
-        left: 50%;
+        position: relative;
+        grid-row: 2;
+        width: min(96vw, 640px);
+        max-width: min(96vw, 640px);
+        left: auto;
         right: auto;
         top: auto;
-        bottom: clamp(48px, 7svh, 90px);
-        transform: translateX(-50%);
+        bottom: auto;
+        transform: none;
         text-align: center;
         margin: 0;
-        min-height: 162px;
-        padding-inline: clamp(12px, 4vw, 22px);
+        min-height: clamp(150px, 21svh, 210px);
+        padding-inline: clamp(12px, 3.8vw, 18px);
         padding-top: 0;
+        padding-bottom: clamp(8px, 1.4svh, 12px);
+        z-index: 3;
     }
 
+    /* Grid row 3: device switch panel, explicitly lower */
     .sc-hud {
-        position: absolute;
-        left: 50%;
-        bottom: max(2px, env(safe-area-inset-bottom));
-        transform: translateX(-50%);
-        margin-top: 0;
+        position: relative;
+        grid-row: 3;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        margin-top: 2px;
+        margin-bottom: max(2px, env(safe-area-inset-bottom));
         gap: 8px;
         width: min(94vw, 384px);
+        align-self: end;
+        z-index: 4;
     }
 
     .sc-platform-label {
@@ -3359,12 +3373,12 @@ footer a:hover {
         margin-bottom: 10px;
     }
     .sc-copy-heading br {
-        display: none;
+        display: revert;
     }
     .sc-copy-body {
-        font-size: clamp(1rem, 4vw, 1.14rem);
-        line-height: 1.54;
-        max-width: none;
+        font-size: clamp(0.96rem, 3.6vw, 1.06rem);
+        line-height: 1.48;
+        max-width: 44ch;
         margin: 0 auto;
     }
 }

@@ -1876,13 +1876,15 @@ footer a:hover {
     }
 
     .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.35rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
     }
 
     .page-header-title {
         font-size: 0.86rem;
+        white-space: nowrap;
     }
 
     .features {
@@ -2104,6 +2106,51 @@ footer a:hover {
         border-radius: 7px;
     }
 
+}
+
+@media (max-width: 640px) {
+    header {
+        padding: 0.72rem 0;
+    }
+
+    .brand {
+        gap: 0.4rem;
+        font-size: 1.05rem;
+        min-width: 0;
+    }
+
+    .brand img {
+        height: 24px;
+    }
+
+    .header-cta {
+        gap: 0.24rem;
+        flex-shrink: 0;
+    }
+
+    .header-nav-link {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.74rem;
+        white-space: nowrap;
+    }
+
+    .appstore-link {
+        padding: 0.36rem 0.5rem;
+        font-size: 0.72rem;
+        gap: 0.28rem;
+        white-space: nowrap;
+    }
+
+    .guide-link-icon {
+        width: 26px;
+        height: 26px;
+        font-size: 0.78rem;
+    }
+
+    .page-header-title {
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+    }
 }
 
 /* ── Playbook Teaser (homepage section) ─────────────────── */
@@ -3184,30 +3231,120 @@ footer a:hover {
         justify-content: center;
     }
 
-    .sc-chapter--iphone { height: 360vh; }
-    .sc-chapter--ipad   { height: 330vh; }
-    .sc-chapter--mac    { height: 290vh; }
+    .sc-chapter--iphone { height: 320vh; }
+    .sc-chapter--ipad   { height: 300vh; }
+    .sc-chapter--mac    { height: 270vh; }
 
-    .sc-chapter--iphone .phone-shell  { width: clamp(110px, 36vw, 170px); }
-    .sc-chapter--ipad   .tablet-shell { width: clamp(160px, 52vw, 250px); }
-    .sc-chapter--mac    .desktop-shell{ width: clamp(240px, 84vw, 400px); }
+    .sc-panel {
+        padding:
+            max(18px, env(safe-area-inset-top))
+            14px
+            max(14px, env(safe-area-inset-bottom));
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto auto;
+        align-items: end;
+        justify-items: center;
+    }
 
-    /* On mobile: copy moves below device, full width */
+    .sc-stage {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: min(56vh, 460px);
+        min-height: 330px;
+        max-height: 460px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sc-chapter--iphone .phone-shell  { width: clamp(188px, 56vw, 236px); }
+    .sc-chapter--ipad   .tablet-shell { width: clamp(228px, 72vw, 318px); }
+    .sc-chapter--mac    .desktop-shell{ width: clamp(250px, 86vw, 402px); }
+
+    .sc-device-wrap {
+        transform-origin: center 78%;
+    }
+
+    /* On mobile: copy sits under the device, full width */
     .sc-copy-panel,
     .sc-copy-panel.copy-left {
-        position: absolute;
-        width: 90vw;
-        max-width: 90vw;
-        left: 5vw;
-        right: 5vw;
+        position: relative;
+        width: min(92vw, 370px);
+        max-width: min(92vw, 370px);
+        left: auto;
+        right: auto;
         top: auto;
-        bottom: 11%;
+        bottom: auto;
         transform: none;
+        text-align: center;
+        margin: 0 auto;
+        min-height: 148px;
+    }
+
+    .sc-copy-slot {
+        left: 0;
+        right: 0;
+    }
+
+    .sc-hud {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        margin-top: 10px;
+        gap: 8px;
+    }
+
+    .sc-module-pills {
+        gap: 7px;
+    }
+
+    .sc-pill {
+        padding: 5px 12px;
+        font-size: 0.72rem;
+        cursor: pointer;
+    }
+
+    .showcase-platform-switch {
+        width: min(92vw, 360px);
+    }
+
+    .showcase-platform-pill {
+        min-width: 80px;
         text-align: center;
     }
 
-    /* Satellites hidden on mobile — not enough space */
-    .sc-sat { display: none; }
+    /* Keep layered screenshots visible on phone to feel interactive */
+    .sc-sat {
+        display: block;
+        opacity: 0;
+    }
+
+    .sc-chapter--iphone .sc-sat {
+        width: clamp(88px, 31vw, 126px);
+        border-radius: 14px;
+    }
+    .sc-chapter--iphone .sc-sat--a { top: 10%; left: 66%; transform: rotate(8deg); }
+    .sc-chapter--iphone .sc-sat--b { top: 50%; left: 63%; transform: rotate(3deg); }
+    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 66%; transform: rotate(-8deg); }
+    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 63%; transform: rotate(-3deg); }
+
+    .sc-chapter--ipad .sc-sat {
+        width: clamp(98px, 34vw, 146px);
+        border-radius: 12px;
+    }
+    .sc-chapter--ipad .sc-sat--a { top: 12%; left: 64%; transform: rotate(6deg); }
+    .sc-chapter--ipad .sc-sat--b { top: 52%; left: 61%; transform: rotate(2deg); }
+    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 64%; transform: rotate(-6deg); }
+    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 61%; transform: rotate(-2deg); }
+
+    .sc-chapter--mac .sc-sat {
+        width: clamp(132px, 46vw, 190px);
+        border-radius: 10px;
+    }
+    .sc-chapter--mac .sc-sat--a { bottom: 90%; left: 6%; transform: rotate(-5deg); }
+    .sc-chapter--mac .sc-sat--b { bottom: 88%; right: 6%; transform: rotate(5deg); }
 
     .sc-copy-heading { font-size: 1.3rem; }
     .sc-copy-body    { font-size: 0.84rem; }

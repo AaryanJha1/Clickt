@@ -904,10 +904,54 @@
             .pb-hero h1 { font-size: 1.85rem; }
             .pb-cards { grid-template-columns: 1fr; }
             .pb-ai-grid { grid-template-columns: 1fr; }
-            .pb-module-nav { padding: 0.65rem 1rem; gap: 0.3rem; }
-            .pb-nav-pill { font-size: 0.76rem; padding: 0.35rem 0.7rem; }
+            .pb-module-nav {
+                padding: 0.65rem 1rem;
+                gap: 0.3rem;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .pb-module-nav::-webkit-scrollbar { display: none; }
+            .pb-nav-pill {
+                font-size: 0.76rem;
+                padding: 0.35rem 0.7rem;
+                white-space: nowrap;
+                flex: 0 0 auto;
+            }
+            .playbook-page .page-header {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.55rem;
+            }
+            .playbook-page .brand {
+                font-size: 1.05rem;
+                gap: 0.42rem;
+            }
+            .playbook-page .brand img {
+                height: 22px;
+            }
+            .playbook-page .page-header-title {
+                font-size: 0.76rem;
+                letter-spacing: 0.08em;
+                white-space: nowrap;
+            }
+            .playbook-page.is-mobile-tabs .pb-ai-sub[data-nav-section] {
+                display: none;
+            }
+            .playbook-page.is-mobile-tabs .pb-ai-sub.is-mobile-active {
+                display: block;
+                animation: pb-mobile-fade 0.24s ease;
+            }
             .pb-vis { min-height: 160px; }
             .pv-live-stage { height: 96px; }
+        }
+
+        @keyframes pb-mobile-fade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -1355,18 +1399,87 @@
 
 <script>
     (function () {
-        const sections = document.querySelectorAll('[data-nav-section][id]');
-        const pills    = document.querySelectorAll('.pb-nav-pill');
+        const sections = Array.from(document.querySelectorAll('[data-nav-section][id]'));
+        const pills = Array.from(document.querySelectorAll('.pb-nav-pill'));
+        const mobileSections = Array.from(document.querySelectorAll('.pb-ai-sub[data-nav-section][id]'));
+        const mobileSectionMap = new Map(mobileSections.map((section) => [section.id, section]));
+        const clicktAISection = document.getElementById('clicktai');
+        const mobileQuery = window.matchMedia('(max-width: 640px)');
+
         function setActive(id) {
             pills.forEach(p => p.classList.toggle('is-active', p.getAttribute('href') === '#' + id));
         }
-        const initialId = (window.location.hash || '#clicktai').replace('#', '');
-        if (initialId) setActive(initialId);
+
+        function normalizeTarget(rawTarget) {
+            if (!rawTarget) return 'teams';
+            if (rawTarget === 'clicktai') return 'teams';
+            return mobileSectionMap.has(rawTarget) ? rawTarget : 'teams';
+        }
+
+        function activateMobileSection(targetId, shouldScroll) {
+            const resolved = normalizeTarget(targetId);
+            mobileSections.forEach((section) => {
+                const isActive = section.id === resolved;
+                section.classList.toggle('is-mobile-active', isActive);
+                section.hidden = !isActive;
+            });
+            document.body.classList.add('is-mobile-tabs');
+            setActive(resolved);
+            if (shouldScroll && clicktAISection) {
+                clicktAISection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function deactivateMobileTabs() {
+            mobileSections.forEach((section) => {
+                section.hidden = false;
+                section.classList.remove('is-mobile-active');
+            });
+            document.body.classList.remove('is-mobile-tabs');
+        }
+
+        function syncModeFromHash(shouldScroll) {
+            const hashId = (window.location.hash || '#clicktai').replace('#', '');
+            if (mobileQuery.matches) {
+                activateMobileSection(hashId, shouldScroll);
+                return;
+            }
+            deactivateMobileTabs();
+            setActive(hashId || 'clicktai');
+        }
+
+        pills.forEach((pill) => {
+            pill.addEventListener('click', (event) => {
+                const href = pill.getAttribute('href') || '';
+                if (!href.startsWith('#')) return;
+                if (!mobileQuery.matches) return;
+                event.preventDefault();
+                const rawId = href.replace('#', '');
+                const resolved = normalizeTarget(rawId);
+                window.history.replaceState(null, '', rawId === 'clicktai' ? '#clicktai' : '#' + resolved);
+                activateMobileSection(resolved, true);
+            });
+        });
+
         const observer = new IntersectionObserver(
-            entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+            (entries) => {
+                if (mobileQuery.matches) return;
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setActive(entry.target.id);
+                });
+            },
             { rootMargin: '-25% 0px -55% 0px', threshold: 0 }
         );
-        sections.forEach(s => observer.observe(s));
+        sections.forEach((section) => observer.observe(section));
+
+        const onMediaChange = () => syncModeFromHash(false);
+        if (typeof mobileQuery.addEventListener === 'function') {
+            mobileQuery.addEventListener('change', onMediaChange);
+        } else if (typeof mobileQuery.addListener === 'function') {
+            mobileQuery.addListener(onMediaChange);
+        }
+        window.addEventListener('hashchange', () => syncModeFromHash(false));
+        syncModeFromHash(false);
     }());
 </script>
 

@@ -931,7 +931,7 @@ function setupShowcaseChapter(cfg) {
     let prevStopIdx = -1;
     const stops = cfg.stops;
 
-    ScrollTrigger.create({
+    const chapterTrigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: "bottom bottom",
@@ -1023,6 +1023,30 @@ function setupShowcaseChapter(cfg) {
                     : String(Math.max(0, 1 - (p - 0.04) / 0.06));
             }
         },
+    });
+
+    pillEls.forEach((pill) => {
+        const module = pill.dataset.scPill;
+        if (!module) return;
+        pill.setAttribute("role", "button");
+        pill.setAttribute("tabindex", "0");
+        const jumpToModule = () => {
+            const targetStop = stops.find((entry) => entry.module === module);
+            if (!targetStop || !chapterTrigger) return;
+            const yStart = Number(chapterTrigger.start) || section.offsetTop || 0;
+            const yEnd = Number(chapterTrigger.end) || (yStart + section.offsetHeight - window.innerHeight);
+            const targetY = yStart + Math.max(0, Math.min(0.98, targetStop.from + 0.02)) * (yEnd - yStart);
+            window.scrollTo({
+                top: targetY,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+            });
+        };
+        pill.addEventListener("click", jumpToModule);
+        pill.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            jumpToModule();
+        });
     });
 }
 

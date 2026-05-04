@@ -3241,7 +3241,7 @@ footer a:hover {
         padding:
             max(18px, env(safe-area-inset-top))
             14px
-            max(22px, env(safe-area-inset-bottom));
+            max(8px, env(safe-area-inset-bottom));
         display: grid;
         grid-template-rows: minmax(0, 1fr) auto auto;
         justify-items: center;
@@ -3281,8 +3281,8 @@ footer a:hover {
     .sc-copy-panel.copy-left {
         position: relative;
         grid-row: 2;
-        width: min(96vw, 640px);
-        max-width: min(96vw, 640px);
+        width: min(98vw, 700px);
+        max-width: min(98vw, 700px);
         left: auto;
         right: auto;
         top: auto;
@@ -3293,8 +3293,27 @@ footer a:hover {
         min-height: clamp(150px, 21svh, 210px);
         padding-inline: clamp(12px, 3.8vw, 18px);
         padding-top: 0;
-        padding-bottom: clamp(8px, 1.4svh, 12px);
+        padding-bottom: clamp(12px, 2svh, 20px);
         z-index: 3;
+    }
+
+    /* Override desktop absolute stacking so mobile text cannot overlap the HUD */
+    .sc-copy-slot {
+        position: static;
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .sc-copy-slot.is-active {
+        opacity: 1;
+        max-height: 280px;
+        pointer-events: auto;
     }
 
     /* Grid row 3: device switch panel, explicitly lower */
@@ -3304,8 +3323,8 @@ footer a:hover {
         left: auto;
         bottom: auto;
         transform: none;
-        margin-top: 2px;
-        margin-bottom: max(2px, env(safe-area-inset-bottom));
+        margin-top: clamp(8px, 1.6svh, 14px);
+        margin-bottom: max(10px, env(safe-area-inset-bottom));
         gap: 8px;
         width: min(94vw, 384px);
         align-self: end;
@@ -3378,7 +3397,7 @@ footer a:hover {
     .sc-copy-body {
         font-size: clamp(0.96rem, 3.6vw, 1.06rem);
         line-height: 1.48;
-        max-width: 44ch;
+        max-width: 50ch;
         margin: 0 auto;
     }
 }

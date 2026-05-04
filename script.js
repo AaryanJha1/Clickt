@@ -932,6 +932,7 @@ function setupShowcaseChapter(cfg) {
     const stops = cfg.stops;
     const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
     const mobilePrimaryX = -14;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const applyVisualState = (visualStop, xValue) => {
         if (!visualStop) return;
         scSwapImage(img, visualStop.img);
@@ -969,6 +970,75 @@ function setupShowcaseChapter(cfg) {
         );
     };
 
+    if (isCompactMobile) {
+        const moduleStops = stops.filter((entry) => Boolean(entry.module));
+        const usableStops = moduleStops.length ? moduleStops : stops;
+        let mobileStopIndex = 0;
+        let mobileTimerId = 0;
+
+        const applyMobileStop = (index) => {
+            if (!usableStops.length) return;
+            mobileStopIndex = ((index % usableStops.length) + usableStops.length) % usableStops.length;
+            const activeStop = usableStops[mobileStopIndex];
+            prevStopIdx = stops.indexOf(activeStop);
+            if (wrap) {
+                gsap.set(wrap, {
+                    xPercent: mobilePrimaryX,
+                    rotationY: 0,
+                    rotationZ: 0,
+                    scale: 1,
+                });
+            }
+            applyVisualState(activeStop, mobilePrimaryX);
+            if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
+        };
+
+        const stopMobileAutoplay = () => {
+            if (!mobileTimerId) return;
+            window.clearInterval(mobileTimerId);
+            mobileTimerId = 0;
+        };
+
+        const startMobileAutoplay = () => {
+            if (prefersReducedMotion || usableStops.length <= 1) return;
+            stopMobileAutoplay();
+            mobileTimerId = window.setInterval(() => {
+                applyMobileStop(mobileStopIndex + 1);
+            }, 2600);
+        };
+
+        applyMobileStop(0);
+        startMobileAutoplay();
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopMobileAutoplay();
+                return;
+            }
+            startMobileAutoplay();
+        });
+
+        pillEls.forEach((pill) => {
+            const module = pill.dataset.scPill;
+            if (!module) return;
+            const targetIndex = usableStops.findIndex((entry) => entry.module === module);
+            if (targetIndex < 0) return;
+            pill.setAttribute("role", "button");
+            pill.setAttribute("tabindex", "0");
+            const activate = () => {
+                applyMobileStop(targetIndex);
+                startMobileAutoplay();
+            };
+            pill.addEventListener("click", activate);
+            pill.addEventListener("keydown", (event) => {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                event.preventDefault();
+                activate();
+            });
+        });
+        return;
+    }
+
     const chapterTrigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -993,21 +1063,12 @@ function setupShowcaseChapter(cfg) {
             t = scEaseInOut(t);
 
             // Interpolate device position + rotation + scale
-            if (isCompactMobile) {
-                gsap.set(wrap, {
-                    xPercent: mobilePrimaryX,
-                    rotationY: 0,
-                    rotationZ: 0,
-                    scale: 1,
-                });
-            } else {
-                gsap.set(wrap, {
-                    xPercent:  scLerp(stop.x,     next ? next.x     : stop.x,     t),
-                    rotationY: scLerp(stop.ry,    next ? next.ry    : stop.ry,    t),
-                    rotationZ: scLerp(stop.rz,    next ? next.rz    : stop.rz,    t),
-                    scale:     scLerp(stop.scale, next ? next.scale : stop.scale, t),
-                });
-            }
+            gsap.set(wrap, {
+                xPercent:  scLerp(stop.x,     next ? next.x     : stop.x,     t),
+                rotationY: scLerp(stop.ry,    next ? next.ry    : stop.ry,    t),
+                rotationZ: scLerp(stop.rz,    next ? next.rz    : stop.rz,    t),
+                scale:     scLerp(stop.scale, next ? next.scale : stop.scale, t),
+            });
 
             // Background color (per-stop, not interpolated)
             if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
@@ -1022,7 +1083,7 @@ function setupShowcaseChapter(cfg) {
             // Discrete updates whenever the stop changes
             if (idx !== prevStopIdx) {
                 prevStopIdx = idx;
-                applyVisualState(activeStop, isCompactMobile ? mobilePrimaryX : stop.x);
+                applyVisualState(activeStop, stop.x);
             }
 
             // Scroll hint fades out after first movement
@@ -1033,23 +1094,6 @@ function setupShowcaseChapter(cfg) {
         },
     });
 
-    if (isCompactMobile) {
-        const initialStop = stops.find((entry) => Boolean(entry.module)) || stops[0];
-        if (initialStop) {
-            prevStopIdx = stops.indexOf(initialStop);
-            if (wrap) {
-                gsap.set(wrap, {
-                    xPercent: mobilePrimaryX,
-                    rotationY: 0,
-                    rotationZ: 0,
-                    scale: 1,
-                });
-            }
-            applyVisualState(initialStop, mobilePrimaryX);
-            if (bgEl) bgEl.style.backgroundColor = initialStop.bg;
-        }
-    }
-
     pillEls.forEach((pill) => {
         const module = pill.dataset.scPill;
         if (!module) return;
@@ -1058,20 +1102,6 @@ function setupShowcaseChapter(cfg) {
         const jumpToModule = () => {
             const targetStop = stops.find((entry) => entry.module === module);
             if (!targetStop || !chapterTrigger) return;
-            if (isCompactMobile) {
-                prevStopIdx = stops.indexOf(targetStop);
-                if (wrap) {
-                    gsap.set(wrap, {
-                        xPercent: mobilePrimaryX,
-                        rotationY: 0,
-                        rotationZ: 0,
-                        scale: 1,
-                    });
-                }
-                applyVisualState(targetStop, mobilePrimaryX);
-                if (bgEl) bgEl.style.backgroundColor = targetStop.bg;
-                return;
-            }
             const yStart = Number(chapterTrigger.start) || section.offsetTop || 0;
             const yEnd = Number(chapterTrigger.end) || (yStart + section.offsetHeight - window.innerHeight);
             const targetY = yStart + Math.max(0, Math.min(0.98, targetStop.from + 0.02)) * (yEnd - yStart);

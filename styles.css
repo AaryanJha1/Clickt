@@ -3401,7 +3401,7 @@ footer a:hover {
     .sc-copy-body {
         font-size: clamp(0.96rem, 3.6vw, 1.06rem);
         line-height: 1.48;
-        max-width: min(96vw, 720px);
+        max-width: none;
         margin: 0 auto;
     }
 }

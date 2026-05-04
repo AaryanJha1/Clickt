@@ -805,6 +805,7 @@ function initShowcaseChapters() {
     const P = "IOS Promotion/Clickt Images/";
     const SHARED_SHOWCASE_BG = "#ffffff";
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
     const hasMotionStack = Boolean(window.gsap && window.ScrollTrigger);
     const platformButtons = Array.from(document.querySelectorAll("[data-showcase-platform-btn]"));
     const platformSections = Array.from(document.querySelectorAll("[data-showcase-platform-section]"));
@@ -862,9 +863,14 @@ function initShowcaseChapters() {
         });
 
         const targetConfig = showcaseConfigs[platform];
-        if (hasMotionStack && !prefersReducedMotion && targetConfig && !initializedPlatforms.has(platform)) {
-            setupShowcaseChapter(targetConfig);
-            initializedPlatforms.add(platform);
+        if (targetConfig && !initializedPlatforms.has(platform)) {
+            if (isCompactMobile && hasMotionStack) {
+                setupShowcaseChapter(targetConfig);
+                initializedPlatforms.add(platform);
+            } else if (hasMotionStack && !prefersReducedMotion) {
+                setupShowcaseChapter(targetConfig);
+                initializedPlatforms.add(platform);
+            }
         }
 
         const activeSection = platformSections.find((section) => section.dataset.showcasePlatformSection === platform);
@@ -1000,7 +1006,7 @@ function setupShowcaseChapter(cfg) {
         };
 
         const startMobileAutoplay = () => {
-            if (prefersReducedMotion || usableStops.length <= 1) return;
+            if (usableStops.length <= 1) return;
             stopMobileAutoplay();
             mobileTimerId = window.setInterval(() => {
                 applyMobileStop(mobileStopIndex + 1);

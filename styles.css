@@ -3400,7 +3400,7 @@ footer a:hover {
     }
     .sc-copy-heading {
         font-size: clamp(1.14rem, 4.5vw, 1.44rem);
-        line-height: 2.18;
+        line-height: 1.18;
         margin-bottom: 10px;
         width: 100%;
         max-width: 100%;
@@ -3413,7 +3413,7 @@ footer a:hover {
     }
     .sc-copy-body {
         font-size: clamp(0.96rem, 3.6vw, 1.06rem);
-        line-height: 2.48;
+        line-height: 1.48;
         width: 100%;
         max-width: 100%;
         margin: 0;

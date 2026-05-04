@@ -1,0 +1,22 @@
+{
+  "latest": "q3-sales-review",
+  "scenarios": [
+    {
+      "scenario_id": "q3-sales-review",
+      "title": "Q3 Sales Review Pipeline",
+      "persona": "founder",
+      "clicktai_prompt": "Analyze my Q3 sales data, build a board-ready presentation, and help me assign follow-up actions.",
+      "summary": "ClicktAI takes Q3 sales input through Builder, produces presentation outputs, and drives execution through Teams and Checklist.",
+      "builder_png_url": "demos/builder/q3-sales-review/canvas.png",
+      "presentation_html_url": "demos/presentation/q3-sales-review/deck.html",
+      "presentation_pdf_url": "demos/presentation/q3-sales-review/deck.pdf",
+      "updated_at": "2026-04-28T11:40:00-04:00",
+      "modules": [
+        "teams",
+        "checklist",
+        "builder",
+        "presentation"
+      ]
+    }
+  ]
+}

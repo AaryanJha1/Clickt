@@ -3251,19 +3251,20 @@ footer a:hover {
         width: 100%;
         height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        padding-top: clamp(46px, 8svh, 86px);
+        padding-top: clamp(14px, 3svh, 30px);
+        padding-bottom: clamp(216px, 33svh, 292px);
     }
 
-    .sc-chapter--iphone .phone-shell  { width: clamp(198px, 58vw, 244px); }
-    .sc-chapter--ipad   .tablet-shell { width: clamp(230px, 72vw, 316px); }
-    .sc-chapter--mac    .desktop-shell{ width: clamp(252px, 84vw, 390px); }
+    .sc-chapter--iphone .phone-shell  { width: clamp(184px, 53vw, 226px); }
+    .sc-chapter--ipad   .tablet-shell { width: clamp(214px, 66vw, 296px); }
+    .sc-chapter--mac    .desktop-shell{ width: clamp(236px, 78vw, 360px); }
 
     /* When 3-layer scenes are active, scale the main image down for balance */
-    .sc-chapter--iphone.has-satellites .phone-shell  { width: clamp(174px, 51vw, 218px); }
-    .sc-chapter--ipad.has-satellites   .tablet-shell { width: clamp(206px, 64vw, 286px); }
-    .sc-chapter--mac.has-satellites    .desktop-shell{ width: clamp(226px, 76vw, 344px); }
+    .sc-chapter--iphone.has-satellites .phone-shell  { width: clamp(166px, 48vw, 204px); }
+    .sc-chapter--ipad.has-satellites   .tablet-shell { width: clamp(194px, 60vw, 266px); }
+    .sc-chapter--mac.has-satellites    .desktop-shell{ width: clamp(214px, 72vw, 328px); }
 
     .sc-device-wrap {
         transform-origin: center center;
@@ -3273,23 +3274,24 @@ footer a:hover {
     .sc-copy-panel,
     .sc-copy-panel.copy-left {
         position: absolute;
-        width: min(96vw, 620px);
-        max-width: min(96vw, 620px);
+        width: min(98vw, 680px);
+        max-width: min(98vw, 680px);
         left: 50%;
         right: auto;
         top: auto;
-        bottom: clamp(74px, 10svh, 118px);
+        bottom: clamp(48px, 7svh, 90px);
         transform: translateX(-50%);
         text-align: center;
         margin: 0;
-        min-height: 218px;
+        min-height: 162px;
+        padding-inline: clamp(12px, 4vw, 22px);
         padding-top: 0;
     }
 
     .sc-hud {
         position: absolute;
         left: 50%;
-        bottom: max(8px, env(safe-area-inset-bottom));
+        bottom: max(2px, env(safe-area-inset-bottom));
         transform: translateX(-50%);
         margin-top: 0;
         gap: 8px;
@@ -3352,17 +3354,17 @@ footer a:hover {
 
     .sc-copy-eyebrow { margin-bottom: 8px; }
     .sc-copy-heading {
-        font-size: clamp(1.28rem, 5.1vw, 1.74rem);
-        line-height: 1.2;
-        margin-bottom: 12px;
+        font-size: clamp(1.14rem, 4.5vw, 1.44rem);
+        line-height: 1.18;
+        margin-bottom: 10px;
     }
     .sc-copy-heading br {
-        display: inline;
+        display: none;
     }
     .sc-copy-body {
-        font-size: clamp(0.98rem, 3.8vw, 1.08rem);
-        line-height: 1.68;
-        max-width: 52ch;
+        font-size: clamp(1rem, 4vw, 1.14rem);
+        line-height: 1.54;
+        max-width: none;
         margin: 0 auto;
     }
 }

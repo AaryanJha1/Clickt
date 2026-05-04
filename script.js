@@ -807,6 +807,7 @@ function initShowcaseChapters() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
     const hasMotionStack = Boolean(window.gsap && window.ScrollTrigger);
+    const allowShowcaseMotion = hasMotionStack && (!prefersReducedMotion || isCompactMobile);
     const platformButtons = Array.from(document.querySelectorAll("[data-showcase-platform-btn]"));
     const platformSections = Array.from(document.querySelectorAll("[data-showcase-platform-section]"));
 
@@ -863,14 +864,9 @@ function initShowcaseChapters() {
         });
 
         const targetConfig = showcaseConfigs[platform];
-        if (targetConfig && !initializedPlatforms.has(platform)) {
-            if (isCompactMobile && hasMotionStack) {
-                setupShowcaseChapter(targetConfig);
-                initializedPlatforms.add(platform);
-            } else if (hasMotionStack && !prefersReducedMotion) {
-                setupShowcaseChapter(targetConfig);
-                initializedPlatforms.add(platform);
-            }
+        if (targetConfig && !initializedPlatforms.has(platform) && allowShowcaseMotion) {
+            setupShowcaseChapter(targetConfig);
+            initializedPlatforms.add(platform);
         }
 
         const activeSection = platformSections.find((section) => section.dataset.showcasePlatformSection === platform);
@@ -878,14 +874,14 @@ function initShowcaseChapters() {
             activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        if (hasMotionStack && !prefersReducedMotion) {
+        if (allowShowcaseMotion) {
             window.ScrollTrigger.refresh();
         }
     };
 
     const initialPlatform = platformButtons.find((button) => button.classList.contains("is-active"))?.dataset.showcasePlatformBtn || "iphone";
 
-    if (hasMotionStack && !prefersReducedMotion) {
+    if (allowShowcaseMotion) {
         gsap.registerPlugin(ScrollTrigger);
 
         // Wire Lenis smooth scroll into GSAP's ticker so ScrollTrigger
@@ -936,9 +932,6 @@ function setupShowcaseChapter(cfg) {
 
     let prevStopIdx = -1;
     const stops = cfg.stops;
-    const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
-    const mobilePrimaryX = -14;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const applyVisualState = (visualStop, xValue) => {
         if (!visualStop) return;
         scSwapImage(img, visualStop.img);
@@ -976,75 +969,6 @@ function setupShowcaseChapter(cfg) {
         );
     };
 
-    if (isCompactMobile) {
-        const moduleStops = stops.filter((entry) => Boolean(entry.module));
-        const usableStops = moduleStops.length ? moduleStops : stops;
-        let mobileStopIndex = 0;
-        let mobileTimerId = 0;
-
-        const applyMobileStop = (index) => {
-            if (!usableStops.length) return;
-            mobileStopIndex = ((index % usableStops.length) + usableStops.length) % usableStops.length;
-            const activeStop = usableStops[mobileStopIndex];
-            prevStopIdx = stops.indexOf(activeStop);
-            if (wrap) {
-                gsap.set(wrap, {
-                    xPercent: mobilePrimaryX,
-                    rotationY: 0,
-                    rotationZ: 0,
-                    scale: 1,
-                });
-            }
-            applyVisualState(activeStop, mobilePrimaryX);
-            if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
-        };
-
-        const stopMobileAutoplay = () => {
-            if (!mobileTimerId) return;
-            window.clearInterval(mobileTimerId);
-            mobileTimerId = 0;
-        };
-
-        const startMobileAutoplay = () => {
-            if (usableStops.length <= 1) return;
-            stopMobileAutoplay();
-            mobileTimerId = window.setInterval(() => {
-                applyMobileStop(mobileStopIndex + 1);
-            }, 2600);
-        };
-
-        applyMobileStop(0);
-        startMobileAutoplay();
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                stopMobileAutoplay();
-                return;
-            }
-            startMobileAutoplay();
-        });
-
-        pillEls.forEach((pill) => {
-            const module = pill.dataset.scPill;
-            if (!module) return;
-            const targetIndex = usableStops.findIndex((entry) => entry.module === module);
-            if (targetIndex < 0) return;
-            pill.setAttribute("role", "button");
-            pill.setAttribute("tabindex", "0");
-            const activate = () => {
-                applyMobileStop(targetIndex);
-                startMobileAutoplay();
-            };
-            pill.addEventListener("click", activate);
-            pill.addEventListener("keydown", (event) => {
-                if (event.key !== "Enter" && event.key !== " ") return;
-                event.preventDefault();
-                activate();
-            });
-        });
-        return;
-    }
-
     const chapterTrigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -1060,7 +984,7 @@ function setupShowcaseChapter(cfg) {
             }
             const stop = stops[idx];
             const next = stops[idx + 1];
-            const activeStop = (isCompactMobile && !stop.module)
+            const activeStop = !stop.module
                 ? (stops.find((entry) => Boolean(entry.module)) || stop)
                 : stop;
 

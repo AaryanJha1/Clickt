@@ -3281,8 +3281,8 @@ footer a:hover {
     .sc-copy-panel.copy-left {
         position: relative;
         grid-row: 2;
-        width: 100%;
-        max-width: none;
+        width: 100vw;
+        max-width: 100vw;
         left: auto;
         right: auto;
         top: auto;
@@ -3290,9 +3290,10 @@ footer a:hover {
         transform: none;
         text-align: center;
         margin: 0;
+        margin-inline: calc(50% - 50vw);
         margin-top: clamp(24px, 3.8svh, 46px);
         min-height: clamp(150px, 21svh, 210px);
-        padding-inline: clamp(6px, 2.5vw, 14px);
+        padding-inline: 0;
         padding-top: 0;
         padding-bottom: clamp(8px, 1.4svh, 14px);
         z-index: 3;
@@ -3389,9 +3390,10 @@ footer a:hover {
     .sc-copy-eyebrow { margin-bottom: 8px; }
     .sc-copy-heading {
         font-size: clamp(1.14rem, 4.5vw, 1.44rem);
-        line-height: 1.18;
+        line-height: 2.18;
         margin-bottom: 10px;
-        max-width: min(96vw, 720px);
+        width: 100%;
+        max-width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -3400,8 +3402,9 @@ footer a:hover {
     }
     .sc-copy-body {
         font-size: clamp(0.96rem, 3.6vw, 1.06rem);
-        line-height: 1.48;
-        max-width: none;
+        line-height: 2.48;
+        width: 100%;
+        max-width: 100%;
         margin: 0 auto;
     }
 }

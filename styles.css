@@ -3268,6 +3268,7 @@ footer a:hover {
         align-items: center;
         justify-content: center;
         margin-top: 6px;
+        margin-bottom: 18px;
     }
 
     .sc-chapter--iphone .phone-shell  { width: clamp(198px, 58vw, 248px); }
@@ -3282,8 +3283,8 @@ footer a:hover {
     .sc-copy-panel,
     .sc-copy-panel.copy-left {
         position: relative;
-        width: min(92vw, 370px);
-        max-width: min(92vw, 370px);
+        width: min(94vw, 430px);
+        max-width: min(94vw, 430px);
         left: auto;
         right: auto;
         top: auto;
@@ -3316,14 +3317,13 @@ footer a:hover {
         left: auto;
         bottom: auto;
         transform: none;
-        margin-top: 8px;
+        margin-top: 4px;
         gap: 8px;
         width: min(94vw, 384px);
     }
 
     .sc-module-pills {
-        gap: 7px;
-        width: 100%;
+        display: none;
     }
 
     .sc-pill {
@@ -3348,22 +3348,22 @@ footer a:hover {
     }
 
     .sc-chapter--iphone .sc-sat {
-        width: clamp(80px, 28vw, 114px);
+        width: clamp(70px, 24vw, 98px);
         border-radius: 14px;
     }
-    .sc-chapter--iphone .sc-sat--a { top: 12%; left: 68%; transform: rotate(7deg); }
-    .sc-chapter--iphone .sc-sat--b { top: 54%; left: 65%; transform: rotate(3deg); }
-    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 68%; transform: rotate(-7deg); }
-    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 65%; transform: rotate(-3deg); }
+    .sc-chapter--iphone .sc-sat--a { top: 8%; left: 77%; transform: rotate(8deg); }
+    .sc-chapter--iphone .sc-sat--b { top: 40%; left: 74%; transform: rotate(4deg); }
+    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 77%; transform: rotate(-8deg); }
+    .sc-chapter--iphone .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 74%; transform: rotate(-4deg); }
 
     .sc-chapter--ipad .sc-sat {
-        width: clamp(94px, 31vw, 132px);
+        width: clamp(84px, 28vw, 118px);
         border-radius: 12px;
     }
-    .sc-chapter--ipad .sc-sat--a { top: 14%; left: 66%; transform: rotate(5deg); }
-    .sc-chapter--ipad .sc-sat--b { top: 55%; left: 63%; transform: rotate(1deg); }
-    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 66%; transform: rotate(-5deg); }
-    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 63%; transform: rotate(-1deg); }
+    .sc-chapter--ipad .sc-sat--a { top: 10%; left: 76%; transform: rotate(6deg); }
+    .sc-chapter--ipad .sc-sat--b { top: 42%; left: 73%; transform: rotate(2deg); }
+    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--a { left: auto; right: 76%; transform: rotate(-6deg); }
+    .sc-chapter--ipad .sc-device-wrap.sat-left .sc-sat--b { left: auto; right: 73%; transform: rotate(-2deg); }
 
     .sc-chapter--mac .sc-sat {
         width: clamp(116px, 42vw, 168px);
@@ -3379,9 +3379,9 @@ footer a:hover {
         margin-bottom: 10px;
     }
     .sc-copy-body {
-        font-size: 0.8rem;
-        line-height: 1.5;
-        max-width: 22ch;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        max-width: 40ch;
         margin: 0 auto;
     }
 }

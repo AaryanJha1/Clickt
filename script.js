@@ -931,6 +931,7 @@ function setupShowcaseChapter(cfg) {
     let prevStopIdx = -1;
     const stops = cfg.stops;
     const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
+    const mobilePrimaryX = -14;
     const applyVisualState = (visualStop, xValue) => {
         if (!visualStop) return;
         scSwapImage(img, visualStop.img);
@@ -992,12 +993,21 @@ function setupShowcaseChapter(cfg) {
             t = scEaseInOut(t);
 
             // Interpolate device position + rotation + scale
-            gsap.set(wrap, {
-                xPercent:  scLerp(stop.x,     next ? next.x     : stop.x,     t),
-                rotationY: scLerp(stop.ry,    next ? next.ry    : stop.ry,    t),
-                rotationZ: scLerp(stop.rz,    next ? next.rz    : stop.rz,    t),
-                scale:     scLerp(stop.scale, next ? next.scale : stop.scale, t),
-            });
+            if (isCompactMobile) {
+                gsap.set(wrap, {
+                    xPercent: mobilePrimaryX,
+                    rotationY: 0,
+                    rotationZ: 0,
+                    scale: 1,
+                });
+            } else {
+                gsap.set(wrap, {
+                    xPercent:  scLerp(stop.x,     next ? next.x     : stop.x,     t),
+                    rotationY: scLerp(stop.ry,    next ? next.ry    : stop.ry,    t),
+                    rotationZ: scLerp(stop.rz,    next ? next.rz    : stop.rz,    t),
+                    scale:     scLerp(stop.scale, next ? next.scale : stop.scale, t),
+                });
+            }
 
             // Background color (per-stop, not interpolated)
             if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
@@ -1012,7 +1022,7 @@ function setupShowcaseChapter(cfg) {
             // Discrete updates whenever the stop changes
             if (idx !== prevStopIdx) {
                 prevStopIdx = idx;
-                applyVisualState(activeStop, stop.x);
+                applyVisualState(activeStop, isCompactMobile ? mobilePrimaryX : stop.x);
             }
 
             // Scroll hint fades out after first movement
@@ -1029,13 +1039,13 @@ function setupShowcaseChapter(cfg) {
             prevStopIdx = stops.indexOf(initialStop);
             if (wrap) {
                 gsap.set(wrap, {
-                    xPercent: 0,
+                    xPercent: mobilePrimaryX,
                     rotationY: 0,
                     rotationZ: 0,
                     scale: 1,
                 });
             }
-            applyVisualState(initialStop, 0);
+            applyVisualState(initialStop, mobilePrimaryX);
             if (bgEl) bgEl.style.backgroundColor = initialStop.bg;
         }
     }
@@ -1052,13 +1062,13 @@ function setupShowcaseChapter(cfg) {
                 prevStopIdx = stops.indexOf(targetStop);
                 if (wrap) {
                     gsap.set(wrap, {
-                        xPercent: 0,
+                        xPercent: mobilePrimaryX,
                         rotationY: 0,
                         rotationZ: 0,
                         scale: 1,
                     });
                 }
-                applyVisualState(targetStop, 0);
+                applyVisualState(targetStop, mobilePrimaryX);
                 if (bgEl) bgEl.style.backgroundColor = targetStop.bg;
                 return;
             }

@@ -24,6 +24,47 @@
         }
         .pb-hero h1 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
         .pb-hero > p { font-size: 1rem; color: var(--brand-muted); margin: 0 auto; max-width: 480px; }
+        .pb-scenario-select-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 0.25rem 1rem 0.7rem;
+        }
+        .pb-scenario-select {
+            border: 1px solid var(--brand-border);
+            background: #fff;
+            color: var(--brand-muted);
+            border-radius: 12px;
+            padding: 0.52rem 0.85rem;
+            min-width: 220px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: border-color 0.18s, box-shadow 0.18s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #64748b 50%),
+                linear-gradient(135deg, #64748b 50%, transparent 50%);
+            background-position:
+                calc(100% - 18px) calc(50% - 3px),
+                calc(100% - 12px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+            padding-right: 2.2rem;
+            text-align: center;
+            text-align-last: center;
+        }
+        .pb-scenario-select:hover,
+        .pb-scenario-select:focus-visible {
+            border-color: #94a3b8;
+            color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+            outline: none;
+        }
 
         /* ══ Sticky nav ══════════════════════════════════════ */
         .pb-module-nav {
@@ -57,6 +98,13 @@
             margin-bottom: 0.65rem;
         }
         .pb-section-header h2 { font-size: 1.5rem; margin-bottom: 0; }
+        .pb-section-header p {
+            margin-top: 0.55rem;
+            margin-bottom: 0;
+            font-size: 0.96rem;
+            color: var(--brand-muted);
+            max-width: 760px;
+        }
 
         /* ══ 2-col card grid ═════════════════════════════════ */
         .pb-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
@@ -176,12 +224,28 @@
             z-index: 1;
         }
         .pb-ai-sub-header {
-            display: flex; align-items: center; gap: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.4rem;
             margin-bottom: 1rem;
             padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--brand-border);
         }
         .pb-ai-sub-header .pb-module-badge { margin-bottom: 0; }
+        .pb-ai-sub-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            line-height: 1.2;
+            color: var(--brand-text);
+        }
+        .pb-ai-sub-header p {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: var(--brand-muted);
+            max-width: 760px;
+        }
         /* 3-column grid for AI cards */
         .pb-ai-grid {
             display: grid;
@@ -905,20 +969,25 @@
             .pb-cards { grid-template-columns: 1fr; }
             .pb-ai-grid { grid-template-columns: 1fr; }
             .pb-module-nav {
-                padding: 0.65rem 1rem;
-                gap: 0.3rem;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
+                padding: 0.65rem 0.5rem;
+                gap: 0.28rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                overflow: visible;
             }
-            .pb-module-nav::-webkit-scrollbar { display: none; }
             .pb-nav-pill {
-                font-size: 0.76rem;
-                padding: 0.35rem 0.7rem;
+                font-size: 0.74rem;
+                padding: 0.33rem 0.58rem;
                 white-space: nowrap;
                 flex: 0 0 auto;
+            }
+            .pb-scenario-select-wrap {
+                padding: 0.2rem 0.9rem 0.6rem;
+                align-items: stretch;
+            }
+            .pb-scenario-select {
+                width: 100%;
+                min-width: 0;
             }
             .playbook-page .page-header {
                 flex-direction: row;
@@ -970,13 +1039,21 @@
 <!-- Hero -->
 <div class="container">
     <div class="pb-hero">
-        <span class="pb-kicker">Playbook</span>
-        <h1>See it work in your world</h1>
-        <p>Real scenarios. Every module. Watch the workflows play out.</p>
+        <span class="pb-kicker">Clickt Playbook</span>
+        <h1>One workflow. AI when you want it.</h1>
+        <p>Run Teams, Checklist, Builder, and Presentation end-to-end with manual control or AI acceleration.</p>
     </div>
 </div>
 
 <!-- Sticky nav — ClicktAI first -->
+<div class="pb-scenario-select-wrap" aria-label="Scenario switcher">
+    <select id="pb-scenario-select" class="pb-scenario-select" aria-label="Choose scenario">
+        <option value="launch" selected>Launch Week</option>
+        <option value="onboarding">Onboarding</option>
+        <option value="weekly">Weekly Report</option>
+        <option value="class">Class Project</option>
+    </select>
+</div>
 <nav class="pb-module-nav" aria-label="Jump to module">
     <a href="#clicktai"     class="pb-nav-pill pb--ai">
         <span class="pb-nav-dot" style="background:#16a34a"></span>ClicktAI
@@ -1002,13 +1079,16 @@
   <section class="pb-section" id="clicktai" data-nav-section>
     <div class="pb-section-header pb--ai">
         <span class="pb-module-badge">ClicktAI</span>
-        <h2>Your AI that actually does the work</h2>
+        <h2>How work moves from idea to outcome</h2>
+        <p>Each module shows two paths: Standard Flow for manual control, and AI Flow for speed.</p>
     </div>
 
     <!-- ── ClicktAI × Teams ──────────────────────────────── -->
     <div class="pb-ai-sub" id="teams" data-nav-section>
         <div class="pb-ai-sub-header pb--teams">
             <span class="pb-module-badge" style="margin-bottom:0">Teams</span>
+            <h3>Turn plans into owned work</h3>
+            <p>Define who does what, by when, and what success looks like.</p>
         </div>
         <div class="pb-ai-grid">
 
@@ -1019,17 +1099,17 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"In Launch Week, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."</span>
+                    <span class="pb-ai-text" data-sf="teams_t1_prompt">"In Launch Week, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t1-card">
-                        <div class="ai-t1-stage">Creating assignment in Launch Week...</div>
+                        <div class="ai-t1-stage" data-sf="teams_t1_stage">Creating assignment in Launch Week...</div>
                         <div class="ai-t1-top">
                             <span class="pv-avatar" style="background:#1e40af">AJ</span>
-                            <span class="ai-t1-name">Finalize app store screenshots</span>
-                            <span class="ai-t1-due">Due 05/02 17:00</span>
+                            <span class="ai-t1-name" data-sf="teams_t1_name">Finalize app store screenshots</span>
+                            <span class="ai-t1-due" data-sf="teams_t1_due">Due 05/02 17:00</span>
                         </div>
-                        <div class="ai-t1-meta">@aaryanjha • iOS + Android sizes/captions</div>
+                        <div class="ai-t1-meta" data-sf="teams_t1_meta">@aaryanjha • iOS + Android sizes/captions</div>
                         <span class="ai-t1-confirm">✓ Task assigned + assignee notified</span>
                     </div>
                 </div>
@@ -1042,17 +1122,17 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"In Launch Week, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."</span>
+                    <span class="pb-ai-text" data-sf="teams_t2_prompt">"In Launch Week, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t2-wrap">
-                        <div class="ai-t2-card-title">Launch Day Bug Bash</div>
+                        <div class="ai-t2-card-title" data-sf="teams_t2_title">Launch Day Bug Bash</div>
                         <div class="ai-t2-pool">
-                            <span class="ai-t2-ticket">Claim by: 05/01 15:00</span>
+                            <span class="ai-t2-ticket" data-sf="teams_t2_claim">Claim by: 05/01 15:00</span>
                             <span class="ai-t2-ticket hot">First-to-claim</span>
-                            <span class="ai-t2-ticket">Due: 05/03 18:00</span>
+                            <span class="ai-t2-ticket" data-sf="teams_t2_due">Due: 05/03 18:00</span>
                         </div>
-                        <span class="ai-t2-status">✓ Claimed by a teammate, deadline synced</span>
+                        <span class="ai-t2-status" data-sf="teams_t2_status">✓ Claimed by a teammate, deadline synced</span>
                     </div>
                 </div>
             </div>
@@ -1064,30 +1144,30 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Give me a weekly summary for Launch Week — what was completed, what's still open, and who owns what."</span>
+                    <span class="pb-ai-text" data-sf="teams_t3_prompt">"Give me a weekly summary for Launch Week — what was completed, what's still open, and who owns what."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t3-wrap">
                         <div class="ai-t3-kpis">
-                            <span class="ai-t3-kpi done">Done 7</span>
-                            <span class="ai-t3-kpi open">Open 4</span>
-                            <span class="ai-t3-kpi late">Overdue 1</span>
+                            <span class="ai-t3-kpi done" data-sf="teams_t3_done">Done 7</span>
+                            <span class="ai-t3-kpi open" data-sf="teams_t3_open">Open 4</span>
+                            <span class="ai-t3-kpi late" data-sf="teams_t3_late">Overdue 1</span>
                         </div>
                         <div class="ai-t3-row">
                             <span class="pv-dot high"></span>
-                            App store screenshots
+                            <span data-sf="teams_t3_row1">App store screenshots</span>
                             <span class="ai-t3-who">aaryanjha</span>
                             <span class="ai-t3-due">May 2</span>
                         </div>
                         <div class="ai-t3-row">
                             <span class="pv-dot med"></span>
-                            Launch theme vote
+                            <span data-sf="teams_t3_row2">Launch theme vote</span>
                             <span class="ai-t3-who">aaryan</span>
                             <span class="ai-t3-due">May 1</span>
                         </div>
                         <div class="ai-t3-row">
                             <span class="pv-dot low"></span>
-                            Daily updates post
+                            <span data-sf="teams_t3_row3">Daily updates post</span>
                             <span class="ai-t3-who">Team</span>
                             <span class="ai-t3-due">6 PM</span>
                         </div>
@@ -1102,6 +1182,8 @@
     <div class="pb-ai-sub" id="checklist" data-nav-section>
         <div class="pb-ai-sub-header pb--checklist">
             <span class="pb-module-badge" style="margin-bottom:0">Checklist</span>
+            <h3>Keep every detail on track</h3>
+            <p>Break goals into repeatable checklists that stay synced.</p>
         </div>
         <div class="pb-ai-grid">
 
@@ -1112,7 +1194,7 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Add almond butter and dark chocolate to my Weekly Grocery Run checklist with priority medium."</span>
+                    <span class="pb-ai-text" data-sf="check_t1_prompt">"Add almond butter and dark chocolate to my Weekly Grocery Run checklist with priority medium."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f0fdf4">
                     <div class="ai-c1-wrap">
@@ -1120,12 +1202,12 @@
                         <div class="ai-c1-existing"><span class="ai-c1-check-done"></span>whole milk</div>
                         <div class="ai-c1-new">
                             <span class="ai-c1-new-dot"></span>
-                            almond butter
+                            <span data-sf="check_t1_new1">almond butter</span>
                             <span class="ai-c1-due-tag">Medium</span>
                         </div>
                         <div class="ai-c1-new ai-c1-new-2">
                             <span class="ai-c1-new-dot"></span>
-                            dark chocolate
+                            <span data-sf="check_t1_new2">dark chocolate</span>
                             <span class="ai-c1-due-tag">Medium</span>
                         </div>
                     </div>
@@ -1139,24 +1221,24 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Show me all open checklist items that aren't done yet, sorted by priority."</span>
+                    <span class="pb-ai-text" data-sf="check_t2_prompt">"Show me all open checklist items that aren't done yet, sorted by priority."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f0fdf4">
                     <div class="ai-c2-wrap">
                         <div class="ai-c2-row">
                             <span class="ai-c2-rank">1</span>
                             <span class="pv-badge" style="background:#fee2e2;color:#b91c1c">High</span>
-                            Investor deck final review
+                            <span data-sf="check_t2_row1">Investor deck final review</span>
                         </div>
                         <div class="ai-c2-row">
                             <span class="ai-c2-rank">2</span>
                             <span class="pv-badge" style="background:#fef3c7;color:#92400e">Med</span>
-                            Team budget update
+                            <span data-sf="check_t2_row2">Team budget update</span>
                         </div>
                         <div class="ai-c2-row">
                             <span class="ai-c2-rank">3</span>
                             <span class="pv-badge" style="background:#d1fae5;color:#065f46">Low</span>
-                            Screenshot archive cleanup
+                            <span data-sf="check_t2_row3">Screenshot archive cleanup</span>
                         </div>
                     </div>
                 </div>
@@ -1169,14 +1251,14 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Mark bench press and shoulder press as done in my Push Day Workout checklist."</span>
+                    <span class="pb-ai-text" data-sf="check_t3_prompt">"Mark bench press and shoulder press as done in my Push Day Workout checklist."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f0fdf4">
                     <div class="ai-c3-wrap">
-                        <div class="ai-c3-row"><span class="ai-c3-box"></span> Bench press</div>
-                        <div class="ai-c3-row"><span class="ai-c3-box"></span> Shoulder press</div>
-                        <div class="ai-c3-row"><span class="ai-c3-box"></span> Incline dumbbell press</div>
-                        <div class="ai-c3-row"><span class="ai-c3-box"></span> Lateral raises</div>
+                        <div class="ai-c3-row"><span class="ai-c3-box"></span> <span data-sf="check_t3_row1">Bench press</span></div>
+                        <div class="ai-c3-row"><span class="ai-c3-box"></span> <span data-sf="check_t3_row2">Shoulder press</span></div>
+                        <div class="ai-c3-row"><span class="ai-c3-box"></span> <span data-sf="check_t3_row3">Incline dumbbell press</span></div>
+                        <div class="ai-c3-row"><span class="ai-c3-box"></span> <span data-sf="check_t3_row4">Lateral raises</span></div>
                         <div class="ai-c3-progress"><div class="ai-c3-fill"></div></div>
                     </div>
                 </div>
@@ -1189,6 +1271,8 @@
     <div class="pb-ai-sub" id="builder" data-nav-section>
         <div class="pb-ai-sub-header pb--builder">
             <span class="pb-module-badge" style="margin-bottom:0">Builder</span>
+            <h3>Convert raw data into decisions</h3>
+            <p>Import data, find patterns, and produce stakeholder-ready insights.</p>
         </div>
         <div class="pb-ai-grid">
 
@@ -1199,15 +1283,15 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Build me a dashboard"</span>
+                    <span class="pb-ai-text" data-sf="builder_t1_prompt">"Build me a dashboard"</span>
                 </div>
                 <div class="pb-ai-result" style="background:#fffdf0">
                     <div class="ai-b1-wrap">
-                        <div class="ai-b1-source">🧠 Builder Wizard: layout + KPIs + charts</div>
+                        <div class="ai-b1-source" data-sf="builder_t1_source">🧠 Builder Wizard: layout + KPIs + charts</div>
                         <div class="ai-b1-kpis">
-                            <span>Revenue</span>
-                            <span>Conversion</span>
-                            <span>Retention</span>
+                            <span data-sf="builder_t1_kpi1">Revenue</span>
+                            <span data-sf="builder_t1_kpi2">Conversion</span>
+                            <span data-sf="builder_t1_kpi3">Retention</span>
                         </div>
                         <div class="ai-b1-bars">
                             <div class="ai-b1-bar"></div>
@@ -1226,18 +1310,18 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Use the Manchester United Demo dataset and show me the columns first."</span>
+                    <span class="pb-ai-text" data-sf="builder_t2_prompt">"Use the Manchester United Demo dataset and show me the columns first."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#fffdf0">
                     <div class="ai-b2-wrap">
                         <div class="ai-b2-step">
-                            <span class="ai-b2-num">1</span> Match Date
+                            <span class="ai-b2-num">1</span> <span data-sf="builder_t2_step1">Match Date</span>
                         </div>
                         <div class="ai-b2-step">
-                            <span class="ai-b2-num">2</span> Match Team
+                            <span class="ai-b2-num">2</span> <span data-sf="builder_t2_step2">Match Team</span>
                         </div>
                         <div class="ai-b2-step">
-                            <span class="ai-b2-num">3</span> Match Revenue
+                            <span class="ai-b2-num">3</span> <span data-sf="builder_t2_step3">Match Revenue</span>
                         </div>
                     </div>
                 </div>
@@ -1250,15 +1334,15 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Build a weekly performance report in canvas with one trend chart, one comparison chart, and one summary table."</span>
+                    <span class="pb-ai-text" data-sf="builder_t3_prompt">"Build a weekly performance report in canvas with one trend chart, one comparison chart, and one summary table."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#fffdf0">
                     <div class="ai-b3-report">
-                        <div class="ai-b3-title">Weekly performance report</div>
+                        <div class="ai-b3-title" data-sf="builder_t3_title">Weekly performance report</div>
                         <div class="ai-b3-modules">
-                            <span class="ai-b3-module">Trend chart</span>
-                            <span class="ai-b3-module">Comparison chart</span>
-                            <span class="ai-b3-module">Summary table</span>
+                            <span class="ai-b3-module" data-sf="builder_t3_module1">Trend chart</span>
+                            <span class="ai-b3-module" data-sf="builder_t3_module2">Comparison chart</span>
+                            <span class="ai-b3-module" data-sf="builder_t3_module3">Summary table</span>
                         </div>
                         <div class="ai-b3-lines">
                             <div class="ai-b3-line" style="width:88%"></div>
@@ -1276,6 +1360,8 @@
     <div class="pb-ai-sub" id="presentation" data-nav-section>
         <div class="pb-ai-sub-header pb--pres">
             <span class="pb-module-badge" style="margin-bottom:0">Presentation</span>
+            <h3>Ship the story, not just the data</h3>
+            <p>Turn work and insights into polished decks in minutes.</p>
         </div>
         <div class="pb-ai-grid">
 
@@ -1288,7 +1374,7 @@
                         <span class="pb-ai-mode exec">Execute</span>
                         <span class="pb-ai-demo-pill">HTML Demo</span>
                     </div>
-                    <span class="pb-ai-text">"Create a presentation titled Manchester United with 8 slides."</span>
+                    <span class="pb-ai-text" data-sf="pres_t1_prompt">"Create a presentation titled Manchester United with 8 slides."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#faf8ff">
                     <div class="ai-p1-slides">
@@ -1301,7 +1387,7 @@
                         <div class="ai-p1-thumb"><div class="ai-p1-head"></div><div class="ai-p1-body"><div class="ai-p1-line"></div><div class="ai-p1-line" style="width:60%"></div></div></div>
                         <div class="ai-p1-thumb"><div class="ai-p1-head"></div><div class="ai-p1-body"><div class="ai-p1-line"></div><div class="ai-p1-line" style="width:60%"></div></div></div>
                     </div>
-                    <span class="ai-p1-count">8 slides generated</span>
+                    <span class="ai-p1-count" data-sf="pres_t1_count">8 slides generated</span>
                 </div>
             </div>
             </a>
@@ -1313,7 +1399,7 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text">"Apply brand profile Clickt Blue to the current deck and regenerate slide visuals to match brand rules."</span>
+                    <span class="pb-ai-text" data-sf="pres_t2_prompt">"Apply brand profile Clickt Blue to the current deck and regenerate slide visuals to match brand rules."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#faf8ff; position:relative;">
                     <div class="ai-p2-wrap">
@@ -1335,7 +1421,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="ai-p2-badge">Clickt Blue applied ✓</span>
+                    <span class="ai-p2-badge" data-sf="pres_t2_badge">Clickt Blue applied ✓</span>
                 </div>
             </div>
 
@@ -1348,7 +1434,7 @@
                         <span class="pb-ai-mode exec">Execute</span>
                         <span class="pb-ai-demo-pill">PDF Demo</span>
                     </div>
-                    <span class="pb-ai-text">"Export the current deck as PDF."</span>
+                    <span class="pb-ai-text" data-sf="pres_t3_prompt">"Export the current deck as PDF."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#faf8ff">
                     <div class="ai-p3-wrap">
@@ -1367,7 +1453,7 @@
                             <span class="ai-p3-lbl">Download PDF</span>
                         </div>
                     </div>
-                    <span class="ai-p3-done">deck.pdf ready</span>
+                    <span class="ai-p3-done" data-sf="pres_t3_done">deck.pdf ready</span>
                 </div>
             </div>
             </a>
@@ -1381,10 +1467,9 @@
 <!-- CTA -->
 <div class="container">
     <div class="pb-cta">
-        <h2>Ready to put it all together?</h2>
-        <p>Download Clickt and run your first workflow today.</p>
+        <h2>Start your first end-to-end workflow today</h2>
+        <p>Pick one project, run it in Clickt, and see how much faster execution gets with AI on your side.</p>
         <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="btn" target="_blank" rel="noopener noreferrer">
-            <span class="apple-symbol" aria-hidden="true"></span>
             Download on the App Store
         </a>
     </div>
@@ -1401,10 +1486,231 @@
     (function () {
         const sections = Array.from(document.querySelectorAll('[data-nav-section][id]'));
         const pills = Array.from(document.querySelectorAll('.pb-nav-pill'));
+        const scenarioSelect = document.getElementById('pb-scenario-select');
         const mobileSections = Array.from(document.querySelectorAll('.pb-ai-sub[data-nav-section][id]'));
         const mobileSectionMap = new Map(mobileSections.map((section) => [section.id, section]));
         const clicktAISection = document.getElementById('clicktai');
         const mobileQuery = window.matchMedia('(max-width: 640px)');
+        const scenarioContent = {
+            launch: {
+                teams_t1_prompt: '"In Launch Week, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."',
+                teams_t1_stage: 'Creating assignment in Launch Week...',
+                teams_t1_name: 'Finalize app store screenshots',
+                teams_t1_due: 'Due 05/02 17:00',
+                teams_t1_meta: '@aaryanjha • iOS + Android sizes/captions',
+                teams_t2_prompt: '"In Launch Week, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."',
+                teams_t2_title: 'Launch Day Bug Bash',
+                teams_t2_claim: 'Claim by: 05/01 15:00',
+                teams_t2_due: 'Due: 05/03 18:00',
+                teams_t2_status: '✓ Claimed by a teammate, deadline synced',
+                teams_t3_prompt: '"Give me a weekly summary for Launch Week — what was completed, what\'s still open, and who owns what."',
+                teams_t3_done: 'Done 7',
+                teams_t3_open: 'Open 4',
+                teams_t3_late: 'Overdue 1',
+                teams_t3_row1: 'App store screenshots',
+                teams_t3_row2: 'Launch theme vote',
+                teams_t3_row3: 'Daily updates post',
+                check_t1_prompt: '"Add almond butter and dark chocolate to my Weekly Grocery Run checklist with priority medium."',
+                check_t1_new1: 'almond butter',
+                check_t1_new2: 'dark chocolate',
+                check_t2_prompt: '"Show me all open checklist items that aren\'t done yet, sorted by priority."',
+                check_t2_row1: 'Investor deck final review',
+                check_t2_row2: 'Team budget update',
+                check_t2_row3: 'Screenshot archive cleanup',
+                check_t3_prompt: '"Mark bench press and shoulder press as done in my Push Day Workout checklist."',
+                check_t3_row1: 'Bench press',
+                check_t3_row2: 'Shoulder press',
+                check_t3_row3: 'Incline dumbbell press',
+                check_t3_row4: 'Lateral raises',
+                builder_t1_prompt: '"Build me a dashboard."',
+                builder_t1_source: '🧠 Builder Wizard: layout + KPIs + charts',
+                builder_t1_kpi1: 'Revenue',
+                builder_t1_kpi2: 'Conversion',
+                builder_t1_kpi3: 'Retention',
+                builder_t2_prompt: '"Use the Manchester United Demo dataset and show me the columns first."',
+                builder_t2_step1: 'Match Date',
+                builder_t2_step2: 'Match Team',
+                builder_t2_step3: 'Match Revenue',
+                builder_t3_prompt: '"Build a weekly performance report in canvas with one trend chart, one comparison chart, and one summary table."',
+                builder_t3_title: 'Weekly performance report',
+                builder_t3_module1: 'Trend chart',
+                builder_t3_module2: 'Comparison chart',
+                builder_t3_module3: 'Summary table',
+                pres_t1_prompt: '"Create a presentation titled Manchester United with 8 slides."',
+                pres_t1_count: '8 slides generated',
+                pres_t2_prompt: '"Apply brand profile Clickt Blue to the current deck and regenerate slide visuals to match brand rules."',
+                pres_t2_badge: 'Clickt Blue applied ✓',
+                pres_t3_prompt: '"Export the current deck as PDF."',
+                pres_t3_done: 'deck.pdf ready',
+            },
+            onboarding: {
+                teams_t1_prompt: '"For New Hire Onboarding, assign aaryanjha a task titled Set up workspace access and set deadline to 2026-05-06 11:00."',
+                teams_t1_stage: 'Creating assignment in New Hire Onboarding...',
+                teams_t1_name: 'Set up workspace access',
+                teams_t1_due: 'Due 05/06 11:00',
+                teams_t1_meta: '@aaryanjha • tools, docs, permissions',
+                teams_t2_prompt: '"In New Hire Onboarding, create a first-to-claim task titled Buddy intro call with claim deadline 2026-05-05 16:00 and task deadline 2026-05-07 17:00."',
+                teams_t2_title: 'Buddy intro call',
+                teams_t2_claim: 'Claim by: 05/05 16:00',
+                teams_t2_due: 'Due: 05/07 17:00',
+                teams_t2_status: '✓ Claimed by a mentor, calendar synced',
+                teams_t3_prompt: '"Give me an onboarding summary: completed, pending, and ownership status."',
+                teams_t3_done: 'Done 5',
+                teams_t3_open: 'Open 3',
+                teams_t3_late: 'Overdue 0',
+                teams_t3_row1: 'Accounts + tools setup',
+                teams_t3_row2: 'Team intro meeting',
+                teams_t3_row3: 'First task walkthrough',
+                check_t1_prompt: '"Add laptop handoff and email signature setup to the New Hire Day 1 checklist with priority high."',
+                check_t1_new1: 'laptop handoff',
+                check_t1_new2: 'email signature setup',
+                check_t2_prompt: '"Show onboarding checklist items still open, highest priority first."',
+                check_t2_row1: 'Security training completion',
+                check_t2_row2: 'Benefits enrollment review',
+                check_t2_row3: 'Profile photo upload',
+                check_t3_prompt: '"Mark ID verification and handbook acknowledgment as completed in New Hire Day 1."',
+                check_t3_row1: 'ID verification',
+                check_t3_row2: 'Handbook acknowledgment',
+                check_t3_row3: 'Tool login confirmation',
+                check_t3_row4: 'Manager check-in note',
+                builder_t1_prompt: '"Build an onboarding health dashboard."',
+                builder_t1_source: '🧠 Builder Wizard: onboarding KPIs + completion trends',
+                builder_t1_kpi1: 'Completion',
+                builder_t1_kpi2: 'Time-to-ready',
+                builder_t1_kpi3: 'Escalations',
+                builder_t2_prompt: '"Use onboarding dataset and list the core columns first."',
+                builder_t2_step1: 'Employee Name',
+                builder_t2_step2: 'Task Status',
+                builder_t2_step3: 'Days to Complete',
+                builder_t3_prompt: '"Build an onboarding status report with completion trend, blockers, and summary table."',
+                builder_t3_title: 'Onboarding status report',
+                builder_t3_module1: 'Completion trend',
+                builder_t3_module2: 'Blocker breakdown',
+                builder_t3_module3: 'Summary table',
+                pres_t1_prompt: '"Create a presentation titled Onboarding Health Review with 6 slides."',
+                pres_t1_count: '6 slides generated',
+                pres_t2_prompt: '"Apply Clickt Blue profile to this onboarding deck and refresh layouts."',
+                pres_t2_badge: 'Onboarding style applied ✓',
+                pres_t3_prompt: '"Export the onboarding review deck as PDF."',
+                pres_t3_done: 'onboarding-review.pdf ready',
+            },
+            weekly: {
+                teams_t1_prompt: '"In Weekly Operations, assign aaryanjha task Publish weekly KPI digest and set deadline to 2026-05-08 10:00."',
+                teams_t1_stage: 'Creating assignment in Weekly Operations...',
+                teams_t1_name: 'Publish weekly KPI digest',
+                teams_t1_due: 'Due 05/08 10:00',
+                teams_t1_meta: '@aaryanjha • summary, risks, next steps',
+                teams_t2_prompt: '"Create a first-to-claim task Weekly blockers review with claim deadline 2026-05-07 14:00 and due 2026-05-08 13:00."',
+                teams_t2_title: 'Weekly blockers review',
+                teams_t2_claim: 'Claim by: 05/07 14:00',
+                teams_t2_due: 'Due: 05/08 13:00',
+                teams_t2_status: '✓ Claimed by ops lead, reminders sent',
+                teams_t3_prompt: '"Summarize this week: done, open, overdue, and owners."',
+                teams_t3_done: 'Done 14',
+                teams_t3_open: 'Open 6',
+                teams_t3_late: 'Overdue 2',
+                teams_t3_row1: 'Revenue trend update',
+                teams_t3_row2: 'Support backlog review',
+                teams_t3_row3: 'Roadmap status sync',
+                check_t1_prompt: '"Add validate CRM export and verify dashboard totals to Weekly Reporting checklist, priority high."',
+                check_t1_new1: 'validate CRM export',
+                check_t1_new2: 'verify dashboard totals',
+                check_t2_prompt: '"Show weekly-report checklist items still open by priority."',
+                check_t2_row1: 'Executive summary final pass',
+                check_t2_row2: 'Regional breakdown chart check',
+                check_t2_row3: 'Screenshot quality review',
+                check_t3_prompt: '"Mark data validation and stakeholder note draft as completed in Weekly Reporting checklist."',
+                check_t3_row1: 'Data validation',
+                check_t3_row2: 'Stakeholder note draft',
+                check_t3_row3: 'Chart annotation pass',
+                check_t3_row4: 'Final PDF export',
+                builder_t1_prompt: '"Build a weekly KPI dashboard from this export."',
+                builder_t1_source: '🧠 Builder Wizard: weekly metrics + trend lines',
+                builder_t1_kpi1: 'ARR',
+                builder_t1_kpi2: 'Win Rate',
+                builder_t1_kpi3: 'Churn',
+                builder_t2_prompt: '"Use weekly-report dataset and show the available columns first."',
+                builder_t2_step1: 'Week',
+                builder_t2_step2: 'Pipeline Value',
+                builder_t2_step3: 'Closed Won',
+                builder_t3_prompt: '"Build a weekly executive report with trend chart, region comparison, and summary table."',
+                builder_t3_title: 'Weekly executive report',
+                builder_t3_module1: 'Trend chart',
+                builder_t3_module2: 'Region comparison',
+                builder_t3_module3: 'Summary table',
+                pres_t1_prompt: '"Create a presentation titled Weekly Business Review with 7 slides."',
+                pres_t1_count: '7 slides generated',
+                pres_t2_prompt: '"Apply Clickt Blue profile to this weekly review deck and optimize layout hierarchy."',
+                pres_t2_badge: 'Weekly style applied ✓',
+                pres_t3_prompt: '"Export the weekly business review deck as PDF."',
+                pres_t3_done: 'weekly-review.pdf ready',
+            },
+            class: {
+                teams_t1_prompt: '"In Class Project Alpha, assign aaryanjha task Finalize research scope and set deadline to 2026-05-09 18:00."',
+                teams_t1_stage: 'Creating assignment in Class Project Alpha...',
+                teams_t1_name: 'Finalize research scope',
+                teams_t1_due: 'Due 05/09 18:00',
+                teams_t1_meta: '@aaryanjha • objectives, dataset list, rubric fit',
+                teams_t2_prompt: '"Create a first-to-claim task Prototype testing ownership with claim deadline 2026-05-08 15:00 and due 2026-05-10 20:00."',
+                teams_t2_title: 'Prototype testing ownership',
+                teams_t2_claim: 'Claim by: 05/08 15:00',
+                teams_t2_due: 'Due: 05/10 20:00',
+                teams_t2_status: '✓ Claimed by teammate, timeline updated',
+                teams_t3_prompt: '"Give me a class project summary: completed work, open tasks, and owners."',
+                teams_t3_done: 'Done 9',
+                teams_t3_open: 'Open 5',
+                teams_t3_late: 'Overdue 1',
+                teams_t3_row1: 'Problem statement draft',
+                teams_t3_row2: 'Experiment setup review',
+                teams_t3_row3: 'Presentation rehearsal',
+                check_t1_prompt: '"Add citation formatting and final bibliography review to Class Project checklist with priority medium."',
+                check_t1_new1: 'citation formatting',
+                check_t1_new2: 'final bibliography review',
+                check_t2_prompt: '"Show class project checklist items not completed, ordered by priority."',
+                check_t2_row1: 'Methodology section polish',
+                check_t2_row2: 'Peer feedback incorporation',
+                check_t2_row3: 'Appendix screenshot pass',
+                check_t3_prompt: '"Mark intro slide outline and data cleaning as completed in Class Project checklist."',
+                check_t3_row1: 'Intro slide outline',
+                check_t3_row2: 'Data cleaning',
+                check_t3_row3: 'Chart caption drafting',
+                check_t3_row4: 'Final submission checklist',
+                builder_t1_prompt: '"Build a class project analytics dashboard."',
+                builder_t1_source: '🧠 Builder Wizard: experiment metrics + comparison views',
+                builder_t1_kpi1: 'Accuracy',
+                builder_t1_kpi2: 'Variance',
+                builder_t1_kpi3: 'Confidence',
+                builder_t2_prompt: '"Use class-project dataset and show the column names first."',
+                builder_t2_step1: 'Sample ID',
+                builder_t2_step2: 'Test Group',
+                builder_t2_step3: 'Outcome Score',
+                builder_t3_prompt: '"Build a class project findings report with trend chart, group comparison, and summary table."',
+                builder_t3_title: 'Class project findings report',
+                builder_t3_module1: 'Trend chart',
+                builder_t3_module2: 'Group comparison',
+                builder_t3_module3: 'Summary table',
+                pres_t1_prompt: '"Create a presentation titled Class Project Final Review with 10 slides."',
+                pres_t1_count: '10 slides generated',
+                pres_t2_prompt: '"Apply Clickt Blue style to this class project deck and improve visual hierarchy."',
+                pres_t2_badge: 'Project style applied ✓',
+                pres_t3_prompt: '"Export the class project final deck as PDF."',
+                pres_t3_done: 'class-project-final.pdf ready',
+            },
+        };
+        let activeScenario = 'launch';
+
+        function applyScenario(scenarioId) {
+            const nextScenario = scenarioContent[scenarioId] ? scenarioId : 'launch';
+            const payload = scenarioContent[nextScenario];
+            activeScenario = nextScenario;
+            Object.entries(payload).forEach(([key, value]) => {
+                const node = document.querySelector('[data-sf="' + key + '"]');
+                if (node) node.textContent = value;
+            });
+            if (scenarioSelect && scenarioSelect.value !== nextScenario) {
+                scenarioSelect.value = nextScenario;
+            }
+        }
 
         function setActive(id) {
             pills.forEach(p => p.classList.toggle('is-active', p.getAttribute('href') === '#' + id));
@@ -1460,6 +1766,11 @@
                 activateMobileSection(resolved, true);
             });
         });
+        if (scenarioSelect) {
+            scenarioSelect.addEventListener('change', () => {
+                applyScenario(scenarioSelect.value || 'launch');
+            });
+        }
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -1479,6 +1790,7 @@
             mobileQuery.addListener(onMediaChange);
         }
         window.addEventListener('hashchange', () => syncModeFromHash(false));
+        applyScenario(activeScenario);
         syncModeFromHash(false);
     }());
 </script>

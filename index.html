@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="Clickt | Team Execution, Simplified">
     <meta name="twitter:description" content="Bring your daily workflow into one focused workspace. Available on iPhone, iPad, and Mac.">
     <meta name="twitter:image" content="https://click-t.com/social-logo.png?v=20260316a">
-    <link rel="stylesheet" href="styles.css?v=20260504j">
+    <link rel="stylesheet" href="styles.css?v=20260526b">
 </head>
 <body class="home-page">
     <div class="container">
@@ -93,12 +93,29 @@
                     <span class="dot"></span>
                 </div>
                 <img src="IOS Promotion/click_logo.webp" alt="Clickt App Logo" class="hero-logo">
-                <h1>Clickt: Plan Faster. Deliver Better.</h1>
+                <p class="hero-kicker">One app. Full execution workflow.</p>
+                <h1>Plan, execute, analyze, and present in one place.</h1>
                 <p class="hero-subheadline">
-                    <span id="typing-headline" data-phrases="Plan with clarity.|Execute with confidence.|Show progress, fast.">Plan with clarity.</span>
+                    <span id="typing-headline" data-phrases="Assign tasks with owners.|Turn data into decisions.|Share progress with confidence.">Assign tasks with owners.</span>
                     <span class="typing-cursor" aria-hidden="true"></span>
                 </p>
-                <p class="hero-description">One place to plan, assign, track, and share — so your team moves faster and everyone stays in sync.</p>
+                <p class="hero-description">Clickt connects Teams, Checklist, Builder, Presentation, and ClicktAI so your work moves from idea to outcome without tool-switching chaos.</p>
+                <div class="hero-actions">
+                    <a
+                        href="https://apps.apple.com/us/app/clickt/id6759891499"
+                        class="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Download Clickt on the App Store"
+                    >
+                        Download on App Store
+                    </a>
+                </div>
+                <div class="hero-proof-chips" aria-label="Clickt quick highlights">
+                    <span class="hero-proof-chip">iPhone + iPad + Mac</span>
+                    <span class="hero-proof-chip">One connected workflow</span>
+                    <span class="hero-proof-chip">AI-assisted execution</span>
+                </div>
                 <div class="hero-device-experience" id="hero-device-experience" style="display:none" aria-hidden="true">
                     <div class="device-toolbar">
                         <div class="platform-switch" role="tablist" aria-label="Choose device preview">
@@ -201,6 +218,132 @@
             </section>
         </main>
     </div>
+
+    <section class="home-context" id="workflow-60s">
+        <div class="container home-context-inner">
+            <div class="context-header" data-observe>
+                <span class="context-kicker">How Clickt Works</span>
+                <h2>Understand the full workflow in 60 seconds</h2>
+                <p>From planning to delivery, Clickt keeps execution and communication in one continuous flow.</p>
+            </div>
+
+            <div class="workflow-scenarios" data-workflow-scenarios data-observe role="tablist" aria-label="Choose workflow scenario">
+                <button type="button" class="workflow-scenario-btn is-active" data-workflow-scenario="sprint" aria-selected="true">Sprint</button>
+                <button type="button" class="workflow-scenario-btn" data-workflow-scenario="onboarding" aria-selected="false">Onboarding</button>
+                <button type="button" class="workflow-scenario-btn" data-workflow-scenario="weekly" aria-selected="false">Weekly report</button>
+                <button type="button" class="workflow-scenario-btn" data-workflow-scenario="project" aria-selected="false">Class project</button>
+            </div>
+
+            <div class="workflow-steps" data-home-workflow data-observe>
+                <div class="workflow-mobile-controls" aria-label="Workflow controls">
+                    <label class="workflow-mobile-label">
+                        <span>Use case</span>
+                        <select data-workflow-scenario-select aria-label="Choose workflow use case">
+                            <option value="sprint">Sprint</option>
+                            <option value="onboarding">Onboarding</option>
+                            <option value="weekly">Weekly report</option>
+                            <option value="project">Class project</option>
+                        </select>
+                    </label>
+                    <label class="workflow-mobile-label">
+                        <span>Step</span>
+                        <select data-workflow-step-select aria-label="Choose workflow step">
+                            <option value="goal">1. Goal</option>
+                            <option value="assign">2. Assign</option>
+                            <option value="execute">3. Execute</option>
+                            <option value="analyze">4. Analyze</option>
+                            <option value="present">5. Present</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="workflow-steps-nav" role="tablist" aria-label="Clickt workflow steps">
+                    <button type="button" class="workflow-step-btn is-active" data-workflow-step-btn="goal" role="tab" aria-selected="true" aria-controls="workflow-dynamic-panel">1. Goal</button>
+                    <button type="button" class="workflow-step-btn" data-workflow-step-btn="assign" role="tab" aria-selected="false" aria-controls="workflow-dynamic-panel">2. Assign</button>
+                    <button type="button" class="workflow-step-btn" data-workflow-step-btn="execute" role="tab" aria-selected="false" aria-controls="workflow-dynamic-panel">3. Execute</button>
+                    <button type="button" class="workflow-step-btn" data-workflow-step-btn="analyze" role="tab" aria-selected="false" aria-controls="workflow-dynamic-panel">4. Analyze</button>
+                    <button type="button" class="workflow-step-btn" data-workflow-step-btn="present" role="tab" aria-selected="false" aria-controls="workflow-dynamic-panel">5. Present</button>
+                </div>
+                <div class="workflow-steps-panels">
+                    <article id="workflow-dynamic-panel" class="workflow-step-panel is-active" data-workflow-dynamic-panel data-workflow-step-panel="goal" role="tabpanel">
+                        <div class="workflow-panel-head">
+                            <p class="workflow-panel-meta"><span data-workflow-step-count>1/5</span> · <span data-workflow-scenario-label>Sprint</span></p>
+                            <h3 data-workflow-title>Capture one clear objective</h3>
+                            <p data-workflow-description>Start with the result you want and define what done looks like before assigning work.</p>
+                        </div>
+                        <div class="workflow-panel-details">
+                            <div class="workflow-detail-card">
+                                <h4>What you do</h4>
+                                <p data-workflow-you-do>Define scope, success metrics, and deadline.</p>
+                            </div>
+                            <div class="workflow-detail-card">
+                                <h4>What Clickt does</h4>
+                                <p data-workflow-clickt-does>Creates a shared execution frame across Teams and Checklist.</p>
+                            </div>
+                            <div class="workflow-detail-card">
+                                <h4>What you get</h4>
+                                <ul class="workflow-output-list" data-workflow-output-list>
+                                    <li>Shared goal brief</li>
+                                    <li>Aligned priority view</li>
+                                </ul>
+                            </div>
+                            <div class="workflow-detail-card">
+                                <h4>Benefit</h4>
+                                <p class="workflow-step-result" data-workflow-benefit>Everyone aligns on one target before work starts.</p>
+                            </div>
+                        </div>
+                        <div class="workflow-before-after">
+                            <div class="workflow-before">
+                                <span>Before</span>
+                                <p data-workflow-before>Scattered goals across docs and chat threads.</p>
+                            </div>
+                            <span class="workflow-before-after-arrow" aria-hidden="true">→</span>
+                            <div class="workflow-after">
+                                <span>After</span>
+                                <p data-workflow-after>One clear objective tied to accountable execution steps.</p>
+                            </div>
+                        </div>
+                        <div class="workflow-panel-actions">
+                            <a href="playbook.html#teams" class="workflow-module-link" data-workflow-module-link>See this in Teams</a>
+                            <button type="button" class="workflow-next-btn" data-workflow-next>Next step: Assign →</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="persona-match" data-persona-match data-observe>
+                <div class="persona-match-copy">
+                    <span class="context-kicker">Who It Is For</span>
+                    <h3>Pick your role and see your outcome</h3>
+                </div>
+                <div class="persona-mobile-control">
+                    <label class="persona-mobile-label">
+                        <span>Role</span>
+                        <select data-persona-select aria-label="Choose your role">
+                            <option value="lead">Team Lead</option>
+                            <option value="ops">Operations</option>
+                            <option value="analyst">Analyst</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="persona-match-controls" role="tablist" aria-label="Choose your role">
+                    <button type="button" class="persona-btn is-active" data-persona="lead" data-persona-title="Team Leads and Founders" data-persona-copy="Use Clickt as your single source of truth for ownership, progress, and weekly reporting." data-persona-points="Run weekly planning in one place|Spot blockers before deadlines slip|Share stakeholder updates faster" aria-selected="true">Team Lead</button>
+                    <button type="button" class="persona-btn" data-persona="ops" data-persona-title="Operations and PMO" data-persona-copy="Standardize repeatable workflows with checklists and improve consistency across teams." data-persona-points="Template recurring processes|Reduce operational drift|Track compliance and completion clearly" aria-selected="false">Operations</button>
+                    <button type="button" class="persona-btn" data-persona="analyst" data-persona-title="Sales, Finance, and Analysts" data-persona-copy="Turn exports into actionable insights and present outcomes without rebuilding reports every week." data-persona-points="Import CSVs and build charts fast|Highlight KPI changes quickly|Create narrative-ready updates for leadership" aria-selected="false">Analyst</button>
+                    <button type="button" class="persona-btn" data-persona="student" data-persona-title="Students and Builders" data-persona-copy="Keep projects organized from task planning to final presentation on every device." data-persona-points="Break work into clear steps|Track deadlines without extra tools|Deliver polished project presentations" aria-selected="false">Student</button>
+                </div>
+                <div class="persona-match-output" role="status" aria-live="polite">
+                    <h4 data-persona-title-output>Team Leads and Founders</h4>
+                    <p data-persona-copy-output>Use Clickt as your single source of truth for ownership, progress, and weekly reporting.</p>
+                    <ul data-persona-points-output>
+                        <li>Run weekly planning in one place</li>
+                        <li>Spot blockers before deadlines slip</li>
+                        <li>Share stakeholder updates faster</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ============================================================
          DEVICE SHOWCASE CHAPTERS — iPhone / iPad / Mac
@@ -371,48 +514,149 @@
         </div>
     </section>
 
+    <section class="why-switch" id="why-switch">
+        <div class="container why-switch-inner">
+            <div class="why-switch-header" data-observe>
+                <span class="context-kicker">Why Teams Switch</span>
+                <h2>Replace fragmented workflows with one execution system</h2>
+            </div>
+            <div class="why-switch-grid">
+                <article class="why-switch-card" data-observe>
+                    <h3>Too many disconnected tools</h3>
+                    <p class="why-switch-problem">Problem: planning, tracking, analysis, and reporting happen in separate apps.</p>
+                    <p class="why-switch-solution">Clickt solution: keep all execution modules in one connected workflow.</p>
+                </article>
+                <article class="why-switch-card" data-observe>
+                    <h3>Unclear ownership</h3>
+                    <p class="why-switch-problem">Problem: tasks get delayed because no owner or due date is clear.</p>
+                    <p class="why-switch-solution">Clickt solution: assign accountability explicitly in Teams and Checklist.</p>
+                </article>
+                <article class="why-switch-card" data-observe>
+                    <h3>Reporting takes too long</h3>
+                    <p class="why-switch-problem">Problem: turning raw exports into a useful update is slow and repetitive.</p>
+                    <p class="why-switch-solution">Clickt solution: Builder + Presentation shortens the path from data to decision-ready decks.</p>
+                </article>
+            </div>
+            <div class="why-switch-faq" data-observe>
+                <details class="why-faq-item">
+                    <summary>Can I use Clickt even if my team is small?</summary>
+                    <div class="why-faq-answer">
+                        <p>Yes. Clickt works well for solo builders, small teams, and growing organizations because you can start with one workflow and scale at your own pace.</p>
+                        <ul class="why-faq-points">
+                            <li>Start with a single project in Teams + Checklist.</li>
+                            <li>Add Builder and Presentation only when reporting needs grow.</li>
+                            <li>Keep one system even as more teammates join.</li>
+                        </ul>
+                        <div class="why-faq-actions">
+                            <a href="#workflow-60s">View 60-sec workflow</a>
+                            <a href="playbook.html#teams">See small-team examples</a>
+                        </div>
+                    </div>
+                </details>
+                <details class="why-faq-item">
+                    <summary>Do I need to replace all my tools on day one?</summary>
+                    <div class="why-faq-answer">
+                        <p>No. Most teams adopt Clickt incrementally and keep their current stack while migrating one repeatable workflow at a time.</p>
+                        <ul class="why-faq-points">
+                            <li>Week 1: move planning and ownership into Teams.</li>
+                            <li>Week 2: standardize recurring steps in Checklist.</li>
+                            <li>Later: connect data analysis and presentations for reporting cycles.</li>
+                        </ul>
+                        <div class="why-faq-actions">
+                            <a href="playbook.html">Explore migration-friendly workflows</a>
+                            <a href="user-guide.html">Open setup guide</a>
+                        </div>
+                    </div>
+                </details>
+                <details class="why-faq-item">
+                    <summary>Where does ClicktAI fit in daily work?</summary>
+                    <div class="why-faq-answer">
+                        <p>ClicktAI helps at both kickoff and reporting time by turning natural-language prompts into actionable workflow steps across modules.</p>
+                        <ul class="why-faq-points">
+                            <li>Kickoff: create task/checklist structure from a goal prompt.</li>
+                            <li>Mid-cycle: speed up analysis and insight drafting from imported data.</li>
+                            <li>Closeout: help prepare presentation-ready updates faster.</li>
+                        </ul>
+                        <div class="why-faq-actions">
+                            <a href="playbook.html#clicktai">See ClicktAI in Playbook</a>
+                            <a href="#showcase-iphone">Explore interactive showcase</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
     <!-- Playbook teaser -->
     <section class="pb-teaser" id="playbook-teaser">
         <div class="container pb-teaser-inner">
             <div class="pb-teaser-header">
                 <span class="pb-teaser-kicker">Playbook</span>
-                <h2 class="pb-teaser-heading">Steal the workflows that work</h2>
-                <p class="pb-teaser-sub">Real examples you can copy, tweak, and run today with your team.</p>
+                <h2 class="pb-teaser-heading">See real workflows before you download</h2>
+                <p class="pb-teaser-sub">Use proven examples to launch your first Clickt workflow with confidence.</p>
             </div>
             <div class="pb-teaser-grid">
                 <a href="playbook.html#teams" class="pb-teaser-card pb-teaser--teams">
                     <span class="pb-teaser-mod">Teams</span>
                     <h3>Engineering sprint</h3>
                     <p>Drop in your sprint tasks, let teammates claim work, and close the week without chasing updates.</p>
+                    <p class="pb-teaser-outcome">Outcome: clearer ownership and faster sprint closes.</p>
                     <span class="pb-teaser-arrow">Explore Teams workflows →</span>
                 </a>
                 <a href="playbook.html#checklist" class="pb-teaser-card pb-teaser--checklist">
                     <span class="pb-teaser-mod">Checklist</span>
                     <h3>Client onboarding</h3>
                     <p>Turn onboarding into a reusable checklist so every new client gets the same great start.</p>
+                    <p class="pb-teaser-outcome">Outcome: consistent onboarding quality across every client.</p>
                     <span class="pb-teaser-arrow">Explore Checklist workflows →</span>
                 </a>
                 <a href="playbook.html#builder" class="pb-teaser-card pb-teaser--builder">
                     <span class="pb-teaser-mod">Builder</span>
                     <h3>Sales pipeline report</h3>
                     <p>Import CRM exports, build instant KPI charts, and walk into meetings with clear answers.</p>
+                    <p class="pb-teaser-outcome">Outcome: faster, evidence-based reporting conversations.</p>
                     <span class="pb-teaser-arrow">Explore Builder workflows →</span>
                 </a>
                 <a href="playbook.html#presentation" class="pb-teaser-card pb-teaser--pres">
                     <span class="pb-teaser-mod">Presentation</span>
                     <h3>Board deck from data</h3>
                     <p>Send Builder outputs to slides, polish the story, and export a board-ready deck in minutes.</p>
+                    <p class="pb-teaser-outcome">Outcome: stakeholder-ready decks with less prep time.</p>
                     <span class="pb-teaser-arrow">Explore Presentation workflows →</span>
                 </a>
                 <a href="playbook.html#clicktai" class="pb-teaser-card pb-teaser--ai">
                     <span class="pb-teaser-mod">ClicktAI</span>
                     <h3>One prompt, full pipeline</h3>
                     <p>Type one prompt like "Analyze Q3 and build my deck." ClicktAI runs the workflow end to end.</p>
+                    <p class="pb-teaser-outcome">Outcome: lower execution time from idea to delivered output.</p>
                     <span class="pb-teaser-arrow">Explore ClicktAI workflows →</span>
                 </a>
             </div>
             <div class="pb-teaser-cta">
                 <a href="playbook.html#clicktai" class="btn">Explore the full Playbook</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container final-cta-inner" data-observe>
+            <div class="final-cta-copy">
+                <span class="context-kicker">Ready To Start?</span>
+                <h2>Download Clickt and run your first workflow today.</h2>
+                <p>Start with one project, one team, or one report and see how much faster your execution can be.</p>
+            </div>
+            <div class="final-cta-actions">
+                <a
+                    href="https://apps.apple.com/us/app/clickt/id6759891499"
+                    class="btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Download Clickt on the App Store"
+                >
+                    Download on App Store
+                </a>
+                <a href="playbook.html" class="btn btn-outline">Explore Playbook</a>
+                <a href="user-guide.html" class="btn btn-outline">Open User Guide</a>
             </div>
         </div>
     </section>
@@ -427,6 +671,15 @@
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="script.js?v=20260504j"></script>
+    <a
+        href="https://apps.apple.com/us/app/clickt/id6759891499"
+        class="mobile-download-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Clickt on the App Store"
+    >
+        Download Clickt
+    </a>
+    <script src="script.js?v=20260526b"></script>
 </body>
 </html>

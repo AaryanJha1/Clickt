@@ -3,6 +3,8 @@
     initScrollReveal();
     initFeatureSlider(featureStacksController);
     initTypingHeadline();
+    initHomeWorkflow();
+    initPersonaMatch();
     initDeviceExperience();
     initWorkflowCounters();
     initPlaybookPipelineStory();
@@ -197,6 +199,500 @@ function initTypingHeadline() {
 
     headline.textContent = "";
     window.setTimeout(tick, 220);
+}
+
+function initHomeWorkflow() {
+    const root = document.querySelector("[data-home-workflow]");
+    if (!root) return;
+
+    const scenarioRoot = document.querySelector("[data-workflow-scenarios]");
+    const scenarioButtons = scenarioRoot
+        ? Array.from(scenarioRoot.querySelectorAll("[data-workflow-scenario]"))
+        : [];
+    const buttons = Array.from(root.querySelectorAll("[data-workflow-step-btn]"));
+    const scenarioSelect = root.querySelector("[data-workflow-scenario-select]");
+    const stepSelect = root.querySelector("[data-workflow-step-select]");
+    const panel = root.querySelector("[data-workflow-dynamic-panel]");
+    const stepCountEl = root.querySelector("[data-workflow-step-count]");
+    const scenarioLabelEl = root.querySelector("[data-workflow-scenario-label]");
+    const titleEl = root.querySelector("[data-workflow-title]");
+    const descriptionEl = root.querySelector("[data-workflow-description]");
+    const youDoEl = root.querySelector("[data-workflow-you-do]");
+    const clicktDoesEl = root.querySelector("[data-workflow-clickt-does]");
+    const outputListEl = root.querySelector("[data-workflow-output-list]");
+    const benefitEl = root.querySelector("[data-workflow-benefit]");
+    const beforeEl = root.querySelector("[data-workflow-before]");
+    const afterEl = root.querySelector("[data-workflow-after]");
+    const moduleLinkEl = root.querySelector("[data-workflow-module-link]");
+    const nextButton = root.querySelector("[data-workflow-next]");
+
+    if (
+        !buttons.length ||
+        !panel ||
+        !stepCountEl ||
+        !scenarioLabelEl ||
+        !titleEl ||
+        !descriptionEl ||
+        !youDoEl ||
+        !clicktDoesEl ||
+        !outputListEl ||
+        !benefitEl ||
+        !beforeEl ||
+        !afterEl ||
+        !moduleLinkEl ||
+        !nextButton
+    ) {
+        return;
+    }
+
+    const stepOrder = ["goal", "assign", "execute", "analyze", "present"];
+    const scenarios = {
+        sprint: {
+            label: "Sprint",
+            steps: {
+                goal: {
+                    title: "Define the sprint objective clearly",
+                    description: "Set the sprint goal, completion criteria, and review checkpoint before execution starts.",
+                    youDo: "Capture sprint target, timeline, and definition of done.",
+                    clicktDoes: "Creates one shared objective across Teams and Checklist.",
+                    outputs: ["Goal brief", "Sprint timeline", "Execution scope"],
+                    benefit: "Everyone starts aligned on the same finish line.",
+                    before: "Scope drift and unclear sprint outcomes.",
+                    after: "One objective with visible success criteria.",
+                    moduleLabel: "Teams",
+                    moduleHref: "playbook.html#teams",
+                },
+                assign: {
+                    title: "Assign owners and due dates",
+                    description: "Break down the goal into action items and assign every task to a responsible owner.",
+                    youDo: "Map deliverables, owners, and deadlines.",
+                    clicktDoes: "Tracks accountability with clear assignee visibility.",
+                    outputs: ["Owner map", "Task queue", "Deadline tracker"],
+                    benefit: "Fewer dropped tasks and less follow-up overhead.",
+                    before: "Tasks bounce between teammates without ownership.",
+                    after: "Each item has one owner and due date.",
+                    moduleLabel: "Checklist",
+                    moduleHref: "playbook.html#checklist",
+                },
+                execute: {
+                    title: "Run execution with live status",
+                    description: "Track progress updates in one place and resolve blockers before they impact delivery.",
+                    youDo: "Update status and flag risks during the sprint.",
+                    clicktDoes: "Surfaces blockers and completion changes in real time.",
+                    outputs: ["Progress board", "Blocker alerts", "Daily status view"],
+                    benefit: "Teams move faster with fewer status meetings.",
+                    before: "Updates are scattered across messages and calls.",
+                    after: "Live execution view with clear momentum.",
+                    moduleLabel: "Interactive Showcase",
+                    moduleHref: "#showcase-iphone",
+                },
+                analyze: {
+                    title: "Analyze sprint outcomes quickly",
+                    description: "Import delivery metrics and compare planned vs actual performance in Builder.",
+                    youDo: "Upload sprint exports and inspect completion trends.",
+                    clicktDoes: "Generates understandable visuals from raw data.",
+                    outputs: ["Velocity chart", "Completion summary", "Gap analysis"],
+                    benefit: "Retrospectives are based on evidence, not guesswork.",
+                    before: "Hard to interpret sprint data quickly.",
+                    after: "Clear insight on what improved and what slipped.",
+                    moduleLabel: "Builder",
+                    moduleHref: "playbook.html#builder",
+                },
+                present: {
+                    title: "Present learnings and next actions",
+                    description: "Convert sprint insights into a concise update deck for leaders and stakeholders.",
+                    youDo: "Select key outcomes and next sprint actions.",
+                    clicktDoes: "Turns analysis into polished presentation-ready narratives.",
+                    outputs: ["Sprint review deck", "Action plan slide", "PDF export"],
+                    benefit: "Faster closeout and better stakeholder confidence.",
+                    before: "Sprint reviews take hours to compile.",
+                    after: "Decision-ready updates shared in minutes.",
+                    moduleLabel: "Presentation",
+                    moduleHref: "playbook.html#presentation",
+                },
+            },
+        },
+        onboarding: {
+            label: "Onboarding",
+            steps: {
+                goal: {
+                    title: "Set onboarding success outcomes",
+                    description: "Define what a successful client onboarding looks like for day 1, week 1, and month 1.",
+                    youDo: "Document milestones and expected handoff points.",
+                    clicktDoes: "Structures onboarding goals into shared operational steps.",
+                    outputs: ["Onboarding success map", "Milestone timeline", "Shared kickoff plan"],
+                    benefit: "Clients and teams align on expectations immediately.",
+                    before: "Different teams define onboarding differently.",
+                    after: "One standardized onboarding target for every client.",
+                    moduleLabel: "Checklist",
+                    moduleHref: "playbook.html#checklist",
+                },
+                assign: {
+                    title: "Assign onboarding responsibilities",
+                    description: "Assign each onboarding step to a specific owner across operations, support, and account teams.",
+                    youDo: "Set owners for setup, training, and follow-up tasks.",
+                    clicktDoes: "Makes ownership visible across the full onboarding journey.",
+                    outputs: ["Owner assignments", "Task handoff list", "SLA checkpoints"],
+                    benefit: "Fewer onboarding delays and smoother handoffs.",
+                    before: "Important setup steps are assumed, not assigned.",
+                    after: "Everyone knows exactly what they own and when.",
+                    moduleLabel: "Teams",
+                    moduleHref: "playbook.html#teams",
+                },
+                execute: {
+                    title: "Execute with consistency",
+                    description: "Run each onboarding with repeatable checklist flows while tracking real-time completion.",
+                    youDo: "Complete and verify onboarding tasks in sequence.",
+                    clicktDoes: "Keeps repeatable workflow quality consistent client to client.",
+                    outputs: ["Live completion view", "At-risk task flags", "Client readiness status"],
+                    benefit: "Onboarding quality scales without extra chaos.",
+                    before: "Every onboarding feels custom and error-prone.",
+                    after: "Reliable onboarding outcomes with less rework.",
+                    moduleLabel: "Interactive Showcase",
+                    moduleHref: "#showcase-ipad",
+                },
+                analyze: {
+                    title: "Measure onboarding performance",
+                    description: "Use Builder to inspect time-to-value, completion rates, and bottlenecks.",
+                    youDo: "Import onboarding data and compare cohorts.",
+                    clicktDoes: "Highlights process bottlenecks and completion gaps visually.",
+                    outputs: ["Cycle-time chart", "Completion dashboard", "Bottleneck summary"],
+                    benefit: "Improve onboarding speed with measurable insight.",
+                    before: "It is unclear where onboarding slows down.",
+                    after: "You can pinpoint and fix recurring delays quickly.",
+                    moduleLabel: "Builder",
+                    moduleHref: "playbook.html#builder",
+                },
+                present: {
+                    title: "Report onboarding impact",
+                    description: "Share onboarding outcomes, risks, and improvements with clients or leadership.",
+                    youDo: "Summarize what improved and what needs attention.",
+                    clicktDoes: "Builds clean stakeholder-ready reports from workflow data.",
+                    outputs: ["Onboarding report deck", "Risk summary", "Improvement roadmap"],
+                    benefit: "Stronger client trust and faster internal decision-making.",
+                    before: "Reporting takes too long and lacks consistency.",
+                    after: "Clear onboarding impact updates delivered quickly.",
+                    moduleLabel: "Presentation",
+                    moduleHref: "playbook.html#presentation",
+                },
+            },
+        },
+        weekly: {
+            label: "Weekly Report",
+            steps: {
+                goal: {
+                    title: "Define the weekly reporting question",
+                    description: "Start from the decisions the meeting needs, not from a pile of raw metrics.",
+                    youDo: "Choose KPIs and define the story you need to explain.",
+                    clicktDoes: "Anchors reporting around decisions and outcomes.",
+                    outputs: ["Reporting objective", "KPI focus list", "Audience goals"],
+                    benefit: "Reports become strategic instead of purely descriptive.",
+                    before: "Weekly updates are metric dumps without direction.",
+                    after: "Every chart and slide maps to a decision.",
+                    moduleLabel: "Builder",
+                    moduleHref: "playbook.html#builder",
+                },
+                assign: {
+                    title: "Assign data and review owners",
+                    description: "Delegate who pulls data, validates numbers, and reviews narrative quality.",
+                    youDo: "Set ownership for data prep and presentation review.",
+                    clicktDoes: "Keeps report preparation accountable and transparent.",
+                    outputs: ["Owner checklist", "Data QA tasks", "Review timeline"],
+                    benefit: "Faster prep with fewer last-minute issues.",
+                    before: "Reporting prep is rushed and hard to coordinate.",
+                    after: "The weekly process runs like a repeatable system.",
+                    moduleLabel: "Checklist",
+                    moduleHref: "playbook.html#checklist",
+                },
+                execute: {
+                    title: "Execute report production flow",
+                    description: "Track progress from data import through insight drafting and meeting prep.",
+                    youDo: "Run the weekly reporting routine and close open items.",
+                    clicktDoes: "Shows where the workflow is blocked before deadlines.",
+                    outputs: ["Prep status board", "Open issue list", "Meeting readiness view"],
+                    benefit: "Predictable report delivery week after week.",
+                    before: "Status is unclear until the last minute.",
+                    after: "Report readiness is visible throughout the week.",
+                    moduleLabel: "Teams",
+                    moduleHref: "playbook.html#teams",
+                },
+                analyze: {
+                    title: "Generate insights from exports",
+                    description: "Use Builder to transform weekly CSV exports into digestible insights and trend visuals.",
+                    youDo: "Import files and compare this week versus prior periods.",
+                    clicktDoes: "Builds charts and summaries quickly from raw exports.",
+                    outputs: ["Trend chart", "Variance analysis", "KPI table"],
+                    benefit: "Teams reach insight faster with less manual formatting.",
+                    before: "Manual spreadsheet analysis is slow and error-prone.",
+                    after: "Insights are ready in minutes, not hours.",
+                    moduleLabel: "Builder",
+                    moduleHref: "playbook.html#builder",
+                },
+                present: {
+                    title: "Present clear weekly recommendations",
+                    description: "Convert analysis into slides that explain what happened, why it matters, and what to do next.",
+                    youDo: "Highlight key changes and next actions for stakeholders.",
+                    clicktDoes: "Creates narrative-friendly slides directly from analyzed output.",
+                    outputs: ["Weekly deck", "Decision summary", "Next-week action list"],
+                    benefit: "Meetings focus on action, not data interpretation.",
+                    before: "Stakeholders spend time decoding metrics.",
+                    after: "Stakeholders can act immediately on recommendations.",
+                    moduleLabel: "Presentation",
+                    moduleHref: "playbook.html#presentation",
+                },
+            },
+        },
+        project: {
+            label: "Class Project",
+            steps: {
+                goal: {
+                    title: "Set project scope and deliverables",
+                    description: "Define the final outcome, grading criteria, and submission timeline from day one.",
+                    youDo: "Break the project into clear milestones and outcomes.",
+                    clicktDoes: "Converts broad project ideas into actionable workflow structure.",
+                    outputs: ["Project scope", "Milestone plan", "Due-date map"],
+                    benefit: "Teams avoid last-minute crunch and confusion.",
+                    before: "Project direction stays vague for too long.",
+                    after: "Everyone knows what must be delivered and by when.",
+                    moduleLabel: "Teams",
+                    moduleHref: "playbook.html#teams",
+                },
+                assign: {
+                    title: "Assign roles and contribution areas",
+                    description: "Allocate research, writing, analysis, and design tasks to each teammate.",
+                    youDo: "Assign owners for each part of the project workload.",
+                    clicktDoes: "Tracks accountability and ownership across the team.",
+                    outputs: ["Role matrix", "Task assignments", "Deadline checklist"],
+                    benefit: "Balanced contribution and clearer accountability.",
+                    before: "Work distribution is uneven and unclear.",
+                    after: "Contribution expectations are explicit and trackable.",
+                    moduleLabel: "Checklist",
+                    moduleHref: "playbook.html#checklist",
+                },
+                execute: {
+                    title: "Execute and monitor progress",
+                    description: "Track completion and blockers while collaborators work in parallel.",
+                    youDo: "Update progress and unblock tasks during project week.",
+                    clicktDoes: "Maintains one live view of project health.",
+                    outputs: ["Live progress status", "Blocker list", "Completion tracker"],
+                    benefit: "Fewer deadline surprises and smoother collaboration.",
+                    before: "Team only realizes gaps close to submission.",
+                    after: "Risks are visible early enough to fix.",
+                    moduleLabel: "Interactive Showcase",
+                    moduleHref: "#showcase-mac",
+                },
+                analyze: {
+                    title: "Analyze project findings",
+                    description: "Use Builder to summarize collected data or experiment results into clear visuals.",
+                    youDo: "Import findings and test different chart views.",
+                    clicktDoes: "Transforms research data into presentation-ready insights.",
+                    outputs: ["Result chart", "Findings summary", "Evidence table"],
+                    benefit: "Stronger arguments backed by clear evidence.",
+                    before: "Raw data is hard to communicate in final presentations.",
+                    after: "Findings become easy to explain and defend.",
+                    moduleLabel: "Builder",
+                    moduleHref: "playbook.html#builder",
+                },
+                present: {
+                    title: "Present and submit confidently",
+                    description: "Build polished slides with a logical story and export final materials for submission.",
+                    youDo: "Organize findings, storyline, and final recommendations.",
+                    clicktDoes: "Creates clean, coherent presentation output quickly.",
+                    outputs: ["Final deck", "Submission-ready PDF", "Q&A prep notes"],
+                    benefit: "Higher-quality delivery with less final-night stress.",
+                    before: "Presentation polishing happens too late.",
+                    after: "Submission is ready early and polished.",
+                    moduleLabel: "Presentation",
+                    moduleHref: "playbook.html#presentation",
+                },
+            },
+        },
+    };
+
+    const state = {
+        scenario:
+            scenarioButtons.find((button) => button.classList.contains("is-active"))?.dataset.workflowScenario ||
+            "sprint",
+        step:
+            buttons.find((button) => button.classList.contains("is-active"))?.dataset.workflowStepBtn ||
+            "goal",
+    };
+
+    const render = () => {
+        const scenarioData = scenarios[state.scenario] || scenarios.sprint;
+        const stepData = scenarioData.steps[state.step] || scenarioData.steps.goal;
+        const stepIndex = Math.max(0, stepOrder.indexOf(state.step));
+
+        scenarioButtons.forEach((button) => {
+            const isActive = button.dataset.workflowScenario === state.scenario;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (scenarioSelect) scenarioSelect.value = state.scenario;
+
+        buttons.forEach((button) => {
+            const isActive = button.dataset.workflowStepBtn === state.step;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (stepSelect) stepSelect.value = state.step;
+
+        panel.classList.remove("is-swap");
+        // Restart small content transition on each update.
+        void panel.offsetWidth;
+        panel.classList.add("is-swap");
+        panel.setAttribute("data-workflow-step-panel", state.step);
+
+        stepCountEl.textContent = `${stepIndex + 1}/${stepOrder.length}`;
+        scenarioLabelEl.textContent = scenarioData.label;
+        titleEl.textContent = stepData.title;
+        descriptionEl.textContent = stepData.description;
+        youDoEl.textContent = stepData.youDo;
+        clicktDoesEl.textContent = stepData.clicktDoes;
+        benefitEl.textContent = stepData.benefit;
+        beforeEl.textContent = stepData.before;
+        afterEl.textContent = stepData.after;
+
+        outputListEl.innerHTML = "";
+        (stepData.outputs || []).forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            outputListEl.appendChild(li);
+        });
+
+        moduleLinkEl.textContent = `See this in ${stepData.moduleLabel}`;
+        moduleLinkEl.setAttribute("href", stepData.moduleHref);
+
+        const nextStep = stepOrder[(stepIndex + 1) % stepOrder.length];
+        const nextStepLabel = buttons.find((button) => button.dataset.workflowStepBtn === nextStep)?.textContent || "Next";
+        nextButton.textContent = `Next step: ${nextStepLabel.replace(/^\d+\.\s*/, "")} \u2192`;
+        nextButton.dataset.nextStep = nextStep;
+    };
+
+    const setStep = (step, shouldFocus = false) => {
+        if (!stepOrder.includes(step)) return;
+        state.step = step;
+        render();
+
+        if (!shouldFocus) return;
+        const activeButton = buttons.find((button) => button.dataset.workflowStepBtn === step);
+        activeButton?.focus();
+    };
+
+    const setScenario = (scenario) => {
+        if (!scenarios[scenario]) return;
+        state.scenario = scenario;
+        render();
+    };
+
+    scenarioButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const scenario = button.dataset.workflowScenario;
+            if (!scenario) return;
+            setScenario(scenario);
+        });
+    });
+
+    if (scenarioSelect) {
+        scenarioSelect.addEventListener("change", (event) => {
+            const nextScenario = event.target.value;
+            if (!nextScenario) return;
+            setScenario(nextScenario);
+        });
+    }
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const step = button.dataset.workflowStepBtn;
+            if (!step) return;
+            setStep(step);
+        });
+    });
+
+    if (stepSelect) {
+        stepSelect.addEventListener("change", (event) => {
+            const nextStep = event.target.value;
+            if (!nextStep) return;
+            setStep(nextStep, true);
+        });
+    }
+
+    nextButton.addEventListener("click", () => {
+        const nextStep = nextButton.dataset.nextStep;
+        if (!nextStep) return;
+        setStep(nextStep, true);
+    });
+
+    root.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        event.preventDefault();
+
+        const currentIndex = Math.max(0, stepOrder.indexOf(state.step));
+        const direction = event.key === "ArrowRight" ? 1 : -1;
+        const nextIndex = (currentIndex + direction + stepOrder.length) % stepOrder.length;
+        setStep(stepOrder[nextIndex], true);
+    });
+
+    render();
+}
+
+function initPersonaMatch() {
+    const root = document.querySelector("[data-persona-match]");
+    if (!root) return;
+
+    const buttons = Array.from(root.querySelectorAll("[data-persona]"));
+    const select = root.querySelector("[data-persona-select]");
+    const titleOutput = root.querySelector("[data-persona-title-output]");
+    const copyOutput = root.querySelector("[data-persona-copy-output]");
+    const pointsOutput = root.querySelector("[data-persona-points-output]");
+    if (!buttons.length || !titleOutput || !copyOutput || !pointsOutput) return;
+
+    const setPersona = (button) => {
+        buttons.forEach((node) => {
+            const isActive = node === button;
+            node.classList.toggle("is-active", isActive);
+            node.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (select && button.dataset.persona) {
+            select.value = button.dataset.persona;
+        }
+
+        const nextTitle = button.dataset.personaTitle || "";
+        const nextCopy = button.dataset.personaCopy || "";
+        const pointsRaw = button.dataset.personaPoints || "";
+        const points = pointsRaw
+            .split("|")
+            .map((item) => item.trim())
+            .filter(Boolean);
+
+        if (nextTitle) titleOutput.textContent = nextTitle;
+        if (nextCopy) copyOutput.textContent = nextCopy;
+
+        pointsOutput.innerHTML = "";
+        points.forEach((point) => {
+            const item = document.createElement("li");
+            item.textContent = point;
+            pointsOutput.appendChild(item);
+        });
+    };
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => setPersona(button));
+    });
+
+    if (select) {
+        select.addEventListener("change", (event) => {
+            const persona = event.target.value;
+            if (!persona) return;
+            const match = buttons.find((button) => button.dataset.persona === persona);
+            if (!match) return;
+            setPersona(match);
+        });
+    }
 }
 
 function initDeviceExperience() {
@@ -889,6 +1385,14 @@ function initShowcaseChapters() {
         if (targetConfig && !initializedPlatforms.has(platform) && allowShowcaseMotion) {
             setupShowcaseChapter(targetConfig);
             initializedPlatforms.add(platform);
+        }
+
+        if (!allowShowcaseMotion && targetConfig) {
+            const staticCopyRoot = document.getElementById(targetConfig.copyId);
+            if (staticCopyRoot) {
+                const slots = Array.from(staticCopyRoot.querySelectorAll(".sc-copy-slot"));
+                slots.forEach((slot, idx) => slot.classList.toggle("is-active", idx === 0));
+            }
         }
 
         const activeSection = platformSections.find((section) => section.dataset.showcasePlatformSection === platform);

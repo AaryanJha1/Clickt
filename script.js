@@ -1299,7 +1299,8 @@ function trackPlaybookEvent(eventName, payload) {
 
 function initShowcaseChapters() {
     const P = "IOS Promotion/Clickt Images/";
-    const SHARED_SHOWCASE_BG = "#ffffff";
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const SHARED_SHOWCASE_BG = (rootStyles.getPropertyValue("--bg") || "").trim() || "#ffffff";
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
     const hasMotionStack = Boolean(window.gsap && window.ScrollTrigger);

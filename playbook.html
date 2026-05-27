@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playbook | Clickt</title>
     <meta name="description" content="Real workflows for teams that deliver. See how Clickt is used every day.">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260527m">
     <style>
         /* ══ Base ═══════════════════════════════════════════ */
         .pb-hero {
@@ -33,7 +33,7 @@
         }
         .pb-scenario-select {
             border: 1px solid var(--brand-border);
-            background: #fff;
+            background: var(--surface);
             color: var(--brand-muted);
             border-radius: 12px;
             padding: 0.52rem 0.85rem;
@@ -61,7 +61,7 @@
         .pb-scenario-select:hover,
         .pb-scenario-select:focus-visible {
             border-color: #94a3b8;
-            color: #0f172a;
+            color: var(--brand-text);
             box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
             outline: none;
         }
@@ -71,7 +71,7 @@
             display: flex; justify-content: center; flex-wrap: wrap; gap: 0.45rem;
             padding: 0.85rem 1rem;
             position: sticky; top: 0;
-            background: rgba(255,255,255,0.94);
+            background: color-mix(in srgb, var(--surface) 92%, transparent 8%);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--brand-border);
             z-index: 50;
@@ -109,7 +109,7 @@
         /* ══ 2-col card grid ═════════════════════════════════ */
         .pb-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
         .pb-card {
-            border: 1px solid var(--brand-border); border-radius: 16px; background: #fff;
+            border: 1px solid var(--brand-border); border-radius: 16px; background: var(--surface);
             overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
         }
         .pb-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
@@ -194,7 +194,9 @@
         .pb-ai-sub:last-child { margin-bottom: 0; }
         .pb-ai-sub[id] { scroll-margin-top: 92px; }
         body.playbook-page {
-            background: #ffffff;
+            --pb-ambient-dot: rgba(15, 23, 42, 0.12);
+            --pb-ambient-opacity: 0.86;
+            background: var(--bg);
             position: relative;
         }
         body.playbook-page::before {
@@ -203,20 +205,20 @@
             inset: -8%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.88;
+            opacity: var(--pb-ambient-opacity);
             background-image:
-                radial-gradient(circle at 6% 12%, rgba(15, 23, 42, 0.14) 0 8px, transparent 9px),
-                radial-gradient(circle at 14% 44%, rgba(15, 23, 42, 0.12) 0 7px, transparent 8px),
-                radial-gradient(circle at 22% 72%, rgba(15, 23, 42, 0.11) 0 9px, transparent 10px),
-                radial-gradient(circle at 30% 26%, rgba(15, 23, 42, 0.13) 0 8px, transparent 9px),
-                radial-gradient(circle at 39% 60%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px),
-                radial-gradient(circle at 48% 18%, rgba(15, 23, 42, 0.12) 0 9px, transparent 10px),
-                radial-gradient(circle at 57% 78%, rgba(15, 23, 42, 0.1) 0 8px, transparent 9px),
-                radial-gradient(circle at 66% 36%, rgba(15, 23, 42, 0.11) 0 7px, transparent 8px),
-                radial-gradient(circle at 74% 66%, rgba(15, 23, 42, 0.12) 0 8px, transparent 9px),
-                radial-gradient(circle at 82% 24%, rgba(15, 23, 42, 0.11) 0 8px, transparent 9px),
-                radial-gradient(circle at 90% 56%, rgba(15, 23, 42, 0.1) 0 7px, transparent 8px),
-                radial-gradient(circle at 96% 16%, rgba(15, 23, 42, 0.11) 0 8px, transparent 9px);
+                radial-gradient(circle at 6% 12%, var(--pb-ambient-dot) 0 8px, transparent 9px),
+                radial-gradient(circle at 14% 44%, var(--pb-ambient-dot) 0 7px, transparent 8px),
+                radial-gradient(circle at 22% 72%, var(--pb-ambient-dot) 0 9px, transparent 10px),
+                radial-gradient(circle at 30% 26%, var(--pb-ambient-dot) 0 8px, transparent 9px),
+                radial-gradient(circle at 39% 60%, var(--pb-ambient-dot) 0 7px, transparent 8px),
+                radial-gradient(circle at 48% 18%, var(--pb-ambient-dot) 0 9px, transparent 10px),
+                radial-gradient(circle at 57% 78%, var(--pb-ambient-dot) 0 8px, transparent 9px),
+                radial-gradient(circle at 66% 36%, var(--pb-ambient-dot) 0 7px, transparent 8px),
+                radial-gradient(circle at 74% 66%, var(--pb-ambient-dot) 0 8px, transparent 9px),
+                radial-gradient(circle at 82% 24%, var(--pb-ambient-dot) 0 8px, transparent 9px),
+                radial-gradient(circle at 90% 56%, var(--pb-ambient-dot) 0 7px, transparent 8px),
+                radial-gradient(circle at 96% 16%, var(--pb-ambient-dot) 0 8px, transparent 9px);
             animation: ambient-drift 10s ease-in-out infinite alternate;
         }
         body.playbook-page > * {
@@ -256,7 +258,7 @@
         /* AI card */
         .pb-ai-card {
             border: 1px solid var(--brand-border);
-            border-radius: 16px; background: #fff;
+            border-radius: 16px; background: var(--surface);
             overflow: hidden; display: flex; flex-direction: column;
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -281,6 +283,20 @@
             border: 1px solid rgba(167,139,250,0.55);
             pointer-events: none;
             animation: ai-demo-ring 2.6s ease-in-out infinite;
+        }
+        @media (prefers-color-scheme: dark) {
+            body.playbook-page {
+                --pb-ambient-dot: rgba(255, 255, 255, 0.2);
+                --pb-ambient-opacity: 0.52;
+            }
+            .pb-scenario-select:hover,
+            .pb-scenario-select:focus-visible {
+                box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+            }
+            .pb-ai-card:hover,
+            .pb-card:hover {
+                box-shadow: 0 14px 30px rgba(2, 6, 23, 0.45);
+            }
         }
         .pb-ai-demo-pill {
             margin-left: auto;

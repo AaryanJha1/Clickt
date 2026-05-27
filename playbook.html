@@ -1064,10 +1064,10 @@
 <!-- Sticky nav — ClicktAI first -->
 <div class="pb-scenario-select-wrap" aria-label="Scenario switcher">
     <select id="pb-scenario-select" class="pb-scenario-select" aria-label="Choose scenario">
-        <option value="launch" selected>Launch Week</option>
-        <option value="onboarding">Onboarding</option>
-        <option value="weekly">Weekly Report</option>
-        <option value="class">Class Project</option>
+        <option value="launch" selected>Launch a New Project</option>
+        <option value="onboarding">Train a New Team Member</option>
+        <option value="weekly">Share Weekly Progress</option>
+        <option value="class">Manage a School Project</option>
     </select>
 </div>
 <nav class="pb-module-nav" aria-label="Jump to module">
@@ -1115,11 +1115,11 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text" data-sf="teams_t1_prompt">"In Launch Week, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."</span>
+                    <span class="pb-ai-text" data-sf="teams_t1_prompt">"In Launch a New Project, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t1-card">
-                        <div class="ai-t1-stage" data-sf="teams_t1_stage">Creating assignment in Launch Week...</div>
+                        <div class="ai-t1-stage" data-sf="teams_t1_stage">Creating assignment in Launch a New Project...</div>
                         <div class="ai-t1-top">
                             <span class="pv-avatar" style="background:#1e40af">AJ</span>
                             <span class="ai-t1-name" data-sf="teams_t1_name">Finalize app store screenshots</span>
@@ -1138,7 +1138,7 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text" data-sf="teams_t2_prompt">"In Launch Week, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."</span>
+                    <span class="pb-ai-text" data-sf="teams_t2_prompt">"In Launch a New Project, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t2-wrap">
@@ -1160,7 +1160,7 @@
                         <span class="pb-ai-cursor">›_</span>
                         <span class="pb-ai-mode exec">Execute</span>
                     </div>
-                    <span class="pb-ai-text" data-sf="teams_t3_prompt">"Give me a weekly summary for Launch Week — what was completed, what's still open, and who owns what."</span>
+                    <span class="pb-ai-text" data-sf="teams_t3_prompt">"Give me a weekly summary for Launch a New Project — what was completed, what's still open, and who owns what."</span>
                 </div>
                 <div class="pb-ai-result" style="background:#f8faff">
                     <div class="ai-t3-wrap">
@@ -1509,17 +1509,17 @@
         const mobileQuery = window.matchMedia('(max-width: 640px)');
         const scenarioContent = {
             launch: {
-                teams_t1_prompt: '"In Launch Week, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."',
-                teams_t1_stage: 'Creating assignment in Launch Week...',
+                teams_t1_prompt: '"In Launch a New Project, assign aaryanjha a task titled Finalize app store screenshots with details Prepare all required sizes and captions for iOS and Android and set deadline to 2026-05-02 17:00."',
+                teams_t1_stage: 'Creating assignment in Launch a New Project...',
                 teams_t1_name: 'Finalize app store screenshots',
                 teams_t1_due: 'Due 05/02 17:00',
                 teams_t1_meta: '@aaryanjha • iOS + Android sizes/captions',
-                teams_t2_prompt: '"In Launch Week, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."',
+                teams_t2_prompt: '"In Launch a New Project, create a first-to-claim task titled Launch Day Bug Bash details Pick any crash-level bug and resolve it before go-live claim deadline 2026-05-01 15:00 task deadline 2026-05-03 18:00."',
                 teams_t2_title: 'Launch Day Bug Bash',
                 teams_t2_claim: 'Claim by: 05/01 15:00',
                 teams_t2_due: 'Due: 05/03 18:00',
                 teams_t2_status: '✓ Claimed by a teammate, deadline synced',
-                teams_t3_prompt: '"Give me a weekly summary for Launch Week — what was completed, what\'s still open, and who owns what."',
+                teams_t3_prompt: '"Give me a weekly summary for Launch a New Project — what was completed, what\'s still open, and who owns what."',
                 teams_t3_done: 'Done 7',
                 teams_t3_open: 'Open 4',
                 teams_t3_late: 'Overdue 1',
@@ -1560,12 +1560,12 @@
                 pres_t3_done: 'deck.pdf ready',
             },
             onboarding: {
-                teams_t1_prompt: '"For New Hire Onboarding, assign aaryanjha a task titled Set up workspace access and set deadline to 2026-05-06 11:00."',
-                teams_t1_stage: 'Creating assignment in New Hire Onboarding...',
+                teams_t1_prompt: '"For Train a New Team Member, assign aaryanjha a task titled Set up workspace access and set deadline to 2026-05-06 11:00."',
+                teams_t1_stage: 'Creating assignment in Train a New Team Member...',
                 teams_t1_name: 'Set up workspace access',
                 teams_t1_due: 'Due 05/06 11:00',
                 teams_t1_meta: '@aaryanjha • tools, docs, permissions',
-                teams_t2_prompt: '"In New Hire Onboarding, create a first-to-claim task titled Buddy intro call with claim deadline 2026-05-05 16:00 and task deadline 2026-05-07 17:00."',
+                teams_t2_prompt: '"In Train a New Team Member, create a first-to-claim task titled Buddy intro call with claim deadline 2026-05-05 16:00 and task deadline 2026-05-07 17:00."',
                 teams_t2_title: 'Buddy intro call',
                 teams_t2_claim: 'Claim by: 05/05 16:00',
                 teams_t2_due: 'Due: 05/07 17:00',
@@ -1611,8 +1611,8 @@
                 pres_t3_done: 'onboarding-review.pdf ready',
             },
             weekly: {
-                teams_t1_prompt: '"In Weekly Operations, assign aaryanjha task Publish weekly KPI digest and set deadline to 2026-05-08 10:00."',
-                teams_t1_stage: 'Creating assignment in Weekly Operations...',
+                teams_t1_prompt: '"In Share Weekly Progress, assign aaryanjha task Publish weekly KPI digest and set deadline to 2026-05-08 10:00."',
+                teams_t1_stage: 'Creating assignment in Share Weekly Progress...',
                 teams_t1_name: 'Publish weekly KPI digest',
                 teams_t1_due: 'Due 05/08 10:00',
                 teams_t1_meta: '@aaryanjha • summary, risks, next steps',
@@ -1628,14 +1628,14 @@
                 teams_t3_row1: 'Revenue trend update',
                 teams_t3_row2: 'Support backlog review',
                 teams_t3_row3: 'Roadmap status sync',
-                check_t1_prompt: '"Add validate CRM export and verify dashboard totals to Weekly Reporting checklist, priority high."',
+                check_t1_prompt: '"Add validate CRM export and verify dashboard totals to Share Weekly Progress checklist, priority high."',
                 check_t1_new1: 'validate CRM export',
                 check_t1_new2: 'verify dashboard totals',
                 check_t2_prompt: '"Show weekly-report checklist items still open by priority."',
                 check_t2_row1: 'Executive summary final pass',
                 check_t2_row2: 'Regional breakdown chart check',
                 check_t2_row3: 'Screenshot quality review',
-                check_t3_prompt: '"Mark data validation and stakeholder note draft as completed in Weekly Reporting checklist."',
+                check_t3_prompt: '"Mark data validation and stakeholder note draft as completed in Share Weekly Progress checklist."',
                 check_t3_row1: 'Data validation',
                 check_t3_row2: 'Stakeholder note draft',
                 check_t3_row3: 'Chart annotation pass',
@@ -1662,8 +1662,8 @@
                 pres_t3_done: 'weekly-review.pdf ready',
             },
             class: {
-                teams_t1_prompt: '"In Class Project Alpha, assign aaryanjha task Finalize research scope and set deadline to 2026-05-09 18:00."',
-                teams_t1_stage: 'Creating assignment in Class Project Alpha...',
+                teams_t1_prompt: '"In Manage a School Project, assign aaryanjha task Finalize research scope and set deadline to 2026-05-09 18:00."',
+                teams_t1_stage: 'Creating assignment in Manage a School Project...',
                 teams_t1_name: 'Finalize research scope',
                 teams_t1_due: 'Due 05/09 18:00',
                 teams_t1_meta: '@aaryanjha • objectives, dataset list, rubric fit',
@@ -1679,14 +1679,14 @@
                 teams_t3_row1: 'Problem statement draft',
                 teams_t3_row2: 'Experiment setup review',
                 teams_t3_row3: 'Presentation rehearsal',
-                check_t1_prompt: '"Add citation formatting and final bibliography review to Class Project checklist with priority medium."',
+                check_t1_prompt: '"Add citation formatting and final bibliography review to Manage a School Project checklist with priority medium."',
                 check_t1_new1: 'citation formatting',
                 check_t1_new2: 'final bibliography review',
                 check_t2_prompt: '"Show class project checklist items not completed, ordered by priority."',
                 check_t2_row1: 'Methodology section polish',
                 check_t2_row2: 'Peer feedback incorporation',
                 check_t2_row3: 'Appendix screenshot pass',
-                check_t3_prompt: '"Mark intro slide outline and data cleaning as completed in Class Project checklist."',
+                check_t3_prompt: '"Mark intro slide outline and data cleaning as completed in Manage a School Project checklist."',
                 check_t3_row1: 'Intro slide outline',
                 check_t3_row2: 'Data cleaning',
                 check_t3_row3: 'Chart caption drafting',
@@ -1705,7 +1705,7 @@
                 builder_t3_module1: 'Trend chart',
                 builder_t3_module2: 'Group comparison',
                 builder_t3_module3: 'Summary table',
-                pres_t1_prompt: '"Create a presentation titled Class Project Final Review with 10 slides."',
+                pres_t1_prompt: '"Create a presentation titled Manage a School Project Final Review with 10 slides."',
                 pres_t1_count: '10 slides generated',
                 pres_t2_prompt: '"Apply Clickt Blue style to this class project deck and improve visual hierarchy."',
                 pres_t2_badge: 'Project style applied ✓',

@@ -1309,6 +1309,22 @@ function initShowcaseChapters() {
 
     if (!platformSections.length) return;
 
+    const normalizePanelText = (text) => {
+        if (!text) return "";
+        return text
+            .replace(/\s+/g, " ")
+            .replace(/\s+([,.;!?])/g, "$1")
+            .replace(/([,.;!?])(?=\S)/g, "$1 ")
+            .trim();
+    };
+
+    const showcaseTextNodes = Array.from(
+        document.querySelectorAll(".sc-copy-heading, .sc-copy-body")
+    );
+    showcaseTextNodes.forEach((node) => {
+        node.textContent = normalizePanelText(node.textContent);
+    });
+
     // ── Stop tables: each entry defines the device state at that
     //    scroll-progress threshold.  Between stops GSAP interpolates
     //    position/rotation/scale; image + copy swap discretely.

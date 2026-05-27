@@ -7,7 +7,7 @@
     <meta name="description" content="Guidance and support for Clickt across iOS, iPadOS, and macOS.">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="support-page">
 
     <div class="container">
         <header class="page-header">
@@ -18,26 +18,64 @@
             <h1 class="page-header-title">Support Desk</h1>
         </header>
 
-        <main>
-            <div class="support-content">
-                <p>We are pleased to help you make the fullest use of Clickt. The application is supported on the following platforms:</p>
-                <ul>
-                    <li><strong>iOS</strong> (iPhone)</li>
-                    <li><strong>iPadOS</strong> (iPad)</li>
-                    <li><strong>macOS</strong> (Mac)</li>
-                </ul>
+        <main class="support-main">
+            <section class="support-hero">
+                <p class="support-kicker">Support</p>
+                <h2>Get unstuck quickly</h2>
+                <p class="support-subtitle">Use the quick fixes below, then contact us if you still need help. We support Clickt on iPhone, iPad, and Mac.</p>
+            </section>
 
-                <h3>How to Request Assistance</h3>
-                <p>To help us resolve your inquiry with care and speed, please use the button below and include the following details in your email:</p>
-                <ul>
-                    <li>The device you are using (for example, iPhone 15 or MacBook Pro)</li>
-                    <li>The operating system version currently installed</li>
-                    <li>The version of Clickt presently in use</li>
-                    <li>A clear description of the issue or question</li>
-                </ul>
+            <section class="support-fast-help" aria-label="Common issues">
+                <h3>Common issues</h3>
+                <div class="support-issue-grid">
+                    <article class="support-issue-card">
+                        <h4>Export failed</h4>
+                        <p>Try PNG export first to verify rendering, then retry PDF, DOC, or PPT.</p>
+                        <a href="user-guide.html#troubleshoot">Open troubleshooting</a>
+                    </article>
+                    <article class="support-issue-card">
+                        <h4>Notification not arriving</h4>
+                        <p>Confirm device permissions and signed-in status before checking cloud token sync.</p>
+                        <a href="user-guide.html#notifications">Check notification guide</a>
+                    </article>
+                    <article class="support-issue-card">
+                        <h4>Team actions unavailable</h4>
+                        <p>Verify invite acceptance and team role permissions for assignment and decision actions.</p>
+                        <a href="user-guide.html#teams">Review team permissions</a>
+                    </article>
+                    <article class="support-issue-card">
+                        <h4>Need module walkthrough</h4>
+                        <p>Follow the quick-start path for Builder, Presentation, Teams, and Checklist.</p>
+                        <a href="user-guide.html#workflow">Go to quick start</a>
+                    </article>
+                </div>
+            </section>
 
-                <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn">Write to Support</a>
-            </div>
+            <section class="support-contact-grid" aria-label="Contact support details">
+                <article class="support-panel">
+                    <h3>Before you email support</h3>
+                    <p>Including these details helps us resolve your issue faster.</p>
+                    <ul class="support-checklist">
+                        <li>Device model (for example, iPhone 15 or MacBook Pro)</li>
+                        <li>Operating system version</li>
+                        <li>Clickt app version</li>
+                        <li>Clear issue summary and expected behavior</li>
+                        <li>Screenshot or short screen recording if possible</li>
+                    </ul>
+                </article>
+
+                <article class="support-panel support-panel-highlight">
+                    <h3>Contact Clickt Support</h3>
+                    <p>Send your request and we will guide you through the next best step.</p>
+                    <div class="support-platforms" aria-label="Supported platforms">
+                        <span>iOS</span>
+                        <span>iPadOS</span>
+                        <span>macOS</span>
+                    </div>
+                    <p class="support-response">Typical response window: within 1 to 2 business days.</p>
+                    <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn">Write to Support</a>
+                </article>
+            </section>
         </main>
 
         <footer>

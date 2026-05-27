@@ -1893,6 +1893,188 @@ header {
     margin-bottom: 0.5rem;
 }
 
+.support-page {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.support-page .support-main {
+    margin: 2.25rem auto 4.25rem;
+    display: grid;
+    gap: 1.25rem;
+}
+
+.support-page .support-hero {
+    border: 1px solid var(--brand-border);
+    border-radius: 16px;
+    padding: 1.5rem 1.4rem;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.support-page .support-kicker {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.support-page .support-hero h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    color: #0f172a;
+}
+
+.support-page .support-subtitle {
+    margin: 0.55rem 0 0;
+    max-width: 760px;
+    color: #475569;
+    font-size: 1.02rem;
+}
+
+.support-page .support-fast-help,
+.support-page .support-contact-grid {
+    border: 1px solid var(--brand-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+}
+
+.support-page .support-fast-help h3,
+.support-page .support-panel h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+.support-page .support-issue-grid {
+    margin-top: 0.95rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.support-page .support-issue-card {
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+    padding: 0.9rem;
+    background: #fbfdff;
+}
+
+.support-page .support-issue-card h4 {
+    margin: 0;
+    font-size: 0.98rem;
+    color: #0f172a;
+}
+
+.support-page .support-issue-card p {
+    margin: 0.45rem 0 0;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.support-page .support-issue-card a {
+    display: inline-flex;
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    text-decoration: none;
+}
+
+.support-page .support-issue-card a:hover,
+.support-page .support-issue-card a:focus-visible {
+    text-decoration: underline;
+    outline: none;
+}
+
+.support-page .support-contact-grid {
+    display: grid;
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: 0.9rem;
+}
+
+.support-page .support-panel {
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #fcfdff;
+}
+
+.support-page .support-panel p {
+    margin: 0.5rem 0 0;
+    font-size: 0.94rem;
+    color: #475569;
+}
+
+.support-page .support-checklist {
+    margin: 0.7rem 0 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.36rem;
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+.support-page .support-panel-highlight {
+    background: linear-gradient(180deg, #f8fbff 0%, #f3f8ff 100%);
+    border-color: #ccdaef;
+}
+
+.support-page .support-platforms {
+    margin-top: 0.72rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.support-page .support-platforms span {
+    border: 1px solid #c8d9f3;
+    border-radius: 999px;
+    padding: 0.18rem 0.58rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    background: #eff6ff;
+}
+
+.support-page .support-response {
+    margin-top: 0.78rem;
+}
+
+.support-page .support-panel .btn {
+    margin-top: 0.95rem;
+}
+
+@media (max-width: 900px) {
+    .support-page .support-issue-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .support-page .support-contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .support-page .support-main {
+        margin: 1.4rem auto 3rem;
+    }
+
+    .support-page .support-hero,
+    .support-page .support-fast-help,
+    .support-page .support-contact-grid {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .support-page .support-subtitle {
+        font-size: 0.96rem;
+    }
+}
+
 .policy-content h3 {
     margin-top: 1.5rem;
 }
@@ -3521,6 +3703,40 @@ footer a:hover {
     background: color-mix(in srgb, var(--guide-bg-card) 80%, #f6f7fb 20%);
 }
 
+.user-guide-page .guide-learn {
+    margin: 0.45rem 0 0.9rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.user-guide-page .guide-path-grid {
+    margin-top: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.user-guide-page .guide-path-card {
+    border: 1px solid #dbe2f0;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 14px;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.user-guide-page .guide-path-card h3 {
+    margin: 0;
+    font-size: 0.98rem;
+    color: #0f172a;
+}
+
+.user-guide-page .guide-path-card p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: #475569;
+}
+
 .user-guide-page .guide-section {
     border: 1px solid var(--guide-border);
     border-radius: var(--guide-radius);
@@ -3933,6 +4149,10 @@ footer a:hover {
     .user-guide-page .tabs-mockup {
         grid-template-columns: 1fr;
     }
+
+    .user-guide-page .guide-path-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 640px) {
@@ -3951,6 +4171,10 @@ footer a:hover {
 
     .user-guide-page .status-row {
         align-items: flex-start;
+    }
+
+    .user-guide-page .guide-path-grid {
+        grid-template-columns: 1fr;
     }
 }
 

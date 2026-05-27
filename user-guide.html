@@ -16,18 +16,22 @@
                 <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo">
                 Clickt
             </a>
+            <h1 class="page-header-title">User Guide</h1>
         </header>
 
         <main class="guide-layout">
             <nav class="toc" aria-label="Guide contents">
                 <h3>Contents</h3>
                 <ul>
+                    <li><a href="#start-paths">Start Paths</a></li>
                     <li><a href="#workflow">Quick Start</a></li>
                     <li><a href="#structure">App Structure</a></li>
                     <li><a href="#builder">Builder Module</a></li>
                     <li><a href="#presentation">Presentation</a></li>
                     <li><a href="#teams">Teams &amp; Tasks</a></li>
                     <li><a href="#checklist">Checklist</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                    <li><a href="#notifications">Notifications</a></li>
                     <li><a href="#troubleshoot">Troubleshooting</a></li>
                 </ul>
             </nav>
@@ -46,10 +50,39 @@
                             <input id="guide-search-input" type="search" placeholder="Try: export, notifications, invites" autocomplete="off">
                             <p class="search-hint">Use search to jump to the exact workflow or issue you need.</p>
                         </div>
+                        <div class="quick-actions" aria-label="Jump links">
+                            <a href="#workflow">Quick Start</a>
+                            <a href="#builder">Builder</a>
+                            <a href="#presentation">Presentation</a>
+                            <a href="#teams">Teams</a>
+                            <a href="#troubleshoot">Troubleshoot</a>
+                        </div>
                     </div>
                 </header>
 
                 <p id="guide-no-results" class="guide-no-results" hidden>No matching sections found. Try a broader keyword.</p>
+
+                <section id="start-paths" class="guide-section">
+                    <h2 class="anchored-heading">⚡ Start Paths <a class="anchor-copy" href="#start-paths" aria-label="Copy link to Start Paths" title="Copy section link">🔗</a></h2>
+                    <p>Choose the fastest path based on what you need right now.</p>
+                    <div class="guide-path-grid">
+                        <article class="guide-path-card">
+                            <h3>Build a report fast</h3>
+                            <p>Use Builder for data cleanup and charts, then move to Presentation for a polished export.</p>
+                            <a class="mini-cta" href="#builder">Open Builder path</a>
+                        </article>
+                        <article class="guide-path-card">
+                            <h3>Run team execution</h3>
+                            <p>Set ownership in Teams, track done/open work, and keep daily progress visible.</p>
+                            <a class="mini-cta" href="#teams">Open Teams path</a>
+                        </article>
+                        <article class="guide-path-card">
+                            <h3>Fix a blocker now</h3>
+                            <p>Go to troubleshooting for quick checks on export, notifications, and permission issues.</p>
+                            <a class="mini-cta" href="#troubleshoot">Open troubleshooting</a>
+                        </article>
+                    </div>
+                </section>
 
                 <section id="workflow" class="guide-section workflow-box">
                     <div class="workflow-head">
@@ -92,6 +125,7 @@
 
                 <section id="structure" class="guide-section">
                     <h2 class="anchored-heading">🧭 App Structure <a class="anchor-copy" href="#structure" aria-label="Copy link to App Structure" title="Copy section link">🔗</a></h2>
+                    <p class="guide-learn">What you will learn: where each core module lives and how guest versus signed-in access works.</p>
                     <p>Primary tabs are <strong>Clickt</strong>, <strong>Checklist</strong>, and <strong>Settings</strong>.</p>
                     <p>Inside Clickt, core modules are <strong>Tasks</strong>, <strong>Builder</strong>, and <strong>Presentation</strong>.</p>
                     <p>Guest mode includes Builder + Presentation access, while Tasks requires signed-in mode.</p>
@@ -104,6 +138,7 @@
                         <h2 class="anchored-heading">Builder Module <a class="anchor-copy" href="#builder" aria-label="Copy link to Builder Module" title="Copy section link">🔗</a></h2>
                     </div>
                     <p class="module-subtitle">Data → Analysis → Deliverables</p>
+                    <p class="guide-learn">What you will learn: import datasets, build analysis outputs, and export clean deliverables.</p>
 
                     <div class="tabs-mockup">
                         <div class="tab">
@@ -130,6 +165,7 @@
                         <h2 class="anchored-heading">Presentation Module <a class="anchor-copy" href="#presentation" aria-label="Copy link to Presentation Module" title="Copy section link">🔗</a></h2>
                     </div>
                     <p class="module-subtitle">Decks, slide editing, branding, and export</p>
+                    <p class="guide-learn">What you will learn: transform findings into decks, apply visual rules, and export for sharing.</p>
                     <ul>
                         <li>Create/edit/reorder slides and decks</li>
                         <li>Control title/subtitle/body/image sections visually</li>
@@ -148,6 +184,7 @@
                         <h2 class="anchored-heading">Teams &amp; Collaboration <a class="anchor-copy" href="#teams" aria-label="Copy link to Teams and Collaboration" title="Copy section link">🔗</a></h2>
                     </div>
                     <p>Use Teams to create groups, send membership requests, assign tasks, and run YES/NO decision invites.</p>
+                    <p class="guide-learn">What you will learn: assign ownership, track completion states, and speed up decision cycles.</p>
 
                     <div class="status-table">
                         <div class="status-row">
@@ -171,6 +208,7 @@
                         <h2 class="anchored-heading">Checklist Module <a class="anchor-copy" href="#checklist" aria-label="Copy link to Checklist Module" title="Copy section link">🔗</a></h2>
                     </div>
                     <p>Track personal work and synced team assignments with clear completion progress.</p>
+                    <p class="guide-learn">What you will learn: manage repeatable checklists and keep completion status accurate.</p>
                     <ul>
                         <li>Add/edit/reorder items</li>
                         <li>Mark complete or reopen</li>
@@ -184,6 +222,7 @@
                         <span class="icon" aria-hidden="true">⚙️</span>
                         <h2 class="anchored-heading">Settings &amp; Account <a class="anchor-copy" href="#settings" aria-label="Copy link to Settings and Account" title="Copy section link">🔗</a></h2>
                     </div>
+                    <p class="guide-learn">What you will learn: account updates, security actions, and key support links.</p>
                     <ul>
                         <li>Edit profile and username</li>
                         <li>Reset password</li>

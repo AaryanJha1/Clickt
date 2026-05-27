@@ -248,7 +248,7 @@ function initHomeWorkflow() {
     const stepOrder = ["goal", "assign", "execute", "analyze", "present"];
     const scenarios = {
         sprint: {
-            label: "Launch Week",
+            label: "Launch a New Project",
             steps: {
                 goal: {
                     title: "Set one clear goal",
@@ -313,7 +313,7 @@ function initHomeWorkflow() {
             },
         },
         onboarding: {
-            label: "Onboarding",
+            label: "Train a New Team Member",
             steps: {
                 goal: {
                     title: "Set onboarding success outcomes",
@@ -378,7 +378,7 @@ function initHomeWorkflow() {
             },
         },
         weekly: {
-            label: "Weekly Report",
+            label: "Share Weekly Progress",
             steps: {
                 goal: {
                     title: "Define the weekly reporting question",
@@ -443,7 +443,7 @@ function initHomeWorkflow() {
             },
         },
         project: {
-            label: "Class Project",
+            label: "Manage a School Project",
             steps: {
                 goal: {
                     title: "Set project scope and deliverables",

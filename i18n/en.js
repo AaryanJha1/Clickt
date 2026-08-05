@@ -857,7 +857,7 @@ window.ClicktI18nDict.en = {
           "usd": "USD 15 / user / month"
         },
         "enterprise": {
-          "npr": "From NPR 3,350 / user / month",
+          "npr": "From NPR 3,000 / user / month",
           "usd": "From USD 25 / user / month"
         }
       }
@@ -873,11 +873,11 @@ window.ClicktI18nDict.en = {
       "free": {
         "label": "Free",
         "period": "forever",
-        "users": "Personal + up to 3 collaborators",
+        "users": "For individuals and small teams",
         "tagline": "The complete Clickt workflow for individuals, students, and very small teams.",
         "cta": "Get started free",
         "feature1": "Teams, Builder, Presentation &amp; Checklist",
-        "feature2": "Up to 3 collaborators",
+        "feature2": "Team collaboration",
         "feature3": "ClicktAI Copilots with your own API key",
         "feature4": "All exports — PDF, HTML, PNG",
         "feature5": "Shared cloud infrastructure",
@@ -889,7 +889,7 @@ window.ClicktI18nDict.en = {
         "period": "per licensed user / month · billed annually · for teams under 26 members",
         "credit": "Clickt-provided AI",
         "tagline": "One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.",
-        "cta": "Get Business",
+        "cta": "Contact Sales",
         "ctaNote": "Prefer to talk first? <a href=\"mailto:clickt@click-t.com?subject=Business%20Plan%20Inquiry\">Contact Sales</a>",
         "feature1": "Everything in Free",
         "feature2": "For teams of up to 25 members",
@@ -974,7 +974,7 @@ window.ClicktI18nDict.en = {
       "heading": "Common questions",
       "q1": {
         "question": "What is included in the Free plan?",
-        "answer": "The Free plan includes the full Clickt workflow — Teams, Builder, Presentation, Checklist, and Calendar — for personal use and up to three collaborators. You can use every ClicktAI Copilot by connecting your own AI provider API key in Settings. All core exports are available."
+        "answer": "The Free plan includes the full Clickt workflow — Teams, Builder, Presentation, Checklist, and Calendar — for individuals and small teams. You can use every ClicktAI Copilot by connecting your own AI provider API key in Settings. All core exports are available."
       },
       "q2": {
         "question": "What is a company workspace?",

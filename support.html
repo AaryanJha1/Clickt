@@ -4,85 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support | Clickt</title>
-    <meta name="description" content="Guidance and support for Clickt across iOS, iPadOS, and macOS.">
-    <link rel="stylesheet" href="styles.css?v=20260527n">
+    <meta name="description" content="Get help with Clickt on iPhone, iPad, Mac, and Android. Quick fixes for common issues plus direct support contact.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260730a">
 </head>
 <body class="support-page">
+
+    <div class="platform-strip" aria-label="Available on Apple and Android">
+        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    </div>
 
     <div class="container">
         <header class="page-header">
             <a href="index.html" class="brand">
-                <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo">
+                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
                 Clickt
             </a>
-            <h1 class="page-header-title">Support Desk</h1>
+            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
+                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
+                </div>
+            </nav>
+            <details class="header-dropdown">
+                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                    <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                    <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
+                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
+                    </div>
+                </nav>
+            </details>
         </header>
 
         <main class="support-main">
             <section class="support-hero">
-                <p class="support-kicker">Support</p>
-                <h2>Get unstuck quickly</h2>
-                <p class="support-subtitle">Use the quick fixes below, then contact us if you still need help. We support Clickt on iPhone, iPad, and Mac.</p>
+                <p class="support-kicker" data-i18n="support.hero.kicker">Support</p>
+                <h2 data-i18n="support.hero.heading">Get unstuck quickly</h2>
+                <p class="support-subtitle" data-i18n="support.hero.subtitle">Try the quick fixes below, then write to us if you still need help. We support Clickt on iPhone, iPad, Mac, and Android.</p>
             </section>
 
-            <section class="support-fast-help" aria-label="Common issues">
-                <h3>Common issues</h3>
+            <section class="support-fast-help" aria-label="Common issues" data-i18n-attr="aria-label:support.commonIssues.ariaLabel">
+                <h3 data-i18n="support.commonIssues.heading">Common issues</h3>
                 <div class="support-issue-grid">
                     <article class="support-issue-card">
-                        <h4>Export failed</h4>
-                        <p>Try PNG export first to verify rendering, then retry PDF, DOC, or PPT.</p>
-                        <a href="user-guide.html#troubleshoot">Open troubleshooting</a>
+                        <h4 data-i18n="support.exportFailed.heading">Export failed</h4>
+                        <p data-i18n="support.exportFailed.body">Try PNG export first to verify rendering, then retry PDF, DOC, or PPT. On Android, files save to Downloads.</p>
+                        <a href="user-guide.html#troubleshoot" data-i18n="support.exportFailed.link">Open troubleshooting</a>
                     </article>
                     <article class="support-issue-card">
-                        <h4>Notification not arriving</h4>
-                        <p>Confirm device permissions and signed-in status before checking cloud token sync.</p>
-                        <a href="user-guide.html#notifications">Check notification guide</a>
+                        <h4 data-i18n="support.notificationNotArriving.heading">Notification not arriving</h4>
+                        <p data-i18n="support.notificationNotArriving.body">Confirm device permissions and signed-in status. On Android, also check battery optimisation settings.</p>
+                        <a href="user-guide.html#notifications" data-i18n="support.notificationNotArriving.link">Check notification guide</a>
                     </article>
                     <article class="support-issue-card">
-                        <h4>Team actions unavailable</h4>
-                        <p>Verify invite acceptance and team role permissions for assignment and decision actions.</p>
-                        <a href="user-guide.html#teams">Review team permissions</a>
+                        <h4 data-i18n="support.teamActionsUnavailable.heading">Team actions unavailable</h4>
+                        <p data-i18n="support.teamActionsUnavailable.body">Verify invite acceptance and team role permissions for assignment and decision actions.</p>
+                        <a href="user-guide.html#teams" data-i18n="support.teamActionsUnavailable.link">Review team permissions</a>
                     </article>
                     <article class="support-issue-card">
-                        <h4>Need module walkthrough</h4>
-                        <p>Follow the quick-start path for Builder, Presentation, Teams, and Checklist.</p>
-                        <a href="user-guide.html#workflow">Go to quick start</a>
+                        <h4 data-i18n="support.moduleWalkthrough.heading">Need a module walkthrough</h4>
+                        <p data-i18n="support.moduleWalkthrough.body">Follow the quick-start path for Builder, Presentation, Teams, and Checklist in the User Guide.</p>
+                        <a href="user-guide.html#workflow" data-i18n="support.moduleWalkthrough.link">Go to quick start</a>
                     </article>
                 </div>
             </section>
 
-            <section class="support-contact-grid" aria-label="Contact support details">
+            <section class="support-contact-grid" aria-label="Contact support details" data-i18n-attr="aria-label:support.contactGrid.ariaLabel">
                 <article class="support-panel">
-                    <h3>Before you email support</h3>
-                    <p>Including these details helps us resolve your issue faster.</p>
+                    <h3 data-i18n="support.beforeYouWrite.heading">Before you write to us</h3>
+                    <p data-i18n="support.beforeYouWrite.body">Including these details helps us resolve your issue faster.</p>
                     <ul class="support-checklist">
-                        <li>Device model (for example, iPhone 15 or MacBook Pro)</li>
-                        <li>Operating system version</li>
-                        <li>Clickt app version</li>
-                        <li>Clear issue summary and expected behavior</li>
-                        <li>Screenshot or short screen recording if possible</li>
+                        <li data-i18n="support.beforeYouWrite.item1">Device model and platform — for example, iPhone 15, Samsung Galaxy S24, or MacBook Pro</li>
+                        <li data-i18n="support.beforeYouWrite.item2">Operating system version</li>
+                        <li data-i18n="support.beforeYouWrite.item3">Clickt app version</li>
+                        <li data-i18n="support.beforeYouWrite.item4">Clear issue summary and what you expected to happen</li>
+                        <li data-i18n="support.beforeYouWrite.item5">Screenshot or short screen recording if possible</li>
                     </ul>
                 </article>
 
                 <article class="support-panel support-panel-highlight">
-                    <h3>Contact Clickt Support</h3>
-                    <p>Send your request and we will guide you through the next best step.</p>
-                    <div class="support-platforms" aria-label="Supported platforms">
-                        <span>iOS</span>
-                        <span>iPadOS</span>
-                        <span>macOS</span>
+                    <h3 data-i18n="support.contactSupport.heading">Contact Clickt Support</h3>
+                    <p data-i18n="support.contactSupport.body">Send your request and we will guide you through the next best step.</p>
+                    <div class="support-platforms" aria-label="Supported platforms" data-i18n-attr="aria-label:support.contactSupport.platformsAriaLabel">
+                        <span data-i18n="support.contactSupport.platformIos">iOS</span>
+                        <span data-i18n="support.contactSupport.platformIpados">iPadOS</span>
+                        <span data-i18n="support.contactSupport.platformMacos">macOS</span>
+                        <span data-i18n="support.contactSupport.platformAndroid">Android</span>
                     </div>
-                    <p class="support-response">Typical response window: within 1 to 2 business days.</p>
-                    <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn">Write to Support</a>
+                    <p class="support-response" data-i18n="support.contactSupport.response">Typical response: within 1–2 business days.</p>
+                    <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn" data-i18n="support.contactSupport.cta">Write to Support</a>
                 </article>
             </section>
         </main>
 
         <footer>
-            <p>&copy; Clickt. All rights reserved.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="playbook.html">Playbook</a> | <a href="support.html">Support Desk</a> | <a href="user-guide.html">User Guide</a> | <a href="privacy.html">Privacy Statement</a></p>
+            <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
+            <p>
+                <a href="mailto:clickt@click-t.com">clickt@click-t.com</a> |
+                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> |
+                <a href="playbook.html" data-i18n="common.footer.prompts">Prompts</a> |
+                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> |
+                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> |
+                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> |
+                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
+            </p>
         </footer>
     </div>
 
+    <script src="i18n/en.js?v=20260803a"></script>
+    <script src="i18n/ne.js?v=20260803a"></script>
+    <script src="i18n.js?v=20260803a"></script>
 </body>
 </html>

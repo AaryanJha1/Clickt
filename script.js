@@ -2,14 +2,422 @@
     const featureStacksController = initFeatureStacks();
     initScrollReveal();
     initFeatureSlider(featureStacksController);
-    initTypingHeadline();
-    initHomeWorkflow();
+    initHeroConversation();
     initPersonaMatch();
     initDeviceExperience();
     initWorkflowCounters();
     initPlaybookPipelineStory();
     initShowcaseChapters();
+    initCopilotDemo();
+    initShowcaseCopilotLinks();
+    initHomepageSectionOrder();
+    initGooglePlayPlaceholder();
 })();
+
+function initHomepageSectionOrder() {
+    const copilotSection = document.querySelector(".copilot-section");
+    const workflowSection = document.querySelector(".home-context");
+    if (copilotSection && workflowSection) {
+        workflowSection.before(copilotSection);
+        workflowSection.remove();
+    }
+}
+
+function initGooglePlayPlaceholder() {
+    const button = document.querySelector("[data-google-play-placeholder]");
+    const message = document.getElementById("google-play-message");
+    if (!button || !message) return;
+
+    button.addEventListener("click", () => {
+        message.hidden = false;
+        message.classList.remove("is-visible");
+        void message.offsetWidth;
+        message.classList.add("is-visible");
+        button.setAttribute("aria-describedby", "google-play-message");
+    });
+}
+
+function initHeroConversation() {
+    const root = document.querySelector("[data-hero-conversation]");
+    if (!root) return;
+
+    const steps = Array.from(root.querySelectorAll("[data-hero-chat-step]"));
+    const typing = root.querySelector("[data-hero-chat-typing]");
+    const status = root.querySelector("[data-hero-chat-status]");
+    const announcement = root.querySelector("[data-hero-chat-announcement]");
+    const userMessage = steps[0]?.querySelector("p");
+    const proposalItems = Array.from(root.querySelectorAll("[data-hero-proposal-item]"));
+    const messagesEl = root.querySelector(".hero-chat-messages");
+    let fullUserMessage = userMessage?.textContent.trim() || "";
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let stage = 0;
+    let timer = 0;
+    let characterTimer = 0;
+    let proposalTimers = [];
+    let typedCharacters = 0;
+    let started = false;
+    let paused = false;
+    let statusKey = "index.hero.status.ready";
+    let announcementActive = false;
+    const t = (key) => (window.ClicktI18n ? window.ClicktI18n.t(key) : key);
+    const setStatus = (key) => {
+        statusKey = key;
+        status.textContent = t(key);
+    };
+    document.addEventListener("clickt:langchange", () => {
+        status.textContent = t(statusKey);
+        if (announcement && announcementActive) announcement.textContent = t("index.hero.announcement");
+        fullUserMessage = t("index.hero.chatUserMessage");
+        if (userMessage) {
+            if (stage === 0 && started) {
+                typedCharacters = 0;
+                userMessage.textContent = "";
+            } else {
+                userMessage.textContent = fullUserMessage;
+                typedCharacters = fullUserMessage.length;
+            }
+        }
+    });
+
+    // Reserve the fully-expanded height up front so revealing each message
+    // fills already-allocated space instead of growing the card and pushing
+    // everything below the hero down the page.
+    const lockChatHeight = () => {
+        if (!messagesEl) return;
+        messagesEl.style.minHeight = "";
+        const stepHidden = steps.map((step) => step.hidden);
+        const proposalHidden = proposalItems.map((item) => item.hidden);
+        const typingHidden = typing ? typing.hidden : null;
+        const priorUserText = userMessage ? userMessage.textContent : null;
+
+        steps.forEach((step) => { step.hidden = false; });
+        proposalItems.forEach((item) => { item.hidden = false; });
+        if (typing) typing.hidden = true;
+        if (userMessage) userMessage.textContent = fullUserMessage;
+
+        messagesEl.style.minHeight = messagesEl.scrollHeight + "px";
+
+        steps.forEach((step, index) => { step.hidden = stepHidden[index]; });
+        proposalItems.forEach((item, index) => { item.hidden = proposalHidden[index]; });
+        if (typing && typingHidden !== null) typing.hidden = typingHidden;
+        if (userMessage && priorUserText !== null) userMessage.textContent = priorUserText;
+    };
+
+    lockChatHeight();
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(lockChatHeight).catch(() => {});
+    }
+    let resizeTimer = 0;
+    window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(lockChatHeight, 150);
+    });
+
+    const reveal = (element) => {
+        if (!element) return;
+        element.hidden = false;
+        window.requestAnimationFrame(() => element.classList.add("is-revealed"));
+    };
+
+    const clearProposalTimers = () => {
+        proposalTimers.forEach((proposalTimer) => window.clearTimeout(proposalTimer));
+        proposalTimers = [];
+    };
+
+    const revealProposalItems = () => {
+        clearProposalTimers();
+        proposalItems.forEach((item, index) => {
+            const proposalTimer = window.setTimeout(() => reveal(item), index * 200);
+            proposalTimers.push(proposalTimer);
+        });
+    };
+
+    const showCompleteState = () => {
+        window.clearTimeout(timer);
+        window.clearTimeout(characterTimer);
+        clearProposalTimers();
+        root.classList.remove("is-showing-typing");
+        root.classList.remove("is-user-typing");
+        if (typing) typing.hidden = true;
+        if (userMessage) userMessage.textContent = fullUserMessage;
+        steps.forEach(reveal);
+        proposalItems.forEach(reveal);
+        setStatus("index.hero.status.proposalReady");
+        announcementActive = true;
+        if (announcement) announcement.textContent = t("index.hero.announcement");
+    };
+
+    const schedule = (delay) => {
+        window.clearTimeout(timer);
+        if (paused) return;
+        timer = window.setTimeout(advance, delay);
+    };
+
+    const typeUserMessage = () => {
+        if (paused || !userMessage) return;
+        if (typedCharacters >= fullUserMessage.length) {
+            root.classList.remove("is-user-typing");
+            stage = 1;
+            schedule(430);
+            return;
+        }
+        typedCharacters += 1;
+        userMessage.textContent = fullUserMessage.slice(0, typedCharacters);
+        characterTimer = window.setTimeout(typeUserMessage, 11);
+    };
+
+    const resetCycle = () => {
+        window.clearTimeout(timer);
+        window.clearTimeout(characterTimer);
+        clearProposalTimers();
+        root.classList.remove("is-showing-typing");
+        root.classList.remove("is-user-typing");
+        if (typing) typing.hidden = true;
+        steps.forEach((step) => {
+            step.hidden = true;
+            step.classList.remove("is-revealed");
+        });
+        proposalItems.forEach((item) => {
+            item.hidden = true;
+            item.classList.remove("is-revealed");
+        });
+        if (userMessage) userMessage.textContent = "";
+        if (announcement) announcement.textContent = "";
+        announcementActive = false;
+        setStatus("index.hero.status.ready");
+        typedCharacters = 0;
+        stage = 0;
+        advance();
+    };
+
+    const advance = () => {
+        if (paused) return;
+        switch (stage) {
+        case 0:
+            reveal(steps[0]);
+            setStatus("index.hero.status.understanding");
+            if (userMessage) userMessage.textContent = "";
+            root.classList.add("is-user-typing");
+            typeUserMessage();
+            break;
+        case 1:
+            if (typing) typing.hidden = false;
+            root.classList.add("is-showing-typing");
+            setStatus("index.hero.status.preparing");
+            stage = 2;
+            schedule(720);
+            break;
+        case 2:
+            root.classList.remove("is-showing-typing");
+            if (typing) typing.hidden = true;
+            reveal(steps[1]);
+            stage = 3;
+            schedule(620);
+            break;
+        case 3:
+            reveal(steps[2]);
+            revealProposalItems();
+            stage = 4;
+            schedule(1380);
+            break;
+        case 4:
+            reveal(steps[3]);
+            stage = 5;
+            schedule(520);
+            break;
+        default:
+            reveal(steps[4]);
+            setStatus("index.hero.status.proposalReady");
+            announcementActive = true;
+            if (announcement) announcement.textContent = t("index.hero.announcement");
+            stage = 6;
+            timer = window.setTimeout(resetCycle, 4800);
+        }
+    };
+
+    if (reducedMotion) {
+        showCompleteState();
+        return;
+    }
+
+    root.classList.add("is-animated");
+    steps.forEach((step) => {
+        step.hidden = true;
+        step.classList.remove("is-revealed");
+    });
+    proposalItems.forEach((item) => {
+        item.hidden = true;
+        item.classList.remove("is-revealed");
+    });
+    if (typing) typing.hidden = true;
+
+    const start = () => {
+        if (started) return;
+        started = true;
+        advance();
+    };
+
+    root.addEventListener("pointerenter", () => {
+        paused = true;
+        window.clearTimeout(timer);
+        window.clearTimeout(characterTimer);
+    });
+    root.addEventListener("pointerleave", () => {
+        paused = false;
+        if (stage === 0) typeUserMessage();
+        else if (stage === 6) timer = window.setTimeout(resetCycle, 600);
+        else schedule(260);
+    });
+    root.addEventListener("focusin", () => {
+        paused = true;
+        window.clearTimeout(timer);
+        window.clearTimeout(characterTimer);
+    });
+    root.addEventListener("focusout", (event) => {
+        if (root.contains(event.relatedTarget)) return;
+        paused = false;
+        if (stage === 0) typeUserMessage();
+        else if (stage === 6) timer = window.setTimeout(resetCycle, 600);
+        else schedule(260);
+    });
+
+    if (!("IntersectionObserver" in window)) {
+        start();
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                start();
+            }
+        });
+    }, { threshold: 0.16 });
+    observer.observe(root);
+}
+
+function initCopilotDemo() {
+    const root = document.querySelector("[data-copilot-demo]");
+    if (!root) return;
+
+    const screens = {
+        teams: "IOS Promotion/Clickt Images/iphone-team1.png",
+        builder: "IOS Promotion/Clickt Images/iphone-builder1.png",
+        presentation: "IOS Promotion/Clickt Images/iphone-presentation.png",
+        checklist: "IOS Promotion/Clickt Images/iphone-checklist.png",
+    };
+    const moduleIds = ["teams", "builder", "presentation", "checklist"];
+    const t = (key, vars) => (window.ClicktI18n ? window.ClicktI18n.t(key, vars) : key);
+    const moduleData = (id) => ({
+        label: t(`index.copilotDemo.${id}.label`),
+        title: t(`index.copilotDemo.${id}.title`),
+        description: t(`index.copilotDemo.${id}.description`),
+        screen: screens[id],
+        screenAlt: t(`index.copilotDemo.${id}.screenAlt`),
+        device: t(`index.copilotDemo.${id}.device`),
+        prompt: t(`index.copilotDemo.${id}.prompt`),
+        proposal: t(`index.copilotDemo.${id}.proposal`),
+        applied: t(`index.copilotDemo.${id}.applied`),
+    });
+
+    const tabs = Array.from(root.querySelectorAll("[data-copilot-module]"));
+    const stage = root.querySelector("[data-copilot-stage]");
+    const label = root.querySelector("[data-copilot-label]");
+    const title = root.querySelector("[data-copilot-title]");
+    const description = root.querySelector("[data-copilot-description]");
+    const image = root.querySelector("[data-copilot-image]");
+    const deviceTitle = root.querySelector("[data-copilot-device-title]");
+    const prompt = root.querySelector("[data-copilot-prompt]");
+    const output = root.querySelector("[data-copilot-output]");
+    const state = root.querySelector("[data-copilot-state]");
+    const action = root.querySelector("[data-copilot-action]");
+    const next = root.querySelector("[data-copilot-next]");
+    const approve = root.querySelector("[data-copilot-approve]");
+    const steps = Array.from(root.querySelectorAll("[data-copilot-step]"));
+    const stageOrder = ["ask", "preview", "apply"];
+    let selected = "teams";
+    let activeStage = "ask";
+
+    const render = () => {
+        const config = moduleData(selected);
+        if (!config) return;
+        label.textContent = config.label;
+        title.textContent = config.title;
+        description.textContent = config.description;
+        image.src = config.screen;
+        image.alt = config.screenAlt;
+        deviceTitle.textContent = config.device;
+        prompt.textContent = config.prompt;
+        output.replaceChildren(...config.proposal.map((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            return li;
+        }));
+        stage.dataset.copilotStage = activeStage;
+        const stepIndex = stageOrder.indexOf(activeStage);
+        steps.forEach((item, index) => item.classList.toggle("is-active", index <= stepIndex));
+        tabs.forEach((tab) => {
+            const isActive = tab.dataset.copilotModule === selected;
+            tab.classList.toggle("is-active", isActive);
+            tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (activeStage === "ask") {
+            state.textContent = t("index.copilotDemo.stage.ask.state");
+            action.textContent = t("index.copilotDemo.stage.ask.action");
+            approve.textContent = t("index.copilotDemo.stage.ask.approve");
+            next.innerHTML = t("index.copilotDemo.stage.ask.next") + ' <span aria-hidden="true">→</span>';
+        } else if (activeStage === "preview") {
+            state.textContent = t("index.copilotDemo.stage.preview.state");
+            action.textContent = t("index.copilotDemo.stage.preview.action");
+            approve.textContent = t("index.copilotDemo.stage.preview.approve");
+            next.innerHTML = t("index.copilotDemo.stage.preview.next") + ' <span aria-hidden="true">→</span>';
+        } else {
+            state.textContent = t("index.copilotDemo.stage.apply.state");
+            action.textContent = config.applied;
+            approve.textContent = t("index.copilotDemo.stage.apply.approve");
+            next.innerHTML = t("index.copilotDemo.stage.apply.next") + ' <span aria-hidden="true">→</span>';
+        }
+    };
+
+    const advance = () => {
+        const currentIndex = stageOrder.indexOf(activeStage);
+        if (currentIndex === stageOrder.length - 1) {
+            activeStage = "ask";
+            const currentModuleIndex = moduleIds.indexOf(selected);
+            selected = moduleIds[(currentModuleIndex + 1) % moduleIds.length];
+        } else {
+            activeStage = stageOrder[currentIndex + 1];
+        }
+        render();
+    };
+
+    tabs.forEach((tab) => tab.addEventListener("click", () => {
+        selected = tab.dataset.copilotModule || "teams";
+        activeStage = "ask";
+        render();
+    }));
+    next?.addEventListener("click", advance);
+    approve?.addEventListener("click", () => {
+        activeStage = activeStage === "ask" ? "preview" : "apply";
+        render();
+    });
+    document.addEventListener("clickt:langchange", render);
+    render();
+}
+
+// Lets any "Ask ClicktAI" chip elsewhere on the page (e.g. the device
+// showcase) jump straight to the Copilot demo with the matching module
+// tab pre-selected, by simulating a click on that tab's own button.
+function initShowcaseCopilotLinks() {
+    const links = Array.from(document.querySelectorAll("[data-copilot-jump]"));
+    links.forEach((link) => {
+        link.addEventListener("click", () => {
+            const tab = document.querySelector('[data-copilot-module="' + link.dataset.copilotJump + '"]');
+            if (tab) tab.click();
+        });
+    });
+}
 
 function initScrollReveal() {
     const observedItems = Array.from(document.querySelectorAll("[data-observe]"));
@@ -246,267 +654,28 @@ function initHomeWorkflow() {
     }
 
     const stepOrder = ["goal", "assign", "execute", "analyze", "present"];
-    const scenarios = {
-        sprint: {
-            label: "Launch a New Project",
-            steps: {
-                goal: {
-                    title: "Set one clear goal",
-                    description: "Start with one clear outcome so everyone moves in the same direction.",
-                    youDo: "Write the goal, deadline, and what done looks like.",
-                    clicktDoes: "Keeps the goal visible across Teams and Checklist.",
-                    outputs: ["Shared goal", "Clear deadline", "Success checklist"],
-                    benefit: "Less confusion from day one.",
-                    before: "People have different ideas of the goal.",
-                    after: "Everyone works toward the same target.",
-                    moduleLabel: "Teams",
-                    moduleHref: "playbook.html#teams",
-                },
-                assign: {
-                    title: "Assign owners and deadlines",
-                    description: "Split the goal into tasks and assign one owner for each task.",
-                    youDo: "Assign task owners and set due dates.",
-                    clicktDoes: "Shows who owns what and what is due next.",
-                    outputs: ["Owner list", "Task list", "Due-date tracker"],
-                    benefit: "Less follow-up and fewer missed tasks.",
-                    before: "Tasks move around with no clear owner.",
-                    after: "Each task has one owner and one deadline.",
-                    moduleLabel: "Checklist",
-                    moduleHref: "playbook.html#checklist",
-                },
-                execute: {
-                    title: "Do the work with live progress",
-                    description: "Update status in one place so everyone can see progress in real time.",
-                    youDo: "Mark progress and flag blockers early.",
-                    clicktDoes: "Updates progress views live for the full team.",
-                    outputs: ["Live progress board", "Blocker flags", "Daily status view"],
-                    benefit: "Faster execution with fewer status meetings.",
-                    before: "Updates are spread across chat and calls.",
-                    after: "One live view shows what is done and what is blocked.",
-                    moduleLabel: "Interactive Showcase",
-                    moduleHref: "#showcase-iphone",
-                },
-                analyze: {
-                    title: "See the numbers clearly",
-                    description: "Import your data and turn it into clear charts and quick insights.",
-                    youDo: "Upload exports and review trend charts.",
-                    clicktDoes: "Builds simple visuals from raw files.",
-                    outputs: ["Trend chart", "Completion summary", "Gap view"],
-                    benefit: "Faster decisions from clear data.",
-                    before: "Raw data takes too long to understand.",
-                    after: "Key trends are easy to see in minutes.",
-                    moduleLabel: "Builder",
-                    moduleHref: "playbook.html#builder",
-                },
-                present: {
-                    title: "Share updates with confidence",
-                    description: "Turn your results into clean updates your team can understand quickly.",
-                    youDo: "Pick key results and next actions.",
-                    clicktDoes: "Builds polished, share-ready presentation drafts.",
-                    outputs: ["Update deck", "Action slide", "PDF export"],
-                    benefit: "Faster reporting with clearer communication.",
-                    before: "Preparing updates takes too long.",
-                    after: "You share clean updates in minutes.",
-                    moduleLabel: "Presentation",
-                    moduleHref: "playbook.html#presentation",
-                },
-            },
-        },
-        onboarding: {
-            label: "Train a New Team Member",
-            steps: {
-                goal: {
-                    title: "Set onboarding success outcomes",
-                    description: "Define what a successful client onboarding looks like for day 1, week 1, and month 1.",
-                    youDo: "Document milestones and expected handoff points.",
-                    clicktDoes: "Structures onboarding goals into shared operational steps.",
-                    outputs: ["Onboarding success map", "Milestone timeline", "Shared kickoff plan"],
-                    benefit: "Clients and teams align on expectations immediately.",
-                    before: "Different teams define onboarding differently.",
-                    after: "One standardized onboarding target for every client.",
-                    moduleLabel: "Checklist",
-                    moduleHref: "playbook.html#checklist",
-                },
-                assign: {
-                    title: "Assign onboarding responsibilities",
-                    description: "Assign each onboarding step to a specific owner across operations, support, and account teams.",
-                    youDo: "Set owners for setup, training, and follow-up tasks.",
-                    clicktDoes: "Makes ownership visible across the full onboarding journey.",
-                    outputs: ["Owner assignments", "Task handoff list", "SLA checkpoints"],
-                    benefit: "Fewer onboarding delays and smoother handoffs.",
-                    before: "Important setup steps are assumed, not assigned.",
-                    after: "Everyone knows exactly what they own and when.",
-                    moduleLabel: "Teams",
-                    moduleHref: "playbook.html#teams",
-                },
-                execute: {
-                    title: "Execute with consistency",
-                    description: "Run each onboarding with repeatable checklist flows while tracking real-time completion.",
-                    youDo: "Complete and verify onboarding tasks in sequence.",
-                    clicktDoes: "Keeps repeatable workflow quality consistent client to client.",
-                    outputs: ["Live completion view", "At-risk task flags", "Client readiness status"],
-                    benefit: "Onboarding quality scales without extra chaos.",
-                    before: "Every onboarding feels custom and error-prone.",
-                    after: "Reliable onboarding outcomes with less rework.",
-                    moduleLabel: "Interactive Showcase",
-                    moduleHref: "#showcase-ipad",
-                },
-                analyze: {
-                    title: "Measure onboarding performance",
-                    description: "Use Builder to inspect time-to-value, completion rates, and bottlenecks.",
-                    youDo: "Import onboarding data and compare cohorts.",
-                    clicktDoes: "Highlights process bottlenecks and completion gaps visually.",
-                    outputs: ["Cycle-time chart", "Completion dashboard", "Bottleneck summary"],
-                    benefit: "Improve onboarding speed with measurable insight.",
-                    before: "It is unclear where onboarding slows down.",
-                    after: "You can pinpoint and fix recurring delays quickly.",
-                    moduleLabel: "Builder",
-                    moduleHref: "playbook.html#builder",
-                },
-                present: {
-                    title: "Report onboarding impact",
-                    description: "Share onboarding outcomes, risks, and improvements with clients or leadership.",
-                    youDo: "Summarize what improved and what needs attention.",
-                    clicktDoes: "Builds clean stakeholder-ready reports from workflow data.",
-                    outputs: ["Onboarding report deck", "Risk summary", "Improvement roadmap"],
-                    benefit: "Stronger client trust and faster internal decision-making.",
-                    before: "Reporting takes too long and lacks consistency.",
-                    after: "Clear onboarding impact updates delivered quickly.",
-                    moduleLabel: "Presentation",
-                    moduleHref: "playbook.html#presentation",
-                },
-            },
-        },
-        weekly: {
-            label: "Share Weekly Progress",
-            steps: {
-                goal: {
-                    title: "Define the weekly reporting question",
-                    description: "Start from the decisions the meeting needs, not from a pile of raw metrics.",
-                    youDo: "Choose KPIs and define the story you need to explain.",
-                    clicktDoes: "Anchors reporting around decisions and outcomes.",
-                    outputs: ["Reporting objective", "KPI focus list", "Audience goals"],
-                    benefit: "Reports become strategic instead of purely descriptive.",
-                    before: "Weekly updates are metric dumps without direction.",
-                    after: "Every chart and slide maps to a decision.",
-                    moduleLabel: "Builder",
-                    moduleHref: "playbook.html#builder",
-                },
-                assign: {
-                    title: "Assign data and review owners",
-                    description: "Delegate who pulls data, validates numbers, and reviews narrative quality.",
-                    youDo: "Set ownership for data prep and presentation review.",
-                    clicktDoes: "Keeps report preparation accountable and transparent.",
-                    outputs: ["Owner checklist", "Data QA tasks", "Review timeline"],
-                    benefit: "Faster prep with fewer last-minute issues.",
-                    before: "Reporting prep is rushed and hard to coordinate.",
-                    after: "The weekly process runs like a repeatable system.",
-                    moduleLabel: "Checklist",
-                    moduleHref: "playbook.html#checklist",
-                },
-                execute: {
-                    title: "Execute report production flow",
-                    description: "Track progress from data import through insight drafting and meeting prep.",
-                    youDo: "Run the weekly reporting routine and close open items.",
-                    clicktDoes: "Shows where the workflow is blocked before deadlines.",
-                    outputs: ["Prep status board", "Open issue list", "Meeting readiness view"],
-                    benefit: "Predictable report delivery week after week.",
-                    before: "Status is unclear until the last minute.",
-                    after: "Report readiness is visible throughout the week.",
-                    moduleLabel: "Teams",
-                    moduleHref: "playbook.html#teams",
-                },
-                analyze: {
-                    title: "Generate insights from exports",
-                    description: "Use Builder to transform weekly CSV exports into digestible insights and trend visuals.",
-                    youDo: "Import files and compare this week versus prior periods.",
-                    clicktDoes: "Builds charts and summaries quickly from raw exports.",
-                    outputs: ["Trend chart", "Variance analysis", "KPI table"],
-                    benefit: "Teams reach insight faster with less manual formatting.",
-                    before: "Manual spreadsheet analysis is slow and error-prone.",
-                    after: "Insights are ready in minutes, not hours.",
-                    moduleLabel: "Builder",
-                    moduleHref: "playbook.html#builder",
-                },
-                present: {
-                    title: "Present clear weekly recommendations",
-                    description: "Convert analysis into slides that explain what happened, why it matters, and what to do next.",
-                    youDo: "Highlight key changes and next actions for stakeholders.",
-                    clicktDoes: "Creates narrative-friendly slides directly from analyzed output.",
-                    outputs: ["Weekly deck", "Decision summary", "Next-week action list"],
-                    benefit: "Meetings focus on action, not data interpretation.",
-                    before: "Stakeholders spend time decoding metrics.",
-                    after: "Stakeholders can act immediately on recommendations.",
-                    moduleLabel: "Presentation",
-                    moduleHref: "playbook.html#presentation",
-                },
-            },
-        },
-        project: {
-            label: "Manage a School Project",
-            steps: {
-                goal: {
-                    title: "Set project scope and deliverables",
-                    description: "Define the final outcome, grading criteria, and submission timeline from day one.",
-                    youDo: "Break the project into clear milestones and outcomes.",
-                    clicktDoes: "Converts broad project ideas into actionable workflow structure.",
-                    outputs: ["Project scope", "Milestone plan", "Due-date map"],
-                    benefit: "Teams avoid last-minute crunch and confusion.",
-                    before: "Project direction stays vague for too long.",
-                    after: "Everyone knows what must be delivered and by when.",
-                    moduleLabel: "Teams",
-                    moduleHref: "playbook.html#teams",
-                },
-                assign: {
-                    title: "Assign roles and contribution areas",
-                    description: "Allocate research, writing, analysis, and design tasks to each teammate.",
-                    youDo: "Assign owners for each part of the project workload.",
-                    clicktDoes: "Tracks accountability and ownership across the team.",
-                    outputs: ["Role matrix", "Task assignments", "Deadline checklist"],
-                    benefit: "Balanced contribution and clearer accountability.",
-                    before: "Work distribution is uneven and unclear.",
-                    after: "Contribution expectations are explicit and trackable.",
-                    moduleLabel: "Checklist",
-                    moduleHref: "playbook.html#checklist",
-                },
-                execute: {
-                    title: "Execute and monitor progress",
-                    description: "Track completion and blockers while collaborators work in parallel.",
-                    youDo: "Update progress and unblock tasks during project week.",
-                    clicktDoes: "Maintains one live view of project health.",
-                    outputs: ["Live progress status", "Blocker list", "Completion tracker"],
-                    benefit: "Fewer deadline surprises and smoother collaboration.",
-                    before: "Team only realizes gaps close to submission.",
-                    after: "Risks are visible early enough to fix.",
-                    moduleLabel: "Interactive Showcase",
-                    moduleHref: "#showcase-mac",
-                },
-                analyze: {
-                    title: "Analyze project findings",
-                    description: "Use Builder to summarize collected data or experiment results into clear visuals.",
-                    youDo: "Import findings and test different chart views.",
-                    clicktDoes: "Transforms research data into presentation-ready insights.",
-                    outputs: ["Result chart", "Findings summary", "Evidence table"],
-                    benefit: "Stronger arguments backed by clear evidence.",
-                    before: "Raw data is hard to communicate in final presentations.",
-                    after: "Findings become easy to explain and defend.",
-                    moduleLabel: "Builder",
-                    moduleHref: "playbook.html#builder",
-                },
-                present: {
-                    title: "Present and submit confidently",
-                    description: "Build polished slides with a logical story and export final materials for submission.",
-                    youDo: "Organize findings, storyline, and final recommendations.",
-                    clicktDoes: "Creates clean, coherent presentation output quickly.",
-                    outputs: ["Final deck", "Submission-ready PDF", "Q&A prep notes"],
-                    benefit: "Higher-quality delivery with less final-night stress.",
-                    before: "Presentation polishing happens too late.",
-                    after: "Submission is ready early and polished.",
-                    moduleLabel: "Presentation",
-                    moduleHref: "playbook.html#presentation",
-                },
-            },
-        },
+    const scenarioIds = ["sprint", "onboarding", "weekly", "project"];
+    const t = (key, vars) => (window.ClicktI18n ? window.ClicktI18n.t(key, vars) : key);
+    const moduleHrefs = {
+        sprint: { goal: "playbook.html#teams", assign: "playbook.html#checklist", execute: "#showcase-iphone", analyze: "playbook.html#builder", present: "playbook.html#presentation" },
+        onboarding: { goal: "playbook.html#checklist", assign: "playbook.html#teams", execute: "#showcase-ipad", analyze: "playbook.html#builder", present: "playbook.html#presentation" },
+        weekly: { goal: "playbook.html#builder", assign: "playbook.html#checklist", execute: "playbook.html#teams", analyze: "playbook.html#builder", present: "playbook.html#presentation" },
+        project: { goal: "playbook.html#teams", assign: "playbook.html#checklist", execute: "#showcase-mac", analyze: "playbook.html#builder", present: "playbook.html#presentation" },
+    };
+    const stepData = (scenario, step) => {
+        const base = `index.workflow.${scenario}.steps.${step}`;
+        return {
+            title: t(`${base}.title`),
+            description: t(`${base}.description`),
+            youDo: t(`${base}.youDo`),
+            clicktDoes: t(`${base}.clicktDoes`),
+            outputs: t(`${base}.outputs`),
+            benefit: t(`${base}.benefit`),
+            before: t(`${base}.before`),
+            after: t(`${base}.after`),
+            moduleLabel: t(`${base}.moduleLabel`),
+            moduleHref: moduleHrefs[scenario][step],
+        };
     };
 
     const state = {
@@ -519,8 +688,9 @@ function initHomeWorkflow() {
     };
 
     const render = () => {
-        const scenarioData = scenarios[state.scenario] || scenarios.sprint;
-        const stepData = scenarioData.steps[state.step] || scenarioData.steps.goal;
+        const scenario = scenarioIds.includes(state.scenario) ? state.scenario : "sprint";
+        const step = stepOrder.includes(state.step) ? state.step : "goal";
+        const currentStepData = stepData(scenario, step);
         const stepIndex = Math.max(0, stepOrder.indexOf(state.step));
 
         scenarioButtons.forEach((button) => {
@@ -546,28 +716,28 @@ function initHomeWorkflow() {
         panel.setAttribute("data-workflow-step-panel", state.step);
 
         stepCountEl.textContent = `${stepIndex + 1}/${stepOrder.length}`;
-        scenarioLabelEl.textContent = scenarioData.label;
-        titleEl.textContent = stepData.title;
-        descriptionEl.textContent = stepData.description;
-        youDoEl.textContent = stepData.youDo;
-        clicktDoesEl.textContent = stepData.clicktDoes;
-        benefitEl.textContent = stepData.benefit;
-        beforeEl.textContent = stepData.before;
-        afterEl.textContent = stepData.after;
+        scenarioLabelEl.textContent = t(`index.workflow.${scenario}.label`);
+        titleEl.textContent = currentStepData.title;
+        descriptionEl.textContent = currentStepData.description;
+        youDoEl.textContent = currentStepData.youDo;
+        clicktDoesEl.textContent = currentStepData.clicktDoes;
+        benefitEl.textContent = currentStepData.benefit;
+        beforeEl.textContent = currentStepData.before;
+        afterEl.textContent = currentStepData.after;
 
         outputListEl.innerHTML = "";
-        (stepData.outputs || []).forEach((item) => {
+        (currentStepData.outputs || []).forEach((item) => {
             const li = document.createElement("li");
             li.textContent = item;
             outputListEl.appendChild(li);
         });
 
-        moduleLinkEl.textContent = `See this in ${stepData.moduleLabel}`;
-        moduleLinkEl.setAttribute("href", stepData.moduleHref);
+        moduleLinkEl.textContent = t("index.workflow.seeInModuleTemplate", { module: currentStepData.moduleLabel });
+        moduleLinkEl.setAttribute("href", currentStepData.moduleHref);
 
         const nextStep = stepOrder[(stepIndex + 1) % stepOrder.length];
         const nextStepLabel = buttons.find((button) => button.dataset.workflowStepBtn === nextStep)?.textContent || "Next";
-        nextButton.textContent = `Next step: ${nextStepLabel.replace(/^\d+\.\s*/, "")} \u2192`;
+        nextButton.textContent = t("index.workflow.nextStepTemplate", { step: nextStepLabel.replace(/^\d+\.\s*/, "") });
         nextButton.dataset.nextStep = nextStep;
     };
 
@@ -582,7 +752,7 @@ function initHomeWorkflow() {
     };
 
     const setScenario = (scenario) => {
-        if (!scenarios[scenario]) return;
+        if (!scenarioIds.includes(scenario)) return;
         state.scenario = scenario;
         render();
     };
@@ -636,6 +806,7 @@ function initHomeWorkflow() {
         setStep(stepOrder[nextIndex], true);
     });
 
+    document.addEventListener("clickt:langchange", render);
     render();
 }
 
@@ -1330,31 +1501,42 @@ function initShowcaseChapters() {
     //    scroll-progress threshold.  Between stops GSAP interpolates
     //    position/rotation/scale; image + copy swap discretely.
     const iphoneStops = [
-        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           img: P+"iphone-homepage.png",        satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
-        { from: 0.13, x: -24, ry: -10, rz:  0, scale: 1,    module: "teams",        img: P+"iphone-team1.png",           satA: P+"iphone-team2.png",        satB: P+"iphone-team3.png",         bg: SHARED_SHOWCASE_BG },
-        { from: 0.38, x: -22, ry: -9,  rz:  0, scale: 1,    module: "builder",      img: P+"iphone-builder1.png",        satA: P+"iphone-builder2.png",     satB: P+"iphone-builder3.png",      bg: SHARED_SHOWCASE_BG },
-        { from: 0.60, x: -20, ry: -7,  rz: -2, scale: 1,    module: "presentation", img: P+"iphone-presentation.png",    satA: P+"iphone-presentation1.png",satB: P+"iphone-presentation2.png", bg: SHARED_SHOWCASE_BG },
-        { from: 0.78, x: -22, ry: -8,  rz:  0, scale: 1,    module: "checklist",    img: P+"iphone-checklist.png",       satA: P+"iphone-checklist1.png",   satB: P+"iphone-checklist2.png",    bg: SHARED_SHOWCASE_BG },
-        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.9,  module: null,           img: P+"iphone-calendar1.png",       satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
+        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "home",     img: P+"iphone-homepage.png",        satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
+        { from: 0.13, x: -24, ry: -10, rz:  0, scale: 1,    module: "teams",        stopKey: null,       img: P+"iphone-team1.png",           satA: P+"iphone-team2.png",        satB: P+"iphone-team3.png",         bg: SHARED_SHOWCASE_BG },
+        { from: 0.38, x: -22, ry: -9,  rz:  0, scale: 1,    module: "builder",      stopKey: null,       img: P+"iphone-builder1.png",        satA: P+"iphone-builder2.png",     satB: P+"iphone-builder3.png",      bg: SHARED_SHOWCASE_BG },
+        { from: 0.60, x: -20, ry: -7,  rz: -2, scale: 1,    module: "presentation", stopKey: null,       img: P+"iphone-presentation.png",    satA: P+"iphone-presentation1.png",satB: P+"iphone-presentation2.png", bg: SHARED_SHOWCASE_BG },
+        { from: 0.78, x: -22, ry: -8,  rz:  0, scale: 1,    module: "checklist",    stopKey: null,       img: P+"iphone-checklist.png",       satA: P+"iphone-checklist1.png",   satB: P+"iphone-checklist2.png",    bg: SHARED_SHOWCASE_BG },
+        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.9,  module: null,           stopKey: "calendar", img: P+"iphone-calendar1.png",       satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
     ];
 
     const ipadStops = [
-        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           img: P+"ipad-homepage.png",          satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
-        { from: 0.14, x: -24, ry: -8,  rz:  0, scale: 1,    module: "teams",        img: P+"ipad-team1.png",             satA: P+"ipad-team2.png",          satB: P+"ipad-team3.png",           bg: SHARED_SHOWCASE_BG },
-        { from: 0.39, x: -22, ry: -7,  rz: -2, scale: 1,    module: "builder",      img: P+"ipad-builder1.png",          satA: P+"ipad-builder2.png",       satB: P+"ipad-builder3.png",        bg: SHARED_SHOWCASE_BG },
-        { from: 0.62, x: -20, ry: -5,  rz:  0, scale: 1,    module: "presentation", img: P+"ipad-presentation.png",      satA: P+"ipad-presentation1.png",  satB: P+"ipad-presentation2.png",   bg: SHARED_SHOWCASE_BG },
-        { from: 0.80, x: -22, ry: -5,  rz:  0, scale: 0.94, module: "checklist",    img: P+"ipad-checklist.png",         satA: P+"ipad-calendar.png",       satB: P+"ipad-setting.png",         bg: SHARED_SHOWCASE_BG },
-        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           img: P+"ipad-login.png",             satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
+        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "home",     img: P+"ipad-homepage.png",          satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
+        { from: 0.14, x: -24, ry: -8,  rz:  0, scale: 1,    module: "teams",        stopKey: null,       img: P+"ipad-team1.png",             satA: P+"ipad-team2.png",          satB: P+"ipad-team3.png",           bg: SHARED_SHOWCASE_BG },
+        { from: 0.39, x: -22, ry: -7,  rz: -2, scale: 1,    module: "builder",      stopKey: null,       img: P+"ipad-builder1.png",          satA: P+"ipad-builder2.png",       satB: P+"ipad-builder3.png",        bg: SHARED_SHOWCASE_BG },
+        { from: 0.62, x: -20, ry: -5,  rz:  0, scale: 1,    module: "presentation", stopKey: null,       img: P+"ipad-presentation.png",      satA: P+"ipad-presentation1.png",  satB: P+"ipad-presentation2.png",   bg: SHARED_SHOWCASE_BG },
+        { from: 0.80, x: -22, ry: -5,  rz:  0, scale: 0.94, module: "checklist",    stopKey: null,       img: P+"ipad-checklist.png",         satA: P+"ipad-calendar.png",       satB: P+"ipad-setting.png",         bg: SHARED_SHOWCASE_BG },
+        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "calendar", img: P+"ipad-calendar.png",          satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
     ];
 
     const macStops = [
-        { from: 0,    x:  0, ry:   0, rz: 0, scale: 0.82, module: null,           img: P+"mac-homepage.png",           satA: null,                      satB: null,                    bg: SHARED_SHOWCASE_BG },
-        { from: 0.16, x: -14, ry:  -6, rz: 0, scale: 1,    module: "teams",        img: P+"mac-Team1.png",              satA: P+"mac-Team2.png",         satB: P+"mac-Team3.png",       bg: SHARED_SHOWCASE_BG },
-        { from: 0.40, x: -12, ry:  -4, rz: 0, scale: 1,    module: "builder",      img: P+"mac-Builder1.png",           satA: P+"mac-Builder2.png",      satB: null,                    bg: SHARED_SHOWCASE_BG },
-        { from: 0.63, x: -14, ry:  -5, rz: 0, scale: 1,    module: "presentation", img: P+"mac-presentation1.png",      satA: P+"mac-presentation2.png", satB: null,                    bg: SHARED_SHOWCASE_BG },
-        { from: 0.82, x: -12, ry:  -3, rz: 0, scale: 0.95, module: "checklist",    img: P+"mac-checklist.png",          satA: P+"mac-calendar1.png",     satB: P+"Mac-setting.png",     bg: SHARED_SHOWCASE_BG },
-        { from: 0.95, x:  0, ry:   0, rz: 0, scale: 0.86, module: null,           img: P+"Mac-login.png",              satA: null,                      satB: null,                    bg: SHARED_SHOWCASE_BG },
+        { from: 0,    x:  0, ry:   0, rz: 0, scale: 0.82, module: null,           stopKey: "home",     img: P+"mac-homepage.png",           satA: null,                      satB: null,                    bg: SHARED_SHOWCASE_BG },
+        { from: 0.16, x: -14, ry:  -6, rz: 0, scale: 1,    module: "teams",        stopKey: null,       img: P+"mac-Team1.png",              satA: P+"mac-Team2.png",         satB: P+"mac-Team3.png",       bg: SHARED_SHOWCASE_BG },
+        { from: 0.40, x: -12, ry:  -4, rz: 0, scale: 1,    module: "builder",      stopKey: null,       img: P+"mac-Builder1.png",           satA: P+"mac-Builder2.png",      satB: null,                    bg: SHARED_SHOWCASE_BG },
+        { from: 0.63, x: -14, ry:  -5, rz: 0, scale: 1,    module: "presentation", stopKey: null,       img: P+"mac-presentation1.png",      satA: P+"mac-presentation2.png", satB: null,                    bg: SHARED_SHOWCASE_BG },
+        { from: 0.82, x: -12, ry:  -3, rz: 0, scale: 0.95, module: "checklist",    stopKey: null,       img: P+"mac-checklist.png",          satA: P+"mac-calendar1.png",     satB: P+"Mac-setting.png",     bg: SHARED_SHOWCASE_BG },
+        { from: 0.95, x:  0, ry:   0, rz: 0, scale: 0.86, module: null,           stopKey: "calendar", img: P+"mac-calendar1.png",          satA: null,                      satB: null,                    bg: SHARED_SHOWCASE_BG },
     ];
+
+    // Per-module background tints — faint brand-color wash on section bg
+    const MODULE_BG = {
+        teams:        "rgba(37,99,235,0.06)",
+        builder:      "rgba(217,119,6,0.06)",
+        presentation: "rgba(79,70,229,0.06)",
+        checklist:    "rgba(22,163,74,0.06)",
+    };
+    [iphoneStops, ipadStops, macStops].forEach(function(stops) {
+        stops.forEach(function(s) { if (s.module && MODULE_BG[s.module]) s.bg = MODULE_BG[s.module]; });
+    });
 
     const tuneStopsForCompactMobile = (stops) => {
         return stops.map((stop) => {
@@ -1468,8 +1650,8 @@ function setupShowcaseChapter(cfg) {
 
     // Establish 3D rendering context on the device wrap
     gsap.set(wrap, { transformPerspective: cfg.perspective, transformOrigin: "center center" });
-    if (satA) gsap.set(satA, { opacity: 0 });
-    if (satB) gsap.set(satB, { opacity: 0 });
+    if (satA) gsap.set(satA, { opacity: 0, y: 12 });
+    if (satB) gsap.set(satB, { opacity: 0, y: 12 });
     // Mac: start lid closed
     if (lidEl) gsap.set(lidEl, { clipPath: "inset(95% 0 0 0)" });
 
@@ -1480,26 +1662,31 @@ function setupShowcaseChapter(cfg) {
         scSwapImage(img, visualStop.img);
 
         if (!visualStop.satA && !visualStop.satB) {
-            if (satA) gsap.to(satA, { opacity: 0, duration: 0.3 });
-            if (satB) gsap.to(satB, { opacity: 0, duration: 0.3 });
+            // Home/Calendar (and any other single-frame stop) never show
+            // satellites — hide instantly so nothing lingers mid-fade if a
+            // visitor scrolls quickly past a module stop into this one.
+            if (satA) gsap.set(satA, { opacity: 0, y: 12, overwrite: true });
+            if (satB) gsap.set(satB, { opacity: 0, y: 12, overwrite: true });
         } else {
             if (satA) {
-                if (visualStop.satA) { satA.src = visualStop.satA; gsap.to(satA, { opacity: 1, duration: 0.45, delay: 0.05 }); }
-                else                 { gsap.to(satA, { opacity: 0, duration: 0.3 }); }
+                if (visualStop.satA) { satA.src = visualStop.satA; gsap.to(satA, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)", delay: 0.05, overwrite: true }); }
+                else                 { gsap.set(satA, { opacity: 0, y: 12, overwrite: true }); }
             }
             if (satB) {
-                if (visualStop.satB) { satB.src = visualStop.satB; gsap.to(satB, { opacity: 1, duration: 0.45, delay: 0.12 }); }
-                else                 { gsap.to(satB, { opacity: 0, duration: 0.3 }); }
+                if (visualStop.satB) { satB.src = visualStop.satB; gsap.to(satB, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)", delay: 0.15, overwrite: true }); }
+                else                 { gsap.set(satB, { opacity: 0, y: 12, overwrite: true }); }
             }
         }
 
+        const stopId = visualStop.stopKey || visualStop.module;
+
         if (wrap) wrap.classList.toggle("sat-left", xValue > 5);
         copySlots.forEach(function(slot) {
-            slot.classList.toggle("is-active", slot.dataset.scStop === visualStop.module);
+            slot.classList.toggle("is-active", slot.dataset.scStop === stopId);
         });
         if (copyEl) copyEl.classList.toggle("copy-left", xValue > 5);
         pillEls.forEach(function(pill) {
-            pill.classList.toggle("is-active", pill.dataset.scPill === visualStop.module);
+            pill.classList.toggle("is-active", pill.dataset.scPill === stopId);
         });
 
         section.classList.toggle(
@@ -1510,6 +1697,16 @@ function setupShowcaseChapter(cfg) {
             "has-satellites",
             Boolean(visualStop.satA || visualStop.satB)
         );
+
+        // Animate section background tint
+        if (bgEl) gsap.to(bgEl, { backgroundColor: visualStop.bg, duration: 0.6, ease: "power2.out" });
+
+        // Spring-in the activity chip for the newly active stop
+        var activeSlot = copySlots.find(function(s) { return s.dataset.scStop === stopId; });
+        if (activeSlot) {
+            var chip = activeSlot.querySelector(".sc-activity-chip");
+            if (chip) gsap.fromTo(chip, { opacity: 0, y: 10, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.4)", delay: 0.35 });
+        }
     };
 
     // Ensure the chapter always starts from its first frame state.
@@ -1546,9 +1743,6 @@ function setupShowcaseChapter(cfg) {
                 scale:     scLerp(stop.scale, next ? next.scale : stop.scale, t),
             });
 
-            // Background color (per-stop, not interpolated)
-            if (bgEl) bgEl.style.backgroundColor = activeStop.bg;
-
             // Mac lid: opens during the entry phase (progress 0 → first stop)
             if (lidEl) {
                 const firstStopAt = stops[1] ? stops[1].from : 0.16;
@@ -1576,7 +1770,7 @@ function setupShowcaseChapter(cfg) {
         pill.setAttribute("role", "button");
         pill.setAttribute("tabindex", "0");
         const jumpToModule = () => {
-            const targetStop = stops.find((entry) => entry.module === module);
+            const targetStop = stops.find((entry) => (entry.stopKey || entry.module) === module);
             if (!targetStop || !chapterTrigger) return;
             const yStart = Number(chapterTrigger.start) || section.offsetTop || 0;
             const yEnd = Number(chapterTrigger.end) || (yStart + section.offsetHeight - window.innerHeight);

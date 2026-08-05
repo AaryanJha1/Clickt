@@ -4,61 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Statement | Clickt</title>
-    <meta name="description" content="Privacy Statement for Clickt, explaining what data is collected, how it is used, and your available choices.">
-    <link rel="stylesheet" href="styles.css?v=20260527n">
+    <meta name="description" content="Clickt Privacy Statement — what data is collected, how it is used, and your choices. Available on iPhone, iPad, Mac, and Android.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260730a">
 </head>
 <body>
+
+    <div class="platform-strip" aria-label="Available on Apple and Android">
+        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    </div>
 
     <div class="container">
         <header class="page-header">
             <a href="index.html" class="brand">
-                <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo">
+                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
                 Clickt
             </a>
-            <h1 class="page-header-title">Privacy Statement</h1>
+            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                <a href="support.html" data-i18n="common.nav.support">Support</a>
+                <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
+                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
+                </div>
+            </nav>
+            <details class="header-dropdown">
+                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                    <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                    <a href="support.html" data-i18n="common.nav.support">Support</a>
+                    <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
+                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
+                    </div>
+                </nav>
+            </details>
         </header>
 
         <main>
-            <div class="support-content policy-content">
-                <p class="policy-meta"><strong>Last updated:</strong> March 5, 2026</p>
-                <p>Clickt ("we", "our", "us") is committed to safeguarding your privacy. This statement explains what information we collect, how it is used, and the choices available to you when using Clickt on iPhone, iPad, and Mac.</p>
+            <div class="prose-page-body">
 
-                <h3>Information We Collect</h3>
+                <span class="context-kicker" data-i18n="privacy.hero.kicker">Privacy</span>
+                <h1 style="font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.03em;margin:0.4rem 0 0.5rem;color:var(--text);" data-i18n="privacy.hero.title">Privacy Statement</h1>
+                <p class="prose-lead" data-i18n="privacy.hero.lead">Clickt is committed to keeping your information private, minimal, and under your control. This statement explains what we collect, why we collect it, and what you can do about it.</p>
+                <p data-i18n="privacy.hero.body">Clickt is a product of Click T. Pvt Ltd. ("Clickt", "we", "our", "us"). References to "Clickt" throughout this statement and across click-t.com refer to Click T. Pvt Ltd.</p>
+                <span class="policy-meta"><strong data-i18n="privacy.hero.lastUpdatedLabel">Last updated:</strong> July 14, 2026</span>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">1</span>
+                    <span data-i18n="privacy.section1.heading">What we collect</span>
+                </h2>
+                <p data-i18n="privacy.section1.body">We collect only what is necessary to run Clickt on iPhone, iPad, Mac, and Android.</p>
                 <ul>
-                    <li>Account details you provide, such as your name and email address.</li>
-                    <li>Workspace content you create, including tasks, checklists, workflows, and collaboration updates.</li>
-                    <li>Essential technical data required to operate and secure the application.</li>
+                    <li data-i18n-html="privacy.section1.item1"><strong>Account details</strong> you provide — your name and email address when you sign up.</li>
+                    <li data-i18n-html="privacy.section1.item2"><strong>Workspace content</strong> you create — tasks, checklists, workflows, Builder datasets, Presentation decks, and team collaboration activity.</li>
+                    <li data-i18n-html="privacy.section1.item3"><strong>Essential technical data</strong> required to keep the app working correctly, such as error logs and performance signals.</li>
+                </ul>
+                <div class="prose-callout" data-i18n="privacy.section1.callout">
+                    We do not collect advertising identifiers, sell your data to third parties, or build profiles for ad targeting.
+                </div>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">2</span>
+                    <span data-i18n="privacy.section2.heading">How we use it</span>
+                </h2>
+                <p data-i18n="privacy.section2.body1">Every piece of information we collect is used for one clear purpose: making Clickt work well for you.</p>
+                <ul>
+                    <li data-i18n="privacy.section2.item1">To provide core functionality and keep your workspace in sync across devices.</li>
+                    <li data-i18n="privacy.section2.item2">To support collaborative features — task assignments, team updates, shared checklists.</li>
+                    <li data-i18n="privacy.section2.item3">To maintain security, reliability, and app performance.</li>
+                    <li data-i18n="privacy.section2.item4">To respond to support requests and resolve technical issues.</li>
+                </ul>
+                <p data-i18n="privacy.section2.body2">Where applicable law requires us to state a legal basis for processing, we rely on: performance of our contract with you (providing the Clickt service you signed up for); your consent (for example, when you connect your own AI provider key); and our legitimate interest in operating, securing, and improving Clickt in a way that does not override your own rights and interests.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">3</span>
+                    <span data-i18n="privacy.section3.heading">Data sharing</span>
+                </h2>
+                <p data-i18n="privacy.section3.body1">We do not sell your personal information. Data may be processed by trusted service providers only where necessary to operate Clickt — for example, secure cloud infrastructure, data-storage partners, and the AI providers described below.</p>
+                <p data-i18n="privacy.section3.body2">Business uses Clickt's managed shared SaaS infrastructure with organization controls. Dedicated databases or private-cloud deployments are Enterprise options, individually scoped in the customer's agreement.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">4</span>
+                    <span data-i18n="privacy.section4.heading">ClicktAI and third-party AI providers</span>
+                </h2>
+                <p data-i18n="privacy.section4.body1">ClicktAI Copilots work within each module. When you send a request, the relevant content from that module — and only that content — is sent to an AI provider to generate a proposal. No action is applied to your workspace until you review and approve it.</p>
+                <p data-i18n="privacy.section4.body2">On the Free plan, you connect your own AI provider API key. Your requests are then governed directly by that provider's own terms and privacy policy, and Clickt does not control how that provider handles your data once your request reaches it. On Business and above, your organization's administrator manages a Clickt-approved AI provider centrally. In both cases, Clickt does not store or transmit your AI provider credentials beyond what is needed to process each request.</p>
+                <p data-i18n="privacy.section4.body3">We select AI providers who commit contractually not to use your workspace content to train their general-purpose models, and we require the same commitment from any provider we add in the future.</p>
+                <div class="prose-draftnote" data-i18n-html="privacy.section4.draftNote">
+                    <strong>Before publishing:</strong> name the specific AI provider(s) used for Clickt-provided AI (Business and above), and confirm in writing that their agreement includes a no-training-on-customer-data commitment. Have a lawyer confirm this section against the actual provider contracts before this page is treated as final.
+                </div>
+                <p data-i18n-html="privacy.section4.body4">AI-generated suggestions may be inaccurate, incomplete, or unsuitable for your purpose. You are responsible for reviewing every proposal before approving it — Clickt does not warrant the accuracy of any AI-generated content. See our <a href="terms.html">Terms of Service</a> for the full acceptable-use terms covering ClicktAI.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">5</span>
+                    <span data-i18n="privacy.section5.heading">International data transfers</span>
+                </h2>
+                <p data-i18n="privacy.section5.body">Clickt's infrastructure, and any third-party AI or cloud providers we use, may process and store data in a country other than the one you access Clickt from. Where required by applicable law, we rely on appropriate safeguards — such as standard contractual clauses or an equivalent transfer mechanism — for any transfer of personal data across borders.</p>
+                <div class="prose-draftnote" data-i18n-html="privacy.section5.draftNote">
+                    <strong>Before publishing:</strong> list the actual hosting region(s) for Clickt's infrastructure and for any AI provider used, and confirm whether a cross-border transfer mechanism is legally required for your user base (this matters in particular for EU/UK users and for Nepal-specific data rules).
+                </div>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">6</span>
+                    <span data-i18n="privacy.section6.heading">Data retention</span>
+                </h2>
+                <p data-i18n="privacy.section6.body">We keep your information only for as long as needed to provide the service, meet legal obligations, and resolve disputes. You may request deletion of your account and associated data at any time by contacting support.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">7</span>
+                    <span data-i18n="privacy.section7.heading">Children's privacy</span>
+                </h2>
+                <p data-i18n-html="privacy.section7.body">Clickt is not directed at children under 13 (or the minimum age required by your local law, if higher), and we do not knowingly collect personal data from a child below that age. If Clickt is used for a school or class project, it should be used through a school-issued account or with parent/guardian permission where local law requires it. If you believe a child has provided us with personal data, contact us at <a href="mailto:clickt@click-t.com">clickt@click-t.com</a> and we will delete it.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">8</span>
+                    <span data-i18n="privacy.section8.heading">Security and incident response</span>
+                </h2>
+                <p data-i18n="privacy.section8.body">We use reasonable technical and organizational measures to protect your data, including encryption in transit and access controls on our infrastructure. No system is perfectly secure. If a breach affecting your personal data occurs, we will notify affected users, and any regulator required by law, without undue delay.</p>
+
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">9</span>
+                    <span data-i18n="privacy.section9.heading">Your choices</span>
+                </h2>
+                <ul>
+                    <li data-i18n="privacy.section9.item1">You can request access to, correction of, or deletion of your account data.</li>
+                    <li data-i18n="privacy.section9.item2">You can sign out or delete your account from within the Clickt app.</li>
+                    <li data-i18n="privacy.section9.item3">You can contact us at any time with privacy-related questions or concerns.</li>
                 </ul>
 
-                <h3>How We Use Information</h3>
-                <ul>
-                    <li>To provide core functionality and synchronize your workspace data.</li>
-                    <li>To support collaborative features across your team.</li>
-                    <li>To preserve security, reliability, and performance.</li>
-                    <li>To respond to support requests and resolve technical issues.</li>
-                </ul>
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">10</span>
+                    <span data-i18n="privacy.section10.heading">Changes to this statement</span>
+                </h2>
+                <p data-i18n="privacy.section10.body">We may update this statement as Clickt's features, AI providers, or legal obligations change. We will reflect changes with an updated "Last updated" date above, and where a change is material, we will notify Business and Enterprise administrators directly.</p>
 
-                <h3>Data Sharing</h3>
-                <p>We do not sell your personal information. Data may be processed by trusted service providers only where necessary to operate Clickt, such as secure infrastructure and data-storage partners.</p>
+                <h2>
+                    <span class="prose-section-num" aria-hidden="true">11</span>
+                    <span data-i18n="privacy.section11.heading">Contact us</span>
+                </h2>
+                <p data-i18n-html="privacy.section11.body">For privacy questions, data requests, or support, reach us at <a href="mailto:clickt@click-t.com">clickt@click-t.com</a>. We will respond within 1–2 business days.</p>
 
-                <h3>Data Retention</h3>
-                <p>We retain information only for as long as needed to provide the service, comply with legal obligations, and resolve disputes. You may request deletion of your account data by contacting support.</p>
-
-                <h3>Your Choices</h3>
-                <ul>
-                    <li>You can request access, correction, or deletion of your account data.</li>
-                    <li>You may contact us at any time with privacy-related questions.</li>
-                </ul>
-                <h3>Contact Us</h3>
-                <p>For privacy or support questions, contact us at <a href="mailto:clickt@click-t.com">clickt@click-t.com</a>.</p>
             </div>
         </main>
 
         <footer>
-            <p>&copy; Clickt. All rights reserved.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="playbook.html">Playbook</a> | <a href="support.html">Support Desk</a> | <a href="user-guide.html">User Guide</a> | <a href="privacy.html">Privacy Statement</a></p>
+            <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
+            <p>
+                <a href="mailto:clickt@click-t.com">clickt@click-t.com</a> |
+                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> |
+                <a href="playbook.html" data-i18n="common.footer.prompts">Prompts</a> |
+                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> |
+                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> |
+                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> |
+                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
+            </p>
         </footer>
     </div>
 
+    <script src="i18n/en.js?v=20260803a"></script>
+    <script src="i18n/ne.js?v=20260803a"></script>
+    <script src="i18n.js?v=20260803a"></script>
 </body>
 </html>

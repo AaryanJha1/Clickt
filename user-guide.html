@@ -4,278 +4,332 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Guide | Clickt</title>
-    <meta name="description" content="Complete user guide for Clickt across iPhone, iPad, and Mac.">
-    <link rel="stylesheet" href="styles.css?v=20260527n">
+    <meta name="description" content="Learn Clickt in minutes. Build reports, run team workflows, and deliver polished outputs — on iPhone, iPad, Mac, and Android.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260730a">
     <script src="user-guide.js" defer></script>
 </head>
 <body class="user-guide-page">
 
+    <div class="platform-strip" aria-label="Available on Apple and Android">
+        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    </div>
+
     <div class="container">
         <header class="page-header">
             <a href="index.html" class="brand">
-                <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo">
+                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
                 Clickt
             </a>
-            <h1 class="page-header-title">User Guide</h1>
+            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                <a href="support.html" data-i18n="common.nav.support">Support</a>
+                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
+                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
+                </div>
+            </nav>
+            <details class="header-dropdown">
+                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="at-work.html" data-i18n="common.nav.demo">Demo</a>
+                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                    <a href="playbook.html" data-i18n="common.nav.prompts">Prompts</a>
+                    <a href="support.html" data-i18n="common.nav.support">Support</a>
+                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
+                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
+                    </div>
+                </nav>
+            </details>
         </header>
 
         <main class="guide-layout">
             <nav class="toc" aria-label="Guide contents">
-                <h3>Contents</h3>
+                <h3 data-i18n="userGuide.toc.heading">Contents</h3>
                 <ul>
-                    <li><a href="#start-paths">Start Paths</a></li>
-                    <li><a href="#workflow">Quick Start</a></li>
-                    <li><a href="#structure">App Structure</a></li>
-                    <li><a href="#builder">Builder Module</a></li>
-                    <li><a href="#presentation">Presentation</a></li>
-                    <li><a href="#teams">Teams &amp; Tasks</a></li>
-                    <li><a href="#checklist">Checklist</a></li>
-                    <li><a href="#settings">Settings</a></li>
-                    <li><a href="#notifications">Notifications</a></li>
-                    <li><a href="#troubleshoot">Troubleshooting</a></li>
+                    <li><a href="#start-paths" data-i18n="userGuide.toc.items.startPaths">Where to Start</a></li>
+                    <li><a href="#builder" data-i18n="userGuide.toc.items.builder">Builder</a></li>
+                    <li><a href="#presentation" data-i18n="userGuide.toc.items.presentation">Presentation</a></li>
+                    <li><a href="#teams" data-i18n="userGuide.toc.items.teams">Teams &amp; Tasks</a></li>
+                    <li><a href="#checklist" data-i18n="userGuide.toc.items.checklist">Checklist</a></li>
+                    <li><a href="#clicktai" data-i18n="userGuide.toc.items.clicktai">ClicktAI Copilots</a></li>
+                    <li><a href="#exports" data-i18n="userGuide.toc.items.exports">Exports</a></li>
+                    <li><a href="#settings" data-i18n="userGuide.toc.items.settings">Account &amp; Settings</a></li>
+                    <li><a href="#troubleshoot" data-i18n="userGuide.toc.items.troubleshoot">Troubleshooting</a></li>
                 </ul>
             </nav>
 
             <div class="support-content guide-content">
                 <header class="content-intro">
                     <div class="intro-copy">
-                        <p class="intro-eyebrow">Start Here</p>
-                        <h2>Master Clickt in Minutes</h2>
-                        <p class="intro-summary">Master your workspace from data analysis to team execution with one clear workflow.</p>
+                        <p class="intro-eyebrow" data-i18n="userGuide.intro.eyebrow">User Guide</p>
+                        <h2 data-i18n="userGuide.intro.heading">Get the most out of Clickt</h2>
+                        <p class="intro-summary" data-i18n="userGuide.intro.summary">From your first workflow to team execution and polished deliverables — this guide shows you what each module does and why it saves you time.</p>
                     </div>
 
                     <div class="intro-tools">
                         <div class="guide-search">
-                            <label for="guide-search-input">Search this guide</label>
-                            <input id="guide-search-input" type="search" placeholder="Try: export, notifications, invites" autocomplete="off">
-                            <p class="search-hint">Use search to jump to the exact workflow or issue you need.</p>
+                            <label for="guide-search-input" data-i18n="userGuide.intro.searchLabel">Search this guide</label>
+                            <input id="guide-search-input" type="search" placeholder="Try: export, teams, Builder, AI" autocomplete="off" data-i18n-attr="placeholder:userGuide.intro.searchPlaceholder">
+                            <p class="search-hint" data-i18n="userGuide.intro.searchHint">Jump straight to the section you need.</p>
                         </div>
-                        <div class="quick-actions" aria-label="Jump links">
-                            <a href="#workflow">Quick Start</a>
-                            <a href="#builder">Builder</a>
-                            <a href="#presentation">Presentation</a>
-                            <a href="#teams">Teams</a>
-                            <a href="#troubleshoot">Troubleshoot</a>
+                        <div class="quick-actions" aria-label="Jump links" data-i18n-attr="aria-label:userGuide.intro.jumpLinksAriaLabel">
+                            <a href="#start-paths" data-i18n="userGuide.intro.jumpLinks.startPaths">Where to start</a>
+                            <a href="#builder" data-i18n="userGuide.intro.jumpLinks.builder">Builder</a>
+                            <a href="#teams" data-i18n="userGuide.intro.jumpLinks.teams">Teams</a>
+                            <a href="#clicktai" data-i18n="userGuide.intro.jumpLinks.clicktai">AI Copilots</a>
+                            <a href="#troubleshoot" data-i18n="userGuide.intro.jumpLinks.troubleshoot">Troubleshoot</a>
                         </div>
                     </div>
                 </header>
 
-                <p id="guide-no-results" class="guide-no-results" hidden>No matching sections found. Try a broader keyword.</p>
+                <p id="guide-no-results" class="guide-no-results" hidden data-i18n="userGuide.noResults">No matching sections found. Try a broader keyword.</p>
 
+                <!-- ── Where to Start ──────────────────────────── -->
                 <section id="start-paths" class="guide-section">
-                    <h2 class="anchored-heading">⚡ Start Paths <a class="anchor-copy" href="#start-paths" aria-label="Copy link to Start Paths" title="Copy section link">🔗</a></h2>
-                    <p>Choose the fastest path based on what you need right now.</p>
+                    <h2 class="anchored-heading" data-i18n-html="userGuide.startPaths.heading">Where to start <a class="anchor-copy" href="#start-paths" aria-label="Copy link" title="Copy section link">🔗</a></h2>
+                    <p data-i18n="userGuide.startPaths.intro">Not sure which part of Clickt to open first? Pick the path that matches what you're trying to do.</p>
                     <div class="guide-path-grid">
                         <article class="guide-path-card">
-                            <h3>Build a report fast</h3>
-                            <p>Use Builder for data cleanup and charts, then move to Presentation for a polished export.</p>
-                            <a class="mini-cta" href="#builder">Open Builder path</a>
+                            <h3 data-i18n="userGuide.startPaths.card1.heading">I need to build a report or analysis</h3>
+                            <p data-i18n="userGuide.startPaths.card1.body">Start in Builder — import your data, create charts and tables, then push everything into Presentation for a clean, shareable export.</p>
+                            <a class="mini-cta" href="#builder" data-i18n="userGuide.startPaths.card1.cta">Go to Builder</a>
                         </article>
                         <article class="guide-path-card">
-                            <h3>Run team execution</h3>
-                            <p>Set ownership in Teams, track done/open work, and keep daily progress visible.</p>
-                            <a class="mini-cta" href="#teams">Open Teams path</a>
+                            <h3 data-i18n="userGuide.startPaths.card2.heading">I need to coordinate my team</h3>
+                            <p data-i18n="userGuide.startPaths.card2.body">Open Teams, assign tasks with clear ownership, and track what's open versus done — all in one place, visible to everyone who needs it.</p>
+                            <a class="mini-cta" href="#teams" data-i18n="userGuide.startPaths.card2.cta">Go to Teams</a>
                         </article>
                         <article class="guide-path-card">
-                            <h3>Fix a blocker now</h3>
-                            <p>Go to troubleshooting for quick checks on export, notifications, and permission issues.</p>
-                            <a class="mini-cta" href="#troubleshoot">Open troubleshooting</a>
+                            <h3 data-i18n="userGuide.startPaths.card3.heading">I have a simple list to manage</h3>
+                            <p data-i18n="userGuide.startPaths.card3.body">Checklist is the fastest way to capture and tick off items — synced across all your devices when you're signed in.</p>
+                            <a class="mini-cta" href="#checklist" data-i18n="userGuide.startPaths.card3.cta">Go to Checklist</a>
+                        </article>
+                        <article class="guide-path-card">
+                            <h3 data-i18n="userGuide.startPaths.card4.heading">I want AI to handle the setup</h3>
+                            <p data-i18n="userGuide.startPaths.card4.body">Each module has its own ClicktAI Copilot. Ask it to prepare your analysis, draft slides, or summarize tasks — then approve the result before anything changes.</p>
+                            <a class="mini-cta" href="#clicktai" data-i18n="userGuide.startPaths.card4.cta">Go to AI Copilots</a>
                         </article>
                     </div>
                 </section>
 
-                <section id="workflow" class="guide-section workflow-box">
-                    <div class="workflow-head">
-                        <p class="workflow-tag">CLICKT Framework</p>
-                        <h2 class="anchored-heading">🚀 The CLICKT 6-Step Success Path <a class="anchor-copy" href="#workflow" aria-label="Copy link to Quick Start" title="Copy section link">🔗</a></h2>
-                        <p class="workflow-subtitle">A repeatable path from data intake to team execution and polished delivery.</p>
-                    </div>
-                    <div class="step-grid">
-                        <div class="step">
-                            
-                            <strong>Clear Start</strong>
-                            <p>Choose your goal and import the right dataset.</p>
-                        </div>
-                        <div class="step">
-                            
-                            <strong>Lean Setup</strong>
-                            <p>Use quick presets to speed up analysis setup.</p>
-                        </div>
-                        <div class="step">
-                           
-                            <strong>Insight Mode</strong>
-                            <p>Run charts, tables, and transformations for findings.</p>
-                        </div>
-                        <div class="step">
-                            
-                            <strong>Craft Outputs</strong>
-                            <p>Polish the canvas and build clean deliverables.</p>
-                        </div>
-                        <div class="step">
-                          
-                            <strong>Keeping it Aligned</strong>
-                            <p>Assign work, track status, and respond to invites.</p>
-                        </div>
-                        <div class="step">
-                            <strong>Telling Impact</strong>
-                            <p>Present results and share exports with confidence.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="structure" class="guide-section">
-                    <h2 class="anchored-heading">🧭 App Structure <a class="anchor-copy" href="#structure" aria-label="Copy link to App Structure" title="Copy section link">🔗</a></h2>
-                    <p class="guide-learn">What you will learn: where each core module lives and how guest versus signed-in access works.</p>
-                    <p>Primary tabs are <strong>Clickt</strong>, <strong>Checklist</strong>, and <strong>Settings</strong>.</p>
-                    <p>Inside Clickt, core modules are <strong>Tasks</strong>, <strong>Builder</strong>, and <strong>Presentation</strong>.</p>
-                    <p>Guest mode includes Builder + Presentation access, while Tasks requires signed-in mode.</p>
-                    <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="mini-cta" target="_blank" rel="noopener noreferrer">Sign In on Device</a>
-                </section>
-
+                <!-- ── Builder ────────────────────────────────── -->
                 <section id="builder" class="guide-section module-card module-builder">
                     <div class="module-header">
                         <span class="icon" aria-hidden="true">🛠️</span>
-                        <h2 class="anchored-heading">Builder Module <a class="anchor-copy" href="#builder" aria-label="Copy link to Builder Module" title="Copy section link">🔗</a></h2>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.builder.heading">Builder <a class="anchor-copy" href="#builder" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     </div>
-                    <p class="module-subtitle">Data → Analysis → Deliverables</p>
-                    <p class="guide-learn">What you will learn: import datasets, build analysis outputs, and export clean deliverables.</p>
+                    <p class="module-subtitle" data-i18n="userGuide.builder.subtitle">Turn raw data into polished deliverables</p>
+                    <p data-i18n="userGuide.builder.intro">Builder takes you from messy spreadsheets or exported data all the way to a finished chart, table, or slide-ready output — without needing a separate tool for each step.</p>
 
                     <div class="tabs-mockup">
                         <div class="tab">
-                            <h4>Data</h4>
-                            <p>Import CSV/TXT/JSON, select dataset, and track rows/columns/hash markers for reproducibility.</p>
-                            <p><strong>Tip:</strong> Use multiple dataset in one space.</p>
+                            <h4 data-i18n="userGuide.builder.tab1.heading">Import your data</h4>
+                            <p data-i18n="userGuide.builder.tab1.body">Bring in CSV, TXT, or JSON files. Builder reads your dataset and shows you exactly what was imported — rows, columns, and a preview — so you can confirm before doing anything else.</p>
+                            <p data-i18n-html="userGuide.builder.tab1.tip"><strong>Tip:</strong> You can load multiple datasets in one workspace and switch between them as you work.</p>
                         </div>
                         <div class="tab">
-                            <h4>Analysis</h4>
-                            <p>Create X-Y plots, bar/scatter visuals, tables, filters, derived columns, and grouped aggregates.</p>
-                            <p><strong>Tip:</strong> Start from Quick Preset to reduce setup time.</p>
+                            <h4 data-i18n="userGuide.builder.tab2.heading">Build your analysis</h4>
+                            <p data-i18n-html="userGuide.builder.tab2.body">Create X-Y plots, bar charts, scatter plots, filtered tables, derived columns, and grouped summaries. Use <strong>Quick Preset</strong> to get a sensible starting configuration in seconds rather than building from scratch.</p>
+                            <p data-i18n-html="userGuide.builder.tab2.tip"><strong>Tip:</strong> Derived columns let you calculate new fields directly inside Builder without editing your original file.</p>
                         </div>
                         <div class="tab">
-                            <h4>Deliverables</h4>
-                            <p>Load artifacts to canvas, adjust layout, then export PNG/DOC/PPT or send directly to Presentation.</p>
-                            <p><strong>Tip:</strong> Use <em>Polish All</em> before final export.</p>
+                            <h4 data-i18n="userGuide.builder.tab3.heading">Deliver clean outputs</h4>
+                            <p data-i18n-html="userGuide.builder.tab3.body">Load your charts and tables onto the canvas, arrange the layout, then export as PNG, DOC, or PPT — or send directly to Presentation for a polished deck. Use <strong>Polish All</strong> to apply consistent visual finishing before export.</p>
+                            <p data-i18n-html="userGuide.builder.tab3.tip"><strong>Tip:</strong> Sending to Presentation lets you combine Builder outputs with custom slides without re-importing anything.</p>
                         </div>
                     </div>
                 </section>
 
+                <!-- ── Presentation ───────────────────────────── -->
                 <section id="presentation" class="guide-section module-card module-presentation">
                     <div class="module-header">
                         <span class="icon" aria-hidden="true">🖥️</span>
-                        <h2 class="anchored-heading">Presentation Module <a class="anchor-copy" href="#presentation" aria-label="Copy link to Presentation Module" title="Copy section link">🔗</a></h2>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.presentation.heading">Presentation <a class="anchor-copy" href="#presentation" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     </div>
-                    <p class="module-subtitle">Decks, slide editing, branding, and export</p>
-                    <p class="guide-learn">What you will learn: transform findings into decks, apply visual rules, and export for sharing.</p>
+                    <p class="module-subtitle" data-i18n="userGuide.presentation.subtitle">Build decks that look finished</p>
+                    <p data-i18n="userGuide.presentation.intro">Presentation is where your work becomes something you can actually share — a clean slide deck ready for a meeting, a client, or a team update.</p>
                     <ul>
-                        <li>Create/edit/reorder slides and decks</li>
-                        <li>Control title/subtitle/body/image sections visually</li>
-                        <li>Apply template and brand rule settings</li>
-                        <li>Preview in-app and export HTML/PDF</li>
+                        <li data-i18n-html="userGuide.presentation.item1"><strong>Build your deck:</strong> Create slides, set titles and body text, add images, and reorder everything by dragging.</li>
+                        <li data-i18n-html="userGuide.presentation.item2"><strong>Apply your brand:</strong> Set template rules, color schemes, and typography once — Presentation applies them consistently across every slide.</li>
+                        <li data-i18n-html="userGuide.presentation.item3"><strong>Preview before you export:</strong> See exactly how each slide looks in-app before committing to a file.</li>
+                        <li data-i18n-html="userGuide.presentation.item4"><strong>Export for sharing:</strong> Output as HTML or PDF depending on how you plan to present or distribute.</li>
                     </ul>
                 </section>
 
-                <div class="callout tip">
-                    <strong>Pro Tip:</strong> On iPhone/iPad, exports save to your <strong>Files app</strong>. On Mac, you choose the destination folder.
+                <div class="callout tip" data-i18n-html="userGuide.exportsCallout.body">
+                    <strong>Where do exports save?</strong> On iPhone and iPad, exports go to the <strong>Files app</strong>. On Mac, you choose the destination folder. On Android, exports save to your <strong>Downloads folder</strong>.
                 </div>
 
+                <!-- ── Teams ──────────────────────────────────── -->
                 <section id="teams" class="guide-section module-card module-teams">
                     <div class="module-header">
                         <span class="icon" aria-hidden="true">👥</span>
-                        <h2 class="anchored-heading">Teams &amp; Collaboration <a class="anchor-copy" href="#teams" aria-label="Copy link to Teams and Collaboration" title="Copy section link">🔗</a></h2>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.teams.heading">Teams &amp; Tasks <a class="anchor-copy" href="#teams" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     </div>
-                    <p>Use Teams to create groups, send membership requests, assign tasks, and run YES/NO decision invites.</p>
-                    <p class="guide-learn">What you will learn: assign ownership, track completion states, and speed up decision cycles.</p>
+                    <p class="module-subtitle" data-i18n="userGuide.teams.subtitle">Keep work assigned, visible, and moving</p>
+                    <p data-i18n="userGuide.teams.intro">Teams brings your collaborators into one shared workspace. Every task has a clear owner, and everyone can see what's done versus what still needs attention — no separate status-update thread required.</p>
+
+                    <p><strong data-i18n="userGuide.teams.howToUseLabel">How to use Teams:</strong></p>
+                    <ul>
+                        <li data-i18n="userGuide.teams.item1">Create a team and invite members by sending a membership request.</li>
+                        <li data-i18n="userGuide.teams.item2">Assign tasks directly to people so ownership is never ambiguous.</li>
+                        <li data-i18n="userGuide.teams.item3">Use YES / NO decision invites when you need a fast group response — members reply in one tap and you see the outcome immediately.</li>
+                    </ul>
 
                     <div class="status-table">
                         <div class="status-row">
-                            <span class="badge open">OPEN</span>
-                            <p>Task is active and assigned.</p>
+                            <span class="badge open" data-i18n="userGuide.teams.status.openBadge">OPEN</span>
+                            <p data-i18n="userGuide.teams.status.openBody">Task is active and assigned to someone.</p>
                         </div>
                         <div class="status-row">
-                            <span class="badge yes">COMPLETED</span>
-                            <p>Assignee finished task and status is closed.</p>
+                            <span class="badge yes" data-i18n="userGuide.teams.status.completedBadge">COMPLETED</span>
+                            <p data-i18n="userGuide.teams.status.completedBody">The assignee marked the task done.</p>
                         </div>
                         <div class="status-row">
-                            <span class="badge decision">YES / NO</span>
-                            <p>Decision invite response for fast team consensus.</p>
+                            <span class="badge decision" data-i18n="userGuide.teams.status.decisionBadge">YES / NO</span>
+                            <p data-i18n="userGuide.teams.status.decisionBody">A decision invite — members vote and you see the result instantly.</p>
                         </div>
                     </div>
                 </section>
 
+                <!-- ── Checklist ──────────────────────────────── -->
                 <section id="checklist" class="guide-section module-card module-checklist">
                     <div class="module-header">
                         <span class="icon" aria-hidden="true">✅</span>
-                        <h2 class="anchored-heading">Checklist Module <a class="anchor-copy" href="#checklist" aria-label="Copy link to Checklist Module" title="Copy section link">🔗</a></h2>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.checklist.heading">Checklist <a class="anchor-copy" href="#checklist" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     </div>
-                    <p>Track personal work and synced team assignments with clear completion progress.</p>
-                    <p class="guide-learn">What you will learn: manage repeatable checklists and keep completion status accurate.</p>
+                    <p class="module-subtitle" data-i18n="userGuide.checklist.subtitle">Your personal progress tracker</p>
+                    <p data-i18n="userGuide.checklist.intro">Checklist is the fastest way to capture what needs to get done and see your progress as you go. It syncs automatically when you're signed in, so your list is the same whether you're on your phone, tablet, or computer.</p>
                     <ul>
-                        <li>Add/edit/reorder items</li>
-                        <li>Mark complete or reopen</li>
-                        <li>Remove completed items quickly</li>
-                        <li>Refresh cloud checklist when signed in</li>
+                        <li data-i18n="userGuide.checklist.item1">Add, edit, and reorder items in seconds.</li>
+                        <li data-i18n="userGuide.checklist.item2">Mark items complete as you finish them — or reopen them if plans change.</li>
+                        <li data-i18n="userGuide.checklist.item3">Clear completed items with a single action to keep your list clean.</li>
+                        <li data-i18n="userGuide.checklist.item4">Team assignments that come through Tasks appear here too, so everything is in one place.</li>
                     </ul>
                 </section>
 
+                <!-- ── ClicktAI Copilots ──────────────────────── -->
+                <section id="clicktai" class="guide-section module-card">
+                    <div class="module-header">
+                        <span class="icon" aria-hidden="true">✦</span>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.clicktai.heading">ClicktAI Copilots <a class="anchor-copy" href="#clicktai" aria-label="Copy link" title="Copy section link">🔗</a></h2>
+                    </div>
+                    <p class="module-subtitle" data-i18n="userGuide.clicktai.subtitle">AI that prepares work — you decide what gets applied</p>
+                    <p data-i18n="userGuide.clicktai.body1">Every module in Clickt has its own AI Copilot that understands that module's context. Builder Copilot works with your datasets. Presentation Copilot works with your slides. Teams Copilot works with your tasks. Checklist Copilot works with your items.</p>
+                    <p data-i18n="userGuide.clicktai.body2">You ask, the Copilot prepares a suggestion, shows you exactly what will change, and waits for your approval. Nothing is applied until you say so.</p>
+
+                    <div class="tabs-mockup">
+                        <div class="tab">
+                            <h4 data-i18n="userGuide.clicktai.free.heading">Free plan</h4>
+                            <p data-i18n="userGuide.clicktai.free.body">Connect your own AI provider API key in Settings. You can use any supported provider — the key stays on your device and the Copilots use it on your behalf.</p>
+                        </div>
+                        <div class="tab">
+                            <h4 data-i18n="userGuide.clicktai.business.heading">Business and above</h4>
+                            <p data-i18n="userGuide.clicktai.business.body">Your organization admin manages one central AI credential for the whole team. Individual users don't need to set up anything — Copilots work immediately when you sign in.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Exports ────────────────────────────────── -->
+                <section id="exports" class="guide-section">
+                    <h2 class="anchored-heading" data-i18n-html="userGuide.exports.heading">Exports <a class="anchor-copy" href="#exports" aria-label="Copy link" title="Copy section link">🔗</a></h2>
+                    <p data-i18n="userGuide.exports.intro">Clickt can export your work in several formats depending on the module:</p>
+                    <ul>
+                        <li data-i18n-html="userGuide.exports.item1"><strong>Builder:</strong> PNG, DOC, PPT, or directly to Presentation.</li>
+                        <li data-i18n-html="userGuide.exports.item2"><strong>Presentation:</strong> HTML or PDF.</li>
+                    </ul>
+                    <p><strong data-i18n="userGuide.exports.whereFilesGoLabel">Where files go after export:</strong></p>
+                    <ul>
+                        <li data-i18n-html="userGuide.exports.location1"><strong>iPhone / iPad:</strong> Files app</li>
+                        <li data-i18n-html="userGuide.exports.location2"><strong>Mac:</strong> You choose the destination folder</li>
+                        <li data-i18n-html="userGuide.exports.location3"><strong>Android:</strong> Downloads folder</li>
+                    </ul>
+                    <p data-i18n="userGuide.exports.retryTip">If an export fails, try PNG first — it's the fastest format to render and confirms whether the canvas content is working correctly. Then retry PDF, DOC, or PPT.</p>
+                </section>
+
+                <!-- ── Settings ───────────────────────────────── -->
                 <section id="settings" class="guide-section module-card module-settings">
                     <div class="module-header">
                         <span class="icon" aria-hidden="true">⚙️</span>
-                        <h2 class="anchored-heading">Settings &amp; Account <a class="anchor-copy" href="#settings" aria-label="Copy link to Settings and Account" title="Copy section link">🔗</a></h2>
+                        <h2 class="anchored-heading" data-i18n-html="userGuide.settings.heading">Account &amp; Settings <a class="anchor-copy" href="#settings" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     </div>
-                    <p class="guide-learn">What you will learn: account updates, security actions, and key support links.</p>
+                    <p data-i18n="userGuide.settings.intro">Everything that controls your account and AI setup lives in Settings.</p>
                     <ul>
-                        <li>Edit profile and username</li>
-                        <li>Reset password</li>
-                        <li>Sign out</li>
-                        <li>Delete account</li>
-                        <li>Access support, terms, and privacy pages</li>
+                        <li data-i18n-html="userGuide.settings.item1"><strong>Profile:</strong> Edit your name and username.</li>
+                        <li data-i18n-html="userGuide.settings.item2"><strong>Security:</strong> Reset your password or sign out from all devices.</li>
+                        <li data-i18n-html="userGuide.settings.item3"><strong>AI Copilot key:</strong> On the Free plan, add your AI provider API key here to enable Copilots across all modules.</li>
+                        <li data-i18n-html="userGuide.settings.item4"><strong>Account deletion:</strong> Delete your account and all associated data from within the app.</li>
+                        <li data-i18n-html="userGuide.settings.item5"><strong>Help links:</strong> Access support, privacy, and terms pages directly from Settings.</li>
                     </ul>
                 </section>
 
+                <!-- ── Notifications ──────────────────────────── -->
                 <section id="notifications" class="guide-section">
-                    <h2 class="anchored-heading">🔔 Notification Events <a class="anchor-copy" href="#notifications" aria-label="Copy link to Notification Events" title="Copy section link">🔗</a></h2>
-                    <p>When cloud functions and device tokens are configured, push notifications can be triggered for team invites, invite responses, task assignment/completion, decision invites, and task-thread messages.</p>
+                    <h2 class="anchored-heading" data-i18n-html="userGuide.notifications.heading">Notifications <a class="anchor-copy" href="#notifications" aria-label="Copy link" title="Copy section link">🔗</a></h2>
+                    <p data-i18n="userGuide.notifications.intro">Clickt sends push notifications to keep you in the loop on team activity — without you having to check the app constantly.</p>
+                    <p data-i18n="userGuide.notifications.whenLabel">You'll get notified when:</p>
+                    <ul>
+                        <li data-i18n="userGuide.notifications.item1">Someone sends you a team membership invite</li>
+                        <li data-i18n="userGuide.notifications.item2">A team member responds to an invite</li>
+                        <li data-i18n="userGuide.notifications.item3">A task is assigned to you</li>
+                        <li data-i18n="userGuide.notifications.item4">A task you assigned is completed</li>
+                        <li data-i18n="userGuide.notifications.item5">You receive a YES / NO decision invite</li>
+                        <li data-i18n="userGuide.notifications.item6">Someone replies to a task thread</li>
+                    </ul>
+                    <p data-i18n-html="userGuide.notifications.troubleshootTip"><strong>If notifications aren't arriving:</strong> Check that Clickt has permission to send notifications in your device settings. On Android, also check that Clickt is not battery-optimized, as aggressive battery management can block background delivery.</p>
                 </section>
 
-                <section id="deep-dive" class="guide-section">
-                    <h2 class="anchored-heading">📘 Deep Dive (Optional) <a class="anchor-copy" href="#deep-dive" aria-label="Copy link to Deep Dive" title="Copy section link">🔗</a></h2>
-                    <details>
-                        <summary>Additional features currently present in codebase</summary>
-                        <ul>
-                            <li><strong>Plan:</strong> editable plan document with reset</li>
-                            <li><strong>Calendar:</strong> provider sync, date-range filters, complete/reopen/delete</li>
-                            <li><strong>Data Streams:</strong> source registration and validation status</li>
-                        </ul>
-                    </details>
-                    <details>
-                        <summary>Authentication and access notes</summary>
-                        <p>Signed-in users can access team/cloud workflows. Guest users can explore Builder and Presentation without full team features.</p>
-                    </details>
-                </section>
-
+                <!-- ── Troubleshooting ────────────────────────── -->
                 <section id="troubleshoot" class="guide-section troubleshoot-bg">
-                    <h2 class="anchored-heading">🔍 Quick Troubleshooting <a class="anchor-copy" href="#troubleshoot" aria-label="Copy link to Troubleshooting" title="Copy section link">🔗</a></h2>
+                    <h2 class="anchored-heading" data-i18n-html="userGuide.troubleshoot.heading">Troubleshooting <a class="anchor-copy" href="#troubleshoot" aria-label="Copy link" title="Copy section link">🔗</a></h2>
                     <details>
-                        <summary>Notification issues?</summary>
-                        <p>Verify notification permissions, deployed cloud functions, and active device token registration.</p>
+                        <summary data-i18n="userGuide.troubleshoot.item1.summary">Export failed or produced a blank file</summary>
+                        <p data-i18n="userGuide.troubleshoot.item1.body">Try PNG export first. If PNG works, the canvas is rendering correctly — retry your target format (PDF, DOC, or PPT). If PNG is blank too, check that your content is fully loaded before exporting and try again.</p>
                     </details>
                     <details>
-                        <summary>Export failed?</summary>
-                        <p>Try PNG first to validate canvas rendering, then retry PDF/DOC/PPT output.</p>
+                        <summary data-i18n="userGuide.troubleshoot.item2.summary">Notifications not arriving</summary>
+                        <p data-i18n="userGuide.troubleshoot.item2.body">Confirm Clickt has notification permission in your device settings and that you're signed in to your account. On Android, also check battery optimization — if Clickt is restricted, background notifications may not arrive.</p>
                     </details>
                     <details>
-                        <summary>Team actions blocked?</summary>
-                        <p>Confirm invite acceptance and creator permissions for creator-only actions like team deletion and task assignment.</p>
+                        <summary data-i18n="userGuide.troubleshoot.item3.summary">Can't assign tasks or use team actions</summary>
+                        <p data-i18n="userGuide.troubleshoot.item3.body">Task assignment and decision invites require an accepted team membership. Make sure the person you're trying to include has accepted their invite. Some actions — like deleting a team — are only available to the team creator.</p>
                     </details>
+                    <details>
+                        <summary data-i18n="userGuide.troubleshoot.item4.summary">ClicktAI Copilot isn't responding</summary>
+                        <p data-i18n="userGuide.troubleshoot.item4.body">On the Free plan, make sure you've added a valid AI provider API key in Settings. Check that the key is active and has remaining quota with your provider. On Business plans, contact your admin to confirm the organization's AI credential is configured.</p>
+                    </details>
+                    <details>
+                        <summary data-i18n="userGuide.troubleshoot.item5.summary">Data not syncing across devices</summary>
+                        <p data-i18n="userGuide.troubleshoot.item5.body">Sync requires an active internet connection and a signed-in account. Sign out and sign back in if sync appears stuck. For Checklist specifically, use the refresh action to pull the latest cloud state.</p>
+                    </details>
+
+                    <p style="margin-top: 1.5rem;" data-i18n-html="userGuide.troubleshoot.contact">Still stuck? <a href="support.html">Write to Clickt Support</a> — include your device, OS version, and a quick description of what happened.</p>
                 </section>
             </div>
         </main>
 
         <footer>
-            <p>&copy; Clickt. All rights reserved.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="playbook.html">Playbook</a> | <a href="support.html">Support Desk</a> | <a href="user-guide.html">User Guide</a> | <a href="privacy.html">Privacy Statement</a></p>
+            <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
+            <p>
+                <a href="mailto:clickt@click-t.com">clickt@click-t.com</a> |
+                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> |
+                <a href="playbook.html" data-i18n="common.footer.prompts">Prompts</a> |
+                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> |
+                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> |
+                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> |
+                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
+            </p>
         </footer>
     </div>
 
+    <script src="i18n/en.js?v=20260803a"></script>
+    <script src="i18n/ne.js?v=20260803a"></script>
+    <script src="i18n.js?v=20260803a"></script>
 </body>
 </html>

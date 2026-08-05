@@ -436,6 +436,7 @@
             .tourx-stage { flex: none; height: 36vh; width: 100%; }
             .tourx-copy { flex: none; width: 100%; max-width: none; }
             .tourx-copy-slot .tour-stop-copy { text-align: center; }
+            .tourx-panel--iphone .tourx-copy { padding-top: clamp(1rem, 100vh, 3rem); }
             .tourx-copy-slot .tour-chip,
             .tourx-copy-slot .tour-chip-stack { text-align: left; }
             .tourx-hud { position: relative; left: auto; bottom: auto; transform: none; margin-top: 0.25rem; }
@@ -623,7 +624,7 @@
                             </div></div>
                         <div class="tour-hero-shot"><div class="device-shell phone-shell">
                                 <div class="device-screen">
-                                    <img class="device-screen-image" src="IOS Promotion/Clickt Images/iphone-checklist2.png" alt="Checklist 3" loading="lazy" decoding="async">
+                                    <img class="device-screen-image" src="IOS Promotion/Clickt Images/iphone-checklist.png" alt="Checklist 3" loading="lazy" decoding="async">
                                 </div>
                             </div></div>
                         </div>
@@ -1453,7 +1454,7 @@
             if (!articles.length) return null;
 
             var panel = document.createElement('div');
-            panel.className = 'tourx-panel';
+            panel.className = 'tourx-panel tourx-panel--' + platform;
 
             var stageCol = document.createElement('div');
             stageCol.className = 'tourx-stage';

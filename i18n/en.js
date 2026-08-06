@@ -7,22 +7,24 @@ window.ClicktI18nDict.en = {
     "nav": {
       "ariaLabel": "Site navigation",
       "menuAriaLabel": "Open site navigation menu",
-      "demo": "Demo",
+      "demo": "At Work",
       "plans": "Plans",
-      "prompts": "Prompts",
+      "prompts": "Product Tour",
       "support": "Support",
-      "userGuide": "User Guide"
+      "userGuide": "User Guide",
+      "googlePlay": "Google Play Store"
     },
     "footer": {
       "copyright": "© 2026 Click T. Pvt Ltd. All rights reserved.",
       "supportSentence": "Should you require assistance, our support desk stands ready to help.",
-      "demo": "Demo",
+      "demo": "At Work",
       "plans": "Plans",
-      "prompts": "Prompts",
+      "prompts": "Product Tour",
       "supportDesk": "Support Desk",
       "userGuide": "User Guide",
       "privacy": "Privacy Statement",
-      "terms": "Terms of Service"
+      "terms": "Terms of Service",
+      "googlePlay": "Google Play Store"
     },
     "langSwitch": {
       "ariaLabel": "Choose language",
@@ -50,8 +52,8 @@ window.ClicktI18nDict.en = {
     },
     "checklist": {
       "title": "Checklist",
-      "summary": "Turn a team task into a checklist, or build one from scratch for daily life — groceries, workouts, medicine reminders — with deadlines synced to Google Calendar.",
-      "videoAriaLabel": "A team task flows into a checklist alongside personal lists for a grocery run, a workout plan, and medicine reminders, all synced to Google Calendar"
+      "summary": "Turn a team task into a checklist, or build one from scratch for daily life — groceries, workouts, medicine reminders — and sync deadlines with Google Calendar on iOS.",
+      "videoAriaLabel": "A team task flows into a checklist alongside personal lists for a grocery run, a workout plan, and medicine reminders with Google Calendar deadline sync"
     },
     "builder": {
       "title": "Builder",
@@ -60,7 +62,7 @@ window.ClicktI18nDict.en = {
     },
     "presentation": {
       "title": "Presentation",
-      "summary": "Describe the idea, drop in your images, and Clickt builds the full deck with formatting — preview it in-app, in the browser, or export straight to PDF. Ask again to refine any slide.",
+      "summary": "Describe the idea, add images, and Clickt prepares a formatted deck — preview it in-app, export it as HTML for a browser, or export it as PDF. Refine slides before sharing.",
       "videoAriaLabel": "A brief idea and three photos become a fully formatted deck, ready to preview in-app, in the browser as HTML, or export as PDF"
     }
   },
@@ -149,7 +151,7 @@ window.ClicktI18nDict.en = {
       "chatAriaLabel": "A demonstration of ClicktAI preparing a project plan",
       "speakerYou": "You",
       "chatUserMessage": "We’re launching a new project next Friday — can you set up the team’s tasks and get us ready to present to leadership?",
-      "aiPlanMessage": "I can prepare one connected plan across Teams, Checklist, Builder, and Presentation.",
+      "aiPlanMessage": "I can prepare a reviewable plan for the Clickt workspace you are working in.",
       "proposedWork": "Proposed work",
       "previewOnly": "Preview only",
       "proposal": {
@@ -167,9 +169,9 @@ window.ClicktI18nDict.en = {
         "proposalReady": "Proposal ready to review"
       },
       "announcement": "ClicktAI demo ready. Review the proposal to see the Copilots at work.",
-      "googlePlayAriaLabel": "Get Clickt on Google Play",
-      "googlePlay": "Google Play",
-      "googlePlayComingSoon": "Google Play is coming soon. Join us on the App Store today.",
+      "googlePlayAriaLabel": "Visit the Google Play Store preview for Clickt",
+      "googlePlay": "Google Play Store",
+      "googlePlayComingSoon": "Android for Clickt is coming soon. Explore the Google Play Store preview.",
       "proofChipsAriaLabel": "Clickt quick highlights",
       "proofChip1": "Tasks · Builder · Slides · Checklists",
       "proofChip2": "AI Copilots — you approve changes",
@@ -219,11 +221,11 @@ window.ClicktI18nDict.en = {
       "workLink": "See Clickt at work in real scenarios"
     },
     "playbookTeaser": {
-      "kicker": "Prompts",
+      "kicker": "Product Tour",
       "heading": "See real workflows before you download",
       "sub": "Use proven examples to launch your first Clickt workflow with confidence.",
       "ctaSeeAtWork": "See Clickt at work",
-      "ctaExplorePrompts": "Explore all Prompts",
+      "ctaExplorePrompts": "Explore Product Tour",
       "teams": {
         "title": "Engineering sprint",
         "body": "Drop in your sprint tasks, let teammates claim work, and close the week without chasing updates.",
@@ -249,7 +251,7 @@ window.ClicktI18nDict.en = {
         "cta": "Explore Presentation workflows →"
       },
       "clicktai": {
-        "title": "One prompt, four Copilots working together",
+        "title": "Connected drafts, reviewed in context",
         "body": "Type \"Analyze Q3 and build my deck.\" Each module's Copilot handles its part and shows you a preview before applying.",
         "outcome": "Outcome: faster execution from idea to delivered output — with you in control.",
         "cta": "Explore ClicktAI workflows →"
@@ -258,11 +260,11 @@ window.ClicktI18nDict.en = {
     "finalCta": {
       "kicker": "Ready to switch?",
       "heading": "Replace four tools with one",
-      "body": "Download Clickt and run a real project in under 10 minutes — tasks, dashboards, slides, and checklists, all in one place.",
+      "body": "Download Clickt and bring tasks, checklists, data reports, and presentations into one connected workspace.",
       "appStoreAriaLabel": "Download Clickt on the App Store",
       "ctaAppStore": "Download on App Store",
       "ctaPlans": "See Plans",
-      "ctaPrompts": "Explore Prompts"
+      "ctaPrompts": "Explore Product Tour"
     },
     "founder": {
       "ariaLabel": "About the maker",
@@ -835,7 +837,7 @@ window.ClicktI18nDict.en = {
     },
     "finalCta": {
       "heading": "Start with one project in Clickt today",
-      "body": "Bring your team, tasks, and updates into one place and feel the time you save from day one. Available on iPhone, iPad, Mac, and Android.",
+      "body": "Bring your team, tasks, reports, and presentations into one connected workspace on iPhone, iPad, and Mac.",
       "cta": "Download on App Store"
     }
   },
@@ -843,7 +845,7 @@ window.ClicktI18nDict.en = {
     "hero": {
       "kicker": "Pricing",
       "heading": "Start free. Bring your whole team.",
-      "lead": "Every plan includes Teams, Builder, Presentation, and Checklist. Business and above add a shared company workspace across iOS, iPadOS, macOS, and Android—with managed sync and Clickt-provided AI for every licensed user."
+      "lead": "Every plan includes Teams, Builder, Presentation, and Checklist on iPhone, iPad, and Mac. Android for Clickt is currently shown as a coming-soon preview."
     },
     "currency": {
       "toggleAriaLabel": "Choose pricing currency",
@@ -879,7 +881,7 @@ window.ClicktI18nDict.en = {
         "feature1": "Teams, Builder, Presentation &amp; Checklist",
         "feature2": "Team collaboration",
         "feature3": "ClicktAI Copilots with your own API key",
-        "feature4": "All exports — PDF, HTML, PNG",
+        "feature4": "Builder: PNG, DOC, PPT · Presentation: HTML, PDF",
         "feature5": "Shared cloud infrastructure",
         "feature6": "Calendar and reminders"
       },
@@ -893,7 +895,7 @@ window.ClicktI18nDict.en = {
         "ctaNote": "Prefer to talk first? <a href=\"mailto:clickt@click-t.com?subject=Business%20Plan%20Inquiry\">Contact Sales</a>",
         "feature1": "Everything in Free",
         "feature2": "For teams of up to 25 members",
-        "feature3": "Company workspace on iOS, iPadOS, macOS &amp; Android",
+        "feature3": "Company workspace on iOS, iPadOS, and macOS; Android preview coming soon",
         "feature4": "Managed cloud sync environment",
         "feature5": "Clickt-provided AI",
         "feature6": "Managed backups, monitoring, and company administration",
@@ -978,7 +980,7 @@ window.ClicktI18nDict.en = {
       },
       "q2": {
         "question": "What is a company workspace?",
-        "answer": "Business and above give your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, Mac, and Android. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional Enterprise scope—not a requirement to begin."
+        "answer": "Business and above give your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, and Mac. Android is currently a coming-soon preview. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional Enterprise scope—not a requirement to begin."
       },
       "q3": {
         "question": "Can I start on Free and upgrade later?",
@@ -998,7 +1000,7 @@ window.ClicktI18nDict.en = {
       },
       "q7": {
         "question": "Is Clickt available on Android?",
-        "answer": "Yes. Clickt is available on iPhone, iPad, Mac, and Android. Business and above add a shared company workspace with one connected workflow across supported devices."
+        "answer": "Android for Clickt is coming soon. Visit the Google Play Store preview to see the Android workspaces being prepared for release."
       }
     },
     "enterpriseCta": {
@@ -1018,7 +1020,7 @@ window.ClicktI18nDict.en = {
     },
     "section1": {
       "heading": "What we collect",
-      "body": "We collect only what is necessary to run Clickt on iPhone, iPad, Mac, and Android.",
+      "body": "We collect only what is necessary to run Clickt on iPhone, iPad, and Mac.",
       "item1": "<strong>Account details</strong> you provide — your name and email address when you sign up.",
       "item2": "<strong>Workspace content</strong> you create — tasks, checklists, workflows, Builder datasets, Presentation decks, and team collaboration activity.",
       "item3": "<strong>Essential technical data</strong> required to keep the app working correctly, such as error logs and performance signals.",
@@ -1082,7 +1084,7 @@ window.ClicktI18nDict.en = {
     "hero": {
       "kicker": "Support",
       "heading": "Get unstuck quickly",
-      "subtitle": "Try the quick fixes below, then write to us if you still need help. We support Clickt on iPhone, iPad, Mac, and Android."
+      "subtitle": "Try the quick fixes below, then write to us if you still need help. We currently support Clickt on iPhone, iPad, and Mac."
     },
     "commonIssues": {
       "ariaLabel": "Common issues",
@@ -1090,12 +1092,12 @@ window.ClicktI18nDict.en = {
     },
     "exportFailed": {
       "heading": "Export failed",
-      "body": "Try PNG export first to verify rendering, then retry PDF, DOC, or PPT. On Android, files save to Downloads.",
+      "body": "Builder exports PNG, DOC, and PPT. Presentation exports HTML and PDF. Retry the format supported by the workspace you are using.",
       "link": "Open troubleshooting"
     },
     "notificationNotArriving": {
       "heading": "Notification not arriving",
-      "body": "Confirm device permissions and signed-in status. On Android, also check battery optimisation settings.",
+      "body": "Confirm device permissions and signed-in status, then check the notification guide.",
       "link": "Check notification guide"
     },
     "teamActionsUnavailable": {
@@ -1114,7 +1116,7 @@ window.ClicktI18nDict.en = {
     "beforeYouWrite": {
       "heading": "Before you write to us",
       "body": "Including these details helps us resolve your issue faster.",
-      "item1": "Device model and platform — for example, iPhone 15, Samsung Galaxy S24, or MacBook Pro",
+      "item1": "Device model and platform — for example, iPhone 15, iPad Pro, or MacBook Pro",
       "item2": "Operating system version",
       "item3": "Clickt app version",
       "item4": "Clear issue summary and what you expected to happen",
@@ -1299,7 +1301,7 @@ window.ClicktI18nDict.en = {
       "item4": "<strong>Export for sharing:</strong> Output as HTML or PDF depending on how you plan to present or distribute."
     },
     "exportsCallout": {
-      "body": "<strong>Where do exports save?</strong> On iPhone and iPad, exports go to the <strong>Files app</strong>. On Mac, you choose the destination folder. On Android, exports save to your <strong>Downloads folder</strong>."
+      "body": "<strong>Where do exports save?</strong> On iPhone and iPad, exports go to the <strong>Files app</strong>. On Mac, you choose the destination folder."
     },
     "teams": {
       "heading": "Teams &amp; Tasks <a class=\"anchor-copy\" href=\"#teams\" aria-label=\"Copy link\" title=\"Copy section link\">🔗</a>",
@@ -1349,8 +1351,8 @@ window.ClicktI18nDict.en = {
       "whereFilesGoLabel": "Where files go after export:",
       "location1": "<strong>iPhone / iPad:</strong> Files app",
       "location2": "<strong>Mac:</strong> You choose the destination folder",
-      "location3": "<strong>Android:</strong> Downloads folder",
-      "retryTip": "If an export fails, try PNG first — it's the fastest format to render and confirms whether the canvas content is working correctly. Then retry PDF, DOC, or PPT."
+      "location3": "<strong>Android:</strong> Preview coming soon",
+      "retryTip": "Use the format provided by your workspace: Builder exports PNG, DOC, and PPT; Presentation exports HTML and PDF."
     },
     "settings": {
       "heading": "Account &amp; Settings <a class=\"anchor-copy\" href=\"#settings\" aria-label=\"Copy link\" title=\"Copy section link\">🔗</a>",
@@ -1371,17 +1373,17 @@ window.ClicktI18nDict.en = {
       "item4": "A task you assigned is completed",
       "item5": "You receive a YES / NO decision invite",
       "item6": "Someone replies to a task thread",
-      "troubleshootTip": "<strong>If notifications aren't arriving:</strong> Check that Clickt has permission to send notifications in your device settings. On Android, also check that Clickt is not battery-optimized, as aggressive battery management can block background delivery."
+      "troubleshootTip": "<strong>If notifications aren't arriving:</strong> Check that Clickt has permission to send notifications in your device settings and that you are signed in."
     },
     "troubleshoot": {
       "heading": "Troubleshooting <a class=\"anchor-copy\" href=\"#troubleshoot\" aria-label=\"Copy link\" title=\"Copy section link\">🔗</a>",
       "item1": {
         "summary": "Export failed or produced a blank file",
-        "body": "Try PNG export first. If PNG works, the canvas is rendering correctly — retry your target format (PDF, DOC, or PPT). If PNG is blank too, check that your content is fully loaded before exporting and try again."
+        "body": "Retry the format supported by the workspace: Builder exports PNG, DOC, and PPT; Presentation exports HTML and PDF. Confirm content is fully loaded before exporting."
       },
       "item2": {
         "summary": "Notifications not arriving",
-        "body": "Confirm Clickt has notification permission in your device settings and that you're signed in to your account. On Android, also check battery optimization — if Clickt is restricted, background notifications may not arrive."
+        "body": "Confirm Clickt has notification permission in your device settings and that you are signed in to your account."
       },
       "item3": {
         "summary": "Can't assign tasks or use team actions",

@@ -892,7 +892,6 @@ window.ClicktI18nDict.en = {
         "credit": "Clickt-provided AI",
         "tagline": "One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.",
         "cta": "Contact Sales",
-        "ctaNote": "Prefer to talk first? <a href=\"mailto:clickt@click-t.com?subject=Business%20Plan%20Inquiry\">Contact Sales</a>",
         "feature1": "Everything in Free",
         "feature2": "For teams of up to 25 members",
         "feature3": "Company workspace on iOS, iPadOS, and macOS; Android preview coming soon",
@@ -996,7 +995,7 @@ window.ClicktI18nDict.en = {
       },
       "q6": {
         "question": "Why are Nepal and international prices different?",
-        "answer": "Clickt offers local pricing for organizations based in Nepal to reflect local market conditions. The currency shown above is detected from your device's time zone. You can switch currencies using the toggle at the top of this page. Contact us if you have questions about your region."
+        "answer": "Clickt offers local pricing for organizations based in Nepal to reflect local market conditions. This page automatically shows NPR in Nepal and USD elsewhere. Contact us if you have questions about your region."
       },
       "q7": {
         "question": "Is Clickt available on Android?",

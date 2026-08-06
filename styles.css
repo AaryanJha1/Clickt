@@ -5151,6 +5151,13 @@ footer a:hover {
         word-break: normal;
         overflow-wrap: break-word;
     }
+
+    /* On phone screens, keep every changing showcase message deliberately compact. */
+    .sc-copy-slot .sc-copy-eyebrow,
+    .sc-copy-slot .sc-copy-body,
+    .sc-copy-slot .sc-activity-chip {
+        display: none;
+    }
 }
 
 .sc-platform-switch {
@@ -5499,6 +5506,19 @@ footer a:hover {
     flex-shrink: 0;
 }
 
+.hero-store-btn.btn-outline {
+    border-color: #111827;
+    background: #111827;
+    color: #fff;
+}
+
+.hero-store-btn.btn-outline:hover,
+.hero-store-btn.btn-outline:focus-visible {
+    border-color: #020617;
+    background: #020617;
+    color: #fff;
+}
+
 .play-icon {
     width: 16px;
     height: 16px;
@@ -5515,6 +5535,331 @@ footer a:hover {
 
 .store-coming-soon.is-visible {
     animation: store-message-in 0.3s ease both;
+}
+
+@media (max-width: 640px) {
+    .hero--conversation .hero-logo {
+        height: 84px;
+        margin-bottom: 0.7rem;
+    }
+
+    .hero--conversation h2 {
+        max-width: 320px;
+        margin: 0 auto 1rem;
+        font-size: clamp(1.52rem, 6.8vw, 1.72rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+    }
+
+    .hero--conversation .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: min(100%, 250px);
+        margin: 1.1rem auto 0;
+    }
+
+    .hero--conversation .hero-store-btn {
+        box-sizing: border-box;
+        justify-content: center;
+        width: 100%;
+        height: 52px;
+        min-height: 0;
+    }
+
+    .hero--conversation .hero-proof-chips {
+        flex-direction: column;
+        align-items: stretch;
+        width: min(100%, 228px);
+        margin: 0.85rem auto 0;
+        gap: 0.34rem;
+    }
+
+    .hero--conversation .hero-proof-chip {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.28rem 0.45rem;
+        font-size: 0.61rem;
+        line-height: 1.25;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   GOOGLE PLAY STORE PREVIEW
+   ============================================================ */
+.google-play-page main {
+    padding-bottom: 1rem;
+}
+
+.play-hero {
+    max-width: 790px;
+    margin: 0 auto;
+    padding: clamp(4rem, 9vw, 7rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+    text-align: center;
+}
+
+.play-hero h1,
+.android-preview-heading h2,
+.play-capability-section h2,
+.play-listing-placeholder h2,
+.play-proof h2 {
+    margin: 0.45rem 0 0.9rem;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+}
+
+.play-hero > p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+.play-hero-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 1.7rem 0 1rem;
+}
+
+.google-play-badge {
+    display: inline-flex;
+    align-items: center;
+    min-width: 178px;
+    gap: 0.62rem;
+    padding: 0.48rem 0.82rem;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #111827;
+    color: #fff;
+    text-decoration: none;
+    text-align: left;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.16);
+}
+
+.google-play-badge svg { width: 25px; height: 25px; color: #86efac; flex: 0 0 auto; }
+.google-play-badge span { display: grid; gap: 0.06rem; }
+.google-play-badge small { font-size: 0.62rem; line-height: 1; color: #cbd5e1; }
+.google-play-badge strong { font-size: 0.92rem; line-height: 1.15; }
+.google-play-badge--coming::after {
+    content: "Preview";
+    margin-left: auto;
+    padding: 0.16rem 0.36rem;
+    border-radius: 999px;
+    background: rgba(134, 239, 172, 0.16);
+    color: #bbf7d0;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.play-disclosure,
+.placeholder-note {
+    max-width: 680px;
+    margin: 1rem auto 0;
+    padding: 0.75rem 0.95rem;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+
+.play-proof,
+.play-capability-section,
+.play-listing-placeholder {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
+    gap: 2.6rem;
+    align-items: center;
+    padding: clamp(2.5rem, 6vw, 5rem);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--surface);
+    margin: 0 0 2rem;
+}
+
+.play-proof h2,
+.play-capability-section h2,
+.play-listing-placeholder h2,
+.android-preview-heading h2 {
+    font-size: clamp(1.65rem, 3.4vw, 2.7rem);
+}
+
+.play-proof p,
+.play-listing-placeholder p,
+.android-preview-heading p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.android-preview {
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+}
+
+.android-preview-heading {
+    max-width: 720px;
+    margin: 0 auto 2.3rem;
+    text-align: center;
+}
+
+.android-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+}
+
+.android-preview-card {
+    appearance: none;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.android-preview-card:hover { transform: translateY(-4px); border-color: #93c5fd; box-shadow: 0 18px 34px rgba(37, 99, 235, 0.14); }
+.android-preview-card:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+
+.android-preview-card img {
+    display: block;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    object-position: top;
+    border-bottom: 1px solid var(--border);
+    background: #e2e8f0;
+}
+
+.android-preview-card div { padding: 1rem 1rem 1.15rem; }
+.android-preview-card span {
+    color: #2563eb;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+}
+.android-preview-card h3 { margin: 0.28rem 0 0.42rem; font-size: 1.04rem; }
+.android-preview-card p { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
+
+.android-gallery-modal {
+    position: fixed;
+    inset: 50% auto auto 50%;
+    width: min(1120px, calc(100vw - 2rem));
+    max-height: min(850px, calc(100vh - 2rem));
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.32);
+    transform: translate(-50%, -50%);
+}
+.android-gallery-modal::backdrop { background: rgba(15, 23, 42, 0.66); backdrop-filter: blur(4px); }
+.android-gallery-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 2.5rem) 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.android-gallery-modal-header h2 { margin: 0.32rem 0 0.35rem; font-family: var(--font-display); font-size: clamp(1.35rem, 3vw, 2rem); letter-spacing: -0.035em; }
+.android-gallery-modal-header p { max-width: 650px; margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+.android-gallery-close {
+    flex: 0 0 auto;
+    padding: 0.58rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+.android-gallery-close:hover { border-color: #93c5fd; color: #1d4ed8; }
+.android-gallery-close:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
+.android-gallery-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    max-height: calc(min(850px, 100vh - 2rem) - 148px);
+    overflow: auto;
+    padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem);
+}
+.android-gallery-images figure { margin: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: #f8fafc; }
+.android-gallery-images img { display: block; width: 100%; height: 330px; object-fit: contain; object-position: top; background: #e2e8f0; }
+.android-gallery-images figcaption { padding: 0.65rem 0.75rem; color: var(--muted); font-size: 0.76rem; font-weight: 700; }
+
+.platform-matrix { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.platform-matrix-row {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    gap: 0.8rem;
+    padding: 0.8rem 0.95rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+.platform-matrix-row:first-child { border-top: 0; }
+.platform-matrix-row span:first-child { color: var(--text); font-weight: 700; }
+.platform-matrix-head { background: #eff6ff; color: #1e3a8a; font-weight: 800; }
+.platform-matrix-head span:first-child { color: #1e3a8a; }
+
+.play-listing-placeholder-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 132px;
+    padding: 1.25rem;
+    border: 2px dashed #93c5fd;
+    border-radius: 18px;
+    background: #eff6ff;
+}
+.play-listing-placeholder-card img { width: 58px; height: 58px; object-fit: contain; border-radius: 14px; background: #fff; }
+.play-listing-placeholder-card div { display: grid; gap: 0.17rem; }
+.play-listing-placeholder-card strong { color: var(--text); }
+.play-listing-placeholder-card span { color: var(--muted); font-size: 0.8rem; }
+.play-listing-placeholder-card em { color: #2563eb; font-size: 0.76rem; font-style: normal; font-weight: 800; }
+
+@media (max-width: 900px) {
+    .android-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .play-proof,
+    .play-capability-section,
+    .play-listing-placeholder { grid-template-columns: 1fr; gap: 1.3rem; }
+}
+
+@media (max-width: 600px) {
+    .play-hero { padding-top: 3.4rem; }
+    .android-preview-grid { grid-template-columns: 1fr; }
+    .android-preview-card img { height: 300px; }
+    .platform-matrix-row { grid-template-columns: 0.85fr 1fr 1fr; padding: 0.7rem; font-size: 0.71rem; }
+    .play-proof,
+    .play-capability-section,
+    .play-listing-placeholder { padding: 1.5rem; border-radius: 18px; }
+    .android-gallery-modal { width: calc(100vw - 1rem); max-height: calc(100vh - 1rem); }
+    .android-gallery-modal-header { padding: 1.1rem; }
+    .android-gallery-images { grid-template-columns: 1fr; max-height: calc(100vh - 160px); padding: 1rem 1.1rem 1.4rem; }
+    .android-gallery-images img { height: 390px; }
 }
 
 @keyframes store-message-in {
@@ -6121,7 +6466,8 @@ footer a:hover {
     .story-film-grid { gap: 1.75rem; }
     .story-film { padding: 0.58rem; border-radius: 18px; }
     .story-film-meta { padding: 0.18rem 0.15rem 0.65rem; }
-    .story-film-stage { aspect-ratio: 4 / 3; border-radius: 13px; }
+    .story-film-stage { aspect-ratio: 16 / 9; border-radius: 13px; }
+    .story-film-video { object-fit: contain; background: #dbeafe; }
     .film-app-window { top: 8%; right: 3%; width: 52%; }
     .film-outcome { top: 9%; right: 3%; width: 50%; min-height: 48%; }
     .film-problem { max-width: 34%; }

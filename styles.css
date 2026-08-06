@@ -6994,7 +6994,11 @@ footer a:hover {
 
 .isolation-tiers {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* Three tiers are shown; keep the group evenly centred instead of
+       leaving an empty fourth grid column on wider screens. */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 540px;
+    margin-inline: auto;
     gap: 0.75rem;
     text-align: left;
 }

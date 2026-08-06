@@ -59,14 +59,6 @@
                 <h2 data-i18n="pricing.hero.heading">Start free. Bring your whole team.</h2>
                 <p data-i18n="pricing.hero.lead">Every plan includes Teams, Builder, Presentation, and Checklist on iPhone, iPad, and Mac. Android for Clickt is currently shown as a coming-soon preview.</p>
 
-                <div class="currency-toggle" role="group" aria-label="Choose pricing currency" data-i18n-attr="aria-label:pricing.currency.toggleAriaLabel">
-                    <button type="button" class="currency-btn is-active" data-currency="usd" aria-pressed="true">USD</button>
-                    <button type="button" class="currency-btn" data-currency="npr" aria-pressed="false">NPR</button>
-                </div>
-                <p class="currency-note" id="currency-note" aria-live="polite">
-                    Showing international prices.
-                    <button type="button" class="currency-switch-text" id="currency-switch-btn">Switch to NPR</button>
-                </p>
             </section>
 
             <section class="pricing-company-edition" aria-label="Company workspace pricing overview" data-i18n-attr="aria-label:pricing.companyEdition.ariaLabel">
@@ -126,7 +118,6 @@
                             class="pricing-cta btn"
                             data-i18n="pricing.tiers.business.cta"
                         >Contact Sales</a>
-                        <p class="pricing-cta-note" data-i18n-html="pricing.tiers.business.ctaNote">Prefer to talk first? <a href="mailto:clickt@click-t.com?subject=Business%20Plan%20Inquiry">Contact Sales</a></p>
                         <ul class="pricing-features">
                             <li data-i18n="pricing.tiers.business.feature1">Everything in Free</li>
                             <li data-i18n="pricing.tiers.business.feature2">For teams of up to 25 members</li>
@@ -264,7 +255,7 @@
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q6.question">Why are Nepal and international prices different?</summary>
-                        <p data-i18n="pricing.faq.q6.answer">Clickt offers local pricing for organizations based in Nepal to reflect local market conditions. The currency shown above is detected from your device's time zone. You can switch currencies using the toggle at the top of this page. Contact us if you have questions about your region.</p>
+                        <p data-i18n="pricing.faq.q6.answer">Clickt offers local pricing for organizations based in Nepal to reflect local market conditions. This page automatically shows NPR in Nepal and USD elsewhere. Contact us if you have questions about your region.</p>
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q7.question">Is Clickt available on Android?</summary>
@@ -305,8 +296,6 @@
         (function () {
             const amounts = document.querySelectorAll('.pricing-amount');
             const setupFees = document.querySelectorAll('[data-setup-fee]');
-            const btns    = document.querySelectorAll('.currency-btn');
-            const note    = document.getElementById('currency-note');
 
             const perUserMap = {
                 business:   { npr: 'NPR 2,000 / user / month', usd: 'USD 15 / user / month' },
@@ -315,7 +304,6 @@
             var t = function (key) { return window.ClicktI18n ? window.ClicktI18n.t(key) : key; };
 
             let currentCurrency = 'usd';
-            let userOverride    = false;
 
             function applyUserLines(currency) {
                 document.querySelectorAll('[data-tier]').forEach(function (card) {
@@ -326,8 +314,7 @@
                 });
             }
 
-            function setCurrency(currency, byUser) {
-                if (byUser) userOverride = true;
+            function setCurrency(currency) {
                 currentCurrency = currency;
 
                 amounts.forEach(function (el) {
@@ -340,52 +327,26 @@
 
                 applyUserLines(currency);
 
-                btns.forEach(function (btn) {
-                    var active = btn.dataset.currency === currency;
-                    btn.classList.toggle('is-active', active);
-                    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-                });
-
-                if (currency === 'npr') {
-                    note.innerHTML = t('pricing.currency.showingNepal') + ' <button type="button" class="currency-switch-text" id="currency-switch-btn">' + t('pricing.currency.switchToUsd') + '</button>';
-                } else {
-                    note.innerHTML = t('pricing.currency.showingIntl') + ' <button type="button" class="currency-switch-text" id="currency-switch-btn">' + t('pricing.currency.switchToNpr') + '</button>';
-                }
-
-                document.getElementById('currency-switch-btn').addEventListener('click', function () {
-                    setCurrency(currentCurrency === 'npr' ? 'usd' : 'npr', true);
-                });
             }
 
             document.addEventListener('clickt:langchange', function () {
-                setCurrency(currentCurrency, false);
+                setCurrency(currentCurrency);
             });
 
             // ── Auto-detect Nepal ──────────────────────────────
             // 1. Timezone check (instant, synchronous)
             var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
             if (tz === 'Asia/Kathmandu') {
-                setCurrency('npr', false);
+                setCurrency('npr');
             }
 
-            // 2. IP-based check (async, more reliable)
-            if (!userOverride) {
-                fetch('https://api.country.is/')
-                    .then(function (r) { return r.json(); })
-                    .then(function (data) {
-                        if (!userOverride && data && data.country === 'NP') {
-                            setCurrency('npr', false);
-                        }
-                    })
-                    .catch(function () { /* silently ignore — timezone check already ran */ });
-            }
-
-            // Manual toggle buttons
-            btns.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    setCurrency(this.dataset.currency, true);
-                });
-            });
+            // 2. IP-based check (more reliable when a visitor's timezone differs from location)
+            fetch('https://api.country.is/')
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    setCurrency(data && data.country === 'NP' ? 'npr' : 'usd');
+                })
+                .catch(function () { /* timezone result or USD fallback remains in place */ });
         })();
     </script>
 </body>

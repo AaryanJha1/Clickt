@@ -166,30 +166,6 @@ function initHeroConversation() {
         characterTimer = window.setTimeout(typeUserMessage, 11);
     };
 
-    const resetCycle = () => {
-        window.clearTimeout(timer);
-        window.clearTimeout(characterTimer);
-        clearProposalTimers();
-        root.classList.remove("is-showing-typing");
-        root.classList.remove("is-user-typing");
-        if (typing) typing.hidden = true;
-        steps.forEach((step) => {
-            step.hidden = true;
-            step.classList.remove("is-revealed");
-        });
-        proposalItems.forEach((item) => {
-            item.hidden = true;
-            item.classList.remove("is-revealed");
-        });
-        if (userMessage) userMessage.textContent = "";
-        if (announcement) announcement.textContent = "";
-        announcementActive = false;
-        setStatus("index.hero.status.ready");
-        typedCharacters = 0;
-        stage = 0;
-        advance();
-    };
-
     const advance = () => {
         if (paused) return;
         switch (stage) {
@@ -231,7 +207,6 @@ function initHeroConversation() {
             announcementActive = true;
             if (announcement) announcement.textContent = t("index.hero.announcement");
             stage = 6;
-            timer = window.setTimeout(resetCycle, 4800);
         }
     };
 
@@ -265,8 +240,7 @@ function initHeroConversation() {
     root.addEventListener("pointerleave", () => {
         paused = false;
         if (stage === 0) typeUserMessage();
-        else if (stage === 6) timer = window.setTimeout(resetCycle, 600);
-        else schedule(260);
+        else if (stage !== 6) schedule(260);
     });
     root.addEventListener("focusin", () => {
         paused = true;
@@ -277,8 +251,7 @@ function initHeroConversation() {
         if (root.contains(event.relatedTarget)) return;
         paused = false;
         if (stage === 0) typeUserMessage();
-        else if (stage === 6) timer = window.setTimeout(resetCycle, 600);
-        else schedule(260);
+        else if (stage !== 6) schedule(260);
     });
 
     if (!("IntersectionObserver" in window)) {
@@ -1543,7 +1516,9 @@ function initShowcaseChapters() {
             const isSingleFrameStop = !stop.module && !stop.satA && !stop.satB;
             const scaledStop = {
                 ...stop,
-                x: Math.round(stop.x * 0.68),
+                // Copy moves beneath the frame on phones, so horizontal
+                // device motion would only make the visual look off-centre.
+                x: 0,
                 ry: Number((stop.ry * 0.72).toFixed(2)),
                 rz: Number((stop.rz * 0.72).toFixed(2)),
             };

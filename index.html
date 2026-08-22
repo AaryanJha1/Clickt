@@ -805,6 +805,7 @@
             <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
             <p data-i18n="common.footer.supportSentence">Should you require assistance, our support desk stands ready to help.</p>
             <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> | <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a> | <a href="at-work.html" data-i18n="common.footer.demo">At Work</a> | <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> | <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> | <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> | <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a></p>
+            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
         </footer>
     </div>
 
@@ -845,6 +846,17 @@
                     btn.setAttribute('aria-expanded', 'false');
                 }
             });
+            var footer = document.querySelector('footer');
+            if (footer && 'IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    var footerIsVisible = entries[0].isIntersecting;
+                    btn.classList.toggle('is-footer-hidden', footerIsVisible);
+                    if (footerIsVisible) {
+                        pop.hidden = true;
+                        btn.setAttribute('aria-expanded', 'false');
+                    }
+                }, { threshold: 0 }).observe(footer);
+            }
         }());
     </script>
 </body>

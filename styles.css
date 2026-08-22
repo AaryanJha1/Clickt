@@ -116,7 +116,10 @@ body {
     min-height: 100dvh; /* accounts for mobile browser chrome collapsing on scroll */
 }
 
-.footer-shell {
+/* More specific than .container below: that rule uses the margin shorthand,
+   which would otherwise reset margin-top and leave light body background
+   beneath the footer on short mobile pages. */
+.container.footer-shell {
     margin-top: auto;
 }
 
@@ -2484,6 +2487,12 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* Shown only on phones, where the app CTA belongs in the footer's normal
+   document flow rather than floating above the bottom of the viewport. */
+.footer-download-cta {
+    display: none;
+}
+
 /* Responsive Overrides */
 @media (max-width: 1024px) {
     .feature-slider-frame {
@@ -2764,10 +2773,6 @@ footer a:hover {
 }
 
 @media (max-width: 640px) {
-    body.home-page {
-        padding-bottom: 86px;
-    }
-
     .hero h1,
     .hero h2 {
         font-size: clamp(1.7rem, 8.5vw, 2.2rem);
@@ -3918,10 +3923,29 @@ footer a:hover {
     }
 
     .mobile-download-cta {
+        display: none;
+    }
+
+    footer .footer-download-cta {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        bottom: max(8px, env(safe-area-inset-bottom));
+        width: min(100%, 320px);
+        min-height: 2.65rem;
+        margin: 1.5rem auto 0;
+        padding: 0.62rem 1rem;
+        border-radius: var(--radius-pill);
+        background: var(--cta);
+        color: #ffffff;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    footer .footer-download-cta:hover {
+        background: var(--cta-hover);
+        text-decoration: none;
     }
 
     .final-cta-actions {
@@ -5037,6 +5061,10 @@ footer a:hover {
         display: flex;
         align-items: flex-start;
         justify-content: center;
+        /* Cancel the tablet/desktop right-side copy-panel bias. On phones,
+           the copy lives below the stage, so the device needs the whole
+           frame width in order to be genuinely centered. */
+        padding-inline: 0;
         padding-top: clamp(16px, 3svh, 34px);
         padding-bottom: clamp(44px, 7svh, 82px);
         margin-bottom: 0;
@@ -6946,6 +6974,12 @@ footer a:hover {
 .founder-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 18px rgba(15, 23, 42, 0.16);
+}
+
+.founder-btn.is-footer-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .founder-popover {

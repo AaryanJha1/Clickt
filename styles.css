@@ -102,6 +102,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-height: 100dvh; /* accounts for mobile browser chrome collapsing on scroll */
 }
 
 .footer-shell {
@@ -155,9 +156,27 @@ p { font-size: var(--text-lg); color: var(--muted); margin-bottom: var(--space-5
 
 /* Layout & Containers */
 .container {
+    /* Explicit width, not just max-width: body is now a flex column (for
+       the sticky footer below), and a flex item with auto side-margins
+       loses align-items:stretch and shrinks to fit its content instead of
+       filling the viewport — width:100% pins the pre-flex sizing back. */
+    width: 100%;
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 var(--space-6);
+}
+
+/* Flex items always establish their own stacking context (even with
+   z-index:auto), so on pages with several top-level sections as direct
+   body children (e.g. playbook.html's per-chapter containers), a later
+   section paints over an earlier one regardless of z-index set *inside*
+   it. The header's open dropdown needs to sit above all of that, so its
+   own flex-item container gets an explicit z-index — comfortably above
+   .tour-switcher-wrap's sticky bar (20) and below the founder button (50),
+   which should stay clickable over everything else regardless. */
+.container:has(> header) {
+    position: relative;
+    z-index: 45;
 }
 
 header {
@@ -6454,7 +6473,7 @@ footer a:hover {
     .industry-usecase-grid { grid-template-columns: 1fr; }
 }
 
-.at-work-outro { max-width: 850px; margin: 0 auto; padding: 5rem 1.5rem 6rem; text-align: center; }
+.at-work-outro { width: 100%; max-width: 850px; margin: 0 auto; padding: 5rem 1.5rem 6rem; text-align: center; }
 .at-work-outro h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); }
 .at-work-outro p { max-width: 560px; margin: 0.7rem auto 1.4rem; }
 

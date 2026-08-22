@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260822m">
+    <link rel="stylesheet" href="styles.css?v=20260822p">
     <style>
         /* ══ Hero ═══════════════════════════════════════════ */
         .tour-hero {
@@ -336,7 +336,13 @@
         .tourx-panel {
             position: sticky;
             top: 0;
+            /* 100vh on mobile Safari is sized for the *largest* possible
+               viewport (toolbars collapsed); with the toolbar visible the
+               real viewport is shorter, so a sticky panel pinned at top:0
+               and sized to the larger 100vh reads as clipped at its own
+               top edge. 100dvh tracks the actual current viewport. */
             height: 100vh;
+            height: 100dvh;
             display: flex;
             align-items: center;
             gap: clamp(2rem, 5vw, 4.5rem);
@@ -431,6 +437,7 @@
                 gap: 1rem;
                 height: auto;
                 min-height: 100vh;
+                min-height: 100dvh;
                 padding: 10vh 1.25rem 4vh;
             }
             .tourx-stage { flex: none; height: 36vh; width: 100%; }

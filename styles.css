@@ -88,12 +88,23 @@
 }
 
 
+/* iOS Safari's elastic rubber-band overscroll pulls the page past its real
+   top/bottom edge and reveals whatever is behind it — since every page ends
+   in the dark footer, html's own background (not body's, which must stay
+   the light page color for real content) is set to match, so a bottom
+   overscroll bounce reveals more footer-colored background instead of a
+   flash of the light page background. */
+html {
+    background-color: #0f172a;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
     /* Sticky footer: on pages shorter than the viewport, this pushes the
        dark footer band down to the true bottom edge instead of leaving a
        gap of ordinary page background beneath it. Fixed/absolute children
@@ -3774,7 +3785,8 @@ footer a:hover {
 
     .final-cta-inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
     }
 
     .final-cta-actions {
@@ -3784,8 +3796,15 @@ footer a:hover {
     .pb-teaser-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .pb-teaser-grid > *:nth-child(4),
-    .pb-teaser-grid > *:nth-child(5) { grid-column: auto; }
+    .pb-teaser-grid > *:nth-child(4) { grid-column: auto; }
+    /* 5 cards in a 2-column grid leaves the 5th stranded alone on the left
+       in row 3 — span the full row and center it at a normal card's width
+       instead, so it reads as a deliberate closing card, not a leftover. */
+    .pb-teaser-grid > *:nth-child(5) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc(50% - 0.5rem);
+    }
 }
 
 @media (max-width: 640px) {
@@ -3924,6 +3943,9 @@ footer a:hover {
     .pb-teaser-grid { grid-template-columns: 1fr; }
     .pb-teaser-grid > *:nth-child(4),
     .pb-teaser-grid > *:nth-child(5) { grid-column: auto; }
+    /* Single-column stack: card 5 should match its full-width siblings,
+       not stay at the half-width centered sizing from the tablet breakpoint. */
+    .pb-teaser-grid > *:nth-child(5) { justify-self: stretch; width: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4961,12 +4983,20 @@ footer a:hover {
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 900px) {
+/* Widened from 900px to 1024px to cover iPad landscape too — below this,
+   the copy panel (still absolute + right-anchored, same desktop approach)
+   needs the device pushed further left to avoid overlapping it, since the
+   device's own GSAP xPercent shift is relative to its own (now smaller)
+   width and doesn't leave enough room on its own at these viewports. */
+@media (max-width: 1024px) {
     .sc-chapter--iphone .phone-shell  { width: clamp(140px, 28vw, 210px); }
     .sc-chapter--ipad   .tablet-shell { width: clamp(200px, 40vw, 320px); }
     .sc-chapter--mac    .desktop-shell{ width: clamp(300px, 68vw, 520px); }
-    .sc-stage { justify-content: center; }
-    .sc-copy-panel { max-width: 48vw; width: 260px; }
+    /* Biases the flex-centered device leftward (GSAP's per-stop xPercent
+       shift still applies on top of this, relative to the device's own
+       width) so the right-anchored copy panel has clear room beside it. */
+    .sc-stage { justify-content: center; padding-right: 24vw; }
+    .sc-copy-panel { max-width: 42vw; width: 260px; }
     .sc-scroll-hint { display: none; }
 }
 

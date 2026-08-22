@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260804a">
+    <link rel="stylesheet" href="styles.css?v=20260822k">
     <style>
         /* ══ Hero ═══════════════════════════════════════════ */
         .tour-hero {
@@ -427,23 +427,36 @@
             .tourx-panel {
                 flex-direction: column;
                 align-items: stretch;
-                justify-content: center;
-                gap: 1.25rem;
+                justify-content: flex-start;
+                gap: 1rem;
                 height: auto;
                 min-height: 100vh;
-                padding: 7vh 1.25rem;
+                padding: 10vh 1.25rem 4vh;
             }
             .tourx-stage { flex: none; height: 36vh; width: 100%; }
-            .tourx-copy { flex: none; width: 100%; max-width: none; }
+            /* Copy grows to fill whatever height the fixed-height stage
+               doesn't use, instead of leaving empty space below a
+               vertically-centered block — its own content still centers
+               within that space via align-content. */
+            .tourx-copy { flex: 1; align-content: center; width: 100%; max-width: none; }
             .tourx-copy-slot .tour-stop-copy { text-align: center; }
-            .tourx-panel--iphone .tourx-copy { padding-top: clamp(1rem, 5vh, 3rem); }
+            /* Smaller type on narrow screens so heading + body + chip
+               reliably fit the space left after the fixed-height stage,
+               without pushing the progress bar off-screen. */
+            .tourx-copy-slot .tour-heading { font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.75rem); margin-bottom: 0.6rem; }
+            .tourx-copy-slot .tour-body { font-size: 0.88rem; line-height: 1.5; }
+            .tourx-copy-slot .tour-chip-text { font-size: 0.82rem; }
+            .tourx-panel--iphone .tourx-copy { padding-top: clamp(0.5rem, 3vh, 1.5rem); }
             .tourx-copy-slot .tour-chip,
             .tourx-copy-slot .tour-chip-stack { text-align: left; }
-            .tourx-hud { position: relative; left: auto; bottom: auto; transform: none; margin-top: 0.25rem; }
+            .tourx-hud { position: absolute; left: 50%; bottom: 3vh; transform: translateX(-50%); margin-top: 0; }
 
-            .tourx-shot .phone-shell { width: min(170px, 40vw); }
+            /* Smaller phone art leaves clearance above it inside the fixed
+               stage height, so the notch/status bar doesn't sit flush
+               against — or spill past — the stage's top edge. */
+            .tourx-shot .phone-shell { width: min(150px, 36vw); }
             .tourx-shot .tablet-shell { width: min(200px, 46vw); }
-            .tourx-shot .tour-poster { width: min(320px, 82vw); min-height: 32vh; }
+            .tourx-shot .tour-poster { width: min(300px, 78vw); min-height: 30vh; }
             .tourx-shot .tour-browser-frame { max-height: 30vh; }
             .tourx-shot .tour-browser-screen img { max-height: 30vh; }
         }
@@ -467,6 +480,20 @@
     </style>
 </head>
 <body class="playbook-page">
+    <div class="site-dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+    </div>
 
 <div class="platform-strip" aria-label="Apple and Android platforms">
         Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
@@ -1399,7 +1426,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container footer-shell">
     <footer>
         <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
         <p>
@@ -1642,5 +1669,37 @@
         boot();
     })();
 </script>
+    <a
+        href="https://apps.apple.com/us/app/clickt/id6759891499"
+        class="mobile-download-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Clickt on the App Store"
+        data-i18n-attr="aria-label:index.finalCta.appStoreAriaLabel"
+    >
+        <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
+    </a>
+
+    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
+    <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
+        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+    </div>
+    <script>
+        (function () {
+            var btn = document.getElementById('founder-btn');
+            var pop = document.getElementById('founder-popover');
+            btn.addEventListener('click', function () {
+                var open = pop.hidden;
+                pop.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !pop.contains(e.target)) {
+                    pop.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }());
+    </script>
 </body>
 </html>

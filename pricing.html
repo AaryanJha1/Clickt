@@ -13,9 +13,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260730a">
+    <link rel="stylesheet" href="styles.css?v=20260822k">
 </head>
 <body class="pricing-page">
+    <div class="site-dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+    </div>
 
     <div class="platform-strip" aria-label="Apple and Android platforms">
         Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
@@ -65,7 +79,7 @@
                 <span class="context-kicker" data-i18n="pricing.companyEdition.kicker">Company onboarding</span>
                 <h3 data-i18n="pricing.companyEdition.heading">One initial setup. A workspace ready for your team.</h3>
                 <p data-i18n="pricing.companyEdition.body">Each paid company workspace has a one-time initial setup fee, scaled to the level of administration and onboarding your team needs. After that, you pay only the per-user monthly subscription.</p>
-                <p class="pricing-company-edition-note" data-i18n="pricing.companyEdition.note">Private distribution, a separately branded app, dedicated infrastructure, and custom integrations are optional Enterprise services quoted only when your organisation needs them.</p>
+                <p class="pricing-company-edition-note" data-i18n="pricing.companyEdition.note">Private distribution, a separately branded app, dedicated infrastructure, and custom integrations are optional services quoted only when your organisation needs them.</p>
             </section>
 
             <!-- ── Pricing Grid ──────────────────────────────── -->
@@ -106,11 +120,11 @@
                         <div class="pricing-card-head">
                             <span class="pricing-tier-label" data-i18n="pricing.tiers.business.label">Business</span>
                             <span class="pricing-amount"
-                                data-npr="From NPR 2,000"
-                                data-usd="From USD 15">USD 15</span>
-                            <span class="pricing-period" data-i18n="pricing.tiers.business.period">per licensed user / month · billed annually · for teams under 26 members</span>
-                            <p class="pricing-users" data-pricing-seat-line>USD 15 / user / month</p>
-                            <p class="pricing-credit" data-i18n="pricing.tiers.business.credit">Clickt-provided AI</p>
+                                data-npr="NPR 500"
+                                data-usd="USD 5">USD 5</span>
+                            <span class="pricing-period" data-i18n="pricing.tiers.business.period">per licensed user / month · billed annually · no limit on team size</span>
+                            <p class="pricing-users" data-pricing-seat-line>USD 5 / user / month</p>
+                            <p class="pricing-credit" data-i18n="pricing.tiers.business.credit">Clickt-provided AI, assigned per user by your admin</p>
                             <p class="pricing-tagline" data-i18n="pricing.tiers.business.tagline">One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.</p>
                         </div>
                         <a
@@ -120,10 +134,10 @@
                         >Contact Sales</a>
                         <ul class="pricing-features">
                             <li data-i18n="pricing.tiers.business.feature1">Everything in Free</li>
-                            <li data-i18n="pricing.tiers.business.feature2">For teams of up to 25 members</li>
-                            <li data-i18n-html="pricing.tiers.business.feature3">Company workspace on iOS, iPadOS, and macOS; Android preview coming soon</li>
+                            <li data-i18n="pricing.tiers.business.feature2">Any team size — no member cap</li>
+                            <li data-i18n-html="pricing.tiers.business.feature3">Company workspace on iOS, macOS and Android</li>
                             <li data-i18n="pricing.tiers.business.feature4">Managed cloud sync environment</li>
-                            <li data-i18n="pricing.tiers.business.feature5">Clickt-provided AI</li>
+                            <li data-i18n="pricing.tiers.business.feature5">Clickt-provided AI: Top up AI credit anytime in $5, $10, $15, or $20</li>
                             <li data-i18n="pricing.tiers.business.feature6">Managed backups, monitoring, and company administration</li>
                             <li data-i18n="pricing.tiers.business.feature7">No advertisements</li>
                             <li data-i18n="pricing.tiers.business.feature8">Admin and team management across all company devices</li>
@@ -131,39 +145,7 @@
                             <li data-i18n="pricing.tiers.business.feature10">Advanced reporting and organization templates</li>
                             <li data-i18n="pricing.tiers.business.feature11">API access and webhooks</li>
                             <li data-i18n="pricing.tiers.business.feature12">Priority support</li>
-                            <li><span data-i18n="pricing.tiers.business.setupFeeLabel">Initial company setup:</span> <span data-setup-fee data-npr="NPR 1,00,000" data-usd="USD 1,000">USD 1,000</span> <span data-i18n="pricing.tiers.business.setupFeeSuffix">one time</span></li>
-                        </ul>
-                    </article>
-
-                    <!-- Enterprise -->
-                    <article class="pricing-card pricing-card--enterprise" data-tier="enterprise">
-                        <div class="pricing-card-head">
-                            <span class="pricing-tier-label" data-i18n="pricing.tiers.enterprise.label">Enterprise</span>
-                            <span class="pricing-amount"
-                                data-npr="From NPR 3,000"
-                                data-usd="From USD 25">From USD 25</span>
-                            <span class="pricing-period" data-i18n="pricing.tiers.enterprise.period">per licensed user / month · annual commitment · for teams of 26 members or more</span>
-                            <p class="pricing-users" data-pricing-seat-line>From USD 25 / user / month</p>
-                            <p class="pricing-credit" data-i18n="pricing.tiers.enterprise.credit">Clickt-provided AI</p>
-                            <p class="pricing-tagline" data-i18n="pricing.tiers.enterprise.tagline">For organisations of 26 or more members that need stronger controls and a clear route to a custom deployment.</p>
-                        </div>
-                        <a
-                            href="mailto:clickt@click-t.com?subject=Enterprise%20Inquiry"
-                            class="pricing-cta btn btn-outline"
-                            data-i18n="pricing.tiers.enterprise.cta"
-                        >Contact Sales</a>
-                        <ul class="pricing-features">
-                            <li data-i18n="pricing.tiers.enterprise.feature1">Everything in Business</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature2">For teams of 26 members or more</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature3">Company naming and managed release coordination</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature4">Extended audit logs</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature5">Production and staging sync environments</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature6">Advanced backup and recovery options</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature7">Implementation planning and onboarding</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature8">Priority support and commercial support terms</li>
-                            <li data-i18n="pricing.tiers.enterprise.feature9">Optional SSO, private distribution, dedicated infrastructure, and custom integrations</li>
-                            <li><span data-i18n="pricing.tiers.enterprise.setupFeeLabel">Initial company setup:</span> <span data-setup-fee data-npr="NPR 2,00,000" data-usd="USD 2,000">USD 2,000</span> <span data-i18n="pricing.tiers.enterprise.setupFeeSuffix">one time</span></li>
-                            <li data-i18n="pricing.tiers.enterprise.feature10">Custom services are scoped separately after the initial setup</li>
+                            <li><span data-i18n="pricing.tiers.business.setupFeeLabel">Initial company setup:</span> <span data-i18n="pricing.tiers.business.setupFeeAmount">custom, scoped to your team</span></li>
                         </ul>
                     </article>
                 </div>
@@ -183,26 +165,19 @@
                     <div class="pricing-vs-row pricing-vs-clickt">
                         <span class="pricing-vs-name" data-i18n="pricing.vs.business.name">Clickt Business</span>
                         <span class="pricing-vs-val" data-i18n="pricing.vs.business.workspace">Shared company workspace across every supported device</span>
-                        <span class="pricing-vs-val" data-i18n="pricing.vs.business.ai">Clickt-provided AI</span>
+                        <span class="pricing-vs-val" data-i18n="pricing.vs.business.ai">Clickt-provided AI, assigned per user by admin</span>
                         <span class="pricing-vs-val" data-i18n="pricing.vs.business.sync">Managed cloud sync</span>
                         <span class="pricing-vs-val" data-i18n="pricing.vs.business.support">Priority</span>
                     </div>
-                    <div class="pricing-vs-row">
-                        <span class="pricing-vs-name" data-i18n="pricing.vs.enterprise.name">Clickt Enterprise</span>
-                        <span class="pricing-vs-val" data-i18n="pricing.vs.enterprise.workspace">Company workspace + deployment planning</span>
-                        <span class="pricing-vs-val" data-i18n="pricing.vs.enterprise.ai">Clickt-provided AI</span>
-                        <span class="pricing-vs-val" data-i18n="pricing.vs.enterprise.sync">Governed managed cloud; dedicated deployment by scope</span>
-                        <span class="pricing-vs-val" data-i18n="pricing.vs.enterprise.support">Contracted</span>
-                    </div>
                 </div>
-                <p class="pricing-vs-note" data-i18n="pricing.vs.note">Clickt-provided AI is governed by the selected supported model and your organisation’s usage policy. Extra usage is prepaid or separately approved—never an automatic unlimited-usage promise.</p>
+                <p class="pricing-vs-note" data-i18n="pricing.vs.note">Clickt-provided AI is governed by the selected supported model and your organisation’s usage policy. Your admin assigns it to the specific users whose work needs it—it isn’t switched on for every seat by default. Extra usage is topped up in $5, $10, $15, or $20 increments—always billed in USD, even on NPR pricing—or separately approved; never an automatic unlimited-usage promise.</p>
             </section>
 
             <!-- ── Data Separation Callout ───────────────────── -->
             <section class="pricing-isolation">
                 <div class="isolation-inner">
                     <h3 data-i18n="pricing.isolation.heading">A company workspace set up for your team</h3>
-                    <p data-i18n="pricing.isolation.body">Business and above cover the ongoing operation of your company workspace: authentication, Firestore sync, backups, monitoring, release coordination, and support. Enterprise adds deeper deployment and identity choices only when the organisation needs them.</p>
+                    <p data-i18n="pricing.isolation.body">Business covers the ongoing operation of your company workspace: authentication, Firestore sync, backups, monitoring, release coordination, and support. Deeper deployment and identity choices are available by request for organisations that need them.</p>
                     <div class="isolation-tiers">
                         <div class="isolation-tier">
                             <span class="isolation-label" data-i18n="pricing.isolation.free.label">Free</span>
@@ -210,11 +185,7 @@
                         </div>
                         <div class="isolation-tier">
                             <span class="isolation-label" data-i18n="pricing.isolation.business.label">Business</span>
-                            <span class="isolation-desc" data-i18n="pricing.isolation.business.desc">Managed company workspace with governance, audit, API, and webhooks — for teams under 26 members</span>
-                        </div>
-                        <div class="isolation-tier">
-                            <span class="isolation-label" data-i18n="pricing.isolation.enterprise.label">Enterprise</span>
-                            <span class="isolation-desc" data-i18n="pricing.isolation.enterprise.desc">Dedicated deployment, identity, and support terms by scope — for teams of 26 members or more</span>
+                            <span class="isolation-desc" data-i18n="pricing.isolation.business.desc">Managed company workspace with governance, audit, API, and webhooks — any team size</span>
                         </div>
                     </div>
                 </div>
@@ -239,7 +210,7 @@
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q2.question">What is a company workspace?</summary>
-                        <p data-i18n="pricing.faq.q2.answer">Business and above give your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, and Mac. Android is currently a coming-soon preview. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional Enterprise scope—not a requirement to begin.</p>
+                        <p data-i18n="pricing.faq.q2.answer">Business gives your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, and Mac, at any team size. Android is currently a coming-soon preview. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional custom scope—not a requirement to begin.</p>
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q3.question">Can I start on Free and upgrade later?</summary>
@@ -247,7 +218,7 @@
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q4.question">How does Clickt-provided AI work?</summary>
-                        <p data-i18n="pricing.faq.q4.answer">Business and above include Clickt-provided AI with organisation-level usage controls. Actual request capacity varies with the approved model, prompt length, attachments, and output size. Clickt does not silently create unlimited charges: your organisation can buy prepaid usage, approve additional usage, or use its own supported provider credential.</p>
+                        <p data-i18n="pricing.faq.q4.answer">Business includes Clickt-provided AI, but it is not switched on for every seat by default. Your admin assigns it to the specific users whose work needs it, with organisation-level usage controls. Actual request capacity varies with the approved model, prompt length, attachments, and output size. Clickt does not silently create unlimited charges: your organisation can top up AI credit in $5, $10, $15, or $20 increments—always billed in USD, regardless of your regional pricing—approve additional usage, or use its own supported provider credential.</p>
                     </details>
                     <details class="pricing-faq-item">
                         <summary data-i18n="pricing.faq.q5.question">What does the 90-day guarantee cover?</summary>
@@ -264,16 +235,21 @@
                 </div>
             </section>
 
-            <!-- ── Enterprise CTA ────────────────────────────── -->
+            <!-- ── Custom needs CTA ────────────────────────────── -->
             <section class="pricing-enterprise-cta">
                 <div class="enterprise-cta-inner">
-                    <span class="context-kicker" data-i18n="pricing.enterpriseCta.kicker">Enterprise</span>
+                    <span class="context-kicker" data-i18n="pricing.enterpriseCta.kicker">Custom needs</span>
                     <h3 data-i18n="pricing.enterpriseCta.heading">Need something custom?</h3>
                     <p data-i18n="pricing.enterpriseCta.body">For large organizations with deployment, identity, support, security, or integration requirements, talk to us directly. We'll define and price the right setup for your team.</p>
-                    <a href="mailto:clickt@click-t.com?subject=Enterprise%20Inquiry" class="btn" data-i18n="pricing.enterpriseCta.cta">Talk to Sales</a>
+                    <a href="mailto:clickt@click-t.com?subject=Custom%20Setup%20Inquiry" class="btn" data-i18n="pricing.enterpriseCta.cta">Talk to Sales</a>
                 </div>
             </section>
         </main>
+
+    </div>
+
+
+    <div class="container footer-shell">
 
         <footer>
             <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
@@ -295,11 +271,9 @@
     <script>
         (function () {
             const amounts = document.querySelectorAll('.pricing-amount');
-            const setupFees = document.querySelectorAll('[data-setup-fee]');
 
             const perUserMap = {
-                business:   { npr: 'NPR 2,000 / user / month', usd: 'USD 15 / user / month' },
-                enterprise: { npr: 'From NPR 3,000 / user / month', usd: 'From USD 25 / user / month' },
+                business: { npr: 'NPR 500 / user / month', usd: 'USD 5 / user / month' },
             };
             var t = function (key) { return window.ClicktI18n ? window.ClicktI18n.t(key) : key; };
 
@@ -318,10 +292,6 @@
                 currentCurrency = currency;
 
                 amounts.forEach(function (el) {
-                    el.textContent = el.dataset[currency] || el.textContent;
-                });
-
-                setupFees.forEach(function (el) {
                     el.textContent = el.dataset[currency] || el.textContent;
                 });
 
@@ -348,6 +318,38 @@
                 })
                 .catch(function () { /* timezone result or USD fallback remains in place */ });
         })();
+    </script>
+    <a
+        href="https://apps.apple.com/us/app/clickt/id6759891499"
+        class="mobile-download-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Clickt on the App Store"
+        data-i18n-attr="aria-label:index.finalCta.appStoreAriaLabel"
+    >
+        <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
+    </a>
+
+    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
+    <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
+        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+    </div>
+    <script>
+        (function () {
+            var btn = document.getElementById('founder-btn');
+            var pop = document.getElementById('founder-popover');
+            btn.addEventListener('click', function () {
+                var open = pop.hidden;
+                pop.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !pop.contains(e.target)) {
+                    pop.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }());
     </script>
 </body>
 </html>

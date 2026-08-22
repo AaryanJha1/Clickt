@@ -8,9 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260730a">
+    <link rel="stylesheet" href="styles.css?v=20260822k">
 </head>
 <body>
+    <div class="site-dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+    </div>
 
     <div class="platform-strip" aria-label="Apple and Android platforms">
         Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
@@ -90,14 +104,14 @@
                     <span data-i18n="privacy.section3.heading">Data sharing</span>
                 </h2>
                 <p data-i18n="privacy.section3.body1">We do not sell your personal information. Data may be processed by trusted service providers only where necessary to operate Clickt — for example, secure cloud infrastructure, data-storage partners, and the AI providers described below.</p>
-                <p data-i18n="privacy.section3.body2">Business uses Clickt's managed shared SaaS infrastructure with organization controls. Dedicated databases or private-cloud deployments are Enterprise options, individually scoped in the customer's agreement.</p>
+                <p data-i18n="privacy.section3.body2">Business uses Clickt's managed shared SaaS infrastructure with organization controls. Dedicated databases or private-cloud deployments are optional custom options, individually scoped in the customer's agreement.</p>
 
                 <h2>
                     <span class="prose-section-num" aria-hidden="true">4</span>
                     <span data-i18n="privacy.section4.heading">ClicktAI and third-party AI providers</span>
                 </h2>
                 <p data-i18n="privacy.section4.body1">ClicktAI Copilots work within each module. When you send a request, the relevant content from that module — and only that content — is sent to an AI provider to generate a proposal. No action is applied to your workspace until you review and approve it.</p>
-                <p data-i18n="privacy.section4.body2">On the Free plan, you connect your own AI provider API key. Your requests are then governed directly by that provider's own terms and privacy policy, and Clickt does not control how that provider handles your data once your request reaches it. On Business and above, your organization's administrator manages a Clickt-approved AI provider centrally. In both cases, Clickt does not store or transmit your AI provider credentials beyond what is needed to process each request.</p>
+                <p data-i18n="privacy.section4.body2">On the Free plan, you connect your own AI provider API key. Your requests are then governed directly by that provider's own terms and privacy policy, and Clickt does not control how that provider handles your data once your request reaches it. On Business, your organization's administrator assigns a Clickt-approved AI provider to the users whose work needs it. In both cases, Clickt does not store or transmit your AI provider credentials beyond what is needed to process each request.</p>
                 <p data-i18n="privacy.section4.body3">We select AI providers who commit contractually not to use your workspace content to train their general-purpose models, and we require the same commitment from any provider we add in the future.</p>
                 <p data-i18n-html="privacy.section4.body4">AI-generated suggestions may be inaccurate, incomplete, or unsuitable for your purpose. You are responsible for reviewing every proposal before approving it — Clickt does not warrant the accuracy of any AI-generated content. See our <a href="terms.html">Terms of Service</a> for the full acceptable-use terms covering ClicktAI.</p>
 
@@ -139,7 +153,7 @@
                     <span class="prose-section-num" aria-hidden="true">10</span>
                     <span data-i18n="privacy.section10.heading">Changes to this statement</span>
                 </h2>
-                <p data-i18n="privacy.section10.body">We may update this statement as Clickt's features, AI providers, or legal obligations change. We will reflect changes with an updated "Last updated" date above, and where a change is material, we will notify Business and Enterprise administrators directly.</p>
+                <p data-i18n="privacy.section10.body">We may update this statement as Clickt's features, AI providers, or legal obligations change. We will reflect changes with an updated "Last updated" date above, and where a change is material, we will notify Business administrators directly.</p>
 
                 <h2>
                     <span class="prose-section-num" aria-hidden="true">11</span>
@@ -149,6 +163,11 @@
 
             </div>
         </main>
+
+    </div>
+
+
+    <div class="container footer-shell">
 
         <footer>
             <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
@@ -167,5 +186,37 @@
     <script src="i18n/en.js?v=20260806a"></script>
     <script src="i18n/ne.js?v=20260806a"></script>
     <script src="i18n.js?v=20260806a"></script>
+    <a
+        href="https://apps.apple.com/us/app/clickt/id6759891499"
+        class="mobile-download-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Clickt on the App Store"
+        data-i18n-attr="aria-label:index.finalCta.appStoreAriaLabel"
+    >
+        <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
+    </a>
+
+    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
+    <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
+        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+    </div>
+    <script>
+        (function () {
+            var btn = document.getElementById('founder-btn');
+            var pop = document.getElementById('founder-popover');
+            btn.addEventListener('click', function () {
+                var open = pop.hidden;
+                pop.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !pop.contains(e.target)) {
+                    pop.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }());
+    </script>
 </body>
 </html>

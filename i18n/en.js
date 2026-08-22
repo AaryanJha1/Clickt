@@ -36,34 +36,116 @@ window.ClicktI18nDict.en = {
   },
   "atWork": {
     "hero": {
-      "kicker": "Four connected modules",
-      "title": "First see the problem. Then watch the work change.",
-      "lead": "Every module keeps the problem on screen while it shows the request, Clickt’s proposal, human review, and a practical outcome.",
+      "kicker": "Industries",
+      "title": "One Clickt.<br>Shaped for every team.",
+      "lead": "Clickt adapts to how your team already works. See precise use cases for schools, hospitals, banks, NGOs, hotels, restaurants, and construction teams.",
       "outroKicker": "One connected flow",
       "outroTitle": "Less chasing. More visible progress.",
-      "outroLead": "Clickt keeps the request, work, insight, and update close together—while people remain in control of every Copilot change.",
+      "outroLead": "Whatever industry you're in, Clickt keeps the request, the work, and the update close together — while your team stays in control of every Copilot change.",
       "ctaAppStore": "Download on App Store",
       "ctaSeeCopilots": "See the Copilots"
     },
-    "teams": {
-      "title": "Teams",
-      "summary": "Assign work directly, to the whole team, or leave it open to claim — invites go out, deadlines land on the calendar, and updates sync back automatically.",
-      "videoAriaLabel": "A team owner assigns a task directly to one person, to the whole team, and opens a task for whoever claims it first, then sends invites and watches updates arrive"
-    },
-    "checklist": {
-      "title": "Checklist",
-      "summary": "Turn a team task into a checklist, or build one from scratch for daily life — groceries, workouts, medicine reminders — and sync deadlines with Google Calendar on iOS.",
-      "videoAriaLabel": "A team task flows into a checklist alongside personal lists for a grocery run, a workout plan, and medicine reminders with Google Calendar deadline sync"
-    },
-    "builder": {
-      "title": "Builder",
-      "summary": "Drop in a dataset and Clickt finds the patterns worth knowing — then turns them into a single-page report that explains what's going on.",
-      "videoAriaLabel": "A dataset is dropped into Clickt Builder, which analyses it, finds patterns, and produces a single-page report"
-    },
-    "presentation": {
-      "title": "Presentation",
-      "summary": "Describe the idea, add images, and Clickt prepares a formatted deck — preview it in-app, export it as HTML for a browser, or export it as PDF. Refine slides before sharing.",
-      "videoAriaLabel": "A brief idea and three photos become a fully formatted deck, ready to preview in-app, in the browser as HTML, or export as PDF"
+    "industries": {
+      "tabsAriaLabel": "Choose an industry",
+      "moreLabel": "Also handles",
+      "school": {
+        "tabLabel": "School",
+        "intro": "For schools, Clickt coordinates the work that happens across the principal's office, academic leadership, teachers, administrative staff, and student organizations — exam preparation, school events, departmental initiatives, meetings, and recurring responsibilities that involve several people working toward the same outcome.",
+        "usecase1": { "mod": "Teams", "title": "Cross-department coordination", "problem": "Exam preparation and school events need the principal's office, teachers, and administrative staff pulling in the same direction, but responsibilities live in scattered messages and spreadsheets.", "solution": "Assign each responsibility directly, to the whole department, or leave it open to claim — so the principal's office always knows what's covered. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Recurring school operations", "problem": "Departmental initiatives and student-organization activities repeat every term, but there's no shared checklist to keep them consistent.", "solution": "A repeatable checklist keeps recurring responsibilities — from exam logistics to event planning — running the same way every time. Not sure how to structure something new? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "From data to decisions", "problem": "Turning academic or operational data into something leadership can review means building a report from scratch every time.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the data — then ask Presentation to turn it into a deck with AI-generated images, pulling straight from Builder and ready for the leadership meeting." },
+        "more": {
+          "item1": "Coordinate exam preparation across the principal's office, teachers, and invigilators",
+          "item2": "Plan school events and departmental initiatives with clear owners and deadlines",
+          "item3": "Track meeting action items through to completion",
+          "item4": "Keep student-organization activities and recurring responsibilities consistent term to term"
+        },
+        "notReplacing": "Clickt is not meant to replace the school-management system you already use — it sits alongside it, handling the operational coordination that tends to spread across messages, spreadsheets, and meetings."
+      },
+      "hospital": {
+        "tabLabel": "Hospital",
+        "intro": "For hospitals, Clickt brings the daily operational work — tasks, checklists, follow-ups, and deadlines — into one place, instead of spread across WhatsApp, phone calls, spreadsheets, and paper logs.",
+        "usecase1": { "mod": "Teams + Checklist", "title": "Shift handoff", "problem": "Handoff between nursing shifts relies on a verbal update and a paper log — details get lost.", "solution": "A shared handoff checklist syncs automatically so incoming staff see exactly what's outstanding. Ask ClicktAI who's due for handoff next, or what's still outstanding on the ward, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Equipment and inventory checks", "problem": "Equipment inspections, maintenance follow-ups, and pharmacy or inventory checks are tracked on paper, so gaps surface only after something goes wrong.", "solution": "Recurring checklists keep every inspection and inventory check documented, with overdue items visible immediately. Not sure how to structure a new inspection routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Department reporting", "problem": "Occupancy, patient-flow, and departmental data sits in spreadsheets no one has time to summarize for leadership.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the data — then ask Presentation to turn it into a deck with AI-generated images, pulling straight from Builder and ready for the department head." },
+        "more": {
+          "item1": "Assign maintenance, procurement, and administrative follow-ups to the right department",
+          "item2": "Track staff training completion across departments",
+          "item3": "Give department heads visibility into their team's outstanding responsibilities",
+          "item4": "Use AI to summarize operational activity and surface overdue work automatically"
+        },
+        "notReplacing": "Clickt is not meant to replace your Hospital Management System or clinical systems — it complements them by improving how internal operational work is assigned, followed up, and completed."
+      },
+      "bank": {
+        "tabLabel": "Bank",
+        "intro": "For banks, operational work often extends far beyond the Core Banking System. Head office, branches, compliance, operations, IT, administration, risk, and HR still coordinate real work through email, spreadsheets, meetings, and manual follow-up — Clickt brings that execution layer into one place.",
+        "usecase1": { "mod": "Teams", "title": "Head office to branch coordination", "problem": "When head office assigns operational actions across multiple branches, there's no centralized view of which branches have completed their responsibilities.", "solution": "Assign tasks with clear owners, departments, priorities, and deadlines — and see which branches are done, approaching deadline, or need intervention. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Audit and compliance follow-through", "problem": "Internal audit findings and compliance action items get tracked across separate spreadsheets, emails, and follow-up meetings until they quietly stall.", "solution": "Recurring compliance checklists and tracked corrective actions carry every finding through to closure, not just to a spreadsheet row. Not sure how to structure a new compliance routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Execution reporting for management", "problem": "Senior management needs visibility into execution across teams and locations, but pulling that view together is a manual reporting exercise.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the numbers — then ask Presentation to turn it into a deck with AI-generated images, pulling straight from Builder and ready for the review meeting." },
+        "more": {
+          "item1": "Coordinate branch opening, relocation, maintenance, and operational readiness",
+          "item2": "Manage IT, security, procurement, administrative, and facilities follow-ups",
+          "item3": "Track action items from management, risk, and operational meetings",
+          "item4": "Run daily, weekly, and monthly recurring operational checklists"
+        },
+        "notReplacing": "Clickt is not intended to replace your Core Banking System, transaction-processing systems, risk platforms, or other regulated infrastructure — it's built around internal workflow and operational execution, structured to fit your information-security and data-governance requirements."
+      },
+      "ngo": {
+        "tabLabel": "NGO",
+        "intro": "For NGOs coordinating programs, field staff, administrative teams, partners, and reporting requirements across multiple locations, Clickt keeps that work from becoming spread across WhatsApp, email, spreadsheets, and documents.",
+        "usecase1": { "mod": "Teams", "title": "Field program coordination", "problem": "Field visits get assigned over chat messages, so no one has a clear view of who's covering which community or district this week.", "solution": "Assign field activities directly, to the whole team, or leave them open to claim — with progress visible across every district and project location. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Program and distribution checklists", "problem": "Distribution and intake steps vary slightly every time because there's no shared checklist for field staff and volunteers to follow.", "solution": "Recurring program checklists keep every distribution, intake, and workplan milestone consistent, run after run. Not sure how to structure a new program routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Donor and program reporting", "problem": "Turning project activity into a report donors or management can read takes days of manual spreadsheet work before every deadline.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the data — then ask Presentation to turn it into a donor-ready deck with AI-generated images, pulling straight from Builder." },
+        "more": {
+          "item1": "Track project milestones, workplans, and recurring activities in one place",
+          "item2": "Coordinate teams working across different districts and project locations",
+          "item3": "Track action items from meetings, field visits, and reviews",
+          "item4": "Give program managers real-time visibility into what's outstanding across every project"
+        },
+        "notReplacing": "Clickt is not intended to replace your financial, donor-management, or monitoring-and-evaluation systems — it's an execution layer that turns plans, meetings, and responsibilities into clearly assigned, trackable work."
+      },
+      "hotel": {
+        "tabLabel": "Hotel",
+        "intro": "For hotels, front-desk, housekeeping, maintenance, and management coordinate constantly through a shift — Clickt brings that daily operational work into one place instead of verbal handoffs and a binder of routines.",
+        "usecase1": { "mod": "Teams", "title": "Housekeeping and maintenance assignment", "problem": "Room turnovers and maintenance requests get passed along verbally between shifts, so nothing is tracked once it's assigned.", "solution": "Assign each room or repair directly, to the whole shift, or leave it open to claim — with completion visible the moment it's done. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Daily operations checklist", "problem": "Front-desk and housekeeping routines live in a binder that's easy to skip during a busy shift.", "solution": "A daily checklist keeps opening, closing, and housekeeping routines consistent across every shift and every property. Not sure how to structure a new routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Occupancy and revenue reporting", "problem": "Booking and revenue data needs to be pulled together by hand before every ownership or management meeting.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the numbers — then ask Presentation to turn it into a deck with AI-generated images, pulling straight from Builder and ready for review." },
+        "more": {
+          "item1": "Coordinate front-desk, housekeeping, and maintenance across shifts",
+          "item2": "Track guest requests and follow-ups through to completion",
+          "item3": "Manage recurring inspection and compliance checklists property-wide",
+          "item4": "Give management visibility into what's outstanding across every department"
+        },
+        "notReplacing": "Clickt is not intended to replace your Property Management System or booking platform — it sits alongside them, handling the day-to-day coordination between front-desk, housekeeping, and maintenance."
+      },
+      "restaurant": {
+        "tabLabel": "Restaurant",
+        "intro": "For restaurants, kitchen, front-of-house, and management coordinate a fast-moving daily service — Clickt brings shift tasks, prep routines, and reporting into one place instead of verbal handoffs at the start of service.",
+        "usecase1": { "mod": "Teams", "title": "Shift and prep task assignment", "problem": "Prep lists and shift duties get handed out verbally at the start of service, so nothing carries over to the next shift.", "solution": "Assign prep and service tasks directly, to the whole shift, or leave them open to claim — visible to the next shift too. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Opening and closing checklists", "problem": "Opening and closing routines get rushed or skipped when the shift is short-staffed.", "solution": "A standard opening-and-closing checklist runs the same way every shift, no matter who's on. Not sure how to structure a new routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Sales and inventory reporting", "problem": "Working out which dishes are actually profitable means digging through sales exports by hand.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the numbers — then ask Presentation to turn it into a deck with AI-generated images, pulling straight from Builder and ready for the weekly ownership review." },
+        "more": {
+          "item1": "Coordinate prep, service, and cleaning tasks across every shift",
+          "item2": "Track supplier deliveries and inventory checks",
+          "item3": "Manage recurring food-safety and hygiene checklists",
+          "item4": "Give owners visibility into what's outstanding across every shift and location"
+        },
+        "notReplacing": "Clickt is not intended to replace your POS or inventory system — it sits alongside them, handling the shift coordination and reporting that usually falls to word of mouth."
+      },
+      "construction": {
+        "tabLabel": "Construction & Real Estate",
+        "intro": "For construction and real estate teams, site managers, subcontractors, and project leads coordinate daily work and client updates — Clickt brings that execution layer into one place instead of a clipboard and a phone call.",
+        "usecase1": { "mod": "Teams", "title": "Site task assignment", "problem": "Daily site tasks get assigned verbally on-site each morning, with no record for subcontractors who join later.", "solution": "Assign today's tasks directly, to the whole crew, or leave them open to claim — with a clear record for every subcontractor. Ask ClicktAI who should take it based on current workload, or what's still pending, for an instant answer." },
+        "usecase2": { "mod": "Checklist", "title": "Safety and inspection checklists", "problem": "Site safety checks are tracked on a clipboard that's easy to lose and hard to review later.", "solution": "A recurring safety and inspection checklist keeps every check documented and easy to review, site by site. Not sure how to structure a new inspection routine? Ask ClicktAI and it drafts every step for you." },
+        "usecase3": { "mod": "Builder + Presentation", "title": "Client progress reporting", "problem": "Putting together a progress update for a client means gathering photos and numbers from three different places.", "solution": "Ask Builder to chart toward the exact question you're asking — not a generic dump of the numbers — then ask Presentation to turn it into a client-ready update with AI-generated images, pulling straight from Builder." },
+        "more": {
+          "item1": "Coordinate subcontractors and crews across multiple sites",
+          "item2": "Track safety inspections and corrective actions through to closure",
+          "item3": "Manage procurement, equipment, and facilities follow-ups",
+          "item4": "Give project leads visibility into what's outstanding across every site"
+        },
+        "notReplacing": "Clickt is not intended to replace your project-management or ERP system — it sits alongside them, handling the day-to-day site coordination and client-facing reporting."
+      }
     }
   },
   "index": {
@@ -855,12 +937,8 @@ window.ClicktI18nDict.en = {
       "switchToNpr": "Switch to NPR",
       "perUser": {
         "business": {
-          "npr": "NPR 2,000 / user / month",
-          "usd": "USD 15 / user / month"
-        },
-        "enterprise": {
-          "npr": "From NPR 3,000 / user / month",
-          "usd": "From USD 25 / user / month"
+          "npr": "NPR 500 / user / month",
+          "usd": "USD 5 / user / month"
         }
       }
     },
@@ -869,7 +947,7 @@ window.ClicktI18nDict.en = {
       "kicker": "Company onboarding",
       "heading": "One initial setup. A workspace ready for your team.",
       "body": "Each paid company workspace has a one-time initial setup fee, scaled to the level of administration and onboarding your team needs. After that, you pay only the per-user monthly subscription.",
-      "note": "Private distribution, a separately branded app, dedicated infrastructure, and custom integrations are optional Enterprise services quoted only when your organisation needs them."
+      "note": "Private distribution, a separately branded app, dedicated infrastructure, and custom integrations are optional services quoted only when your organisation needs them."
     },
     "tiers": {
       "free": {
@@ -888,15 +966,15 @@ window.ClicktI18nDict.en = {
       "business": {
         "badge": "Most popular",
         "label": "Business",
-        "period": "per licensed user / month · billed annually · for teams under 26 members",
-        "credit": "Clickt-provided AI",
+        "period": "per licensed user / month · billed annually · no limit on team size",
+        "credit": "Clickt-provided AI, assigned per user by your admin",
         "tagline": "One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.",
         "cta": "Contact Sales",
         "feature1": "Everything in Free",
-        "feature2": "For teams of up to 25 members",
-        "feature3": "Company workspace on iOS, iPadOS, and macOS; Android preview coming soon",
+        "feature2": "Any team size — no member cap",
+        "feature3": "Company workspace on iOS, macOS and Android",
         "feature4": "Managed cloud sync environment",
-        "feature5": "Clickt-provided AI",
+        "feature5": "Clickt-provided AI: Top up AI credit anytime in $5, $10, $15, or $20",
         "feature6": "Managed backups, monitoring, and company administration",
         "feature7": "No advertisements",
         "feature8": "Admin and team management across all company devices",
@@ -905,26 +983,7 @@ window.ClicktI18nDict.en = {
         "feature11": "API access and webhooks",
         "feature12": "Priority support",
         "setupFeeLabel": "Initial company setup:",
-        "setupFeeSuffix": "one time"
-      },
-      "enterprise": {
-        "label": "Enterprise",
-        "period": "per licensed user / month · annual commitment · for teams of 26 members or more",
-        "credit": "Clickt-provided AI",
-        "tagline": "For organisations of 26 or more members that need stronger controls and a clear route to a custom deployment.",
-        "cta": "Contact Sales",
-        "feature1": "Everything in Business",
-        "feature2": "For teams of 26 members or more",
-        "feature3": "Company naming and managed release coordination",
-        "feature4": "Extended audit logs",
-        "feature5": "Production and staging sync environments",
-        "feature6": "Advanced backup and recovery options",
-        "feature7": "Implementation planning and onboarding",
-        "feature8": "Priority support and commercial support terms",
-        "feature9": "Optional SSO, private distribution, dedicated infrastructure, and custom integrations",
-        "setupFeeLabel": "Initial company setup:",
-        "setupFeeSuffix": "one time",
-        "feature10": "Custom services are scoped separately after the initial setup"
+        "setupFeeAmount": "custom, scoped to your team"
       }
     },
     "vs": {
@@ -936,33 +995,22 @@ window.ClicktI18nDict.en = {
       "business": {
         "name": "Clickt Business",
         "workspace": "Shared company workspace across every supported device",
-        "ai": "Clickt-provided AI",
+        "ai": "Clickt-provided AI, assigned per user by admin",
         "sync": "Managed cloud sync",
         "support": "Priority"
       },
-      "enterprise": {
-        "name": "Clickt Enterprise",
-        "workspace": "Company workspace + deployment planning",
-        "ai": "Clickt-provided AI",
-        "sync": "Governed managed cloud; dedicated deployment by scope",
-        "support": "Contracted"
-      },
-      "note": "Clickt-provided AI is governed by the selected supported model and your organisation’s usage policy. Extra usage is prepaid or separately approved—never an automatic unlimited-usage promise."
+      "note": "Clickt-provided AI is governed by the selected supported model and your organisation’s usage policy. Your admin assigns it to the specific users whose work needs it—it isn’t switched on for every seat by default. Extra usage is topped up in $5, $10, $15, or $20 increments—always billed in USD, even on NPR pricing—or separately approved; never an automatic unlimited-usage promise."
     },
     "isolation": {
       "heading": "A company workspace set up for your team",
-      "body": "Business and above cover the ongoing operation of your company workspace: authentication, Firestore sync, backups, monitoring, release coordination, and support. Enterprise adds deeper deployment and identity choices only when the organisation needs them.",
+      "body": "Business covers the ongoing operation of your company workspace: authentication, Firestore sync, backups, monitoring, release coordination, and support. Deeper deployment and identity choices are available by request for organisations that need them.",
       "free": {
         "label": "Free",
         "desc": "Shared multi-tenant infrastructure"
       },
       "business": {
         "label": "Business",
-        "desc": "Managed company workspace with governance, audit, API, and webhooks — for teams under 26 members"
-      },
-      "enterprise": {
-        "label": "Enterprise",
-        "desc": "Dedicated deployment, identity, and support terms by scope — for teams of 26 members or more"
+        "desc": "Managed company workspace with governance, audit, API, and webhooks — any team size"
       }
     },
     "guarantee": {
@@ -979,7 +1027,7 @@ window.ClicktI18nDict.en = {
       },
       "q2": {
         "question": "What is a company workspace?",
-        "answer": "Business and above give your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, and Mac. Android is currently a coming-soon preview. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional Enterprise scope—not a requirement to begin."
+        "answer": "Business gives your organisation its own shared Clickt workspace, with company administration and one connected workflow across iPhone, iPad, and Mac, at any team size. Android is currently a coming-soon preview. The one-time initial setup covers onboarding and workspace preparation. A private app, separate branding, or dedicated infrastructure is optional custom scope—not a requirement to begin."
       },
       "q3": {
         "question": "Can I start on Free and upgrade later?",
@@ -987,7 +1035,7 @@ window.ClicktI18nDict.en = {
       },
       "q4": {
         "question": "How does Clickt-provided AI work?",
-        "answer": "Business and above include Clickt-provided AI with organisation-level usage controls. Actual request capacity varies with the approved model, prompt length, attachments, and output size. Clickt does not silently create unlimited charges: your organisation can buy prepaid usage, approve additional usage, or use its own supported provider credential."
+        "answer": "Business includes Clickt-provided AI, but it is not switched on for every seat by default. Your admin assigns it to the specific users whose work needs it, with organisation-level usage controls. Actual request capacity varies with the approved model, prompt length, attachments, and output size. Clickt does not silently create unlimited charges: your organisation can top up AI credit in $5, $10, $15, or $20 increments—always billed in USD, regardless of your regional pricing—approve additional usage, or use its own supported provider credential."
       },
       "q5": {
         "question": "What does the 90-day guarantee cover?",
@@ -1003,7 +1051,7 @@ window.ClicktI18nDict.en = {
       }
     },
     "enterpriseCta": {
-      "kicker": "Enterprise",
+      "kicker": "Custom needs",
       "heading": "Need something custom?",
       "body": "For large organizations with deployment, identity, support, security, or integration requirements, talk to us directly. We'll define and price the right setup for your team.",
       "cta": "Talk to Sales"
@@ -1037,14 +1085,14 @@ window.ClicktI18nDict.en = {
     "section3": {
       "heading": "Data sharing",
       "body1": "We do not sell your personal information. Data may be processed by trusted service providers only where necessary to operate Clickt — for example, secure cloud infrastructure, data-storage partners, and the AI providers described below.",
-      "body2": "Business uses Clickt's managed shared SaaS infrastructure with organization controls. Dedicated databases or private-cloud deployments are Enterprise options, individually scoped in the customer's agreement."
+      "body2": "Business uses Clickt's managed shared SaaS infrastructure with organization controls. Dedicated databases or private-cloud deployments are optional custom options, individually scoped in the customer's agreement."
     },
     "section4": {
       "heading": "ClicktAI and third-party AI providers",
       "body1": "ClicktAI Copilots work within each module. When you send a request, the relevant content from that module — and only that content — is sent to an AI provider to generate a proposal. No action is applied to your workspace until you review and approve it.",
-      "body2": "On the Free plan, you connect your own AI provider API key. Your requests are then governed directly by that provider's own terms and privacy policy, and Clickt does not control how that provider handles your data once your request reaches it. On Business and above, your organization's administrator manages a Clickt-approved AI provider centrally. In both cases, Clickt does not store or transmit your AI provider credentials beyond what is needed to process each request.",
+      "body2": "On the Free plan, you connect your own AI provider API key. Your requests are then governed directly by that provider's own terms and privacy policy, and Clickt does not control how that provider handles your data once your request reaches it. On Business, your organization's administrator assigns a Clickt-approved AI provider to the users whose work needs it. In both cases, Clickt does not store or transmit your AI provider credentials beyond what is needed to process each request.",
       "body3": "We select AI providers who commit contractually not to use your workspace content to train their general-purpose models, and we require the same commitment from any provider we add in the future.",
-      "draftNote": "<strong>Before publishing:</strong> name the specific AI provider(s) used for Clickt-provided AI (Business and above), and confirm in writing that their agreement includes a no-training-on-customer-data commitment. Have a lawyer confirm this section against the actual provider contracts before this page is treated as final.",
+      "draftNote": "<strong>Before publishing:</strong> name the specific AI provider(s) used for Clickt-provided AI (Business), and confirm in writing that their agreement includes a no-training-on-customer-data commitment. Have a lawyer confirm this section against the actual provider contracts before this page is treated as final.",
       "body4": "AI-generated suggestions may be inaccurate, incomplete, or unsuitable for your purpose. You are responsible for reviewing every proposal before approving it — Clickt does not warrant the accuracy of any AI-generated content. See our <a href=\"terms.html\">Terms of Service</a> for the full acceptable-use terms covering ClicktAI."
     },
     "section5": {
@@ -1072,7 +1120,7 @@ window.ClicktI18nDict.en = {
     },
     "section10": {
       "heading": "Changes to this statement",
-      "body": "We may update this statement as Clickt's features, AI providers, or legal obligations change. We will reflect changes with an updated \"Last updated\" date above, and where a change is material, we will notify Business and Enterprise administrators directly."
+      "body": "We may update this statement as Clickt's features, AI providers, or legal obligations change. We will reflect changes with an updated \"Last updated\" date above, and where a change is material, we will notify Business administrators directly."
     },
     "section11": {
       "heading": "Contact us",
@@ -1151,7 +1199,7 @@ window.ClicktI18nDict.en = {
       "item1": "You must be at least 13 years old (or the minimum age required by your local law, if higher) to create your own account.",
       "item2": "If you are using Clickt for a school project, do so through a school-issued account or with parent/guardian permission where local law requires it.",
       "item3": "You are responsible for the accuracy of your account details and for keeping your login credentials secure.",
-      "item4": "Business and Enterprise administrators are responsible for the conduct of the members they add to their organization's workspace."
+      "item4": "Business administrators are responsible for the conduct of the members they add to their organization's workspace."
     },
     "section3": {
       "heading": "The service",
@@ -1175,11 +1223,11 @@ window.ClicktI18nDict.en = {
     },
     "section6": {
       "heading": "Third-party AI providers",
-      "body": "On the Free plan, you connect your own AI provider API key, and your use of ClicktAI is also governed by that provider's own terms of service — Clickt is not a party to that agreement and is not responsible for that provider's handling of your request. On Business and above, your organization uses a Clickt-approved AI provider; Clickt's agreement with that provider governs how it may process the data described in our <a href=\"privacy.html\">Privacy Statement</a>."
+      "body": "On the Free plan, you connect your own AI provider API key, and your use of ClicktAI is also governed by that provider's own terms of service — Clickt is not a party to that agreement and is not responsible for that provider's handling of your request. On Business, your organization uses a Clickt-approved AI provider, assigned by your admin to the users whose work needs it; Clickt's agreement with that provider governs how it may process the data described in our <a href=\"privacy.html\">Privacy Statement</a>."
     },
     "section7": {
       "heading": "Plans, billing, and the 90-day guarantee",
-      "body1": "Clickt is offered on Free, Business, and Enterprise plans as described on our <a href=\"pricing.html\">Plans</a> page, which forms part of these terms. Business and Enterprise plans are billed annually unless your order form states otherwise; the one-time initial setup fee, and any consumed or committed AI usage, taxes, or custom implementation cost, are non-refundable.",
+      "body1": "Clickt is offered on Free and Business plans as described on our <a href=\"pricing.html\">Plans</a> page, which forms part of these terms. Business plans are billed annually unless your order form states otherwise; the one-time initial setup fee, and any consumed or committed AI usage, taxes, or custom implementation cost, are non-refundable.",
       "body2": "If a first-time Business customer cancels in writing within 90 days of paid service starting, Clickt will refund 75% of the first annual software subscription (the unused nine months), as described on our <a href=\"pricing.html\">Plans</a> page. This guarantee is limited to one per organization and does not cover the items listed above as non-refundable."
     },
     "section8": {
@@ -1203,11 +1251,11 @@ window.ClicktI18nDict.en = {
     "section12": {
       "heading": "Governing law and disputes",
       "body": "These terms are governed by the laws of Nepal, without regard to its conflict-of-law principles. Any dispute arising out of or relating to these terms, or your use of Clickt, will be subject to the exclusive jurisdiction of the courts of Kathmandu, Nepal.",
-      "draftNote": "<strong>Before publishing:</strong> have a Nepal-qualified lawyer confirm this against Click T. Pvt Ltd.'s actual registered office and applicable law (including the Companies Act 2063, Electronic Transactions Act 2063, and Individual Privacy Act 2075). Also decide, with counsel, whether international Enterprise customers should be offered arbitration or a neutral venue instead — many will push back on litigating in Nepal, and that's usually negotiated per contract rather than fixed in these public terms."
+      "draftNote": "<strong>Before publishing:</strong> have a Nepal-qualified lawyer confirm this against Click T. Pvt Ltd.'s actual registered office and applicable law (including the Companies Act 2063, Electronic Transactions Act 2063, and Individual Privacy Act 2075). Also decide, with counsel, whether large international Business customers should be offered arbitration or a neutral venue instead — many will push back on litigating in Nepal, and that's usually negotiated per contract rather than fixed in these public terms."
     },
     "section13": {
       "heading": "Changes to these terms",
-      "body": "We may update these terms as Clickt's features, plans, or legal obligations change. We will reflect changes with an updated \"Last updated\" date above, and where a change is material, we will notify Business and Enterprise administrators directly."
+      "body": "We may update these terms as Clickt's features, plans, or legal obligations change. We will reflect changes with an updated \"Last updated\" date above, and where a change is material, we will notify Business administrators directly."
     },
     "section14": {
       "heading": "Contact us",
@@ -1338,8 +1386,8 @@ window.ClicktI18nDict.en = {
         "body": "Connect your own AI provider API key in Settings. You can use any supported provider — the key stays on your device and the Copilots use it on your behalf."
       },
       "business": {
-        "heading": "Business and above",
-        "body": "Your organization admin manages one central AI credential for the whole team. Individual users don't need to set up anything — Copilots work immediately when you sign in."
+        "heading": "Business",
+        "body": "Your organization admin assigns Clickt-provided AI to the users whose work needs it. If you've been assigned access, Copilots work immediately when you sign in — no setup needed on your end."
       }
     },
     "exports": {

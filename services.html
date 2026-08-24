@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Click T</title>
+    <meta name="description" content="Click T Pvt. Ltd. designs and builds custom software, web applications, mobile apps, data systems, integrations, and AI-enabled tools for organizations in Nepal and abroad.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://click-t.com/services.html">
+    <meta property="og:title" content="Services | Click T">
+    <meta property="og:description" content="Software built around your organization. Custom software, web, mobile, data, and AI, built by Click T Pvt. Ltd.">
+    <meta property="og:image" content="https://click-t.com/social-logo.png?v=20260316a">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Services | Click T">
+    <meta name="twitter:description" content="Software built around your organization.">
+    <meta name="twitter:image" content="https://click-t.com/social-logo.png?v=20260316a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260824g">
+</head>
+<body class="services-page">
+    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
+        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
+        <div class="splash-percent" id="splash-percent">0%</div>
+    </div>
+    <noscript><style>#splash-screen{display:none!important}</style></noscript>
+    <script>
+        (function () {
+            var KEY = 'clickt-splash-shown';
+            var splash = document.getElementById('splash-screen');
+            if (!splash) return;
+
+            var shown;
+            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
+            if (shown) {
+                splash.parentNode.removeChild(splash);
+                return;
+            }
+
+            document.documentElement.classList.add('splash-lock');
+
+            var percentEl = document.getElementById('splash-percent');
+            var barEl = document.getElementById('splash-progress-bar');
+
+            function finish() {
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+                document.documentElement.classList.remove('splash-lock');
+                splash.classList.add('is-hidden');
+                window.setTimeout(function () {
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 550);
+            }
+
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) {
+                finish();
+                return;
+            }
+
+            var duration = 1300;
+            var start = null;
+
+            function tick(ts) {
+                if (start === null) start = ts;
+                var elapsed = ts - start;
+                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
+                if (percentEl) percentEl.textContent = pct + '%';
+                if (barEl) barEl.style.width = pct + '%';
+                if (pct < 100) {
+                    window.requestAnimationFrame(tick);
+                } else {
+                    window.setTimeout(finish, 200);
+                }
+            }
+
+            window.requestAnimationFrame(tick);
+        }());
+    </script>
+    <div class="site-dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <div class="platform-strip" aria-label="Apple and Android platforms">
+        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    </div>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="brand">
+                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
+                Clickt
+            </a>
+            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-panel">
+                            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                            <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
+                            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                            <a href="support.html" data-i18n="common.nav.support">Support</a>
+                            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="services.html" data-i18n="common.nav.services">Services</a>
+                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
+                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
+                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
+                </div>
+            </nav>
+            <details class="header-dropdown">
+                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="services.html" data-i18n="common.nav.services">Services</a>
+                    <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
+                    <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
+                    <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                    <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
+                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                    <a href="support.html" data-i18n="common.nav.support">Support</a>
+                    <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
+                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
+                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
+                    </div>
+                </nav>
+            </details>
+        </header>
+
+        <main class="services-main">
+            <section data-observe class="services-hero">
+                <p class="services-kicker" data-i18n="services.hero.kicker">Beyond Clickt</p>
+                <h1 data-i18n="services.hero.heading">Software built around your organization.</h1>
+                <p data-i18n-html="services.hero.body">Click T designs and develops custom software, web applications, mobile apps, data systems, and integrations for organizations in Nepal and abroad. Clickt is our flagship product - but Click T also builds software for other organizations.</p>
+                <div class="services-promo-categories" aria-label="Highlights" style="margin: 1.1rem 0 0.2rem;">
+                    <span class="services-chip" data-i18n="services.hero.chip1">Nepal-based</span>
+                    <span class="services-chip" data-i18n="services.hero.chip2">iOS &middot; Android &middot; Web</span>
+                    <span class="services-chip" data-i18n="services.hero.chip3">Built to integrate with what you already use</span>
+                </div>
+                <div class="services-hero-actions">
+                    <a href="contact.html" class="btn" data-i18n="services.hero.ctaDiscuss">Discuss a Project</a>
+                    <a href="#work" class="btn btn-outline" data-i18n="services.hero.ctaWork">See Our Work</a>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" id="capabilities" aria-label="What we build">
+                <h2 data-i18n="services.capabilities.heading">What we build</h2>
+                <p class="services-lead" data-i18n="services.capabilities.lead">From internal tools to customer-facing products, we design and build software matched to how your team actually operates.</p>
+                <div class="services-category-grid">
+                    <article class="services-category-card services-category-card--custom">
+                        <span class="services-category-icon" aria-hidden="true">🧩</span>
+                        <h3 data-i18n="services.capabilities.custom.title">Custom Software</h3>
+                        <p data-i18n="services.capabilities.custom.body">Internal operational systems, customer and client portals, workflow applications, case-management systems, CRM-like tools, approval systems, dashboards, and specialized business software.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--web">
+                        <span class="services-category-icon" aria-hidden="true">🌐</span>
+                        <h3 data-i18n="services.capabilities.web.title">Websites &amp; Web Applications</h3>
+                        <p data-i18n="services.capabilities.web.body">Organizational and corporate websites, authenticated web applications, portals, booking and enquiry systems, and customer-facing applications.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--mobile">
+                        <span class="services-category-icon" aria-hidden="true">📱</span>
+                        <h3 data-i18n="services.capabilities.mobile.title">Mobile Applications</h3>
+                        <p data-i18n="services.capabilities.mobile.body">iOS and Android applications for customers or internal teams, field-team applications, and mobile companions for systems you already run.</p>
+                    </article>
+                </div>
+                <div class="services-category-grid services-category-grid--pair">
+                    <article class="services-category-card services-category-card--data">
+                        <span class="services-category-icon" aria-hidden="true">📊</span>
+                        <h3 data-i18n="services.capabilities.data.title">Data &amp; Analytics</h3>
+                        <p data-i18n="services.capabilities.data.body">Dashboards, ETL and data pipelines, automated reporting, data validation, analytics systems, forecasting, and operational intelligence.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--ai">
+                        <span class="services-category-icon" aria-hidden="true">✦</span>
+                        <h3 data-i18n="services.capabilities.ai.title">AI &amp; Automation</h3>
+                        <p data-i18n="services.capabilities.ai.body">AI-assisted workflows, document and data processing, natural-language interfaces, classification, automation, and AI integrations where they create real business value.</p>
+                    </article>
+                </div>
+                <article class="services-category-card services-category-card--wide">
+                    <span class="services-category-icon" aria-hidden="true">🔗</span>
+                    <h3 data-i18n="services.capabilities.integrations.title">Integrations &amp; System Extensions</h3>
+                    <p data-i18n="services.capabilities.integrations.body">Already using SAP, an ERP, MIS, hotel PMS, CRM, a school-management platform, or another existing system? We can build specialized applications, integrations, dashboards, and workflows around it instead of forcing a replacement - ERP extensions, CRM integrations, API integrations, mobile layers, approval systems, custom reporting, automation, and specialized operational modules.</p>
+                </article>
+            </section>
+
+            <section data-observe class="services-panel" id="existing-software" aria-label="Already have software?">
+                <h2 data-i18n="services.existingSoftware.heading">Already have software? Good.</h2>
+                <p class="services-lead" data-i18n="services.existingSoftware.lead">Custom development does not always mean starting over. We can work around your existing:</p>
+                <ul class="services-existing-list">
+                    <li data-i18n="services.existingSoftware.item1">ERP</li>
+                    <li data-i18n="services.existingSoftware.item2">CRM</li>
+                    <li data-i18n="services.existingSoftware.item3">MIS</li>
+                    <li data-i18n="services.existingSoftware.item4">Booking system</li>
+                    <li data-i18n="services.existingSoftware.item5">Property platform</li>
+                    <li data-i18n="services.existingSoftware.item6">Hotel PMS</li>
+                    <li data-i18n="services.existingSoftware.item7">School-management system</li>
+                    <li data-i18n="services.existingSoftware.item8">Accounting software</li>
+                    <li data-i18n="services.existingSoftware.item9">Databases</li>
+                    <li data-i18n="services.existingSoftware.item10">APIs</li>
+                </ul>
+                <p class="services-existing-closing" data-i18n="services.existingSoftware.closing">Integrate it. Extend it. Automate around it. Build the workflow it is missing.</p>
+            </section>
+
+            <section data-observe class="services-panel" id="how-we-work" aria-label="How we work">
+                <h2 data-i18n="services.howWeWork.heading">How we work</h2>
+                <p class="services-lead" data-i18n="services.howWeWork.lead">We are not trying to sell predetermined technology - the process starts with your organization, not our product.</p>
+                <div class="services-process">
+                    <article class="services-process-step">
+                        <span class="services-process-num">1</span>
+                        <h3 data-i18n="services.howWeWork.step1.title">Understand</h3>
+                        <p data-i18n="services.howWeWork.step1.body">We map the existing process, users, and software.</p>
+                    </article>
+                    <article class="services-process-step">
+                        <span class="services-process-num">2</span>
+                        <h3 data-i18n="services.howWeWork.step2.title">Identify the Gap</h3>
+                        <p data-i18n="services.howWeWork.step2.body">We determine whether the problem requires new software, integration, automation, dashboard/reporting, mobile functionality, or an improvement to existing systems.</p>
+                    </article>
+                    <article class="services-process-step">
+                        <span class="services-process-num">3</span>
+                        <h3 data-i18n="services.howWeWork.step3.title">Scope</h3>
+                        <p data-i18n="services.howWeWork.step3.body">You receive a proposed solution, deliverables, milestones, timeline, and pricing.</p>
+                    </article>
+                    <article class="services-process-step">
+                        <span class="services-process-num">4</span>
+                        <h3 data-i18n="services.howWeWork.step4.title">Build</h3>
+                        <p data-i18n="services.howWeWork.step4.body">Development happens in reviewable stages.</p>
+                    </article>
+                    <article class="services-process-step">
+                        <span class="services-process-num">5</span>
+                        <h3 data-i18n="services.howWeWork.step5.title">Test &amp; Deploy</h3>
+                        <p data-i18n="services.howWeWork.step5.body">QA, user acceptance testing where appropriate, deployment, staff onboarding, and documentation.</p>
+                    </article>
+                    <article class="services-process-step">
+                        <span class="services-process-num">6</span>
+                        <h3 data-i18n="services.howWeWork.step6.title">Support</h3>
+                        <p data-i18n="services.howWeWork.step6.body">Maintenance, fixes, updates, and future enhancements.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" id="work" aria-label="Selected work">
+                <h2 data-i18n="services.work.heading">Selected work</h2>
+                <p class="services-lead" data-i18n="services.work.lead">Evidence, not claims - a look at what's been built, and by whom.</p>
+
+                <h3 class="services-work-group-label" data-i18n="services.work.groupClickT">Click T Work</h3>
+                <div class="services-work-grid">
+                    <article class="services-work-card">
+                        <div class="services-work-tags">
+                            <span class="services-work-tag">iOS &middot; iPad &middot; Mac &middot; Android</span>
+                            <span class="services-work-tag" data-i18n="services.work.clickt.tag2">AI action layer</span>
+                        </div>
+                        <h3 data-i18n="services.work.clickt.title">Clickt</h3>
+                        <p data-i18n-html="services.work.clickt.body">Our flagship product: cross-platform software for iPhone, iPad, Mac, and Android with multi-user workflows, role-aware access, an AI action layer, data and reporting, and continuous product iteration. <a href="index.html">See Clickt &rarr;</a></p>
+                    </article>
+                </div>
+
+                <h3 class="services-work-group-label" data-i18n="services.work.groupFounder">Experience Our Founder Brings</h3>
+                <p class="services-work-group-note" data-i18n="services.work.founderNote">Built independently, before Click T - not delivered as Click T client work, but the same engineering behind everything above.</p>
+                <div class="services-work-grid">
+                    <article class="services-work-card">
+                        <div class="services-work-tags">
+                            <span class="services-work-tag">Python &middot; MySQL</span>
+                            <span class="services-work-tag" data-i18n-html="services.work.battery.tag2">ETL &amp; prediction models</span>
+                            <span class="services-work-tag" data-i18n-html="services.work.battery.tag3">Dashboard &amp; grading</span>
+                        </div>
+                        <h3 data-i18n-html="services.work.battery.title">Battery Testing Data &amp; Prediction Platform</h3>
+                        <p data-i18n-html="services.work.battery.body">An internal R&amp;D platform built at Johnson Energy Storage: structured data capture across every test stage (cathode, anode, electrolyte, cell assembly, pre-test procedures) into a canonical MySQL schema, with filterable and manually configurable tables per research team. A grid-style dashboard showed every battery under test with a live performance grade; selecting one or several cells opened detailed graphs and data for side-by-side comparison. A prediction model fed directly into that grading system for a clearer read on performance and future trajectory, alongside a simulator for modeling different process and prediction scenarios, and a historical tab for pulling up and comparing past batteries.</p>
+                        <p class="services-work-context" data-i18n-html="services.work.battery.context">Johnson Energy Storage is a fast-growing, Atlanta-based solid-state battery company - named a Top 20 Fastest-Growing Company by the Atlanta Business Chronicle and covered by <a href="https://www.forbes.com/sites/stephenkey/2025/03/18/lonnie-johnsons-15m-battery-bet-evs-that-go-twice-as-far/" target="_blank" rel="noopener noreferrer">Forbes</a>.</p>
+                    </article>
+                    <article class="services-work-card">
+                        <div class="services-work-tags">
+                            <span class="services-work-tag">Swift &middot; Firebase</span>
+                            <span class="services-work-tag" data-i18n="services.work.toolkit.tag2">Python ML API</span>
+                        </div>
+                        <h3 data-i18n="services.work.toolkit.title">Toolkit</h3>
+                        <p data-i18n-html="services.work.toolkit.body">A production iOS application built with Swift and Firebase, integrating a Python ML API, released publicly on the <a href="https://apps.apple.com/cz/app/tool-kit/id6479609200" target="_blank" rel="noopener noreferrer">App Store</a>.</p>
+                    </article>
+                    <article class="services-work-card">
+                        <div class="services-work-tags">
+                            <span class="services-work-tag" data-i18n="services.work.crypto.tag1">Data pipeline</span>
+                            <span class="services-work-tag" data-i18n="services.work.crypto.tag2">Forecasting</span>
+                            <span class="services-work-tag" data-i18n="services.work.crypto.tag3">Automation</span>
+                        </div>
+                        <h3 data-i18n="services.work.crypto.title">Real-Time Cryptocurrency Forecasting System</h3>
+                        <p data-i18n="services.work.crypto.body">A market-data ingestion pipeline running every 15 minutes, feeding a forecasting model layer with scheduled inference, a live software interface, and a backtesting and evaluation methodology.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" id="company" aria-label="About Click T">
+                <h2>Click T Pvt. Ltd.</h2>
+                <p class="services-lead" data-i18n="services.company.lead">Kathmandu, Nepal - a registered software company.</p>
+                <ul class="services-company-list">
+                    <li data-i18n="services.company.item1">Software engineering</li>
+                    <li data-i18n="services.company.item2">Web &amp; mobile development</li>
+                    <li data-i18n="services.company.item3">Data engineering</li>
+                    <li data-i18n="services.company.item4">AI / ML</li>
+                    <li data-i18n="services.company.item5">System integration</li>
+                    <li data-i18n="services.company.item6">QA &amp; deployment</li>
+                    <li data-i18n="services.company.item7">Maintenance &amp; support</li>
+                </ul>
+            </section>
+
+            <section data-observe class="services-cta-band" aria-label="Start a project">
+                <div>
+                    <h2 data-i18n="services.cta.heading">Let's talk about your project</h2>
+                    <p data-i18n="services.cta.body">Tell us what you're building and what you already use - pricing, scope, and next steps all start on the Contact page.</p>
+                </div>
+                <a href="contact.html" class="btn" data-i18n="services.cta.button">Contact Us</a>
+            </section>
+        </main>
+    </div>
+
+    <div class="container footer-shell">
+        <footer>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.writeUs">Write Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
+                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
+                    </div>
+                    <p class="footer-col-note">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.callUs">Call Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
+                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="footer-links-row" aria-label="Footer navigation">
+                <a href="index.html" data-i18n="common.footer.home">Home</a>
+                <a href="services.html">Services</a>
+                <a href="pricing.html">Plans</a>
+                <a href="playbook.html">Product Tour</a>
+                <a href="at-work.html">At Work</a>
+                <a href="support.html">Support Desk</a>
+                <a href="user-guide.html">User Guide</a>
+                <a href="privacy.html">Privacy Statement</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <p class="footer-copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
+            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer">Download Clickt</a>
+        </footer>
+    </div>
+
+    <script src="i18n/en.js?v=20260824g"></script>
+    <script src="i18n/ne.js?v=20260824e"></script>
+    <script src="i18n.js?v=20260824e"></script>
+    <script src="reveal.js?v=20260824a"></script>
+
+    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
+    <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
+        Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T in Kathmandu, Nepal - and we build custom software for other organizations too. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.
+    </div>
+    <script>
+        (function () {
+            var btn = document.getElementById('founder-btn');
+            var pop = document.getElementById('founder-popover');
+            btn.addEventListener('click', function () {
+                var open = pop.hidden;
+                pop.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !pop.contains(e.target)) {
+                    pop.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            function closeNavDropdown(nd) {
+                nd.classList.remove('is-open');
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                trigger.addEventListener('click', function () {
+                    var willOpen = !nd.classList.contains('is-open');
+                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+                    if (willOpen) {
+                        nd.classList.add('is-open');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
+                    if (!nd.contains(e.target)) closeNavDropdown(nd);
+                });
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+            });
+        }());
+    </script>
+</body>
+</html>

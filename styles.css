@@ -44,9 +44,9 @@
     --dot-color: rgba(15, 23, 42, 0.12);
 
     /* Fonts */
-    --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-display: "Space Grotesk", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-devanagari: "Noto Sans Devanagari", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-display: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-devanagari: "Noto Sans Devanagari", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
     /* Spacing scale */
     --space-1: 0.25rem;
@@ -96,6 +96,77 @@
    flash of the light page background. */
 html {
     background-color: #0f172a;
+}
+
+/* ============================================================
+   SPLASH SCREEN — shown once per browser session (see the inline
+   script right after the markup on each page), white background,
+   logo, and a 0→100 counter before the page is revealed.
+   ============================================================ */
+html.splash-lock,
+html.splash-lock body {
+    overflow: hidden;
+}
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    background: #ffffff;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.splash-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-logo {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    animation: splash-pulse 1.6s ease-in-out infinite;
+}
+
+.splash-progress {
+    width: min(220px, 60vw);
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: #e2e8f0;
+    overflow: hidden;
+}
+
+.splash-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--cta);
+    border-radius: var(--radius-pill);
+}
+
+.splash-percent {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes splash-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.06); opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .splash-logo {
+        animation: none;
+    }
 }
 
 body {
@@ -2463,11 +2534,11 @@ header {
    the box-shadow trick paints color past the element's own (constrained)
    width, and clip-path keeps that spread from causing horizontal scroll. */
 footer {
-    padding: 3rem 0;
-    background: #0f172a;
+    padding: 3.5rem 0 2.25rem;
+    background: #000000;
     color: #f8fafc;
-    text-align: center;
-    box-shadow: 0 0 0 100vmax #0f172a;
+    text-align: left;
+    box-shadow: 0 0 0 100vmax #000000;
     clip-path: inset(0 -100vmax);
 }
 
@@ -2485,6 +2556,85 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* Write Us / Call Us / Visit Us column grid */
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.25rem;
+}
+
+.footer-col h3 {
+    margin: 0 0 1.1rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.footer-col-group + .footer-col-group {
+    margin-top: 1.1rem;
+}
+
+.footer-col-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.footer-col-value {
+    display: block;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.15rem;
+}
+
+a.footer-col-value {
+    font-weight: 500;
+}
+
+a.footer-col-value:hover {
+    text-decoration: underline;
+}
+
+.footer-col-note {
+    margin: 0.9rem 0 0;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding-top: 1.75rem;
+    margin-bottom: 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.footer-links-row a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-copyright {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 720px) {
+    .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
 }
 
 /* Shown only on phones, where the app CTA belongs in the footer's normal
@@ -3926,8 +4076,12 @@ footer a:hover {
         display: none;
     }
 
+    .footer-copyright {
+        text-align: center;
+    }
+
     footer .footer-download-cta {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         width: min(100%, 320px);
@@ -5381,6 +5535,113 @@ footer a:hover {
 
 .page-header-nav a:hover { color: var(--text); }
 
+/* "Clickt" grouping dropdown inside the desktop nav row. Opens on hover
+   (no click needed) via :hover/:focus-within, and also supports an explicit
+   click/tap toggle (.is-open, from script.js-free inline JS) for touch and
+   keyboard users. .nav-dropdown-menu sits flush against the trigger with no
+   gap — its own top padding is the visual gap — so the pointer never leaves
+   a hoverable box while crossing from the trigger down into the panel. */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-trigger {
+    font: inherit;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.nav-dropdown-trigger:hover,
+.nav-dropdown-trigger:focus-visible {
+    color: var(--text);
+    outline: none;
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger,
+.nav-dropdown.is-open .nav-dropdown-trigger {
+    color: var(--text);
+}
+
+.nav-dropdown-caret {
+    font-size: 0.62rem;
+    transition: transform 0.18s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-caret,
+.nav-dropdown.is-open .nav-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 0.5rem;
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu,
+.nav-dropdown.is-open .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-panel {
+    min-width: 168px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+    padding: 0.36rem;
+    display: grid;
+    gap: 0.2rem;
+}
+
+.nav-dropdown-panel a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.45rem 0.55rem;
+}
+
+.nav-dropdown-panel a:hover,
+.nav-dropdown-panel a:focus-visible {
+    background: color-mix(in srgb, var(--surface) 68%, var(--surface) 32%);
+    color: var(--cta);
+    outline: none;
+}
+
+/* Grouping label above the Clickt sub-links inside the phone hamburger menu */
+.header-dropdown-group-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.5rem 0.55rem 0.15rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--border);
+}
+
 /* ============================================================
    LANGUAGE SWITCHER
    ============================================================ */
@@ -6461,6 +6722,30 @@ footer a:hover {
 .industry-usecase-card--presentation .industry-usecase-mod { background: var(--presentation-soft); color: var(--presentation); }
 .industry-usecase-card--multi .industry-usecase-mod { background: var(--clicktai-soft); color: var(--clicktai); }
 
+/* Card body copy reads justified everywhere on the site, matching the
+   At Work industry cards above (.industry-usecase-card p) rather than
+   defaulting to ragged-left. */
+.feature-slider-card p,
+.workflow-card p,
+.workflow-detail-card p,
+.support-issue-card p,
+.support-panel p,
+.why-switch-card p,
+.pb-teaser-card p,
+.guide-path-card p,
+.module-card p,
+.android-preview-card p,
+.play-listing-placeholder-card p,
+.copilot-card p,
+.pricing-card p,
+.services-category-card p,
+.services-work-card p,
+.services-work-context,
+.services-process-step p,
+.user-guide-page .step {
+    text-align: justify;
+}
+
 .industry-more { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
 .industry-more-label {
     display: block;
@@ -6534,6 +6819,7 @@ footer a:hover {
 .at-work-outro { width: 100%; max-width: 850px; margin: 0 auto; padding: 5rem 1.5rem 6rem; text-align: center; }
 .at-work-outro h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); }
 .at-work-outro p { max-width: 560px; margin: 0.7rem auto 1.4rem; }
+.at-work-outro .btn { margin: 0.4rem; }
 
 @media (max-width: 720px) {
     .copilot-demo-stage { grid-template-columns: 1fr; min-height: auto; }
@@ -7186,7 +7472,7 @@ footer a:hover {
 
 /* ============================================================
    NEPALI (Devanagari) TYPE SCOPE
-   Space Grotesk has no Devanagari glyphs — anything set with
+   IBM Plex Sans has no Devanagari glyphs - anything set with
    --font-display must be overridden or it silently falls back
    to a mismatched system font per character.
    ============================================================ */
@@ -7201,4 +7487,531 @@ footer a:hover {
 :lang(ne) .context-kicker,
 :lang(ne) .prose-section-num {
     font-family: var(--font-devanagari);
+}
+
+/* ============================================================
+   CLICK T CUSTOM SOFTWARE — homepage promo section
+   ============================================================ */
+.services-promo {
+    padding: 4.5rem 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.services-promo-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.services-promo-copy {
+    max-width: 780px;
+}
+
+.services-promo-copy p {
+    max-width: 720px;
+}
+
+.services-promo-existing {
+    border-left: 3px solid var(--cta);
+    padding: 0.15rem 0 0.15rem 1rem;
+    font-size: var(--text-base);
+    color: var(--text);
+}
+
+.services-promo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+.services-promo-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.services-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg);
+}
+
+@media (max-width: 640px) {
+    .services-promo {
+        padding: 3rem 0;
+    }
+
+    .services-promo-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   /SERVICES PAGE
+   Reuses the support-page card language (light tint, bordered
+   cards, subtle shadow) so it reads as one site, not a bolt-on.
+   ============================================================ */
+.services-page {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.services-page .services-main {
+    margin: 2.25rem auto 5rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.services-page section {
+    scroll-margin-top: 1.5rem;
+}
+
+.services-page .services-hero {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.services-page .services-kicker {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4b607f;
+}
+
+.services-page .services-hero h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    color: #0f172a;
+}
+
+.services-page .services-hero p {
+    margin: 0.75rem 0 0;
+    max-width: 720px;
+    color: #475569;
+    font-size: 1.02rem;
+}
+
+.services-page .services-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+}
+
+.services-page .services-panel {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.services-page .services-panel h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    color: #0f172a;
+}
+
+.services-page .services-panel > p.services-lead {
+    margin: 0 0 1.25rem;
+    max-width: 720px;
+    color: #475569;
+    font-size: 1rem;
+}
+
+.services-page .services-category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+/* Two-card sections (e.g. Contact's "Before you write to us", and the
+   Data & Analytics / AI & Automation pair below) split the row 50/50
+   instead of leaving a dead third column. */
+.services-page .services-category-grid--pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.services-page .services-category-grid + .services-category-grid,
+.services-page .services-category-grid + .services-category-card--wide {
+    margin-top: 0.9rem;
+}
+
+.services-page .services-category-card {
+    border: 1px solid #d5dfed;
+    border-top: 3px solid #93c5fd;
+    border-radius: 12px;
+    padding: 1.1rem;
+    background: #f8fbff;
+}
+
+.services-page .services-category-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9px;
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    background: rgba(59, 130, 246, 0.14);
+}
+
+.services-page .services-category-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.services-page .services-category-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.55;
+}
+
+.services-page .services-category-card--custom { border-top-color: var(--teams); }
+.services-page .services-category-card--custom .services-category-icon { background: var(--teams-soft); }
+.services-page .services-category-card--web { border-top-color: var(--builder); }
+.services-page .services-category-card--web .services-category-icon { background: var(--builder-soft); }
+.services-page .services-category-card--mobile { border-top-color: var(--checklist); }
+.services-page .services-category-card--mobile .services-category-icon { background: var(--checklist-soft); }
+.services-page .services-category-card--data { border-top-color: var(--presentation); }
+.services-page .services-category-card--data .services-category-icon { background: var(--presentation-soft); }
+.services-page .services-category-card--ai { border-top-color: var(--clicktai); }
+.services-page .services-category-card--ai .services-category-icon { background: var(--clicktai-soft); }
+
+.services-page .services-category-card--wide {
+    display: block;
+    border-top-color: var(--cta);
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: #93c5fd;
+}
+
+.services-page .services-category-card--wide h3 {
+    color: #1e3a8a;
+}
+
+.services-page .services-process {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.services-page .services-process-step {
+    border: 1px solid #d5dfed;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #f8fbff;
+}
+
+.services-page .services-process-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--cta);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.55rem;
+}
+
+.services-page .services-process-step h3 {
+    margin: 0 0 0.35rem;
+    font-size: 0.96rem;
+    color: #0f172a;
+}
+
+.services-page .services-process-step p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.services-page .services-existing-list {
+    margin: 1rem 0 1.1rem;
+    padding-left: 1.1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1.5rem;
+    color: #475569;
+    font-size: 0.92rem;
+}
+
+.services-page .services-existing-closing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 1rem;
+}
+
+.services-page .services-pricing-note {
+    border-left: 3px solid var(--cta);
+    padding: 0.1rem 0 0.1rem 1rem;
+    margin-top: 1rem;
+    color: #475569;
+    font-size: 0.94rem;
+}
+
+.services-page .services-work-group-label {
+    margin: 1.4rem 0 0.15rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4b607f;
+}
+
+.services-page .services-work-group-note {
+    margin: 0 0 0.9rem;
+    font-size: 0.84rem;
+    color: #475569;
+    font-style: italic;
+}
+
+.services-page .services-work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.services-page .services-work-grid + .services-work-group-label {
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--border);
+}
+
+.services-page .services-work-card {
+    border: 1px solid #d5dfed;
+    border-radius: 12px;
+    padding: 1.1rem;
+    background: #f8fbff;
+}
+
+.services-page .services-work-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.services-page .services-work-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.55;
+}
+
+.services-page .services-work-card a {
+    color: var(--cta);
+    font-weight: 600;
+}
+
+.services-page .services-work-context {
+    margin-top: 0.6rem !important;
+    padding-top: 0.6rem;
+    border-top: 1px solid #d5dfed;
+    font-size: 0.8rem !important;
+    color: #64748b !important;
+}
+
+.services-page .services-work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0 0 0.65rem;
+}
+
+.services-page .services-work-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid #93c5fd;
+    border-radius: 999px;
+    padding: 0.14rem 0.55rem;
+}
+
+.services-page .services-tips-list {
+    margin: 0.6rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.35rem;
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+/* Closing "let's talk" band — a lighter-weight sibling of .services-panel
+   used once, near the bottom of the page, to hand off to Contact. */
+.services-page .services-cta-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    border: 1px solid #93c5fd;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.services-page .services-cta-band h2 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    color: #0f172a;
+}
+
+.services-page .services-cta-band p {
+    margin: 0;
+    max-width: 480px;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.services-page .services-form-panel {
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: #93c5fd;
+}
+
+.services-page .services-form {
+    margin-top: 1.1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.services-page .services-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.services-page .services-form-field--full {
+    grid-column: 1 / -1;
+}
+
+.services-page .services-form-field label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.services-page .services-form-field input,
+.services-page .services-form-field select,
+.services-page .services-form-field textarea {
+    font: inherit;
+    font-size: 0.92rem;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid #93c5fd;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.services-page .services-form-field textarea {
+    resize: vertical;
+    min-height: 5.5rem;
+}
+
+.services-page .services-form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.services-page .services-form-note {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #475569;
+}
+
+.services-page .services-company-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+}
+
+.services-page .services-company-list {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+    color: #475569;
+    font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+    .services-page .services-category-grid,
+    .services-page .services-process,
+    .services-page .services-work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .services-page .services-company-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .services-page .services-main {
+        margin: 1.4rem auto 3rem;
+    }
+
+    .services-page .services-hero,
+    .services-page .services-panel,
+    .services-page .services-cta-band {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+
+    .services-page .services-hero-actions {
+        justify-content: flex-start;
+    }
+
+    .services-page .services-cta-band {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .services-page .services-cta-band .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .services-page .services-category-grid,
+    .services-page .services-process,
+    .services-page .services-work-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-page .services-existing-list {
+        grid-template-columns: 1fr;
+    }
+
+    .services-page .services-form {
+        grid-template-columns: 1fr;
+    }
 }

@@ -21,10 +21,68 @@
     <meta name="twitter:image" content="https://click-t.com/social-logo.png?v=20260316a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260822p">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260824g">
 </head>
 <body class="home-page">
+    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
+        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
+        <div class="splash-percent" id="splash-percent">0%</div>
+    </div>
+    <noscript><style>#splash-screen{display:none!important}</style></noscript>
+    <script>
+        (function () {
+            var KEY = 'clickt-splash-shown';
+            var splash = document.getElementById('splash-screen');
+            if (!splash) return;
+
+            var shown;
+            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
+            if (shown) {
+                splash.parentNode.removeChild(splash);
+                return;
+            }
+
+            document.documentElement.classList.add('splash-lock');
+
+            var percentEl = document.getElementById('splash-percent');
+            var barEl = document.getElementById('splash-progress-bar');
+
+            function finish() {
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+                document.documentElement.classList.remove('splash-lock');
+                splash.classList.add('is-hidden');
+                window.setTimeout(function () {
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 550);
+            }
+
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) {
+                finish();
+                return;
+            }
+
+            var duration = 1300;
+            var start = null;
+
+            function tick(ts) {
+                if (start === null) start = ts;
+                var elapsed = ts - start;
+                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
+                if (percentEl) percentEl.textContent = pct + '%';
+                if (barEl) barEl.style.width = pct + '%';
+                if (pct < 100) {
+                    window.requestAnimationFrame(tick);
+                } else {
+                    window.setTimeout(finish, 200);
+                }
+            }
+
+            window.requestAnimationFrame(tick);
+        }());
+    </script>
     <div class="site-dots" aria-hidden="true">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -49,11 +107,20 @@
                 Clickt
             </a>
             <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                <a href="support.html" data-i18n="common.nav.support">Support</a>
-                <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-panel">
+                            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                            <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
+                            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                            <a href="support.html" data-i18n="common.nav.support">Support</a>
+                            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="services.html" data-i18n="common.nav.services">Services</a>
+                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
                 <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
                     <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
                     <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
@@ -62,6 +129,9 @@
             <details class="header-dropdown">
                 <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
                 <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="services.html" data-i18n="common.nav.services">Services</a>
+                    <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
+                    <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
                     <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
                     <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
                     <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
@@ -88,7 +158,7 @@
                     <div class="hero-chat-messages">
                         <div class="hero-chat-message hero-chat-message--user" data-hero-chat-step="1">
                             <span class="hero-chat-speaker" data-i18n="index.hero.speakerYou">You</span>
-                            <p data-i18n="index.hero.chatUserMessage">We’re launching a new project next Friday — can you set up the team’s tasks and get us ready to present to leadership?</p>
+                            <p data-i18n="index.hero.chatUserMessage">We’re launching a new project next Friday - can you set up the team’s tasks and get us ready to present to leadership?</p>
                         </div>
                         <div class="hero-chat-typing" data-hero-chat-typing aria-hidden="true"><span></span><span></span><span></span></div>
                         <div class="hero-chat-message hero-chat-message--ai" data-hero-chat-step="2">
@@ -98,7 +168,7 @@
                         <div class="hero-chat-proposal" data-hero-chat-step="3">
                             <div class="hero-chat-proposal-head"><span data-i18n="index.hero.proposedWork">Proposed work</span><span data-i18n="index.hero.previewOnly">Preview only</span></div>
                             <ul>
-                                <li data-hero-proposal-item><span class="hero-chat-module hero-chat-module--teams">Teams</span> <span data-i18n="index.hero.proposal.teams">Launch tasks — assigned directly, to the team, or open to claim</span></li>
+                                <li data-hero-proposal-item><span class="hero-chat-module hero-chat-module--teams">Teams</span> <span data-i18n="index.hero.proposal.teams">Launch tasks - assigned directly, to the team, or open to claim</span></li>
                                 <li data-hero-proposal-item><span class="hero-chat-module hero-chat-module--checklist">Checklist</span> <span data-i18n="index.hero.proposal.checklist">A ready-to-run launch-day checklist</span></li>
                                 <li data-hero-proposal-item><span class="hero-chat-module hero-chat-module--builder">Builder</span> <span data-i18n="index.hero.proposal.builder">A metrics chart once your launch data is in</span></li>
                                 <li data-hero-proposal-item><span class="hero-chat-module hero-chat-module--presentation">Presentation</span> <span data-i18n="index.hero.proposal.presentation">A six-slide leadership deck you can Preview before presenting</span></li>
@@ -134,7 +204,7 @@
                 </div>
                 <div class="hero-proof-chips" aria-label="Clickt quick highlights" data-i18n-attr="aria-label:index.hero.proofChipsAriaLabel">
                     <span class="hero-proof-chip" data-i18n="index.hero.proofChip1">Tasks &middot; Builder &middot; Slides &middot; Checklists</span>
-                    <span class="hero-proof-chip" data-i18n="index.hero.proofChip2">AI Copilots &mdash; you approve changes</span>
+                    <span class="hero-proof-chip" data-i18n="index.hero.proofChip2">AI Copilots - you approve changes</span>
                     <span class="hero-proof-chip" data-i18n="index.hero.proofChip3">One connected workflow</span>
                 </div>
                 <div class="hero-device-experience" id="hero-device-experience" style="display:none" aria-hidden="true">
@@ -239,6 +309,30 @@
             </section>
         </main>
     </div>
+
+    <!-- Click T - custom software promo (company layer, distinct from the Clickt product above) -->
+    <section class="services-promo" id="custom-software">
+        <div class="container services-promo-inner" data-observe>
+            <div class="services-promo-copy">
+                <span class="context-kicker">For Organizations</span>
+                <h2>Need something built specifically for your organization?</h2>
+                <p>Click T builds custom software around how your organization actually works. From websites and mobile applications to internal workflow systems, data platforms, integrations, and AI-enabled tools, we design and build technology for organizations in Nepal and abroad.</p>
+                <p class="services-promo-existing">Already using an ERP, CRM, MIS, booking platform, or other software? We do not need to replace what works. We can build the missing workflow, integration, or application around it.</p>
+                <div class="services-promo-actions">
+                    <a href="contact.html" class="btn">Discuss a Project</a>
+                    <a href="services.html#work" class="btn btn-outline">See Our Work</a>
+                </div>
+            </div>
+            <div class="services-promo-categories" aria-label="What Click T builds">
+                <span class="services-chip">Web &amp; Software</span>
+                <span class="services-chip">Mobile Apps</span>
+                <span class="services-chip">Data &amp; Analytics</span>
+                <span class="services-chip">AI &amp; Automation</span>
+                <span class="services-chip">Integrations</span>
+                <span class="services-chip">Internal Systems</span>
+            </div>
+        </div>
+    </section>
 
     <section class="home-context" id="workflow-60s" hidden>
         <div class="container home-context-inner">
@@ -367,7 +461,7 @@
     </section>
 
     <!-- ============================================================
-         DEVICE SHOWCASE CHAPTERS — iPhone / iPad / Mac
+         DEVICE SHOWCASE CHAPTERS - iPhone / iPad / Mac
          Each section is tall (creates scroll space); .sc-panel is
          CSS-sticky so it stays visible while you scroll through it.
          GSAP ScrollTrigger drives all transforms + Lenis adds inertia.
@@ -391,7 +485,7 @@
                 <div class="sc-copy-slot" data-sc-stop="home">
                     <span class="sc-copy-eyebrow">ClicktAI</span>
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.iphone.home.heading">Start by asking, not clicking.</h3>
-                    <p class="sc-copy-body" data-i18n="index.showcase.iphone.home.body">Tell ClicktAI what needs to happen — it drafts the work across every module, and you decide what goes live.</p>
+                    <p class="sc-copy-body" data-i18n="index.showcase.iphone.home.body">Tell ClicktAI what needs to happen - it drafts the work across every module, and you decide what goes live.</p>
                     <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="teams"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.iphone.home.copilotChip">Ask ClicktAI: “Plan my next launch.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="teams">
@@ -413,7 +507,7 @@
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.iphone.presentation.heading">From notes to deck.</h3>
                     <p class="sc-copy-body" data-i18n="index.showcase.iphone.presentation.body">Turn Builder outputs into slides, sharpen the story, and export a polished PDF fast.</p>
                     <div class="sc-activity-chip">⚡&nbsp; <span data-i18n="index.showcase.iphone.presentation.activityChip">8 slides generated in seconds</span></div>
-                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.iphone.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck — or refine it slide by slide.”</span></a>
+                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.iphone.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck - or refine it slide by slide.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="checklist">
                     <span class="sc-copy-eyebrow">Checklist</span>
@@ -467,7 +561,7 @@
                 <div class="sc-copy-slot" data-sc-stop="home">
                     <span class="sc-copy-eyebrow">ClicktAI</span>
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.ipad.home.heading">One ask, four modules move.</h3>
-                    <p class="sc-copy-body" data-i18n="index.showcase.ipad.home.body">Tell ClicktAI what needs to happen across your workspace — review before anything changes.</p>
+                    <p class="sc-copy-body" data-i18n="index.showcase.ipad.home.body">Tell ClicktAI what needs to happen across your workspace - review before anything changes.</p>
                     <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="teams"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.ipad.home.copilotChip">Ask ClicktAI: “Get my team ready for review.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="teams">
@@ -489,7 +583,7 @@
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.ipad.presentation.heading">Present like you planned all week.</h3>
                     <p class="sc-copy-body" data-i18n="index.showcase.ipad.presentation.body">Build, edit, and rehearse on iPad. Perfect for team reviews, client updates, or class projects.</p>
                     <div class="sc-activity-chip">⚡&nbsp; <span data-i18n="index.showcase.ipad.presentation.activityChip">8 slides generated in seconds</span></div>
-                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.ipad.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck — or refine it slide by slide.”</span></a>
+                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.ipad.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck - or refine it slide by slide.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="checklist">
                     <span class="sc-copy-eyebrow">Checklist</span>
@@ -544,7 +638,7 @@
                 <div class="sc-copy-slot" data-sc-stop="home">
                     <span class="sc-copy-eyebrow">ClicktAI</span>
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.mac.home.heading">Ask once. Lead with clarity.</h3>
-                    <p class="sc-copy-body" data-i18n="index.showcase.mac.home.body">Tell ClicktAI what needs to happen — it prepares the work, you keep the final call.</p>
+                    <p class="sc-copy-body" data-i18n="index.showcase.mac.home.body">Tell ClicktAI what needs to happen - it prepares the work, you keep the final call.</p>
                     <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="builder"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.mac.home.copilotChip">Ask ClicktAI: “Prepare this quarter’s numbers.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="teams">
@@ -566,7 +660,7 @@
                     <h3 class="sc-copy-heading" data-i18n="index.showcase.mac.presentation.heading">Story and data, one smooth flow.</h3>
                     <p class="sc-copy-body" data-i18n="index.showcase.mac.presentation.body">Pull Builder outputs into slides, polish the message, and export a board-ready deck in minutes.</p>
                     <div class="sc-activity-chip">⚡&nbsp; <span data-i18n="index.showcase.mac.presentation.activityChip">8 slides generated in seconds</span></div>
-                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.mac.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck — or refine it slide by slide.”</span></a>
+                    <a class="sc-copilot-chip" href="#clicktai" data-copilot-jump="presentation"><span class="sc-copilot-spark" aria-hidden="true">✦</span> <span data-i18n="index.showcase.mac.presentation.copilotChip">Ask ClicktAI: “Turn this into a deck - or refine it slide by slide.”</span></a>
                 </div>
                 <div class="sc-copy-slot" data-sc-stop="checklist">
                     <span class="sc-copy-eyebrow">Checklist</span>
@@ -610,18 +704,18 @@
             <div class="why-switch-grid">
                 <article class="why-switch-card" data-observe>
                     <h3 data-i18n="index.whySwitch.confusion.title">Less confusion</h3>
-                    <p class="why-switch-problem" data-i18n="index.whySwitch.confusion.problem">Problem: work gets assigned by memory, so nobody's sure who owns what — or when it's actually done.</p>
+                    <p class="why-switch-problem" data-i18n="index.whySwitch.confusion.problem">Problem: work gets assigned by memory, so nobody's sure who owns what - or when it's actually done.</p>
                     <p class="why-switch-solution" data-i18n="index.whySwitch.confusion.solution">Clickt solution: assign it to one person, the whole team, or leave it open to claim. The assignee is notified the moment it lands on them; you're notified the moment it's done.</p>
                 </article>
                 <article class="why-switch-card" data-observe>
                     <h3 data-i18n="index.whySwitch.followUp.title">Less follow-up</h3>
                     <p class="why-switch-problem" data-i18n="index.whySwitch.followUp.problem">Problem: team tasks, your own errands, and daily reminders live in different apps, so you're still chasing your own to-do list.</p>
-                    <p class="why-switch-solution" data-i18n="index.whySwitch.followUp.solution">Clickt solution: every task you're assigned flows straight into your personal checklist — or ask the Checklist Copilot to build one for anything and lay out the plan.</p>
+                    <p class="why-switch-solution" data-i18n="index.whySwitch.followUp.solution">Clickt solution: every task you're assigned flows straight into your personal checklist - or ask the Checklist Copilot to build one for anything and lay out the plan.</p>
                 </article>
                 <article class="why-switch-card" data-observe>
                     <h3 data-i18n="index.whySwitch.updates.title">Faster updates</h3>
                     <p class="why-switch-problem" data-i18n="index.whySwitch.updates.problem">Problem: turning a spreadsheet into a report, or a report into a deck, eats the afternoon.</p>
-                    <p class="why-switch-solution" data-i18n="index.whySwitch.updates.solution">Clickt solution: ask Builder to find the story in your data, then ask Presentation to draft the whole deck — or refine it slide by slide with you — ready to export, preview, or open in a browser.</p>
+                    <p class="why-switch-solution" data-i18n="index.whySwitch.updates.solution">Clickt solution: ask Builder to find the story in your data, then ask Presentation to draft the whole deck - or refine it slide by slide with you - ready to export, preview, or open in a browser.</p>
                 </article>
             </div>
             <div class="why-switch-faq" data-observe>
@@ -727,7 +821,7 @@
     <!-- Prompts teaser -->
     <section class="pb-teaser" id="playbook-teaser">
         <div class="container pb-teaser-inner">
-            <div class="pb-teaser-header">
+            <div class="pb-teaser-header" data-observe>
                 <span class="pb-teaser-kicker" data-i18n="index.playbookTeaser.kicker">Product Tour</span>
                 <h2 class="pb-teaser-heading" data-i18n="index.playbookTeaser.heading">See real workflows before you download</h2>
                 <p class="pb-teaser-sub" data-i18n="index.playbookTeaser.sub">Use proven examples to launch your first Clickt workflow with confidence.</p>
@@ -737,7 +831,7 @@
                     <span class="pb-teaser-mod">Teams</span>
                     <h3 data-i18n="index.playbookTeaser.teams.title">Engineering sprint</h3>
                     <p data-i18n="index.playbookTeaser.teams.body">Drop in your sprint tasks, let teammates claim work, and close the week without chasing updates.</p>
-                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.teams.outcome">Outcome: assign it directly, hand it to the whole team, or leave it open to claim — invites and completion notify automatically.</p>
+                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.teams.outcome">Outcome: assign it directly, hand it to the whole team, or leave it open to claim - invites and completion notify automatically.</p>
                     <span class="pb-teaser-arrow" data-i18n="index.playbookTeaser.teams.cta">Explore Teams workflows →</span>
                 </a>
                 <a href="playbook.html#checklist" class="pb-teaser-card pb-teaser--checklist">
@@ -758,14 +852,14 @@
                     <span class="pb-teaser-mod">Presentation</span>
                     <h3 data-i18n="index.playbookTeaser.presentation.title">Board deck from data</h3>
                     <p data-i18n="index.playbookTeaser.presentation.body">Send Builder outputs to slides, polish the story, and export a board-ready deck in minutes.</p>
-                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.presentation.outcome">Outcome: the Presentation Copilot builds the whole deck or refines it slide by slide with you — export to PDF, preview, or open in a browser.</p>
+                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.presentation.outcome">Outcome: the Presentation Copilot builds the whole deck or refines it slide by slide with you - export to PDF, preview, or open in a browser.</p>
                     <span class="pb-teaser-arrow" data-i18n="index.playbookTeaser.presentation.cta">Explore Presentation workflows →</span>
                 </a>
                 <a href="playbook.html#clicktai" class="pb-teaser-card pb-teaser--ai">
                     <span class="pb-teaser-mod">ClicktAI</span>
                     <h3 data-i18n="index.playbookTeaser.clicktai.title">Connected drafts, reviewed in context</h3>
                     <p data-i18n="index.playbookTeaser.clicktai.body">Type "Analyze Q3 and build my deck." Each module's Copilot handles its part and shows you a preview before applying.</p>
-                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.clicktai.outcome">Outcome: faster execution from idea to delivered output — with you in control.</p>
+                    <p class="pb-teaser-outcome" data-i18n="index.playbookTeaser.clicktai.outcome">Outcome: faster execution from idea to delivered output - with you in control.</p>
                     <span class="pb-teaser-arrow" data-i18n="index.playbookTeaser.clicktai.cta">Explore ClicktAI workflows →</span>
                 </a>
             </div>
@@ -802,9 +896,45 @@
 
     <div class="container footer-shell">
         <footer>
-            <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
-            <p data-i18n="common.footer.supportSentence">Should you require assistance, our support desk stands ready to help.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> | <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a> | <a href="at-work.html" data-i18n="common.footer.demo">At Work</a> | <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> | <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> | <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> | <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a></p>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.writeUs">Write Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
+                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
+                    </div>
+                    <p class="footer-col-note" data-i18n-html="common.footer.projectSentence">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.callUs">Call Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
+                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="footer-links-row" aria-label="Footer navigation">
+                <a href="index.html" data-i18n="common.footer.home">Home</a>
+                <a href="services.html" data-i18n="common.footer.services">Services</a>
+                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a>
+                <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a>
+                <a href="at-work.html" data-i18n="common.footer.demo">At Work</a>
+                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a>
+                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a>
+                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a>
+                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
+                <a href="contact.html" data-i18n="common.footer.contact">Contact</a>
+            </nav>
+            <p class="footer-copyright" data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
             <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
         </footer>
     </div>
@@ -822,14 +952,14 @@
     >
         <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
     </a>
-    <script src="i18n/en.js?v=20260806a"></script>
-    <script src="i18n/ne.js?v=20260806a"></script>
-    <script src="i18n.js?v=20260806a"></script>
+    <script src="i18n/en.js?v=20260824g"></script>
+    <script src="i18n/ne.js?v=20260824e"></script>
+    <script src="i18n.js?v=20260824e"></script>
     <script src="script.js?v=20260730a"></script>
 
     <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
     <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
-        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+        Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T in Kathmandu, Nepal - and we build custom software for other organizations too. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.
     </div>
     <script>
         (function () {
@@ -845,6 +975,32 @@
                     pop.hidden = true;
                     btn.setAttribute('aria-expanded', 'false');
                 }
+            });
+
+            function closeNavDropdown(nd) {
+                nd.classList.remove('is-open');
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                trigger.addEventListener('click', function () {
+                    var willOpen = !nd.classList.contains('is-open');
+                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+                    if (willOpen) {
+                        nd.classList.add('is-open');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
+                    if (!nd.contains(e.target)) closeNavDropdown(nd);
+                });
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
             });
             var footer = document.querySelector('footer');
             if (footer && 'IntersectionObserver' in window) {

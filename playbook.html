@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Clickt Works | Clickt</title>
-    <meta name="description" content="Scroll through Clickt step by step — sign in, then see Teams, Checklist, Builder, and Presentation come together with ClicktAI, on iPhone, iPad, and computer.">
+    <meta name="description" content="Scroll through Clickt step by step - sign in, then see Teams, Checklist, Builder, and Presentation come together with ClicktAI, on iPhone, iPad, and computer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260822p">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260824g">
     <style>
         /* ══ Hero ═══════════════════════════════════════════ */
         .tour-hero {
@@ -66,7 +66,7 @@
         }
         .tour-stop:last-child { border-bottom: none; }
         /* Once the engine moves a section's content into the sticky panel it
-           sets article.hidden = true on the now-empty original — without
+           sets article.hidden = true on the now-empty original - without
            this, the plain .tour-stop rule above (same specificity as the
            browser's [hidden] rule) wins and the empty article still renders
            its padding + border-bottom as a stray line scrolling past. */
@@ -178,7 +178,7 @@
         /* ══ Poster cluster ═══════════════════════════════════════════════
            Each section's stage: a warm card with soft accent-tinted blur
            circles, a hero screenshot, one smaller offset "supporting"
-           screenshot behind/beside it, and a bold section label — reused
+           screenshot behind/beside it, and a bold section label - reused
            identically by the static (mobile) layout and the sticky engine. */
         .tour-poster {
             position: relative;
@@ -193,7 +193,7 @@
         /* The card background is a separate layer from .tour-poster itself,
            so it can clip its own blur-dot decoration to its rounded corners
            while the hero/support screenshots (siblings, not children of this
-           layer) are free to spill slightly past the card edge — matching
+           layer) are free to spill slightly past the card edge - matching
            the reference composition, where the phones float outside the
            card rather than being cropped by it. */
         .tour-poster-bg {
@@ -234,14 +234,13 @@
            the composition (the support phone sits lower-right of it). */
         .tour-poster:not(.is-single) .tour-poster-hero { transform: translateX(-9%); }
         /* Static/mobile default: only the first hero shot shows (no JS, no
-           cycling — keeps mobile simple). The engine below overrides this
+           cycling - keeps mobile simple). The engine below overrides this
            once it takes over a poster on desktop. */
         .tour-hero-shot { display: none; }
         .tour-hero-shot:first-child { display: block; }
 
         /* Engine mode (JS adds .is-engine once it takes a poster over): all
-           hero shots stack in place and crossfade with a soft "tap" pop —
-           this is the in-place transition that reads as "the screen just
+           hero shots stack in place and crossfade with a soft "tap" pop - this is the in-place transition that reads as "the screen just
            changed" rather than the phone sliding/rotating around. */
         .tour-poster.is-engine .tour-poster-hero { display: grid; }
         .tour-poster.is-engine .tour-hero-shot {
@@ -329,7 +328,7 @@
 
         /* ══ Sticky single-stage engine (JS-built, desktop only) ═══════════
            One fixed stage per platform: as you scroll, the screenshot
-           *inside* it changes — the frame itself never leaves the screen.
+           *inside* it changes - the frame itself never leaves the screen.
            Built by moving the real .tour-stop-copy / .tour-shot nodes out of
            the static markup above, so translated text and images are never
            duplicated. ════════════════════════════════════════════════════ */
@@ -354,7 +353,7 @@
             height: 100%;
         }
         .tourx-stage-wrap { display: grid; }
-        /* Whole-poster (section-to-section) crossfade — deliberately just
+        /* Whole-poster (section-to-section) crossfade - deliberately just
            opacity + a small vertical settle, no sliding or rotation, so the
            phone frame itself never appears to travel around the screen. */
         .tourx-shot {
@@ -424,8 +423,7 @@
         }
 
         /* Narrow screens keep the exact same engine (sticky stage, image +
-           text change in place, doesn't feel like a normal scrolling list)
-           — only the arrangement changes: stage above, copy below, instead
+           text change in place, doesn't feel like a normal scrolling list) - only the arrangement changes: stage above, copy below, instead
            of side-by-side. min-height (not a fixed height) lets the sticky
            panel grow if wrapped copy needs more room than one screen, so
            nothing gets clipped. */
@@ -443,7 +441,7 @@
             .tourx-stage { flex: none; height: 36vh; width: 100%; }
             /* Copy grows to fill whatever height the fixed-height stage
                doesn't use, instead of leaving empty space below a
-               vertically-centered block — its own content still centers
+               vertically-centered block - its own content still centers
                within that space via align-content. */
             .tourx-copy { flex: 1; align-content: center; width: 100%; max-width: none; }
             .tourx-copy-slot .tour-stop-copy { text-align: center; }
@@ -460,7 +458,7 @@
 
             /* Smaller phone art leaves clearance above it inside the fixed
                stage height, so the notch/status bar doesn't sit flush
-               against — or spill past — the stage's top edge. */
+               against - or spill past - the stage's top edge. */
             .tourx-shot .phone-shell { width: min(150px, 36vw); }
             .tourx-shot .tablet-shell { width: min(200px, 46vw); }
             .tourx-shot .tour-poster { width: min(300px, 78vw); min-height: 30vh; }
@@ -487,6 +485,64 @@
     </style>
 </head>
 <body class="playbook-page">
+    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
+        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
+        <div class="splash-percent" id="splash-percent">0%</div>
+    </div>
+    <noscript><style>#splash-screen{display:none!important}</style></noscript>
+    <script>
+        (function () {
+            var KEY = 'clickt-splash-shown';
+            var splash = document.getElementById('splash-screen');
+            if (!splash) return;
+
+            var shown;
+            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
+            if (shown) {
+                splash.parentNode.removeChild(splash);
+                return;
+            }
+
+            document.documentElement.classList.add('splash-lock');
+
+            var percentEl = document.getElementById('splash-percent');
+            var barEl = document.getElementById('splash-progress-bar');
+
+            function finish() {
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+                document.documentElement.classList.remove('splash-lock');
+                splash.classList.add('is-hidden');
+                window.setTimeout(function () {
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 550);
+            }
+
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) {
+                finish();
+                return;
+            }
+
+            var duration = 1300;
+            var start = null;
+
+            function tick(ts) {
+                if (start === null) start = ts;
+                var elapsed = ts - start;
+                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
+                if (percentEl) percentEl.textContent = pct + '%';
+                if (barEl) barEl.style.width = pct + '%';
+                if (pct < 100) {
+                    window.requestAnimationFrame(tick);
+                } else {
+                    window.setTimeout(finish, 200);
+                }
+            }
+
+            window.requestAnimationFrame(tick);
+        }());
+    </script>
     <div class="site-dots" aria-hidden="true">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -513,10 +569,20 @@
             Clickt
         </a>
         <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-            <a href="support.html" data-i18n="common.nav.support">Support</a>
-            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+            <div class="nav-dropdown">
+                <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
+                <div class="nav-dropdown-menu">
+                    <div class="nav-dropdown-panel">
+                        <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                        <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
+                        <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                        <a href="support.html" data-i18n="common.nav.support">Support</a>
+                        <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                    </div>
+                </div>
+            </div>
+            <a href="services.html" data-i18n="common.nav.services">Services</a>
+            <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
             <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
                 <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
                 <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
@@ -525,7 +591,11 @@
         <details class="header-dropdown">
             <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
             <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                <a href="services.html" data-i18n="common.nav.services">Services</a>
+                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
+                <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
                 <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
                 <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
                 <a href="support.html" data-i18n="common.nav.support">Support</a>
                 <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
@@ -543,7 +613,7 @@
     <div class="tour-hero">
         <span class="tour-kicker" data-i18n="playbook.hero.kicker">How Clickt Works</span>
         <h1 data-i18n="playbook.hero.title">One scroll. Every workspace.</h1>
-        <p data-i18n="playbook.hero.body">Sign in once, then follow Teams, Checklist, Builder, and Presentation coming together — with ClicktAI helping at every step.</p>
+        <p data-i18n="playbook.hero.body">Sign in once, then follow Teams, Checklist, Builder, and Presentation coming together - with ClicktAI helping at every step.</p>
     </div>
 </div>
 
@@ -1435,23 +1505,53 @@
 
 <div class="container footer-shell">
     <footer>
-        <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
-        <p>
-            <a href="mailto:clickt@click-t.com">clickt@click-t.com</a> |
-            <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> |
-            <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a> |
-            <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> |
-            <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> |
-            <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> |
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h3 data-i18n="common.footer.writeUs">Write Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
+                    <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
+                </div>
+                <p class="footer-col-note" data-i18n-html="common.footer.projectSentence">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+            </div>
+            <div class="footer-col">
+                <h3 data-i18n="common.footer.callUs">Call Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
+                    <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                    <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
+                    <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
+                    <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
+                </div>
+            </div>
+        </div>
+        <nav class="footer-links-row" aria-label="Footer navigation">
+            <a href="index.html" data-i18n="common.footer.home">Home</a>
+            <a href="services.html" data-i18n="common.footer.services">Services</a>
+            <a href="pricing.html" data-i18n="common.footer.plans">Plans</a>
+            <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a>
+            <a href="at-work.html" data-i18n="common.footer.demo">At Work</a>
+            <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a>
+            <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a>
+            <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a>
             <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
-        </p>
+            <a href="contact.html" data-i18n="common.footer.contact">Contact</a>
+        </nav>
+        <p class="footer-copyright" data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
         <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
     </footer>
 </div>
 
-<script src="i18n/en.js?v=20260806a"></script>
-<script src="i18n/ne.js?v=20260806a"></script>
-<script src="i18n.js?v=20260806a"></script>
+<script src="i18n/en.js?v=20260824g"></script>
+<script src="i18n/ne.js?v=20260824e"></script>
+<script src="i18n.js?v=20260824e"></script>
+<script src="reveal.js?v=20260824a"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
@@ -1487,7 +1587,7 @@
             });
         });
 
-        // ---------- sticky single-stage engine — runs at every viewport
+        // ---------- sticky single-stage engine - runs at every viewport
         // width; CSS media queries (not JS) handle the narrow-screen layout,
         // so the "content changes in place" feel is the same on phone,
         // tablet, and desktop instead of falling back to a plain scrolling
@@ -1690,7 +1790,7 @@
 
     <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
     <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
-        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+        Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T in Kathmandu, Nepal - and we build custom software for other organizations too. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.
     </div>
     <script>
         (function () {
@@ -1706,6 +1806,32 @@
                     pop.hidden = true;
                     btn.setAttribute('aria-expanded', 'false');
                 }
+            });
+
+            function closeNavDropdown(nd) {
+                nd.classList.remove('is-open');
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                trigger.addEventListener('click', function () {
+                    var willOpen = !nd.classList.contains('is-open');
+                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+                    if (willOpen) {
+                        nd.classList.add('is-open');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
+                    if (!nd.contains(e.target)) closeNavDropdown(nd);
+                });
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
             });
         }());
     </script>

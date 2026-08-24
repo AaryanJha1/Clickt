@@ -3,16 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Play Store | Android for Clickt — Coming Soon</title>
+    <title>Google Play Store | Android for Clickt - Coming Soon</title>
     <meta name="description" content="Explore a preview of Clickt for Android. The Android application is coming soon and is not yet available for download on Google Play.">
-    <meta property="og:title" content="Google Play Store | Android for Clickt — Coming Soon">
+    <meta property="og:title" content="Google Play Store | Android for Clickt - Coming Soon">
     <meta property="og:description" content="Explore the Android preview of Clickt before its Google Play release.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260822p">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260824g">
 </head>
 <body class="google-play-page">
+    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
+        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
+        <div class="splash-percent" id="splash-percent">0%</div>
+    </div>
+    <noscript><style>#splash-screen{display:none!important}</style></noscript>
+    <script>
+        (function () {
+            var KEY = 'clickt-splash-shown';
+            var splash = document.getElementById('splash-screen');
+            if (!splash) return;
+
+            var shown;
+            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
+            if (shown) {
+                splash.parentNode.removeChild(splash);
+                return;
+            }
+
+            document.documentElement.classList.add('splash-lock');
+
+            var percentEl = document.getElementById('splash-percent');
+            var barEl = document.getElementById('splash-progress-bar');
+
+            function finish() {
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+                document.documentElement.classList.remove('splash-lock');
+                splash.classList.add('is-hidden');
+                window.setTimeout(function () {
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 550);
+            }
+
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) {
+                finish();
+                return;
+            }
+
+            var duration = 1300;
+            var start = null;
+
+            function tick(ts) {
+                if (start === null) start = ts;
+                var elapsed = ts - start;
+                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
+                if (percentEl) percentEl.textContent = pct + '%';
+                if (barEl) barEl.style.width = pct + '%';
+                if (pct < 100) {
+                    window.requestAnimationFrame(tick);
+                } else {
+                    window.setTimeout(finish, 200);
+                }
+            }
+
+            window.requestAnimationFrame(tick);
+        }());
+    </script>
     <div class="site-dots" aria-hidden="true">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -38,11 +96,20 @@
                 Clickt
             </a>
             <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                <a href="support.html" data-i18n="common.nav.support">Support</a>
-                <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-panel">
+                            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
+                            <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
+                            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
+                            <a href="support.html" data-i18n="common.nav.support">Support</a>
+                            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="services.html" data-i18n="common.nav.services">Services</a>
+                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
                 <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
                     <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
                     <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
@@ -51,6 +118,9 @@
             <details class="header-dropdown">
                 <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
                 <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
+                    <a href="services.html" data-i18n="common.nav.services">Services</a>
+                    <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
+                    <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
                     <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
                     <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
                     <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
@@ -66,9 +136,9 @@
         </header>
 
         <main>
-            <section class="play-hero">
+            <section data-observe class="play-hero">
                 <span class="context-kicker">Google Play Store</span>
-                <h1>Android for Clickt — coming soon</h1>
+                <h1>Android for Clickt - coming soon</h1>
                 <p>Explore the Android version of Clickt before its Google Play release. The application is not yet available to download.</p>
                 <div class="play-hero-actions">
                     <a class="google-play-badge google-play-badge--coming" href="#android-preview" aria-label="View the Android preview; Clickt is not yet available on Google Play">
@@ -80,7 +150,7 @@
                 <p class="play-disclosure" role="status"><strong>Not yet available for download on Google Play.</strong> This page is a product preview.</p>
             </section>
 
-            <section class="play-proof" aria-label="What the Android preview shows">
+            <section data-observe class="play-proof" aria-label="What the Android preview shows">
                 <div>
                     <span class="context-kicker">Product preview</span>
                     <h2>One connected workflow, shown in progress.</h2>
@@ -88,39 +158,39 @@
                 <p>The preview covers the Clickt workspaces being prepared for Android: Homepage, Teams, Checklist, Builder, Presentation, Calendar, and Copilots. Features and visual details may change before release.</p>
             </section>
 
-            <section class="android-preview" id="android-preview" aria-labelledby="android-preview-title">
+            <section data-observe class="android-preview" id="android-preview" aria-labelledby="android-preview-title">
                 <div class="android-preview-heading">
                     <span class="context-kicker">Android screenshot guide</span>
                     <h2 id="android-preview-title">Explore Android for Clickt.</h2>
                 </div>
                 <div class="android-preview-grid">
                     <button class="android-preview-card" type="button" data-gallery="home" aria-haspopup="dialog" aria-label="Open the Homepage screenshot guide">
-                        <img src="Android/Andriod_Homepage.png" alt="Clickt for Android — modules home screen" loading="lazy" decoding="async">
-                        <div><span>01 · Homepage</span><h3>Modules home</h3><p>Sign in once and land on every workspace — Teams, Checklist, Builder, Presentation, and Calendar.</p></div>
+                        <img src="Android/Andriod_Homepage.png" alt="Clickt for Android - modules home screen" loading="lazy" decoding="async">
+                        <div><span>01 · Homepage</span><h3>Modules home</h3><p>Sign in once and land on every workspace - Teams, Checklist, Builder, Presentation, and Calendar.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="teams" aria-haspopup="dialog" aria-label="Open the Teams screenshot guide">
-                        <img src="Android/Android_Team1.png" alt="Clickt for Android — Teams workspace" loading="lazy" decoding="async">
+                        <img src="Android/Android_Team1.png" alt="Clickt for Android - Teams workspace" loading="lazy" decoding="async">
                         <div><span>02 · Teams</span><h3>Assigned work</h3><p>Task lists, ownership, and progress across every Teams state.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="checklist" aria-haspopup="dialog" aria-label="Open the Checklist screenshot guide">
-                        <img src="Android/Android_Checklist1.png" alt="Clickt for Android — Checklist workspace" loading="lazy" decoding="async">
+                        <img src="Android/Android_Checklist1.png" alt="Clickt for Android - Checklist workspace" loading="lazy" decoding="async">
                         <div><span>03 · Checklist</span><h3>Personal and team work</h3><p>Personal, team-linked, and completed checklist states in one place.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="builder" aria-haspopup="dialog" aria-label="Open the Builder screenshot guide">
-                        <img src="Android/Android_Builder1.png" alt="Clickt for Android — Builder workspace" loading="lazy" decoding="async">
+                        <img src="Android/Android_Builder1.png" alt="Clickt for Android - Builder workspace" loading="lazy" decoding="async">
                         <div><span>04 · Builder</span><h3>Data to insight</h3><p>Import, analysis, and finished canvas views.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="presentation" aria-haspopup="dialog" aria-label="Open the Presentation screenshot guide">
-                        <img src="Android/Android_Presentation1.png" alt="Clickt for Android — Presentation workspace" loading="lazy" decoding="async">
+                        <img src="Android/Android_Presentation1.png" alt="Clickt for Android - Presentation workspace" loading="lazy" decoding="async">
                         <div><span>05 · Presentation</span><h3>Draft, preview, export</h3><p>The editor, live preview, and export-ready deck.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="calendar" aria-haspopup="dialog" aria-label="Open the Calendar screenshot guide">
-                        <img src="Android/Android_Calendar.png" alt="Clickt for Android — Calendar view" loading="lazy" decoding="async">
+                        <img src="Android/Android_Calendar.png" alt="Clickt for Android - Calendar view" loading="lazy" decoding="async">
                         <div><span>06 · Calendar</span><h3>Everything in one place</h3><p>Every module's deadlines synced into one calendar automatically.</p></div>
                     </button>
                     <button class="android-preview-card" type="button" data-gallery="copilots" aria-haspopup="dialog" aria-label="Open the Copilots screenshot guide">
-                        <img src="Android/Android_TeamCopilot.png" alt="Clickt for Android — ClicktAI Copilots" loading="lazy" decoding="async">
-                        <div><span>07 · Copilots</span><h3>Review before apply</h3><p>Every ClicktAI Copilot — Teams, Checklist, Builder, and Presentation.</p></div>
+                        <img src="Android/Android_TeamCopilot.png" alt="Clickt for Android - ClicktAI Copilots" loading="lazy" decoding="async">
+                        <div><span>07 · Copilots</span><h3>Review before apply</h3><p>Every ClicktAI Copilot - Teams, Checklist, Builder, and Presentation.</p></div>
                     </button>
                 </div>
             </section>
@@ -142,16 +212,53 @@
     <div class="container footer-shell">
 
         <footer>
-            <p data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
-            <p data-i18n="common.footer.supportSentence">Should you require assistance, our support desk stands ready to help.</p>
-            <p><a href="mailto:clickt@click-t.com">clickt@click-t.com</a> | <a href="pricing.html" data-i18n="common.footer.plans">Plans</a> | <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a> | <a href="at-work.html" data-i18n="common.footer.demo">At Work</a> | <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a> | <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a> | <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a> | <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a></p>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.writeUs">Write Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
+                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
+                    </div>
+                    <p class="footer-col-note" data-i18n-html="common.footer.projectSentence">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.callUs">Call Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
+                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
+                        <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="footer-links-row" aria-label="Footer navigation">
+                <a href="index.html" data-i18n="common.footer.home">Home</a>
+                <a href="services.html" data-i18n="common.footer.services">Services</a>
+                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a>
+                <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a>
+                <a href="at-work.html" data-i18n="common.footer.demo">At Work</a>
+                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a>
+                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a>
+                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a>
+                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
+                <a href="contact.html" data-i18n="common.footer.contact">Contact</a>
+            </nav>
+            <p class="footer-copyright" data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
             <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
         </footer>
     </div>
 
-    <script src="i18n/en.js?v=20260806a"></script>
-    <script src="i18n/ne.js?v=20260806a"></script>
-    <script src="i18n.js?v=20260806a"></script>
+    <script src="i18n/en.js?v=20260824g"></script>
+    <script src="i18n/ne.js?v=20260824e"></script>
+    <script src="i18n.js?v=20260824e"></script>
+    <script src="reveal.js?v=20260824a"></script>
     <script>
         (() => {
             const base = 'Android/';
@@ -172,13 +279,13 @@
             document.querySelectorAll('[data-gallery]').forEach((card) => card.addEventListener('click', () => {
                 const gallery = galleries[card.dataset.gallery];
                 if (!gallery) return;
-                title.textContent = `${gallery.title} — Android screenshot guide`;
+                title.textContent = `${gallery.title} - Android screenshot guide`;
                 images.replaceChildren(...gallery.images.map(([file, label]) => {
                     const figure = document.createElement('figure');
                     const image = document.createElement('img');
                     const caption = document.createElement('figcaption');
                     image.src = base + file;
-                    image.alt = `Clickt for Android — ${label}`;
+                    image.alt = `Clickt for Android - ${label}`;
                     image.loading = 'lazy';
                     caption.textContent = label;
                     figure.append(image, caption);
@@ -204,7 +311,7 @@
 
     <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
     <div class="founder-popover" id="founder-popover" hidden data-i18n-html="index.founder.message">
-        Hey — Clickt is a small independent project. I built it because I kept switching between too many tools to get one thing done. If something isn't working or you have an idea, reach out at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> — I read every message.
+        Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T in Kathmandu, Nepal - and we build custom software for other organizations too. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.
     </div>
     <script>
         (function () {
@@ -220,6 +327,32 @@
                     pop.hidden = true;
                     btn.setAttribute('aria-expanded', 'false');
                 }
+            });
+
+            function closeNavDropdown(nd) {
+                nd.classList.remove('is-open');
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                trigger.addEventListener('click', function () {
+                    var willOpen = !nd.classList.contains('is-open');
+                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+                    if (willOpen) {
+                        nd.classList.add('is-open');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
+                    if (!nd.contains(e.target)) closeNavDropdown(nd);
+                });
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
             });
         }());
     </script>

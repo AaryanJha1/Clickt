@@ -2323,7 +2323,7 @@ header {
 }
 
 .support-page {
-    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    background: var(--bg);
 }
 
 .support-page .support-main {
@@ -6594,7 +6594,7 @@ a.footer-col-value:hover {
 .copilot-work-link a:hover { color: var(--cta); }
 
 /* The longer scenario experience lives on at-work.html. */
-.at-work-page { background: #f8fafc; }
+.at-work-page { background: var(--bg); }
 .at-work-hero { max-width: 770px; margin: 0 auto; padding: clamp(3.5rem, 8vw, 6.5rem) 0 2.7rem; text-align: center; }
 .at-work-hero h1 { font-size: clamp(2.3rem, 5vw, 4.4rem); margin: 0.4rem 0 0.9rem; }
 .at-work-hero p { max-width: 620px; margin: 0 auto; font-size: 1.05rem; }
@@ -7562,7 +7562,7 @@ a.footer-col-value:hover {
    cards, subtle shadow) so it reads as one site, not a bolt-on.
    ============================================================ */
 .services-page {
-    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    background: var(--bg);
 }
 
 .services-page .services-main {

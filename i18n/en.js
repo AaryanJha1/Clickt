@@ -1468,7 +1468,7 @@ window.ClicktI18nDict.en = {
       "heading": "Software built around your organization.",
       "body": "Click T designs and develops custom software, web applications, mobile apps, data systems, and integrations for organizations in Nepal and abroad. Clickt is our flagship product - but Click T also builds software for other organizations.",
       "chip1": "Nepal-based",
-      "chip2": "iOS &middot; Android &middot; Web",
+      "chip2": "iOS · Android · Web",
       "chip3": "Built to integrate with what you already use",
       "ctaDiscuss": "Discuss a Project",
       "ctaWork": "See Our Work"

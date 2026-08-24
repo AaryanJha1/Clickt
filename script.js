@@ -232,12 +232,18 @@ function initHeroConversation() {
         advance();
     };
 
-    root.addEventListener("pointerenter", () => {
+    // Pause-on-hover is a mouse-only affordance (lets a desktop user stop
+    // to read). Touch fires the same pointerenter/pointerleave events, but a
+    // scroll gesture that starts over the card enters without ever leaving
+    // until the finger lifts elsewhere - freezing the animation mid-scroll.
+    root.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "touch") return;
         paused = true;
         window.clearTimeout(timer);
         window.clearTimeout(characterTimer);
     });
-    root.addEventListener("pointerleave", () => {
+    root.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "touch") return;
         paused = false;
         if (stage === 0) typeUserMessage();
         else if (stage !== 6) schedule(260);

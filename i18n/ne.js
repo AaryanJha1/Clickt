@@ -30,6 +30,7 @@ window.ClicktI18nDict.ne = {
       "supportDesk": "सहयोग डेस्क",
       "userGuide": "प्रयोगकर्ता गाइड",
       "privacy": "गोपनीयता विवरण",
+      "security": "सुरक्षा र भरोसा",
       "terms": "सेवाका सर्तहरू",
       "googlePlay": "Google Play Store",
       "writeUs": "हामीलाई लेख्नुहोस्",
@@ -356,8 +357,8 @@ window.ClicktI18nDict.ne = {
     },
     "finalCta": {
       "kicker": "स्विच गर्न तयार हुनुहुन्छ?",
-      "heading": "चार उपकरणलाई एउटैले बदल्नुहोस्",
-      "body": "कार्य, चेकलिस्ट, डेटा रिपोर्ट, र प्रस्तुतिलाई एउटै जोडिएको कार्यक्षेत्रमा ल्याउन Clickt डाउनलोड गर्नुहोस्।",
+      "heading": "एउटै वर्कफ्लोमा सम्पूर्ण कार्य ल्याउनुहोस्",
+      "body": "कार्य, चेकलिस्ट, डेटा रिपोर्ट, र प्रस्तुतिलाई एउटै जोडिएको कार्यक्षेत्रमा ल्याउन Clickt डाउनलोड गर्नुहोस् - तपाईंले पहिल्यै प्रयोग गरिरहेका प्रणालीहरू नबदली।",
       "appStoreAriaLabel": "App Store बाट Clickt डाउनलोड गर्नुहोस्",
       "ctaAppStore": "App Store बाट डाउनलोड गर्नुहोस्",
       "ctaPlans": "योजनाहरू हेर्नुहोस्",
@@ -365,7 +366,7 @@ window.ClicktI18nDict.ne = {
     },
     "founder": {
       "ariaLabel": "निर्मातासम्बन्धी",
-      "message": "नमस्ते - म आर्यन हुँ, Click T Pvt. Ltd. को संस्थापक। Clickt लाई काठमाडौं, नेपालमा Click T ले डिजाइन र निर्माण गरेको हो - र हामी अन्य संस्थाहरूका लागि पनि custom सफ्टवेयर बनाउँछौं। जहिले पनि लेख्नुहोस्: <a href=\"mailto:clickt@click-t.com\" style=\"color:inherit;text-decoration:underline\">clickt@click-t.com</a> - म हरेक सन्देश पढ्छु।"
+      "message": "नमस्ते - म आर्यन हुँ, Click T Pvt. Ltd. को संस्थापक। Clickt लाई Click T ले डिजाइन र निर्माण गरेको हो र हामी विभिन्न संस्थाहरूका लागि पनि custom सफ्टवेयर बनाउँछौं। जहिले पनि लेख्नुहोस्: <a href=\"mailto:clickt@click-t.com\" style=\"color:inherit;text-decoration:underline\">clickt@click-t.com</a> - म हरेक सन्देश पढ्छु।"
     },
     "showcase": {
       "scrollToExplore": "अन्वेषण गर्न स्क्रोल गर्नुहोस् ↓",

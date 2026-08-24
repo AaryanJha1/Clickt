@@ -7286,6 +7286,29 @@ a.footer-col-value:hover {
 
 .founder-popover[hidden] { display: none; }
 
+.founder-popover p {
+    margin: 0;
+}
+
+.founder-links {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--border);
+}
+
+.founder-links a {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--cta);
+    text-decoration: none;
+}
+
+.founder-links a:hover {
+    text-decoration: underline;
+}
+
 .pricing-isolation {
     background: var(--surface);
     border-top: 1px solid var(--border);

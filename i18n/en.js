@@ -30,6 +30,7 @@ window.ClicktI18nDict.en = {
       "supportDesk": "Support Desk",
       "userGuide": "User Guide",
       "privacy": "Privacy Statement",
+      "security": "Security & Trust",
       "terms": "Terms of Service",
       "googlePlay": "Google Play Store",
       "writeUs": "Write Us",
@@ -356,8 +357,8 @@ window.ClicktI18nDict.en = {
     },
     "finalCta": {
       "kicker": "Ready to switch?",
-      "heading": "Replace four tools with one",
-      "body": "Download Clickt and bring tasks, checklists, data reports, and presentations into one connected workspace.",
+      "heading": "Bring execution into one workflow",
+      "body": "Download Clickt and bring tasks, checklists, data reports, and presentations into one connected workspace - without replacing the systems you already rely on.",
       "appStoreAriaLabel": "Download Clickt on the App Store",
       "ctaAppStore": "Download on App Store",
       "ctaPlans": "See Plans",
@@ -365,7 +366,7 @@ window.ClicktI18nDict.en = {
     },
     "founder": {
       "ariaLabel": "About the maker",
-      "message": "Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T in Kathmandu, Nepal - and we build custom software for other organizations too. Write to us any time at <a href=\"mailto:clickt@click-t.com\" style=\"color:inherit;text-decoration:underline\">clickt@click-t.com</a> - I read every message."
+      "message": "Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T and we also build custom software for different organizations as well. Write to us any time at <a href=\"mailto:clickt@click-t.com\" style=\"color:inherit;text-decoration:underline\">clickt@click-t.com</a> - I read every message."
     },
     "showcase": {
       "scrollToExplore": "Scroll to explore ↓",

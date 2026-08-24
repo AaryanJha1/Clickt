@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security &amp; Trust | Click T</title>
+    <meta name="description" content="Straight answers on how Clickt handles data, access, AI providers, and incident response - for IT and procurement review.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://click-t.com/security.html">
+    <meta property="og:title" content="Security &amp; Trust | Click T">
+    <meta property="og:description" content="Straight answers on how Clickt handles data, access, AI providers, and incident response - for IT and procurement review.">
+    <meta property="og:image" content="https://click-t.com/social-logo.png?v=20260316a">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Security &amp; Trust | Click T">
+    <meta name="twitter:description" content="Straight answers on how Clickt handles data, access, AI providers, and incident response.">
+    <meta name="twitter:image" content="https://click-t.com/social-logo.png?v=20260316a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20260825d">
+</head>
+<body class="services-page">
+    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
+        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
+        <div class="splash-percent" id="splash-percent">0%</div>
+    </div>
+    <noscript><style>#splash-screen{display:none!important}</style></noscript>
+    <script>
+        (function () {
+            var KEY = 'clickt-splash-shown';
+            var splash = document.getElementById('splash-screen');
+            if (!splash) return;
+
+            var shown;
+            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
+            if (shown) {
+                splash.parentNode.removeChild(splash);
+                return;
+            }
+
+            document.documentElement.classList.add('splash-lock');
+
+            var percentEl = document.getElementById('splash-percent');
+            var barEl = document.getElementById('splash-progress-bar');
+
+            function finish() {
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+                document.documentElement.classList.remove('splash-lock');
+                splash.classList.add('is-hidden');
+                window.setTimeout(function () {
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 550);
+            }
+
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) {
+                finish();
+                return;
+            }
+
+            var duration = 1300;
+            var start = null;
+
+            function tick(ts) {
+                if (start === null) start = ts;
+                var elapsed = ts - start;
+                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
+                if (percentEl) percentEl.textContent = pct + '%';
+                if (barEl) barEl.style.width = pct + '%';
+                if (pct < 100) {
+                    window.requestAnimationFrame(tick);
+                } else {
+                    window.setTimeout(finish, 200);
+                }
+            }
+
+            window.requestAnimationFrame(tick);
+        }());
+    </script>
+    <div class="site-dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <div class="platform-strip" aria-label="Apple and Android platforms">
+        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    </div>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="brand">
+                <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo" decoding="async">
+                Clickt
+            </a>
+            <nav class="page-header-nav" aria-label="Site navigation">
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Clickt <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-panel">
+                            <a href="at-work.html">At Work</a>
+                            <a href="playbook.html">Product Tour</a>
+                            <a href="pricing.html">Plans</a>
+                            <a href="support.html">Support</a>
+                            <a href="user-guide.html">User Guide</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+                <div class="lang-toggle" role="group" aria-label="Choose language">
+                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false">ने</button>
+                </div>
+            </nav>
+            <details class="header-dropdown">
+                <summary aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+                <nav class="header-dropdown-menu" aria-label="Site navigation">
+                    <a href="services.html">Services</a>
+                    <a href="contact.html">Contact</a>
+                    <span class="header-dropdown-group-label">Clickt</span>
+                    <a href="at-work.html">At Work</a>
+                    <a href="playbook.html">Product Tour</a>
+                    <a href="pricing.html">Plans</a>
+                    <a href="support.html">Support</a>
+                    <a href="user-guide.html">User Guide</a>
+                    <div class="header-dropdown-lang" role="group" aria-label="Choose language">
+                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false">English</button>
+                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false">नेपाली</button>
+                    </div>
+                </nav>
+            </details>
+        </header>
+
+        <main class="services-main">
+            <section data-observe class="services-hero">
+                <p class="services-kicker">For IT &amp; Procurement</p>
+                <h1>Security &amp; Trust</h1>
+                <p>Straight answers to the questions an IT manager or procurement reviewer actually asks - not certification badges we don't hold. If something below isn't yet a self-serve feature, we say so.</p>
+                <div class="services-hero-actions">
+                    <a href="contact.html" class="btn">Talk to Us About Your Requirements</a>
+                    <a href="privacy.html" class="btn btn-outline">Read the Full Privacy Statement</a>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" aria-label="Data and infrastructure">
+                <h2>Data &amp; infrastructure</h2>
+                <p class="services-lead">Where your data lives and how it's protected.</p>
+                <div class="services-category-grid">
+                    <article class="services-category-card services-category-card--custom">
+                        <span class="services-category-icon" aria-hidden="true">🗄️</span>
+                        <h3>Where is data stored?</h3>
+                        <p>On managed cloud infrastructure (Firebase / Google Cloud). We don't run our own data centers.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--web">
+                        <span class="services-category-icon" aria-hidden="true">🔒</span>
+                        <h3>Is data encrypted?</h3>
+                        <p>Yes - encrypted in transit (TLS) between the app and our infrastructure, and at rest by default through our cloud provider.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--mobile">
+                        <span class="services-category-icon" aria-hidden="true">💾</span>
+                        <h3>Are backups performed?</h3>
+                        <p>Our cloud infrastructure includes provider-level redundancy. We don't yet publish a formal backup SLA - if that's a requirement for your deployment, tell us and we'll scope it directly.</p>
+                    </article>
+                </div>
+                <div class="services-category-grid services-category-grid--pair">
+                    <article class="services-category-card services-category-card--data">
+                        <span class="services-category-icon" aria-hidden="true">🏢</span>
+                        <h3>Is dedicated infrastructure possible?</h3>
+                        <p>Yes. Business uses our managed shared infrastructure with organization-level controls by default; dedicated databases or private-cloud deployment are optional, individually scoped in your agreement.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--ai">
+                        <span class="services-category-icon" aria-hidden="true">📋</span>
+                        <h3>What audit capabilities exist?</h3>
+                        <p>We don't yet offer exportable audit logs as a self-serve feature. If audit trails are a requirement, contact us to discuss what's possible for your deployment.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" aria-label="Access and control">
+                <h2>Access &amp; control</h2>
+                <p class="services-lead">Who can see organizational data, and how access is managed.</p>
+                <div class="services-category-grid">
+                    <article class="services-category-card services-category-card--custom">
+                        <span class="services-category-icon" aria-hidden="true">👥</span>
+                        <h3>Who can access organizational data?</h3>
+                        <p>Access is scoped to your workspace and governed by role-aware access controls - team membership and permissions determine what a given user can see and do.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--web">
+                        <span class="services-category-icon" aria-hidden="true">🔑</span>
+                        <h3>Is SSO available?</h3>
+                        <p>Not yet as a self-serve feature on the standard Business plan. If SSO/SAML is a requirement, contact us - it's on our roadmap for larger deployments.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--mobile">
+                        <span class="services-category-icon" aria-hidden="true">🗑️</span>
+                        <h3>Can data be deleted or exported?</h3>
+                        <p>You can request deletion of your account and workspace data at any time, or delete your account from within the app. Self-serve data export isn't built yet - reach out and we'll get you what you need directly.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section data-observe class="services-panel" aria-label="AI and third parties">
+                <h2>AI &amp; third parties</h2>
+                <p class="services-lead">How ClicktAI Copilots handle your content, and who else sees it.</p>
+                <div class="services-category-grid">
+                    <article class="services-category-card services-category-card--custom">
+                        <span class="services-category-icon" aria-hidden="true">✦</span>
+                        <h3>Is organization data used to train models?</h3>
+                        <p>No. We select AI providers who commit contractually not to use your workspace content to train their general-purpose models - and require the same commitment from any provider we add in the future.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--web">
+                        <span class="services-category-icon" aria-hidden="true">🤝</span>
+                        <h3>Which AI providers receive content?</h3>
+                        <p>Only the content relevant to the specific request from the module you're working in - never your whole workspace. On Free, you connect your own provider key. On Business, your admin assigns a Clickt-approved provider.</p>
+                    </article>
+                    <article class="services-category-card services-category-card--mobile">
+                        <span class="services-category-icon" aria-hidden="true">⏸️</span>
+                        <h3>Can AI be disabled?</h3>
+                        <p>AI isn't active by default. On Free, nothing happens until you connect your own key. On Business, your administrator chooses which users have Clickt-provided AI enabled - it is not switched on for every seat automatically.</p>
+                    </article>
+                </div>
+                <article class="services-category-card services-category-card--wide">
+                    <span class="services-category-icon" aria-hidden="true">🔗</span>
+                    <h3>Is bring-your-own API key possible?</h3>
+                    <p>Yes, on the Free plan. You connect your own AI provider key, and your requests are then governed directly by that provider's own terms - Clickt does not store or transmit your credentials beyond what's needed to process each request.</p>
+                </article>
+            </section>
+
+            <section data-observe class="services-panel services-form-panel" aria-label="Incident response">
+                <h2>What happens during an incident?</h2>
+                <p class="services-lead">If a breach affecting your personal data occurs, we notify affected users - and any regulator required by law - without undue delay. Nothing changes to your workspace without you knowing about it first.</p>
+                <p class="services-pricing-note">This page is a summary for quick reference. The full legal detail - data sharing, retention, international transfers, your rights, and how to reach us - lives in the <a href="privacy.html">Privacy Statement</a>.</p>
+            </section>
+
+            <section data-observe class="services-cta-band" aria-label="Procurement questions">
+                <div>
+                    <h2>Reviewing Clickt for your organization?</h2>
+                    <p>Send us your security questionnaire or compliance checklist directly - we'll answer what we can and tell you plainly where we're not there yet.</p>
+                </div>
+                <a href="contact.html" class="btn">Contact Us</a>
+            </section>
+        </main>
+    </div>
+
+    <div class="container footer-shell">
+        <footer>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Write Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label">General Inquiry</span>
+                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
+                    </div>
+                    <p class="footer-col-note">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Call Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label">Phone</span>
+                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Visit Us</h3>
+                    <div class="footer-col-group">
+                        <span class="footer-col-label">Office</span>
+                        <span class="footer-col-value">Click T Pvt. Ltd.</span>
+                        <span class="footer-col-value">Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="footer-links-row" aria-label="Footer navigation">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="pricing.html">Plans</a>
+                <a href="playbook.html">Product Tour</a>
+                <a href="at-work.html">At Work</a>
+                <a href="support.html">Support Desk</a>
+                <a href="user-guide.html">User Guide</a>
+                <a href="privacy.html">Privacy Statement</a>
+                <a href="security.html">Security &amp; Trust</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <p class="footer-copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
+            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer">Download Clickt</a>
+        </footer>
+    </div>
+
+    <script src="i18n/en.js?v=20260825e"></script>
+    <script src="i18n/ne.js?v=20260825e"></script>
+    <script src="i18n.js?v=20260824i"></script>
+    <script src="reveal.js?v=20260824h"></script>
+
+    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false">👋</button>
+    <div class="founder-popover" id="founder-popover" hidden>
+        <p data-i18n-html="index.founder.message">Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T and we also build custom software for different organizations as well. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.</p>
+        <div class="founder-links">
+            <a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/AaryanJha1" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var btn = document.getElementById('founder-btn');
+            var pop = document.getElementById('founder-popover');
+            btn.addEventListener('click', function () {
+                var open = pop.hidden;
+                pop.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !pop.contains(e.target)) {
+                    pop.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            function closeNavDropdown(nd) {
+                nd.classList.remove('is-open');
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
+                var trigger = nd.querySelector('.nav-dropdown-trigger');
+                trigger.addEventListener('click', function () {
+                    var willOpen = !nd.classList.contains('is-open');
+                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+                    if (willOpen) {
+                        nd.classList.add('is-open');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
+                    if (!nd.contains(e.target)) closeNavDropdown(nd);
+                });
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
+            });
+        }());
+    </script>
+</body>
+</html>

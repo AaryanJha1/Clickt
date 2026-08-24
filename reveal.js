@@ -17,6 +17,10 @@
         return;
     }
 
+    // threshold is a fraction of the *target's own* area, so a section taller
+    // than ~4x the viewport (e.g. a long card grid) can scroll past without
+    // ever reaching 0.24 and would stay invisible forever. A low threshold
+    // fires as soon as any sliver enters view, regardless of target height.
     var observer = new IntersectionObserver(
         function (entries, io) {
             entries.forEach(function (entry) {
@@ -26,8 +30,8 @@
             });
         },
         {
-            threshold: 0.24,
-            rootMargin: "0px 0px -12% 0px",
+            threshold: 0.01,
+            rootMargin: "0px 0px -8% 0px",
         }
     );
 

@@ -1,0 +1,124 @@
+{
+  "version": "20260826a",
+  "brand": {
+    "name": "Clickt",
+    "href": "index.html",
+    "logo": "IOS Promotion/click_logo.webp"
+  },
+  "appStoreUrl": "https://apps.apple.com/us/app/clickt/id6759891499",
+  "assets": {
+    "i18nEnglish": "i18n/en.js?v=20260825e",
+    "i18nNepali": "i18n/ne.js?v=20260825e",
+    "i18nCore": "i18n.js?v=20260824e"
+  },
+  "header": {
+    "product": [
+      { "id": "teams", "href": "teams.html", "key": "siteShell.product.teams", "en": "Teams" },
+      { "id": "checklist", "href": "checklist.html", "key": "siteShell.product.checklist", "en": "Checklist" },
+      { "id": "builder", "href": "builder.html", "key": "siteShell.product.builder", "en": "Builder" },
+      { "id": "presentation", "href": "presentation.html", "key": "siteShell.product.presentation", "en": "Presentation" },
+      { "id": "clicktai", "href": "clicktai.html", "key": "siteShell.product.clicktai", "en": "ClicktAI" },
+      { "id": "plans", "href": "pricing.html", "key": "siteShell.product.plans", "en": "Plans" }
+    ],
+    "direct": [
+      { "id": "solutions", "href": "solutions.html", "key": "siteShell.header.solutions", "en": "Solutions" },
+      { "id": "services", "href": "services.html", "key": "siteShell.header.services", "en": "Services" },
+      { "id": "about", "href": "about.html", "key": "siteShell.header.about", "en": "About Click T" },
+      { "id": "contact", "href": "contact.html", "key": "siteShell.header.contact", "en": "Contact" }
+    ]
+  },
+  "footer": {
+    "groups": [
+      {
+        "id": "product",
+        "key": "siteShell.footer.groups.product",
+        "en": "Product",
+        "links": [
+          { "href": "index.html", "key": "siteShell.product.overview", "en": "Overview" },
+          { "href": "teams.html", "key": "siteShell.product.teams", "en": "Teams" },
+          { "href": "checklist.html", "key": "siteShell.product.checklist", "en": "Checklist" },
+          { "href": "builder.html", "key": "siteShell.product.builder", "en": "Builder" },
+          { "href": "presentation.html", "key": "siteShell.product.presentation", "en": "Presentation" },
+          { "href": "clicktai.html", "key": "siteShell.product.clicktai", "en": "ClicktAI" },
+          { "href": "pricing.html", "key": "siteShell.product.plans", "en": "Plans" }
+        ]
+      },
+      {
+        "id": "solutions",
+        "key": "siteShell.footer.groups.solutions",
+        "en": "Solutions",
+        "links": [
+          { "href": "solutions.html", "key": "siteShell.header.solutions", "en": "Solutions" },
+          { "href": "solutions-schools.html", "key": "siteShell.industry.schools", "en": "Schools" },
+          { "href": "solutions-healthcare.html", "key": "siteShell.industry.healthcare", "en": "Healthcare" },
+          { "href": "solutions-banks.html", "key": "siteShell.industry.banks", "en": "Banks" },
+          { "href": "solutions-ngos.html", "key": "siteShell.industry.ngos", "en": "NGOs" },
+          { "href": "solutions-hotels.html", "key": "siteShell.industry.hotels", "en": "Hotels" },
+          { "href": "solutions-restaurants.html", "key": "siteShell.industry.restaurants", "en": "Restaurants" },
+          { "href": "solutions-construction.html", "key": "siteShell.industry.construction", "en": "Construction & Real Estate" }
+        ]
+      },
+      {
+        "id": "clickt-company",
+        "key": "siteShell.footer.groups.clickT",
+        "en": "Click T",
+        "links": [
+          { "href": "services.html", "key": "siteShell.header.services", "en": "Services" },
+          { "href": "about.html", "key": "siteShell.header.about", "en": "About Click T" },
+          { "href": "contact.html", "key": "siteShell.header.contact", "en": "Contact" }
+        ]
+      },
+      {
+        "id": "help",
+        "key": "siteShell.footer.groups.help",
+        "en": "Help",
+        "links": [
+          { "href": "support.html", "key": "siteShell.footer.support", "en": "Support" },
+          { "href": "user-guide.html", "key": "siteShell.footer.userGuide", "en": "User Guide" }
+        ]
+      },
+      {
+        "id": "legal",
+        "key": "siteShell.footer.groups.legal",
+        "en": "Legal",
+        "links": [
+          { "href": "privacy.html", "key": "siteShell.footer.privacy", "en": "Privacy" },
+          { "href": "security.html", "key": "siteShell.footer.security", "en": "Security & Trust" },
+          { "href": "terms.html", "key": "siteShell.footer.terms", "en": "Terms of Service" }
+        ]
+      }
+    ],
+    "email": "clickt@click-t.com",
+    "phones": ["+1 765 3018290", "+977 9801120784"],
+    "phoneLinks": ["+17653018290", "+9779801120784"],
+    "officeName": "Click T Pvt. Ltd.",
+    "officeLocation": "Kathmandu, Nepal"
+  },
+  "marketingPages": [
+    "index.html",
+    "teams.html",
+    "checklist.html",
+    "builder.html",
+    "presentation.html",
+    "clicktai.html",
+    "pricing.html",
+    "solutions.html",
+    "solutions-schools.html",
+    "solutions-healthcare.html",
+    "solutions-banks.html",
+    "solutions-ngos.html",
+    "solutions-hotels.html",
+    "solutions-restaurants.html",
+    "solutions-construction.html",
+    "services.html",
+    "about.html",
+    "contact.html",
+    "support.html",
+    "user-guide.html",
+    "playbook.html",
+    "google-play-store.html",
+    "privacy.html",
+    "security.html",
+    "terms.html"
+  ]
+}

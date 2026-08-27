@@ -3,72 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | Clickt</title>
-    <meta name="description" content="Get help with Clickt on iPhone, iPad, and Mac. Quick fixes for common issues plus direct support contact.">
+    <title>About Click T | Software Built From Kathmandu</title>
+    <meta name="description" content="Click T builds Clickt and custom software that makes organizational work clearer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="styles.css?v=20260826b">
 </head>
-<body class="support-page">
-    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
-        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
-        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
-        <div class="splash-percent" id="splash-percent">0%</div>
-    </div>
-    <noscript><style>#splash-screen{display:none!important}</style></noscript>
-    <script>
-        (function () {
-            var KEY = 'clickt-splash-shown';
-            var splash = document.getElementById('splash-screen');
-            if (!splash) return;
-
-            var shown;
-            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
-            if (shown) {
-                splash.parentNode.removeChild(splash);
-                return;
-            }
-
-            document.documentElement.classList.add('splash-lock');
-
-            var percentEl = document.getElementById('splash-percent');
-            var barEl = document.getElementById('splash-progress-bar');
-
-            function finish() {
-                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
-                document.documentElement.classList.remove('splash-lock');
-                splash.classList.add('is-hidden');
-                window.setTimeout(function () {
-                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
-                }, 550);
-            }
-
-            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduced) {
-                finish();
-                return;
-            }
-
-            var duration = 1300;
-            var start = null;
-
-            function tick(ts) {
-                if (start === null) start = ts;
-                var elapsed = ts - start;
-                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
-                if (percentEl) percentEl.textContent = pct + '%';
-                if (barEl) barEl.style.width = pct + '%';
-                if (pct < 100) {
-                    window.requestAnimationFrame(tick);
-                } else {
-                    window.setTimeout(finish, 200);
-                }
-            }
-
-            window.requestAnimationFrame(tick);
-        }());
-    </script>
+<body class="about-page">
     <div class="site-dots" aria-hidden="true">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -83,7 +25,6 @@
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span>
     </div>
-
     <!-- SITE-SHELL:UTILITY:START -->
 <!-- Shared platform and language utility strip. Rendered by build-shell.js. -->
 <div class="platform-strip shared-platform-strip" data-site-shell-utility aria-label="Clickt platform and language options" data-i18n-attr="aria-label:siteShell.utility.ariaLabel">
@@ -94,7 +35,7 @@
     </div>
 </div>
 <!-- SITE-SHELL:UTILITY:END -->
-<div class="container">
+    <div class="container">
         <!-- SITE-SHELL:HEADER:START -->
 <!-- Shared global header. Rendered by build-shell.js. -->
 <header class="page-header shared-site-header" data-site-shell-header>
@@ -121,7 +62,7 @@
         </div>
         <a href="solutions.html" data-i18n="siteShell.header.solutions" class="shared-site-header-link">Solutions</a>
         <a href="services.html" data-i18n="siteShell.header.services" class="shared-site-header-link">Services</a>
-        <a href="about.html" data-i18n="siteShell.header.about" class="shared-site-header-link">About Click T</a>
+        <a href="about.html" data-i18n="siteShell.header.about" class="shared-site-header-link is-current" aria-current="page">About Click T</a>
         <a href="contact.html" data-i18n="siteShell.header.contact" class="shared-site-header-link">Contact</a>
     </nav>
     <details class="header-dropdown shared-site-mobile-nav" data-site-shell-mobile-nav>
@@ -137,76 +78,20 @@
             <div class="header-dropdown-divider" role="separator"></div>
             <a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a>
             <a href="services.html" data-i18n="siteShell.header.services">Services</a>
-            <a href="about.html" data-i18n="siteShell.header.about">About Click T</a>
+            <a href="about.html" data-i18n="siteShell.header.about" class="is-current" aria-current="page">About Click T</a>
             <a href="contact.html" data-i18n="siteShell.header.contact">Contact</a>
         </nav>
     </details>
 </header>
 <!-- SITE-SHELL:HEADER:END -->
-
-        <main class="support-main">
-            <section data-observe class="support-hero">
-                <p class="support-kicker" data-i18n="support.hero.kicker">Support</p>
-                <h2 data-i18n="support.hero.heading">Get unstuck quickly</h2>
-                <p class="support-subtitle" data-i18n="support.hero.subtitle">Try the quick fixes below, then write to us if you still need help. We currently support Clickt on iPhone, iPad, and Mac.</p>
-            </section>
-
-            <section data-observe class="support-fast-help" aria-label="Common issues" data-i18n-attr="aria-label:support.commonIssues.ariaLabel">
-                <h3 data-i18n="support.commonIssues.heading">Common issues</h3>
-                <div class="support-issue-grid">
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.exportFailed.heading">Export failed</h4>
-                        <p data-i18n="support.exportFailed.body">Builder exports PNG, DOC, and PPT. Presentation exports HTML and PDF. Retry the format supported by the workspace you are using.</p>
-                        <a href="user-guide.html#troubleshoot" data-i18n="support.exportFailed.link">Open troubleshooting</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.notificationNotArriving.heading">Notification not arriving</h4>
-                        <p data-i18n="support.notificationNotArriving.body">Confirm device permissions and signed-in status, then check the notification guide.</p>
-                        <a href="user-guide.html#notifications" data-i18n="support.notificationNotArriving.link">Check notification guide</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.teamActionsUnavailable.heading">Team actions unavailable</h4>
-                        <p data-i18n="support.teamActionsUnavailable.body">Verify invite acceptance and team role permissions for assignment and decision actions.</p>
-                        <a href="user-guide.html#teams" data-i18n="support.teamActionsUnavailable.link">Review team permissions</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.moduleWalkthrough.heading">Need a module walkthrough</h4>
-                        <p data-i18n="support.moduleWalkthrough.body">Follow the quick-start path for Builder, Presentation, Teams, and Checklist in the User Guide.</p>
-                        <a href="user-guide.html#workflow" data-i18n="support.moduleWalkthrough.link">Go to quick start</a>
-                    </article>
-                </div>
-            </section>
-
-            <section data-observe class="support-contact-grid" aria-label="Contact support details" data-i18n-attr="aria-label:support.contactGrid.ariaLabel">
-                <article class="support-panel">
-                    <h3 data-i18n="support.beforeYouWrite.heading">Before you write to us</h3>
-                    <p data-i18n="support.beforeYouWrite.body">Including these details helps us resolve your issue faster.</p>
-                    <ul class="support-checklist">
-                        <li data-i18n="support.beforeYouWrite.item1">Device model and platform - for example, iPhone 15, iPad Pro, or MacBook Pro</li>
-                        <li data-i18n="support.beforeYouWrite.item2">Operating system version</li>
-                        <li data-i18n="support.beforeYouWrite.item3">Clickt app version</li>
-                        <li data-i18n="support.beforeYouWrite.item4">Clear issue summary and what you expected to happen</li>
-                        <li data-i18n="support.beforeYouWrite.item5">Screenshot or short screen recording if possible</li>
-                    </ul>
-                </article>
-
-                <article class="support-panel support-panel-highlight">
-                    <h3 data-i18n="support.contactSupport.heading">Contact Clickt Support</h3>
-                    <p data-i18n="support.contactSupport.body">Send your request and we will guide you through the next best step.</p>
-                    <div class="support-platforms" aria-label="Supported platforms" data-i18n-attr="aria-label:support.contactSupport.platformsAriaLabel">
-                        <span data-i18n="support.contactSupport.platformIos">iOS</span>
-                        <span data-i18n="support.contactSupport.platformIpados">iPadOS</span>
-                        <span data-i18n="support.contactSupport.platformMacos">macOS</span>
-                    </div>
-                    <p class="support-response" data-i18n="support.contactSupport.response">Typical response: within 1–2 business days.</p>
-                    <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn" data-i18n="support.contactSupport.cta">Write to Support</a>
-                </article>
-            </section>
+        <main>
+            <section class="about-hero" data-observe><p class="context-kicker" data-i18n="about.hero.kicker">About Click T</p><h1 data-i18n="about.hero.title">We build software that makes organizational work clearer.</h1><p data-i18n="about.hero.lead">Click T Pvt. Ltd. is a Kathmandu-based software company. We make Clickt, and we build thoughtful custom software for organizations that need better tools around the way they already work.</p></section>
+            <section class="about-story" data-observe><div><p class="context-kicker" data-i18n="about.story.oneKicker">Why Clickt exists</p><h2 data-i18n="about.story.oneTitle">Good work should not disappear into busywork.</h2><p data-i18n="about.story.oneBody">Clickt brings tasks, repeatable processes, data, and presentations into one connected workspace. The aim is simple: make it easier to turn a request into work people can understand, review, and move forward.</p></div><div><p class="context-kicker" data-i18n="about.story.twoKicker">Why Click T builds custom software</p><h2 data-i18n="about.story.twoTitle">Not every organization needs the same tool.</h2><p data-i18n="about.story.twoBody">Many teams already have systems they depend on. Click T helps them fill the missing layer—with internal tools, mobile apps, dashboards, integrations, and AI workflows designed around real operations.</p><a href="services.html" class="text-link"><span data-i18n="about.story.twoLink">Explore custom software</span> <span aria-hidden="true">→</span></a></div></section>
+            <section class="about-founder" data-observe><div class="light-section-dots" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><img class="about-founder-mark" src="IOS Promotion/Clickt Stamp.PNG" alt="Click T Pvt. Ltd. official stamp" loading="lazy" decoding="async"><div><p class="context-kicker" data-i18n="about.founder.kicker">Founder note</p><h2 data-i18n="about.founder.title">Built thoughtfully from Kathmandu, for organizations anywhere.</h2><p data-i18n="about.founder.body">Click T is led by Aaryan Jha. The company combines product thinking with practical software engineering: understand the work first, make the next step clear, and build systems people can actually use.</p><div class="about-founder-links"><a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/AaryanJha1" target="_blank" rel="noopener">GitHub</a></div></div></section>
+            <section class="about-principles" data-observe><p class="context-kicker" data-i18n="about.principles.kicker">How we think</p><h2 data-i18n="about.principles.title">Principles that shape the work.</h2><div><article><span>01</span><h3 data-i18n="about.principles.oneTitle">AI proposes; people approve.</h3><p data-i18n="about.principles.oneBody">Useful assistance should leave decisions visible and reviewable.</p></article><article><span>02</span><h3 data-i18n="about.principles.twoTitle">Build around existing systems first.</h3><p data-i18n="about.principles.twoBody">The right answer is often an extension or integration, not a replacement.</p></article><article><span>03</span><h3 data-i18n="about.principles.threeTitle">Prefer clarity over busywork.</h3><p data-i18n="about.principles.threeBody">Software should make responsibility, status, and next steps easier to understand.</p></article><article><span>04</span><h3 data-i18n="about.principles.fourTitle">Make the work durable.</h3><p data-i18n="about.principles.fourBody">We value considered engineering, understandable workflows, and improvements that last.</p></article></div></section>
+            <section class="about-paths" data-observe><div><p class="context-kicker" data-i18n="about.paths.kicker">Start where you are</p><h2 data-i18n="about.paths.title">Explore the product or discuss the work you need built.</h2></div><p><a href="index.html" class="btn" data-i18n="about.paths.ctaExplore">Explore Clickt</a><a href="contact.html" class="btn btn-outline" data-i18n="about.paths.ctaBrief">Send a project brief</a></p></section>
         </main>
-
     </div>
-
-
     <!-- SITE-SHELL:FOOTER:START -->
 <!-- Shared global footer. Rendered by build-shell.js. -->
 <div class="container footer-shell shared-footer-shell" data-site-shell-footer>
@@ -241,14 +126,14 @@
         <h2 id="site-shell-footer-clickt-company" data-i18n="siteShell.footer.groups.clickT">Click T</h2>
         <ul>
         <li><a href="services.html" data-i18n="siteShell.header.services">Services</a></li>
-        <li><a href="about.html" data-i18n="siteShell.header.about">About Click T</a></li>
+        <li><a href="about.html" data-i18n="siteShell.header.about" class="is-current" aria-current="page">About Click T</a></li>
         <li><a href="contact.html" data-i18n="siteShell.header.contact">Contact</a></li>
         </ul>
     </section>
     <section class="shared-footer-group shared-footer-group--help" aria-labelledby="site-shell-footer-help">
         <h2 id="site-shell-footer-help" data-i18n="siteShell.footer.groups.help">Help</h2>
         <ul>
-        <li><a href="support.html" data-i18n="siteShell.footer.support" class="is-current" aria-current="page">Support</a></li>
+        <li><a href="support.html" data-i18n="siteShell.footer.support">Support</a></li>
         <li><a href="user-guide.html" data-i18n="siteShell.footer.userGuide">User Guide</a></li>
         </ul>
     </section>
@@ -294,74 +179,12 @@
     </footer>
 </div>
 <!-- SITE-SHELL:FOOTER:END -->
-
     <script src="i18n/en.js?v=20260825e"></script>
     <script src="i18n/ne.js?v=20260825e"></script>
     <script src="site-shell/shell-i18n.js?v=20260826a"></script>
     <script src="i18n.js?v=20260824e"></script>
+    <script src="analytics.js?v=20260826a"></script>
     <script src="reveal.js?v=20260824h"></script>
-    <a
-        href="https://apps.apple.com/us/app/clickt/id6759891499"
-        class="mobile-download-cta"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Download Clickt on the App Store"
-        data-i18n-attr="aria-label:index.finalCta.appStoreAriaLabel"
-    >
-        <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
-    </a>
-
-    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
-    <div class="founder-popover" id="founder-popover" hidden>
-        <p data-i18n-html="index.founder.message">Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T and we also build custom software for different organizations as well. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.</p>
-        <div class="founder-links">
-            <a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://github.com/AaryanJha1" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-    </div>
-    <script>
-        (function () {
-            var btn = document.getElementById('founder-btn');
-            var pop = document.getElementById('founder-popover');
-            btn.addEventListener('click', function () {
-                var open = pop.hidden;
-                pop.hidden = !open;
-                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            });
-            document.addEventListener('click', function (e) {
-                if (!btn.contains(e.target) && !pop.contains(e.target)) {
-                    pop.hidden = true;
-                    btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            function closeNavDropdown(nd) {
-                nd.classList.remove('is-open');
-                var trigger = nd.querySelector('.nav-dropdown-trigger');
-                if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            }
-            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
-                var trigger = nd.querySelector('.nav-dropdown-trigger');
-                trigger.addEventListener('click', function () {
-                    var willOpen = !nd.classList.contains('is-open');
-                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
-                    if (willOpen) {
-                        nd.classList.add('is-open');
-                        trigger.setAttribute('aria-expanded', 'true');
-                    }
-                });
-            });
-            document.addEventListener('click', function (e) {
-                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
-                    if (!nd.contains(e.target)) closeNavDropdown(nd);
-                });
-            });
-            document.addEventListener('keydown', function (e) {
-                if (e.key !== 'Escape') return;
-                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
-            });
-        }());
-    </script>
     <script src="site-shell/shell-runtime.js?v=20260826a"></script>
 </body>
 </html>

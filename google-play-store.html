@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260825d">
+    <link rel="stylesheet" href="styles.css?v=20260826b">
 </head>
 <body class="google-play-page">
     <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
@@ -85,112 +85,122 @@
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span>
     </div>
-    <div class="platform-strip" aria-label="Apple and Android platforms">
-        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    <!-- SITE-SHELL:UTILITY:START -->
+<!-- Shared platform and language utility strip. Rendered by build-shell.js. -->
+<div class="platform-strip shared-platform-strip" data-site-shell-utility aria-label="Clickt platform and language options" data-i18n-attr="aria-label:siteShell.utility.ariaLabel">
+    <span class="shared-platform-copy" data-i18n="siteShell.utility.platform">Apple · Android</span>
+    <div class="lang-toggle shared-platform-language" role="group" aria-label="Choose language" data-i18n-attr="aria-label:siteShell.utility.languageLabel">
+        <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" data-i18n="siteShell.utility.english">EN</button>
+        <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="siteShell.utility.nepali">ने</button>
     </div>
-
-    <div class="container">
-        <header class="page-header">
-            <a href="index.html" class="brand">
-                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
-                Clickt
+</div>
+<!-- SITE-SHELL:UTILITY:END -->
+<div class="container">
+        <!-- SITE-SHELL:HEADER:START -->
+<!-- Shared global header. Rendered by build-shell.js. -->
+<header class="page-header shared-site-header" data-site-shell-header>
+    <a href="index.html" class="brand">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo" decoding="async" data-i18n-attr="alt:siteShell.brand.logoAlt">
+        Clickt
+    </a>
+    <nav class="page-header-nav shared-site-header-nav" aria-label="Site navigation" data-i18n-attr="aria-label:siteShell.header.navigation">
+        <div class="nav-dropdown shared-product-dropdown" data-site-shell-dropdown>
+            <a href="index.html" class="nav-dropdown-trigger">
+                <span data-i18n="siteShell.header.product">Product</span>
+                <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span>
             </a>
-            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                <div class="nav-dropdown">
-                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
-                    <div class="nav-dropdown-menu">
-                        <div class="nav-dropdown-panel">
-                            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                            <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                            <a href="support.html" data-i18n="common.nav.support">Support</a>
-                            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
-                        </div>
-                    </div>
+            <div class="nav-dropdown-menu" id="site-shell-product-menu" role="menu">
+                <div class="nav-dropdown-panel site-nav-dropdown-panel">
+                    <a href="teams.html" data-i18n="siteShell.product.teams" role="menuitem">Teams</a>
+                    <a href="checklist.html" data-i18n="siteShell.product.checklist" role="menuitem">Checklist</a>
+                    <a href="builder.html" data-i18n="siteShell.product.builder" role="menuitem">Builder</a>
+                    <a href="presentation.html" data-i18n="siteShell.product.presentation" role="menuitem">Presentation</a>
+                    <a href="clicktai.html" data-i18n="siteShell.product.clicktai" role="menuitem">ClicktAI</a>
+                    <a href="pricing.html" data-i18n="siteShell.product.plans" role="menuitem">Plans</a>
                 </div>
-                <a href="services.html" data-i18n="common.nav.services">Services</a>
-                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
-                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
-                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
-                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
-                </div>
-            </nav>
-            <details class="header-dropdown">
-                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
-                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                    <a href="services.html" data-i18n="common.nav.services">Services</a>
-                    <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
-                    <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
-                    <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                    <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                    <a href="support.html" data-i18n="common.nav.support">Support</a>
-                    <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
-                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
-                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
-                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
-                    </div>
-                </nav>
-            </details>
-
-        </header>
+            </div>
+        </div>
+        <a href="solutions.html" data-i18n="siteShell.header.solutions" class="shared-site-header-link">Solutions</a>
+        <a href="services.html" data-i18n="siteShell.header.services" class="shared-site-header-link">Services</a>
+        <a href="about.html" data-i18n="siteShell.header.about" class="shared-site-header-link">About Click T</a>
+        <a href="contact.html" data-i18n="siteShell.header.contact" class="shared-site-header-link">Contact</a>
+    </nav>
+    <details class="header-dropdown shared-site-mobile-nav" data-site-shell-mobile-nav>
+        <summary aria-label="Open site navigation menu" data-i18n-attr="aria-label:siteShell.header.openMenu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+        <nav class="header-dropdown-menu" aria-label="Site navigation" data-i18n-attr="aria-label:siteShell.header.navigation">
+            <a class="header-dropdown-group-label header-dropdown-group-link" href="index.html" data-i18n="siteShell.header.product">Product</a>
+            <a href="teams.html" data-i18n="siteShell.product.teams">Teams</a>
+            <a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a>
+            <a href="builder.html" data-i18n="siteShell.product.builder">Builder</a>
+            <a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a>
+            <a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a>
+            <a href="pricing.html" data-i18n="siteShell.product.plans">Plans</a>
+            <div class="header-dropdown-divider" role="separator"></div>
+            <a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a>
+            <a href="services.html" data-i18n="siteShell.header.services">Services</a>
+            <a href="about.html" data-i18n="siteShell.header.about">About Click T</a>
+            <a href="contact.html" data-i18n="siteShell.header.contact">Contact</a>
+        </nav>
+    </details>
+</header>
+<!-- SITE-SHELL:HEADER:END -->
 
         <main>
             <section data-observe class="play-hero">
-                <span class="context-kicker">Google Play Store</span>
-                <h1>Android for Clickt - coming soon</h1>
-                <p>Explore the Android version of Clickt before its Google Play release. The application is not yet available to download.</p>
+                <span class="context-kicker" data-i18n="googlePlay.hero.kicker">Google Play Store</span>
+                <h1 data-i18n="googlePlay.hero.title">Android for Clickt - coming soon</h1>
+                <p data-i18n="googlePlay.hero.body">Explore the Android version of Clickt before its Google Play release. The application is not yet available to download.</p>
                 <div class="play-hero-actions">
-                    <a class="google-play-badge google-play-badge--coming" href="#android-preview" aria-label="View the Android preview; Clickt is not yet available on Google Play">
+                    <a class="google-play-badge google-play-badge--coming" href="#android-preview" aria-label="View the Android preview; Clickt is not yet available on Google Play" data-i18n-attr="aria-label:googlePlay.hero.badgeAriaLabel">
                         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>
-                        <span><small>Google Play Store</small><strong>Coming soon</strong></span>
+                        <span><small data-i18n="googlePlay.hero.badgeLabel">Google Play Store</small><strong data-i18n="googlePlay.hero.badgeStatus">Coming soon</strong></span>
                     </a>
-                    <a class="btn btn-outline" href="#android-preview">Explore Android preview</a>
+                    <a class="btn btn-outline" href="#android-preview" data-i18n="googlePlay.hero.ctaExplore">Explore Android preview</a>
                 </div>
-                <p class="play-disclosure" role="status"><strong>Not yet available for download on Google Play.</strong> This page is a product preview.</p>
+                <p class="play-disclosure" role="status"><strong data-i18n="googlePlay.hero.disclosureStrong">Not yet available for download on Google Play.</strong> <span data-i18n="googlePlay.hero.disclosureRest">This page is a product preview.</span></p>
             </section>
 
             <section data-observe class="play-proof" aria-label="What the Android preview shows">
                 <div>
-                    <span class="context-kicker">Product preview</span>
-                    <h2>One connected workflow, shown in progress.</h2>
+                    <span class="context-kicker" data-i18n="googlePlay.proof.kicker">Product preview</span>
+                    <h2 data-i18n="googlePlay.proof.title">One connected workflow, shown in progress.</h2>
                 </div>
-                <p>The preview covers the Clickt workspaces being prepared for Android: Homepage, Teams, Checklist, Builder, Presentation, Calendar, and Copilots. Features and visual details may change before release.</p>
+                <p data-i18n="googlePlay.proof.body">The preview covers the Clickt workspaces being prepared for Android: Homepage, Teams, Checklist, Builder, Presentation, Calendar, and Copilots. Features and visual details may change before release.</p>
             </section>
 
             <section data-observe class="android-preview" id="android-preview" aria-labelledby="android-preview-title">
                 <div class="android-preview-heading">
-                    <span class="context-kicker">Android screenshot guide</span>
-                    <h2 id="android-preview-title">Explore Android for Clickt.</h2>
+                    <span class="context-kicker" data-i18n="googlePlay.guide.kicker">Android screenshot guide</span>
+                    <h2 id="android-preview-title" data-i18n="googlePlay.guide.title">Explore Android for Clickt.</h2>
                 </div>
                 <div class="android-preview-grid">
-                    <button class="android-preview-card" type="button" data-gallery="home" aria-haspopup="dialog" aria-label="Open the Homepage screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="home" aria-haspopup="dialog" aria-label="Open the Homepage screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.home.ariaLabel">
                         <img src="Android/Andriod_Homepage.png" alt="Clickt for Android - modules home screen" loading="lazy" decoding="async">
-                        <div><span>01 · Homepage</span><h3>Modules home</h3><p>Sign in once and land on every workspace - Teams, Checklist, Builder, Presentation, and Calendar.</p></div>
+                        <div><span>01 · Homepage</span><h3 data-i18n="googlePlay.cards.home.title">Modules home</h3><p data-i18n="googlePlay.cards.home.body">Sign in once and land on every workspace - Teams, Checklist, Builder, Presentation, and Calendar.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="teams" aria-haspopup="dialog" aria-label="Open the Teams screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="teams" aria-haspopup="dialog" aria-label="Open the Teams screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.teams.ariaLabel">
                         <img src="Android/Android_Team1.png" alt="Clickt for Android - Teams workspace" loading="lazy" decoding="async">
-                        <div><span>02 · Teams</span><h3>Assigned work</h3><p>Task lists, ownership, and progress across every Teams state.</p></div>
+                        <div><span>02 · Teams</span><h3 data-i18n="googlePlay.cards.teams.title">Assigned work</h3><p data-i18n="googlePlay.cards.teams.body">Task lists, ownership, and progress across every Teams state.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="checklist" aria-haspopup="dialog" aria-label="Open the Checklist screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="checklist" aria-haspopup="dialog" aria-label="Open the Checklist screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.checklist.ariaLabel">
                         <img src="Android/Android_Checklist1.png" alt="Clickt for Android - Checklist workspace" loading="lazy" decoding="async">
-                        <div><span>03 · Checklist</span><h3>Personal and team work</h3><p>Personal, team-linked, and completed checklist states in one place.</p></div>
+                        <div><span>03 · Checklist</span><h3 data-i18n="googlePlay.cards.checklist.title">Personal and team work</h3><p data-i18n="googlePlay.cards.checklist.body">Personal, team-linked, and completed checklist states in one place.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="builder" aria-haspopup="dialog" aria-label="Open the Builder screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="builder" aria-haspopup="dialog" aria-label="Open the Builder screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.builder.ariaLabel">
                         <img src="Android/Android_Builder1.png" alt="Clickt for Android - Builder workspace" loading="lazy" decoding="async">
-                        <div><span>04 · Builder</span><h3>Data to insight</h3><p>Import, analysis, and finished canvas views.</p></div>
+                        <div><span>04 · Builder</span><h3 data-i18n="googlePlay.cards.builder.title">Data to insight</h3><p data-i18n="googlePlay.cards.builder.body">Import, analysis, and finished canvas views.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="presentation" aria-haspopup="dialog" aria-label="Open the Presentation screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="presentation" aria-haspopup="dialog" aria-label="Open the Presentation screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.presentation.ariaLabel">
                         <img src="Android/Android_Presentation1.png" alt="Clickt for Android - Presentation workspace" loading="lazy" decoding="async">
-                        <div><span>05 · Presentation</span><h3>Draft, preview, export</h3><p>The editor, live preview, and export-ready deck.</p></div>
+                        <div><span>05 · Presentation</span><h3 data-i18n="googlePlay.cards.presentation.title">Draft, preview, export</h3><p data-i18n="googlePlay.cards.presentation.body">The editor, live preview, and export-ready deck.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="calendar" aria-haspopup="dialog" aria-label="Open the Calendar screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="calendar" aria-haspopup="dialog" aria-label="Open the Calendar screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.calendar.ariaLabel">
                         <img src="Android/Android_Calendar.png" alt="Clickt for Android - Calendar view" loading="lazy" decoding="async">
-                        <div><span>06 · Calendar</span><h3>Everything in one place</h3><p>Every module's deadlines synced into one calendar automatically.</p></div>
+                        <div><span>06 · Calendar</span><h3 data-i18n="googlePlay.cards.calendar.title">Everything in one place</h3><p data-i18n="googlePlay.cards.calendar.body">Every module's deadlines synced into one calendar automatically.</p></div>
                     </button>
-                    <button class="android-preview-card" type="button" data-gallery="copilots" aria-haspopup="dialog" aria-label="Open the Copilots screenshot guide">
+                    <button class="android-preview-card" type="button" data-gallery="copilots" aria-haspopup="dialog" aria-label="Open the Copilots screenshot guide" data-i18n-attr="aria-label:googlePlay.cards.copilots.ariaLabel">
                         <img src="Android/Android_TeamCopilot.png" alt="Clickt for Android - ClicktAI Copilots" loading="lazy" decoding="async">
-                        <div><span>07 · Copilots</span><h3>Review before apply</h3><p>Every ClicktAI Copilot - Teams, Checklist, Builder, and Presentation.</p></div>
+                        <div><span>07 · Copilots</span><h3 data-i18n="googlePlay.cards.copilots.title">Review before apply</h3><p data-i18n="googlePlay.cards.copilots.body">Every ClicktAI Copilot - Teams, Checklist, Builder, and Presentation.</p></div>
                     </button>
                 </div>
             </section>
@@ -201,7 +211,7 @@
                 <div>
                     <h2 id="android-gallery-title">Android screenshot guide</h2>
                 </div>
-                <button class="android-gallery-close" type="button" aria-label="Close screenshot guide">Close</button>
+                <button class="android-gallery-close" type="button" aria-label="Close screenshot guide" data-i18n-attr="aria-label:googlePlay.modal.closeAriaLabel"><span data-i18n="googlePlay.modal.close">Close</span></button>
             </div>
             <div class="android-gallery-images" aria-live="polite"></div>
         </dialog>
@@ -209,79 +219,130 @@
     </div>
 
 
-    <div class="container footer-shell">
-
-        <footer>
-            <div class="footer-columns">
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.writeUs">Write Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
-                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
-                    </div>
-                    <p class="footer-col-note" data-i18n-html="common.footer.projectSentence">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+    <!-- SITE-SHELL:FOOTER:START -->
+<!-- Shared global footer. Rendered by build-shell.js. -->
+<div class="container footer-shell shared-footer-shell" data-site-shell-footer>
+    <footer class="shared-site-footer">
+        <nav class="shared-footer-groups" aria-label="Footer navigation" data-i18n-attr="aria-label:siteShell.footer.navigation">
+    <section class="shared-footer-group shared-footer-group--product" aria-labelledby="site-shell-footer-product">
+        <h2 id="site-shell-footer-product" data-i18n="siteShell.footer.groups.product">Product</h2>
+        <ul>
+        <li><a href="index.html" data-i18n="siteShell.product.overview">Overview</a></li>
+        <li><a href="teams.html" data-i18n="siteShell.product.teams">Teams</a></li>
+        <li><a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a></li>
+        <li><a href="builder.html" data-i18n="siteShell.product.builder">Builder</a></li>
+        <li><a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a></li>
+        <li><a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a></li>
+        <li><a href="pricing.html" data-i18n="siteShell.product.plans">Plans</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--solutions" aria-labelledby="site-shell-footer-solutions">
+        <h2 id="site-shell-footer-solutions" data-i18n="siteShell.footer.groups.solutions">Solutions</h2>
+        <ul>
+        <li><a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a></li>
+        <li><a href="solutions-schools.html" data-i18n="siteShell.industry.schools">Schools</a></li>
+        <li><a href="solutions-healthcare.html" data-i18n="siteShell.industry.healthcare">Healthcare</a></li>
+        <li><a href="solutions-banks.html" data-i18n="siteShell.industry.banks">Banks</a></li>
+        <li><a href="solutions-ngos.html" data-i18n="siteShell.industry.ngos">NGOs</a></li>
+        <li><a href="solutions-hotels.html" data-i18n="siteShell.industry.hotels">Hotels</a></li>
+        <li><a href="solutions-restaurants.html" data-i18n="siteShell.industry.restaurants">Restaurants</a></li>
+        <li><a href="solutions-construction.html" data-i18n="siteShell.industry.construction">Construction &amp; Real Estate</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--clickt-company" aria-labelledby="site-shell-footer-clickt-company">
+        <h2 id="site-shell-footer-clickt-company" data-i18n="siteShell.footer.groups.clickT">Click T</h2>
+        <ul>
+        <li><a href="services.html" data-i18n="siteShell.header.services">Services</a></li>
+        <li><a href="about.html" data-i18n="siteShell.header.about">About Click T</a></li>
+        <li><a href="contact.html" data-i18n="siteShell.header.contact">Contact</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--help" aria-labelledby="site-shell-footer-help">
+        <h2 id="site-shell-footer-help" data-i18n="siteShell.footer.groups.help">Help</h2>
+        <ul>
+        <li><a href="support.html" data-i18n="siteShell.footer.support">Support</a></li>
+        <li><a href="user-guide.html" data-i18n="siteShell.footer.userGuide">User Guide</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--legal" aria-labelledby="site-shell-footer-legal">
+        <h2 id="site-shell-footer-legal" data-i18n="siteShell.footer.groups.legal">Legal</h2>
+        <ul>
+        <li><a href="privacy.html" data-i18n="siteShell.footer.privacy">Privacy</a></li>
+        <li><a href="security.html" data-i18n="siteShell.footer.security">Security &amp; Trust</a></li>
+        <li><a href="terms.html" data-i18n="siteShell.footer.terms">Terms of Service</a></li>
+        </ul>
+    </section>
+        </nav>
+        <div class="footer-columns shared-footer-contact">
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.writeUs">Write Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.email">Email</span>
+                    <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
                 </div>
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.callUs">Call Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
-                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
-                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
-                        <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
-                        <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
-                    </div>
+                <p class="footer-col-note" data-i18n="siteShell.footer.projectNote">Have a project in mind? Send us a project brief.</p>
+            </div>
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.callUs">Call Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.phone">Phone</span>
+                    <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                    <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
                 </div>
             </div>
-            <nav class="footer-links-row" aria-label="Footer navigation">
-                <a href="index.html" data-i18n="common.footer.home">Home</a>
-                <a href="services.html" data-i18n="common.footer.services">Services</a>
-                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a>
-                <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a>
-                <a href="at-work.html" data-i18n="common.footer.demo">At Work</a>
-                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a>
-                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a>
-                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a>
-                <a href="security.html" data-i18n="common.footer.security">Security &amp; Trust</a>
-                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
-                <a href="contact.html" data-i18n="common.footer.contact">Contact</a>
-            </nav>
-            <p class="footer-copyright" data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
-            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
-        </footer>
-    </div>
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.visitUs">Visit Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.office">Office</span>
+                    <span class="footer-col-value" data-i18n="siteShell.footer.officeName">Click T Pvt. Ltd.</span>
+                    <span class="footer-col-value" data-i18n="siteShell.footer.officeLocation">Kathmandu, Nepal</span>
+                </div>
+            </div>
+        </div>
+        <div class="shared-footer-bottom">
+            <p class="footer-copyright" data-i18n="siteShell.footer.copyright">© 2026 Click T. Pvt. Ltd. All rights reserved.</p>
+            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="siteShell.footer.download">Download Clickt</a>
+        </div>
+    </footer>
+</div>
+<!-- SITE-SHELL:FOOTER:END -->
 
     <script src="i18n/en.js?v=20260825e"></script>
     <script src="i18n/ne.js?v=20260825e"></script>
+    <script src="site-shell/shell-i18n.js?v=20260826a"></script>
     <script src="i18n.js?v=20260824e"></script>
     <script src="reveal.js?v=20260824h"></script>
     <script>
         (() => {
             const base = 'Android/';
-            const galleries = {
-                home: { title: 'Homepage', images: [['Andriod_Homepage.png', 'Modules home']] },
-                teams: { title: 'Teams', images: [['Android_Team1.png', 'Teams overview'], ['Android_Team2.png', 'Team task state'], ['Android_Team3.png', 'Team work detail'], ['Android_Team4.png', 'Team invite flow']] },
-                checklist: { title: 'Checklist', images: [['Android_Checklist1.png', 'Checklist overview'], ['Android_Checklist2.png', 'Checklist completion state']] },
-                builder: { title: 'Builder', images: [['Android_Builder1.png', 'Builder import'], ['Android_Builder2.png', 'Builder analysis'], ['Android_Builder3.png', 'Builder canvas output']] },
-                presentation: { title: 'Presentation', images: [['Android_Presentation1.png', 'Presentation overview'], ['Android_Presentation2.png', 'Presentation editor'], ['Android_Presentation3.png', 'Presentation deck detail']] },
-                calendar: { title: 'Calendar', images: [['Android_Calendar.png', 'Calendar view']] },
-                copilots: { title: 'Copilots', images: [['Android_TeamCopilot.png', 'Teams Copilot'], ['Android_ChecklistCopilot.png', 'Checklist Copilot'], ['Android_BuilderCopilot.png', 'Builder Copilot'], ['Android_PresentationCopilot.png', 'Presentation Copilot'], ['Android_PresentationCopilot1.png', 'Presentation Copilot detail']] }
+            const fileGalleries = {
+                home: { title: 'Homepage', files: ['Andriod_Homepage.png'] },
+                teams: { title: 'Teams', files: ['Android_Team1.png', 'Android_Team2.png', 'Android_Team3.png', 'Android_Team4.png'] },
+                checklist: { title: 'Checklist', files: ['Android_Checklist1.png', 'Android_Checklist2.png'] },
+                builder: { title: 'Builder', files: ['Android_Builder1.png', 'Android_Builder2.png', 'Android_Builder3.png'] },
+                presentation: { title: 'Presentation', files: ['Android_Presentation1.png', 'Android_Presentation2.png', 'Android_Presentation3.png'] },
+                calendar: { title: 'Calendar', files: ['Android_Calendar.png'] },
+                copilots: { title: 'Copilots', files: ['Android_TeamCopilot.png', 'Android_ChecklistCopilot.png', 'Android_BuilderCopilot.png', 'Android_PresentationCopilot.png', 'Android_PresentationCopilot1.png'] }
             };
             const dialog = document.querySelector('.android-gallery-modal');
             const title = document.querySelector('#android-gallery-title');
             const images = document.querySelector('.android-gallery-images');
             const close = document.querySelector('.android-gallery-close');
             if (!dialog || !title || !images || !close) return;
+
+            function t(key, fallback) {
+                return (window.ClicktI18n && window.ClicktI18n.t) ? window.ClicktI18n.t(key) : fallback;
+            }
+
             document.querySelectorAll('[data-gallery]').forEach((card) => card.addEventListener('click', () => {
-                const gallery = galleries[card.dataset.gallery];
+                const key = card.dataset.gallery;
+                const gallery = fileGalleries[key];
                 if (!gallery) return;
-                title.textContent = `${gallery.title} - Android screenshot guide`;
-                images.replaceChildren(...gallery.images.map(([file, label]) => {
+                const captions = t(`googlePlay.modal.captions.${key}`, gallery.files.map(() => gallery.title));
+                const suffix = t('googlePlay.modal.titleSuffix', ' - Android screenshot guide');
+                title.textContent = `${gallery.title}${suffix}`;
+                images.replaceChildren(...gallery.files.map((file, index) => {
+                    const label = Array.isArray(captions) ? (captions[index] || gallery.title) : gallery.title;
                     const figure = document.createElement('figure');
                     const image = document.createElement('img');
                     const caption = document.createElement('figcaption');
@@ -361,5 +422,6 @@
             });
         }());
     </script>
+    <script src="site-shell/shell-runtime.js?v=20260826a"></script>
 </body>
 </html>

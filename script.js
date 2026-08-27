@@ -3,6 +3,8 @@
     initScrollReveal();
     initFeatureSlider(featureStacksController);
     initHeroConversation();
+    initOverviewPhoneStory();
+    initConnectedWork();
     initPersonaMatch();
     initDeviceExperience();
     initWorkflowCounters();
@@ -23,6 +25,98 @@ function initHomepageSectionOrder() {
     }
 }
 
+function initConnectedWork() {
+    const root = document.querySelector("[data-connected-work]");
+    if (!root) return;
+
+    const content = {
+        teams: { label: "Teams outcome", title: "Clear owners, deadlines, and live progress.", copy: "Everyone sees what they own and what needs attention next." },
+        checklist: { label: "Checklist outcome", title: "A ready-to-run process for the work that repeats.", copy: "Important steps stay visible and consistent every time." },
+        builder: { label: "Builder outcome", title: "A useful answer from the numbers your team already has.", copy: "Turn raw data into a clear chart and a decision-ready view." },
+        presentation: { label: "Presentation outcome", title: "A leadership update that connects work to the decision.", copy: "Bring progress, data, and next steps into one story people can act on." }
+    };
+    const title = root.querySelector("[data-connected-title]");
+    const copy = root.querySelector("[data-connected-copy]");
+    const label = root.querySelector(".connected-work-result-label");
+
+    root.querySelectorAll("[data-connected-module]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const module = button.dataset.connectedModule;
+            const detail = content[module];
+            if (!detail) return;
+            root.querySelectorAll("[data-connected-module]").forEach((node) => node.classList.toggle("is-active", node === button));
+            if (title) title.textContent = detail.title;
+            if (copy) copy.textContent = detail.copy;
+            if (label) label.textContent = detail.label;
+        });
+    });
+}
+
+function initOverviewPhoneStory() {
+    const root = document.querySelector("[data-overview-phone-story]");
+    if (!root) return;
+
+    const steps = [
+        { title: "Start with the request, not another blank screen.", copy: "Capture the work that needs to happen, then make the next step clear for the team.", outcome: "A shared starting point for the work ahead." },
+        { title: "Give every important task a clear owner.", copy: "Teams keeps membership, direct work, claimable tasks, decisions, and updates together in the workspace.", outcome: "People can see what they own and what still needs attention." },
+        { title: "Make recurring work easier to run well.", copy: "Turn the process into a Checklist with priorities, deadlines, recurring items, and progress that stays visible.", outcome: "Important steps are easier to repeat without losing the detail." },
+        { title: "Turn the data you have into a useful answer.", copy: "Builder helps organize a dataset, work through analysis, and prepare deliverables you can review or carry forward.", outcome: "The team gets a clearer view before making the decision." },
+        { title: "Share the work as a decision-ready story.", copy: "Presentation brings the update together in a deck you can edit, preview, and export when it is ready.", outcome: "Progress, context, and next steps are easier to communicate." }
+    ];
+    const title = root.querySelector("[data-overview-story-title]");
+    const copy = root.querySelector("[data-overview-story-copy]");
+    const outcome = root.querySelector("[data-overview-story-outcome] span");
+    const count = root.querySelector("[data-overview-story-count]");
+    const controls = Array.from(root.querySelectorAll("[data-overview-story-step]"));
+    const images = Array.from(root.querySelectorAll("[data-overview-story-image]"));
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let active = -1;
+
+    function setActive(index) {
+        const next = Math.max(0, Math.min(steps.length - 1, index));
+        if (next === active && title && title.textContent) return;
+        active = next;
+        const detail = steps[next];
+        if (title) title.textContent = detail.title;
+        if (copy) copy.textContent = detail.copy;
+        if (outcome) outcome.textContent = detail.outcome;
+        if (count) count.textContent = String(next + 1).padStart(2, "0") + " / " + String(steps.length).padStart(2, "0");
+        controls.forEach((control, i) => control.classList.toggle("is-active", i === next));
+        images.forEach((image, i) => image.classList.toggle("is-active", i === next));
+    }
+
+    controls.forEach((control, index) => {
+        const button = control.querySelector("button");
+        if (!button) return;
+        button.addEventListener("click", () => {
+            setActive(index);
+            if (window.matchMedia("(max-width: 760px)").matches) {
+                root.querySelector(".overview-phone-story-device")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+            }
+        });
+    });
+
+    if (reduced) {
+        setActive(steps.length - 1);
+        return;
+    }
+
+    let ticking = false;
+    function updateFromScroll() {
+        ticking = false;
+        if (window.matchMedia("(max-width: 760px)").matches) return;
+        const rect = root.getBoundingClientRect();
+        const available = Math.max(1, root.offsetHeight - window.innerHeight);
+        const progress = Math.max(0, Math.min(1, -rect.top / available));
+        setActive(Math.round(progress * (steps.length - 1)));
+    }
+    window.addEventListener("scroll", () => {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(updateFromScroll); }
+    }, { passive: true });
+    window.addEventListener("resize", updateFromScroll);
+    setActive(0);
+}
+
 function initGooglePlayPlaceholder() {
     const button = document.querySelector("[data-google-play-placeholder]");
     const message = document.getElementById("google-play-message");
@@ -41,20 +135,23 @@ function initHeroConversation() {
     const root = document.querySelector("[data-hero-conversation]");
     if (!root) return;
 
-    const steps = Array.from(root.querySelectorAll("[data-hero-chat-step]"));
+    const question = root.querySelector("[data-hero-chat-question]");
+    const questionText = question ? question.querySelector("p") : null;
     const typing = root.querySelector("[data-hero-chat-typing]");
+    const answer = root.querySelector("[data-hero-chat-answer]");
     const status = root.querySelector("[data-hero-chat-status]");
     const announcement = root.querySelector("[data-hero-chat-announcement]");
-    const userMessage = steps[0]?.querySelector("p");
     const proposalItems = Array.from(root.querySelectorAll("[data-hero-proposal-item]"));
-    const messagesEl = root.querySelector(".hero-chat-messages");
-    let fullUserMessage = userMessage?.textContent.trim() || "";
+    const messagesEl = root.querySelector("[data-hero-chat-messages]");
+    if (!question || !questionText || !answer) return;
+
+    let fullQuestionText = questionText.textContent.trim();
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let stage = 0;
+    // phase: 0 = typing the question, 1 = thinking (typing dots), 2 = answered
+    let phase = 0;
     let timer = 0;
-    let characterTimer = 0;
-    let proposalTimers = [];
-    let typedCharacters = 0;
+    let charTimer = 0;
+    let typedChars = 0;
     let started = false;
     let paused = false;
     let statusKey = "index.hero.status.ready";
@@ -62,45 +159,37 @@ function initHeroConversation() {
     const t = (key) => (window.ClicktI18n ? window.ClicktI18n.t(key) : key);
     const setStatus = (key) => {
         statusKey = key;
-        status.textContent = t(key);
+        if (status) status.textContent = t(key);
     };
     document.addEventListener("clickt:langchange", () => {
-        status.textContent = t(statusKey);
+        if (status) status.textContent = t(statusKey);
         if (announcement && announcementActive) announcement.textContent = t("index.hero.announcement");
-        fullUserMessage = t("index.hero.chatUserMessage");
-        if (userMessage) {
-            if (stage === 0 && started) {
-                typedCharacters = 0;
-                userMessage.textContent = "";
-            } else {
-                userMessage.textContent = fullUserMessage;
-                typedCharacters = fullUserMessage.length;
-            }
+        fullQuestionText = t("index.hero.chatUserMessage");
+        if (phase === 0 && started) {
+            typedChars = 0;
+            questionText.textContent = "";
+        } else {
+            questionText.textContent = fullQuestionText;
+            typedChars = fullQuestionText.length;
         }
     });
 
-    // Reserve the fully-expanded height up front so revealing each message
-    // fills already-allocated space instead of growing the card and pushing
-    // everything below the hero down the page.
+    // Reserve the fully-grown height up front so the reply filling in below
+    // the question uses already-allocated space instead of growing the card
+    // and pushing everything below the hero down the page as it animates in.
     const lockChatHeight = () => {
         if (!messagesEl) return;
         messagesEl.style.minHeight = "";
-        const stepHidden = steps.map((step) => step.hidden);
-        const proposalHidden = proposalItems.map((item) => item.hidden);
-        const typingHidden = typing ? typing.hidden : null;
-        const priorUserText = userMessage ? userMessage.textContent : null;
-
-        steps.forEach((step) => { step.hidden = false; });
-        proposalItems.forEach((item) => { item.hidden = false; });
-        if (typing) typing.hidden = true;
-        if (userMessage) userMessage.textContent = fullUserMessage;
-
+        const wasAnswerHidden = answer.hidden;
+        const wasQuestionRevealed = question.classList.contains("is-revealed");
+        const priorText = questionText.textContent;
+        answer.hidden = false;
+        questionText.textContent = fullQuestionText;
+        question.classList.add("is-revealed");
         messagesEl.style.minHeight = messagesEl.scrollHeight + "px";
-
-        steps.forEach((step, index) => { step.hidden = stepHidden[index]; });
-        proposalItems.forEach((item, index) => { item.hidden = proposalHidden[index]; });
-        if (typing && typingHidden !== null) typing.hidden = typingHidden;
-        if (userMessage && priorUserText !== null) userMessage.textContent = priorUserText;
+        answer.hidden = wasAnswerHidden;
+        questionText.textContent = priorText;
+        if (!wasQuestionRevealed) question.classList.remove("is-revealed");
     };
 
     lockChatHeight();
@@ -113,101 +202,40 @@ function initHeroConversation() {
         resizeTimer = window.setTimeout(lockChatHeight, 150);
     });
 
-    const reveal = (element) => {
-        if (!element) return;
-        element.hidden = false;
-        window.requestAnimationFrame(() => element.classList.add("is-revealed"));
-    };
-
-    const clearProposalTimers = () => {
-        proposalTimers.forEach((proposalTimer) => window.clearTimeout(proposalTimer));
-        proposalTimers = [];
-    };
-
     const revealProposalItems = () => {
-        clearProposalTimers();
         proposalItems.forEach((item, index) => {
-            const proposalTimer = window.setTimeout(() => reveal(item), index * 200);
-            proposalTimers.push(proposalTimer);
+            window.setTimeout(() => {
+                item.hidden = false;
+                window.requestAnimationFrame(() => item.classList.add("is-revealed"));
+            }, index * 200);
         });
     };
 
-    const showCompleteState = () => {
-        window.clearTimeout(timer);
-        window.clearTimeout(characterTimer);
-        clearProposalTimers();
-        root.classList.remove("is-showing-typing");
-        root.classList.remove("is-user-typing");
-        if (typing) typing.hidden = true;
-        if (userMessage) userMessage.textContent = fullUserMessage;
-        steps.forEach(reveal);
-        proposalItems.forEach(reveal);
+    const showAnswer = () => {
+        phase = 2;
+        root.classList.remove("is-thinking");
+        answer.hidden = false;
+        window.requestAnimationFrame(() => root.classList.add("is-answered"));
         setStatus("index.hero.status.proposalReady");
+        revealProposalItems();
         announcementActive = true;
         if (announcement) announcement.textContent = t("index.hero.announcement");
     };
 
-    const schedule = (delay) => {
+    const showCompleteState = () => {
         window.clearTimeout(timer);
-        if (paused) return;
-        timer = window.setTimeout(advance, delay);
-    };
-
-    const typeUserMessage = () => {
-        if (paused || !userMessage) return;
-        if (typedCharacters >= fullUserMessage.length) {
-            root.classList.remove("is-user-typing");
-            stage = 1;
-            schedule(430);
-            return;
-        }
-        typedCharacters += 1;
-        userMessage.textContent = fullUserMessage.slice(0, typedCharacters);
-        characterTimer = window.setTimeout(typeUserMessage, 11);
-    };
-
-    const advance = () => {
-        if (paused) return;
-        switch (stage) {
-        case 0:
-            reveal(steps[0]);
-            setStatus("index.hero.status.understanding");
-            if (userMessage) userMessage.textContent = "";
-            root.classList.add("is-user-typing");
-            typeUserMessage();
-            break;
-        case 1:
-            if (typing) typing.hidden = false;
-            root.classList.add("is-showing-typing");
-            setStatus("index.hero.status.preparing");
-            stage = 2;
-            schedule(720);
-            break;
-        case 2:
-            root.classList.remove("is-showing-typing");
-            if (typing) typing.hidden = true;
-            reveal(steps[1]);
-            stage = 3;
-            schedule(620);
-            break;
-        case 3:
-            reveal(steps[2]);
-            revealProposalItems();
-            stage = 4;
-            schedule(1380);
-            break;
-        case 4:
-            reveal(steps[3]);
-            stage = 5;
-            schedule(520);
-            break;
-        default:
-            reveal(steps[4]);
-            setStatus("index.hero.status.proposalReady");
-            announcementActive = true;
-            if (announcement) announcement.textContent = t("index.hero.announcement");
-            stage = 6;
-        }
+        window.clearTimeout(charTimer);
+        questionText.textContent = fullQuestionText;
+        question.classList.add("is-revealed");
+        answer.hidden = false;
+        proposalItems.forEach((item) => {
+            item.hidden = false;
+            item.classList.add("is-revealed");
+        });
+        root.classList.add("is-answered");
+        setStatus("index.hero.status.proposalReady");
+        announcementActive = true;
+        if (announcement) announcement.textContent = t("index.hero.announcement");
     };
 
     if (reducedMotion) {
@@ -216,48 +244,77 @@ function initHeroConversation() {
     }
 
     root.classList.add("is-animated");
-    steps.forEach((step) => {
-        step.hidden = true;
-        step.classList.remove("is-revealed");
-    });
     proposalItems.forEach((item) => {
         item.hidden = true;
         item.classList.remove("is-revealed");
     });
-    if (typing) typing.hidden = true;
+    answer.hidden = true;
+    questionText.textContent = "";
+
+    const schedule = (delay, next) => {
+        window.clearTimeout(timer);
+        if (paused) return;
+        timer = window.setTimeout(next, delay);
+    };
+
+    const showThinking = () => {
+        phase = 1;
+        root.classList.add("is-thinking");
+        setStatus("index.hero.status.preparing");
+        schedule(700, showAnswer);
+    };
+
+    const typeQuestion = () => {
+        if (paused) return;
+        if (typedChars >= fullQuestionText.length) {
+            root.classList.remove("is-typing-question");
+            schedule(500, showThinking);
+            return;
+        }
+        typedChars += 1;
+        questionText.textContent = fullQuestionText.slice(0, typedChars);
+        charTimer = window.setTimeout(typeQuestion, 16);
+    };
 
     const start = () => {
         if (started) return;
         started = true;
-        advance();
+        question.classList.add("is-revealed");
+        root.classList.add("is-typing-question");
+        setStatus("index.hero.status.understanding");
+        typeQuestion();
     };
 
     // Pause-on-hover is a mouse-only affordance (lets a desktop user stop
     // to read). Touch fires the same pointerenter/pointerleave events, but a
     // scroll gesture that starts over the card enters without ever leaving
     // until the finger lifts elsewhere - freezing the animation mid-scroll.
-    root.addEventListener("pointerenter", (event) => {
-        if (event.pointerType === "touch") return;
+    const pause = () => {
         paused = true;
         window.clearTimeout(timer);
-        window.clearTimeout(characterTimer);
+        window.clearTimeout(charTimer);
+    };
+    const resume = () => {
+        paused = false;
+        if (!started || phase === 2) return;
+        if (phase === 0 && typedChars < fullQuestionText.length) {
+            typeQuestion();
+            return;
+        }
+        schedule(400, phase === 0 ? showThinking : showAnswer);
+    };
+    root.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "touch") return;
+        pause();
     });
     root.addEventListener("pointerleave", (event) => {
         if (event.pointerType === "touch") return;
-        paused = false;
-        if (stage === 0) typeUserMessage();
-        else if (stage !== 6) schedule(260);
+        resume();
     });
-    root.addEventListener("focusin", () => {
-        paused = true;
-        window.clearTimeout(timer);
-        window.clearTimeout(characterTimer);
-    });
+    root.addEventListener("focusin", pause);
     root.addEventListener("focusout", (event) => {
         if (root.contains(event.relatedTarget)) return;
-        paused = false;
-        if (stage === 0) typeUserMessage();
-        else if (stage !== 6) schedule(260);
+        resume();
     });
 
     if (!("IntersectionObserver" in window)) {
@@ -269,6 +326,7 @@ function initHeroConversation() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 start();
+                observer.disconnect();
             }
         });
     }, { threshold: 0.16 });
@@ -848,7 +906,7 @@ function initPersonaMatch() {
 function initDeviceExperience() {
     const experience = document.getElementById("hero-device-experience");
     const track = document.getElementById("device-track");
-    if (!experience || !track) return;
+    if (!experience || experience.hidden || !track) return;
 
     const platformOrder = ["iphone", "ipad", "mac"];
     const platformButtons = Array.from(experience.querySelectorAll(".platform-pill"));
@@ -874,17 +932,17 @@ function initDeviceExperience() {
             calendar: "IOS Promotion/Clickt Images/iphone-calendar1.png",
         },
         ipad: {
-            homepage: "IOS Promotion/Clickt Images/ipad-homepage.png",
-            teams: "IOS Promotion/Clickt Images/ipad-team1.png",
-            teams2: "IOS Promotion/Clickt Images/ipad-team2.png",
-            teams3: "IOS Promotion/Clickt Images/ipad-team3.png",
-            builder: "IOS Promotion/Clickt Images/ipad-builder1.png",
-            builder2: "IOS Promotion/Clickt Images/ipad-builder2.png",
-            presentation: "IOS Promotion/Clickt Images/ipad-presentation1.png",
-            presentation2: "IOS Promotion/Clickt Images/ipad-presentation2.png",
-            checklist: "IOS Promotion/Clickt Images/ipad-checklist.png",
-            checklist2: "IOS Promotion/Clickt Images/ipad-checklist.png",
-            calendar: "IOS Promotion/Clickt Images/ipad-calendar.png",
+            homepage: "Ipad-Images/ipad-homepage.png",
+            teams: "Ipad-Images/ipad-teams1.png",
+            teams2: "Ipad-Images/ipad-teams2.png",
+            teams3: "Ipad-Images/ipad-teams3.png",
+            builder: "Ipad-Images/ipad-builder1.png",
+            builder2: "Ipad-Images/ipad-builder2.png",
+            presentation: "Ipad-Images/ipad-presentation1.png",
+            presentation2: "Ipad-Images/ipad-presentation2.png",
+            checklist: "Ipad-Images/ipad-checklist1.png",
+            checklist2: "Ipad-Images/ipad-checklist2.png",
+            calendar: "Ipad-Images/ipad-calendar.png",
         },
         mac: {
             homepage: "IOS Promotion/Clickt Images/mac-homepage.png",
@@ -1448,7 +1506,9 @@ function trackPlaybookEvent(eventName, payload) {
    ============================================================ */
 
 function initShowcaseChapters() {
+    if (document.body.classList.contains("homepage-v2")) return;
     const P = "IOS Promotion/Clickt Images/";
+    const IPAD_P = "Ipad-Images/";
     const rootStyles = window.getComputedStyle(document.documentElement);
     const SHARED_SHOWCASE_BG = (rootStyles.getPropertyValue("--bg") || "").trim() || "#ffffff";
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1489,12 +1549,12 @@ function initShowcaseChapters() {
     ];
 
     const ipadStops = [
-        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "home",     img: P+"ipad-homepage.png",          satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
-        { from: 0.14, x: -24, ry: -8,  rz:  0, scale: 1,    module: "teams",        stopKey: null,       img: P+"ipad-team1.png",             satA: P+"ipad-team2.png",          satB: P+"ipad-team3.png",           bg: SHARED_SHOWCASE_BG },
-        { from: 0.39, x: -22, ry: -7,  rz: -2, scale: 1,    module: "builder",      stopKey: null,       img: P+"ipad-builder1.png",          satA: P+"ipad-builder2.png",       satB: P+"ipad-builder3.png",        bg: SHARED_SHOWCASE_BG },
-        { from: 0.62, x: -20, ry: -5,  rz:  0, scale: 1,    module: "presentation", stopKey: null,       img: P+"ipad-presentation.png",      satA: P+"ipad-presentation1.png",  satB: P+"ipad-presentation2.png",   bg: SHARED_SHOWCASE_BG },
-        { from: 0.80, x: -22, ry: -5,  rz:  0, scale: 0.94, module: "checklist",    stopKey: null,       img: P+"ipad-checklist.png",         satA: P+"ipad-calendar.png",       satB: P+"ipad-setting.png",         bg: SHARED_SHOWCASE_BG },
-        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "calendar", img: P+"ipad-calendar.png",          satA: null,                        satB: null,                         bg: SHARED_SHOWCASE_BG },
+        { from: 0,    x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "home",     img: IPAD_P+"ipad-homepage.png",     satA: null,                            satB: null,                             bg: SHARED_SHOWCASE_BG },
+        { from: 0.14, x: -24, ry: -8,  rz:  0, scale: 1,    module: "teams",        stopKey: null,       img: IPAD_P+"ipad-teams1.png",       satA: IPAD_P+"ipad-teams2.png",        satB: IPAD_P+"ipad-teams3.png",         bg: SHARED_SHOWCASE_BG },
+        { from: 0.39, x: -22, ry: -7,  rz: -2, scale: 1,    module: "builder",      stopKey: null,       img: IPAD_P+"ipad-builder1.png",     satA: IPAD_P+"ipad-builder2.png",      satB: IPAD_P+"ipad-builder3.png",       bg: SHARED_SHOWCASE_BG },
+        { from: 0.62, x: -20, ry: -5,  rz:  0, scale: 1,    module: "presentation", stopKey: null,       img: IPAD_P+"ipad-presentation1.png",satA: IPAD_P+"ipad-presentation2.png", satB: IPAD_P+"ipad-presentation3.png",  bg: SHARED_SHOWCASE_BG },
+        { from: 0.80, x: -22, ry: -5,  rz:  0, scale: 0.94, module: "checklist",    stopKey: null,       img: IPAD_P+"ipad-checklist1.png",   satA: IPAD_P+"ipad-checklist2.png",    satB: IPAD_P+"ipad-checklistcopilot.png", bg: SHARED_SHOWCASE_BG },
+        { from: 0.93, x:   0, ry:   0, rz:  0, scale: 0.84, module: null,           stopKey: "calendar", img: IPAD_P+"ipad-calendar.png",     satA: null,                            satB: null,                             bg: SHARED_SHOWCASE_BG },
     ];
 
     const macStops = [

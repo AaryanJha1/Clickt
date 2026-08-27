@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20260825d">
+    <link rel="stylesheet" href="styles.css?v=20260826b">
 </head>
 <body class="pricing-page">
     <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
@@ -89,54 +89,65 @@
         <span class="dot"></span><span class="dot"></span>
     </div>
 
-    <div class="platform-strip" aria-label="Apple and Android platforms">
-        Apple <span class="platform-strip-sep" aria-hidden="true">&middot;</span> Android
+    <!-- SITE-SHELL:UTILITY:START -->
+<!-- Shared platform and language utility strip. Rendered by build-shell.js. -->
+<div class="platform-strip shared-platform-strip" data-site-shell-utility aria-label="Clickt platform and language options" data-i18n-attr="aria-label:siteShell.utility.ariaLabel">
+    <span class="shared-platform-copy" data-i18n="siteShell.utility.platform">Apple · Android</span>
+    <div class="lang-toggle shared-platform-language" role="group" aria-label="Choose language" data-i18n-attr="aria-label:siteShell.utility.languageLabel">
+        <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" data-i18n="siteShell.utility.english">EN</button>
+        <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="siteShell.utility.nepali">ने</button>
     </div>
-
-    <div class="container">
-        <header class="page-header">
-            <a href="index.html" class="brand">
-                <img src="IOS Promotion/click_logo.webp" data-i18n-attr="alt:common.brand.logoAlt" alt="Clickt Logo" decoding="async">
-                Clickt
+</div>
+<!-- SITE-SHELL:UTILITY:END -->
+<div class="container">
+        <!-- SITE-SHELL:HEADER:START -->
+<!-- Shared global header. Rendered by build-shell.js. -->
+<header class="page-header shared-site-header" data-site-shell-header>
+    <a href="index.html" class="brand">
+        <img src="IOS Promotion/click_logo.webp" alt="Clickt Logo" decoding="async" data-i18n-attr="alt:siteShell.brand.logoAlt">
+        Clickt
+    </a>
+    <nav class="page-header-nav shared-site-header-nav" aria-label="Site navigation" data-i18n-attr="aria-label:siteShell.header.navigation">
+        <div class="nav-dropdown shared-product-dropdown" data-site-shell-dropdown>
+            <a href="index.html" class="nav-dropdown-trigger">
+                <span data-i18n="siteShell.header.product">Product</span>
+                <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span>
             </a>
-            <nav class="page-header-nav" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                <div class="nav-dropdown">
-                    <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"><span data-i18n="common.nav.clickt">Clickt</span> <span class="nav-dropdown-caret" aria-hidden="true">&#9662;</span></button>
-                    <div class="nav-dropdown-menu">
-                        <div class="nav-dropdown-panel">
-                            <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                            <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                            <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                            <a href="support.html" data-i18n="common.nav.support">Support</a>
-                            <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
-                        </div>
-                    </div>
+            <div class="nav-dropdown-menu" id="site-shell-product-menu" role="menu">
+                <div class="nav-dropdown-panel site-nav-dropdown-panel">
+                    <a href="teams.html" data-i18n="siteShell.product.teams" role="menuitem">Teams</a>
+                    <a href="checklist.html" data-i18n="siteShell.product.checklist" role="menuitem">Checklist</a>
+                    <a href="builder.html" data-i18n="siteShell.product.builder" role="menuitem">Builder</a>
+                    <a href="presentation.html" data-i18n="siteShell.product.presentation" role="menuitem">Presentation</a>
+                    <a href="clicktai.html" data-i18n="siteShell.product.clicktai" role="menuitem">ClicktAI</a>
+                    <a href="pricing.html" data-i18n="siteShell.product.plans" class="is-current" role="menuitem" aria-current="page">Plans</a>
                 </div>
-                <a href="services.html" data-i18n="common.nav.services">Services</a>
-                <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
-                <div class="lang-toggle" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
-                    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.en">EN</button>
-                    <button type="button" class="lang-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.ne">ने</button>
-                </div>
-            </nav>
-            <details class="header-dropdown">
-                <summary data-i18n-attr="aria-label:common.nav.menuAriaLabel" aria-label="Open site navigation menu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
-                <nav class="header-dropdown-menu" data-i18n-attr="aria-label:common.nav.ariaLabel" aria-label="Site navigation">
-                    <a href="services.html" data-i18n="common.nav.services">Services</a>
-                    <a href="contact.html" data-i18n="common.nav.contact">Contact</a>
-                    <span class="header-dropdown-group-label" data-i18n="common.nav.clickt">Clickt</span>
-                    <a href="at-work.html" data-i18n="common.nav.demo">At Work</a>
-                    <a href="playbook.html" data-i18n="common.nav.prompts">Product Tour</a>
-                    <a href="pricing.html" data-i18n="common.nav.plans">Plans</a>
-                    <a href="support.html" data-i18n="common.nav.support">Support</a>
-                    <a href="user-guide.html" data-i18n="common.nav.userGuide">User Guide</a>
-                    <div class="header-dropdown-lang" role="group" data-i18n-attr="aria-label:common.langSwitch.ariaLabel" aria-label="Choose language">
-                        <button type="button" class="lang-menu-btn" data-lang="en" aria-pressed="false" data-i18n="common.langSwitch.enFull">English</button>
-                        <button type="button" class="lang-menu-btn" data-lang="ne" aria-pressed="false" data-i18n="common.langSwitch.neFull">नेपाली</button>
-                    </div>
-                </nav>
-            </details>
-        </header>
+            </div>
+        </div>
+        <a href="solutions.html" data-i18n="siteShell.header.solutions" class="shared-site-header-link">Solutions</a>
+        <a href="services.html" data-i18n="siteShell.header.services" class="shared-site-header-link">Services</a>
+        <a href="about.html" data-i18n="siteShell.header.about" class="shared-site-header-link">About Click T</a>
+        <a href="contact.html" data-i18n="siteShell.header.contact" class="shared-site-header-link">Contact</a>
+    </nav>
+    <details class="header-dropdown shared-site-mobile-nav" data-site-shell-mobile-nav>
+        <summary aria-label="Open site navigation menu" data-i18n-attr="aria-label:siteShell.header.openMenu"><span class="header-dropdown-icon" aria-hidden="true"><span></span></span></summary>
+        <nav class="header-dropdown-menu" aria-label="Site navigation" data-i18n-attr="aria-label:siteShell.header.navigation">
+            <a class="header-dropdown-group-label header-dropdown-group-link" href="index.html" data-i18n="siteShell.header.product">Product</a>
+            <a href="teams.html" data-i18n="siteShell.product.teams">Teams</a>
+            <a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a>
+            <a href="builder.html" data-i18n="siteShell.product.builder">Builder</a>
+            <a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a>
+            <a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a>
+            <a href="pricing.html" data-i18n="siteShell.product.plans" class="is-current" aria-current="page">Plans</a>
+            <div class="header-dropdown-divider" role="separator"></div>
+            <a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a>
+            <a href="services.html" data-i18n="siteShell.header.services">Services</a>
+            <a href="about.html" data-i18n="siteShell.header.about">About Click T</a>
+            <a href="contact.html" data-i18n="siteShell.header.contact">Contact</a>
+        </nav>
+    </details>
+</header>
+<!-- SITE-SHELL:HEADER:END -->
 
         <main>
             <!-- ── Hero ─────────────────────────────────────── -->
@@ -144,7 +155,7 @@
                 <span class="context-kicker" data-i18n="pricing.hero.kicker">Pricing</span>
                 <h2 data-i18n="pricing.hero.heading">Start free. Bring your whole team.</h2>
                 <p data-i18n="pricing.hero.lead">Every plan includes Teams, Builder, Presentation, and Checklist on iPhone, iPad, and Mac. Android for Clickt is currently shown as a coming-soon preview.</p>
-
+                <p class="currency-note">Business pricing is billed annually. Contact us for organization-specific setup and deployment needs.</p>
             </section>
 
             <section data-observe class="pricing-company-edition" aria-label="Company workspace pricing overview" data-i18n-attr="aria-label:pricing.companyEdition.ariaLabel">
@@ -200,7 +211,7 @@
                             <p class="pricing-tagline" data-i18n="pricing.tiers.business.tagline">One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.</p>
                         </div>
                         <a
-                            href="mailto:clickt@click-t.com?subject=Business%20Plan%20Inquiry"
+                            href="contact.html#project"
                             class="pricing-cta btn"
                             data-i18n="pricing.tiers.business.cta"
                         >Contact Sales</a>
@@ -313,7 +324,7 @@
                     <span class="context-kicker" data-i18n="pricing.enterpriseCta.kicker">Custom needs</span>
                     <h3 data-i18n="pricing.enterpriseCta.heading">Need something custom?</h3>
                     <p data-i18n="pricing.enterpriseCta.body">For large organizations with deployment, identity, support, security, or integration requirements, talk to us directly. We'll define and price the right setup for your team.</p>
-                    <a href="mailto:clickt@click-t.com?subject=Custom%20Setup%20Inquiry" class="btn" data-i18n="pricing.enterpriseCta.cta">Talk to Sales</a>
+                    <a href="contact.html#project" class="btn" data-i18n="pricing.enterpriseCta.cta">Talk to Sales</a>
                 </div>
             </section>
         </main>
@@ -321,56 +332,99 @@
     </div>
 
 
-    <div class="container footer-shell">
-
-        <footer>
-            <div class="footer-columns">
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.writeUs">Write Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.generalInquiry">General Inquiry</span>
-                        <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
-                    </div>
-                    <p class="footer-col-note" data-i18n-html="common.footer.projectSentence">Have a project in mind? <a href="contact.html">Get in touch</a>.</p>
+    <!-- SITE-SHELL:FOOTER:START -->
+<!-- Shared global footer. Rendered by build-shell.js. -->
+<div class="container footer-shell shared-footer-shell" data-site-shell-footer>
+    <footer class="shared-site-footer">
+        <nav class="shared-footer-groups" aria-label="Footer navigation" data-i18n-attr="aria-label:siteShell.footer.navigation">
+    <section class="shared-footer-group shared-footer-group--product" aria-labelledby="site-shell-footer-product">
+        <h2 id="site-shell-footer-product" data-i18n="siteShell.footer.groups.product">Product</h2>
+        <ul>
+        <li><a href="index.html" data-i18n="siteShell.product.overview">Overview</a></li>
+        <li><a href="teams.html" data-i18n="siteShell.product.teams">Teams</a></li>
+        <li><a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a></li>
+        <li><a href="builder.html" data-i18n="siteShell.product.builder">Builder</a></li>
+        <li><a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a></li>
+        <li><a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a></li>
+        <li><a href="pricing.html" data-i18n="siteShell.product.plans" class="is-current" aria-current="page">Plans</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--solutions" aria-labelledby="site-shell-footer-solutions">
+        <h2 id="site-shell-footer-solutions" data-i18n="siteShell.footer.groups.solutions">Solutions</h2>
+        <ul>
+        <li><a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a></li>
+        <li><a href="solutions-schools.html" data-i18n="siteShell.industry.schools">Schools</a></li>
+        <li><a href="solutions-healthcare.html" data-i18n="siteShell.industry.healthcare">Healthcare</a></li>
+        <li><a href="solutions-banks.html" data-i18n="siteShell.industry.banks">Banks</a></li>
+        <li><a href="solutions-ngos.html" data-i18n="siteShell.industry.ngos">NGOs</a></li>
+        <li><a href="solutions-hotels.html" data-i18n="siteShell.industry.hotels">Hotels</a></li>
+        <li><a href="solutions-restaurants.html" data-i18n="siteShell.industry.restaurants">Restaurants</a></li>
+        <li><a href="solutions-construction.html" data-i18n="siteShell.industry.construction">Construction &amp; Real Estate</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--clickt-company" aria-labelledby="site-shell-footer-clickt-company">
+        <h2 id="site-shell-footer-clickt-company" data-i18n="siteShell.footer.groups.clickT">Click T</h2>
+        <ul>
+        <li><a href="services.html" data-i18n="siteShell.header.services">Services</a></li>
+        <li><a href="about.html" data-i18n="siteShell.header.about">About Click T</a></li>
+        <li><a href="contact.html" data-i18n="siteShell.header.contact">Contact</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--help" aria-labelledby="site-shell-footer-help">
+        <h2 id="site-shell-footer-help" data-i18n="siteShell.footer.groups.help">Help</h2>
+        <ul>
+        <li><a href="support.html" data-i18n="siteShell.footer.support">Support</a></li>
+        <li><a href="user-guide.html" data-i18n="siteShell.footer.userGuide">User Guide</a></li>
+        </ul>
+    </section>
+    <section class="shared-footer-group shared-footer-group--legal" aria-labelledby="site-shell-footer-legal">
+        <h2 id="site-shell-footer-legal" data-i18n="siteShell.footer.groups.legal">Legal</h2>
+        <ul>
+        <li><a href="privacy.html" data-i18n="siteShell.footer.privacy">Privacy</a></li>
+        <li><a href="security.html" data-i18n="siteShell.footer.security">Security &amp; Trust</a></li>
+        <li><a href="terms.html" data-i18n="siteShell.footer.terms">Terms of Service</a></li>
+        </ul>
+    </section>
+        </nav>
+        <div class="footer-columns shared-footer-contact">
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.writeUs">Write Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.email">Email</span>
+                    <a class="footer-col-value" href="mailto:clickt@click-t.com">clickt@click-t.com</a>
                 </div>
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.callUs">Call Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.phone">Phone</span>
-                        <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
-                        <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3 data-i18n="common.footer.visitUs">Visit Us</h3>
-                    <div class="footer-col-group">
-                        <span class="footer-col-label" data-i18n="common.footer.office">Office</span>
-                        <span class="footer-col-value" data-i18n="common.footer.officeName">Click T Pvt. Ltd.</span>
-                        <span class="footer-col-value" data-i18n="common.footer.officeLocation">Kathmandu, Nepal</span>
-                    </div>
+                <p class="footer-col-note" data-i18n="siteShell.footer.projectNote">Have a project in mind? Send us a project brief.</p>
+            </div>
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.callUs">Call Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.phone">Phone</span>
+                    <a class="footer-col-value" href="tel:+17653018290">+1 765 3018290</a>
+                    <a class="footer-col-value" href="tel:+9779801120784">+977 9801120784</a>
                 </div>
             </div>
-            <nav class="footer-links-row" aria-label="Footer navigation">
-                <a href="index.html" data-i18n="common.footer.home">Home</a>
-                <a href="services.html" data-i18n="common.footer.services">Services</a>
-                <a href="pricing.html" data-i18n="common.footer.plans">Plans</a>
-                <a href="playbook.html" data-i18n="common.footer.prompts">Product Tour</a>
-                <a href="at-work.html" data-i18n="common.footer.demo">At Work</a>
-                <a href="support.html" data-i18n="common.footer.supportDesk">Support Desk</a>
-                <a href="user-guide.html" data-i18n="common.footer.userGuide">User Guide</a>
-                <a href="privacy.html" data-i18n="common.footer.privacy">Privacy Statement</a>
-                <a href="security.html" data-i18n="common.footer.security">Security &amp; Trust</a>
-                <a href="terms.html" data-i18n="common.footer.terms">Terms of Service</a>
-                <a href="contact.html" data-i18n="common.footer.contact">Contact</a>
-            </nav>
-            <p class="footer-copyright" data-i18n="common.footer.copyright">&copy; 2026 Click T. Pvt Ltd. All rights reserved.</p>
-            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="index.hero.downloadClickt">Download Clickt</a>
-        </footer>
-    </div>
+            <div class="footer-col">
+                <h3 data-i18n="siteShell.footer.visitUs">Visit Us</h3>
+                <div class="footer-col-group">
+                    <span class="footer-col-label" data-i18n="siteShell.footer.office">Office</span>
+                    <span class="footer-col-value" data-i18n="siteShell.footer.officeName">Click T Pvt. Ltd.</span>
+                    <span class="footer-col-value" data-i18n="siteShell.footer.officeLocation">Kathmandu, Nepal</span>
+                </div>
+            </div>
+        </div>
+        <div class="shared-footer-bottom">
+            <p class="footer-copyright" data-i18n="siteShell.footer.copyright">© 2026 Click T. Pvt. Ltd. All rights reserved.</p>
+            <a href="https://apps.apple.com/us/app/clickt/id6759891499" class="footer-download-cta" target="_blank" rel="noopener noreferrer" data-i18n="siteShell.footer.download">Download Clickt</a>
+        </div>
+    </footer>
+</div>
+<!-- SITE-SHELL:FOOTER:END -->
 
     <script src="i18n/en.js?v=20260825e"></script>
     <script src="i18n/ne.js?v=20260825e"></script>
+    <script src="site-shell/shell-i18n.js?v=20260826a"></script>
     <script src="i18n.js?v=20260824e"></script>
+    <script src="analytics.js?v=20260826a"></script>
     <script src="reveal.js?v=20260824h"></script>
     <script>
         (function () {
@@ -400,7 +454,6 @@
                 });
 
                 applyUserLines(currency);
-
             }
 
             document.addEventListener('clickt:langchange', function () {
@@ -485,5 +538,6 @@
             });
         }());
     </script>
+    <script src="site-shell/shell-runtime.js?v=20260826a"></script>
 </body>
 </html>

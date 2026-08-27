@@ -8,6 +8,10 @@ window.ClicktI18nDict.en = {
       "ariaLabel": "Site navigation",
       "menuAriaLabel": "Open site navigation menu",
       "clickt": "Clickt",
+      "product": "Product",
+      "overview": "Overview",
+      "solutions": "Solutions",
+      "clickT": "Click T",
       "services": "Services",
       "contact": "Contact",
       "demo": "At Work",
@@ -246,19 +250,19 @@ window.ClicktI18nDict.en = {
     },
     "hero": {
       "headline": "Your busywork, handled. Your decisions, still yours.",
-      "chatAriaLabel": "A demonstration of ClicktAI preparing a project plan",
+      "chatAriaLabel": "A demonstration of ClicktAI answering a question about Clickt's features",
       "speakerYou": "You",
-      "chatUserMessage": "We’re launching a new project next Friday - can you set up the team’s tasks and get us ready to present to leadership?",
-      "aiPlanMessage": "I can prepare a reviewable plan for the Clickt workspace you are working in.",
-      "proposedWork": "Proposed work",
-      "previewOnly": "Preview only",
+      "chatUserMessage": "Hey Clickt, what all features do you have?",
+      "aiPlanMessage": "Great question — here’s everything Clickt brings into one connected workspace:",
+      "proposedWork": "What’s included",
+      "previewOnly": "All included",
       "proposal": {
-        "teams": "Launch tasks - assigned directly, to the team, or open to claim",
-        "checklist": "A ready-to-run launch-day checklist",
-        "builder": "A metrics chart once your launch data is in",
-        "presentation": "A six-slide leadership deck you can Preview before presenting"
+        "teams": "Assign work directly, to the whole team, or leave it open to claim",
+        "checklist": "Turn any process into a repeatable, trackable checklist",
+        "builder": "Turn raw data into charts and dashboards in seconds",
+        "presentation": "Auto-build a slide deck you can preview before presenting"
       },
-      "controlMessage": "Nothing changes until you review and approve the proposal.",
+      "controlMessage": "Every module works the same way — ClicktAI prepares it, you review and approve before anything changes.",
       "reviewLink": "Review the Copilots at work",
       "status": {
         "ready": "Ready to help",
@@ -937,6 +941,20 @@ window.ClicktI18nDict.en = {
       "heading": "Start with one project in Clickt today",
       "body": "Bring your team, tasks, reports, and presentations into one connected workspace on iPhone, iPad, and Mac.",
       "cta": "Download on App Store"
+    },
+    "solutionsPreview": {
+      "kicker": "Solutions",
+      "heading": "One connected workflow, shaped around your team.",
+      "body": "Clickt works beside the systems your organization already relies on. Explore where it fits for schools, healthcare, banks, NGOs, hotels, restaurants, and construction teams.",
+      "cta": "Explore Solutions →",
+      "listAriaLabel": "Industries Clickt supports",
+      "schools": "Schools",
+      "healthcare": "Healthcare",
+      "banks": "Banks",
+      "ngos": "NGOs",
+      "hotels": "Hotels",
+      "restaurants": "Restaurants",
+      "construction": "Construction &amp; Real Estate"
     }
   },
   "pricing": {
@@ -1474,6 +1492,25 @@ window.ClicktI18nDict.en = {
       "ctaDiscuss": "Discuss a Project",
       "ctaWork": "See Our Work"
     },
+    "systemMap": {
+      "kicker": "Build around what works",
+      "heading": "Your existing systems can be the starting point.",
+      "lead": "Choose the part of your organization that needs to work better. We design the missing layer instead of asking you to replace everything.",
+      "sourcesAriaLabel": "Choose an existing system",
+      "options": {
+        "erp": "ERP or MIS",
+        "spreadsheets": "Spreadsheets",
+        "crm": "CRM or database",
+        "field": "Field-team process"
+      },
+      "bridge": "Click T designs the missing layer",
+      "outcomes": {
+        "erp": { "tag": "Extension", "title": "Turn existing data into a clear operational workspace.", "copy": "Connect the systems you already use with the dashboard, approval flow, reporting, or mobile layer your team is missing." },
+        "spreadsheets": { "tag": "Automation", "title": "Replace manual handoffs without losing your working process.", "copy": "Create a shared workflow that validates data, assigns work, sends updates, and makes progress visible to the right people." },
+        "crm": { "tag": "Integration", "title": "Give your team one useful view across connected systems.", "copy": "Build a portal, reporting layer, or tailored workflow that makes existing customer and operational data easier to act on." },
+        "field": { "tag": "Mobile layer", "title": "Bring the real work from the field back into the system.", "copy": "Equip teams with a simple mobile workflow for updates, approvals, evidence, and reporting — connected to your central operations." }
+      }
+    },
     "capabilities": {
       "heading": "What we build",
       "lead": "From internal tools to customer-facing products, we design and build software matched to how your team actually operates.",
@@ -1521,11 +1558,8 @@ window.ClicktI18nDict.en = {
       "heading": "How we work",
       "lead": "We are not trying to sell predetermined technology - the process starts with your organization, not our product.",
       "step1": { "title": "Understand", "body": "We map the existing process, users, and software." },
-      "step2": { "title": "Identify the Gap", "body": "We determine whether the problem requires new software, integration, automation, dashboard/reporting, mobile functionality, or an improvement to existing systems." },
-      "step3": { "title": "Scope", "body": "You receive a proposed solution, deliverables, milestones, timeline, and pricing." },
-      "step4": { "title": "Build", "body": "Development happens in reviewable stages." },
-      "step5": { "title": "Test & Deploy", "body": "QA, user acceptance testing where appropriate, deployment, staff onboarding, and documentation." },
-      "step6": { "title": "Support", "body": "Maintenance, fixes, updates, and future enhancements." }
+      "step2": { "title": "Design the right layer", "body": "We identify the most useful combination of software, integration, automation, reporting, or mobile access — then define a clear, reviewable plan." },
+      "step3": { "title": "Build, launch, and support", "body": "We build in reviewable stages, test with your use case in mind, launch carefully, and remain available for improvements after release." }
     },
     "work": {
       "heading": "Selected work",
@@ -1574,14 +1608,101 @@ window.ClicktI18nDict.en = {
       "button": "Contact Us"
     }
   },
+  "security": {
+    "hero": {
+      "kicker": "For IT & Procurement",
+      "heading": "Security & Trust",
+      "body": "Straight answers to the questions an IT manager or procurement reviewer actually asks - not certification badges we don't hold. If something below isn't yet a self-serve feature, we say so.",
+      "ctaTalk": "Talk to Us About Your Requirements",
+      "ctaPrivacy": "Read the Full Privacy Statement"
+    },
+    "dataInfra": {
+      "heading": "Data & infrastructure",
+      "lead": "Where your data lives and how it's protected.",
+      "stored": { "q": "Where is data stored?", "a": "On managed cloud infrastructure (Firebase / Google Cloud). We don't run our own data centers." },
+      "encrypted": { "q": "Is data encrypted?", "a": "Yes - encrypted in transit (TLS) between the app and our infrastructure, and at rest by default through our cloud provider." },
+      "backups": { "q": "Are backups performed?", "a": "Our cloud infrastructure includes provider-level redundancy. We don't yet publish a formal backup SLA - if that's a requirement for your deployment, tell us and we'll scope it directly." },
+      "dedicated": { "q": "Is dedicated infrastructure possible?", "a": "Yes. Business uses our managed shared infrastructure with organization-level controls by default; dedicated databases or private-cloud deployment are optional, individually scoped in your agreement." },
+      "audit": { "q": "What audit capabilities exist?", "a": "We don't yet offer exportable audit logs as a self-serve feature. If audit trails are a requirement, contact us to discuss what's possible for your deployment." }
+    },
+    "access": {
+      "heading": "Access & control",
+      "lead": "Who can see organizational data, and how access is managed.",
+      "who": { "q": "Who can access organizational data?", "a": "Access is scoped to your workspace and governed by role-aware access controls - team membership and permissions determine what a given user can see and do." },
+      "sso": { "q": "Is SSO available?", "a": "Not yet as a self-serve feature on the standard Business plan. If SSO/SAML is a requirement, contact us - it's on our roadmap for larger deployments." },
+      "delete": { "q": "Can data be deleted or exported?", "a": "You can request deletion of your account and workspace data at any time, or delete your account from within the app. Self-serve data export isn't built yet - reach out and we'll get you what you need directly." }
+    },
+    "ai": {
+      "heading": "AI & third parties",
+      "lead": "How ClicktAI Copilots handle your content, and who else sees it.",
+      "training": { "q": "Is organization data used to train models?", "a": "No. We select AI providers who commit contractually not to use your workspace content to train their general-purpose models - and require the same commitment from any provider we add in the future." },
+      "providers": { "q": "Which AI providers receive content?", "a": "Only the content relevant to the specific request from the module you're working in - never your whole workspace. On Free, you connect your own provider key. On Business, your admin assigns a Clickt-approved provider." },
+      "disable": { "q": "Can AI be disabled?", "a": "AI isn't active by default. On Free, nothing happens until you connect your own key. On Business, your administrator chooses which users have Clickt-provided AI enabled - it is not switched on for every seat automatically." },
+      "byok": { "q": "Is bring-your-own API key possible?", "a": "Yes, on the Free plan. You connect your own AI provider key, and your requests are then governed directly by that provider's own terms - Clickt does not store or transmit your credentials beyond what's needed to process each request." }
+    },
+    "incident": {
+      "heading": "What happens during an incident?",
+      "lead": "If a breach affecting your personal data occurs, we notify affected users - and any regulator required by law - without undue delay. Nothing changes to your workspace without you knowing about it first.",
+      "note": "This page is a summary for quick reference. The full legal detail - data sharing, retention, international transfers, your rights, and how to reach us - lives in the <a href=\"privacy.html\">Privacy Statement</a>."
+    },
+    "cta": {
+      "heading": "Reviewing Clickt for your organization?",
+      "body": "Send us your security questionnaire or compliance checklist directly - we'll answer what we can and tell you plainly where we're not there yet.",
+      "button": "Contact Us"
+    }
+  },
+  "googlePlay": {
+    "hero": {
+      "kicker": "Google Play Store",
+      "title": "Android for Clickt - coming soon",
+      "body": "Explore the Android version of Clickt before its Google Play release. The application is not yet available to download.",
+      "badgeAriaLabel": "View the Android preview; Clickt is not yet available on Google Play",
+      "badgeLabel": "Google Play Store",
+      "badgeStatus": "Coming soon",
+      "ctaExplore": "Explore Android preview",
+      "disclosureStrong": "Not yet available for download on Google Play.",
+      "disclosureRest": "This page is a product preview."
+    },
+    "proof": {
+      "kicker": "Product preview",
+      "title": "One connected workflow, shown in progress.",
+      "body": "The preview covers the Clickt workspaces being prepared for Android: Homepage, Teams, Checklist, Builder, Presentation, Calendar, and Copilots. Features and visual details may change before release."
+    },
+    "guide": {
+      "kicker": "Android screenshot guide",
+      "title": "Explore Android for Clickt."
+    },
+    "cards": {
+      "home": { "ariaLabel": "Open the Homepage screenshot guide", "title": "Modules home", "body": "Sign in once and land on every workspace - Teams, Checklist, Builder, Presentation, and Calendar." },
+      "teams": { "ariaLabel": "Open the Teams screenshot guide", "title": "Assigned work", "body": "Task lists, ownership, and progress across every Teams state." },
+      "checklist": { "ariaLabel": "Open the Checklist screenshot guide", "title": "Personal and team work", "body": "Personal, team-linked, and completed checklist states in one place." },
+      "builder": { "ariaLabel": "Open the Builder screenshot guide", "title": "Data to insight", "body": "Import, analysis, and finished canvas views." },
+      "presentation": { "ariaLabel": "Open the Presentation screenshot guide", "title": "Draft, preview, export", "body": "The editor, live preview, and export-ready deck." },
+      "calendar": { "ariaLabel": "Open the Calendar screenshot guide", "title": "Everything in one place", "body": "Every module's deadlines synced into one calendar automatically." },
+      "copilots": { "ariaLabel": "Open the Copilots screenshot guide", "title": "Review before apply", "body": "Every ClicktAI Copilot - Teams, Checklist, Builder, and Presentation." }
+    },
+    "modal": {
+      "titleSuffix": " - Android screenshot guide",
+      "close": "Close",
+      "closeAriaLabel": "Close screenshot guide",
+      "captions": {
+        "home": ["Modules home"],
+        "teams": ["Teams overview", "Team task state", "Team work detail", "Team invite flow"],
+        "checklist": ["Checklist overview", "Checklist completion state"],
+        "builder": ["Builder import", "Builder analysis", "Builder canvas output"],
+        "presentation": ["Presentation overview", "Presentation editor", "Presentation deck detail"],
+        "calendar": ["Calendar view"],
+        "copilots": ["Teams Copilot", "Checklist Copilot", "Builder Copilot", "Presentation Copilot", "Presentation Copilot detail"]
+      }
+    }
+  },
   "contact": {
     "hero": {
       "kicker": "Get in Touch",
       "heading": "Talk to Click T",
       "body": "One inbox for everything - Clickt support, feedback, and custom software projects. Write to us directly, or send a project brief below.",
       "chip1": "Kathmandu, Nepal",
-      "chip2": "Typical response: 1&ndash;2 business days",
-      "ctaWrite": "Write to clickt@click-t.com",
+      "chip2": "Founder response within the same business day",
       "ctaBrief": "Send a Project Brief"
     },
     "before": {
@@ -1639,13 +1760,160 @@ window.ClicktI18nDict.en = {
       "labelTimeline": "Target timeline",
       "placeholderTimeline": "e.g. within 2 months",
       "submit": "Send Project Brief",
-      "note": "Submitting opens an email to <a href=\"mailto:clickt@click-t.com\">clickt@click-t.com</a> with your answers filled in."
+      "note": "Your brief is submitted directly to Click T. It will not open your email app.",
+      "success": "Thanks—your project brief has been received. We’ll be in touch soon."
     },
     "company": {
       "lead": "Kathmandu, Nepal - a registered software company.",
-      "item1": "Support desk: <a href=\"support.html\">support.html</a>",
-      "item2": "Custom software &amp; capabilities: <a href=\"services.html\">services.html</a>",
-      "item3": "Clickt plans &amp; pricing: <a href=\"pricing.html\">pricing.html</a>"
+      "item1": "Support desk: <a href=\"support.html\">Support</a>",
+      "item2": "Custom software &amp; capabilities: <a href=\"services.html\">Services</a>",
+      "item3": "Clickt plans &amp; pricing: <a href=\"pricing.html\">Plans</a>"
+    }
+  },
+  "solutions": {
+    "hero": {
+      "kicker": "Solutions",
+      "title": "One connected workflow, shaped around your team.",
+      "copy": "Clickt keeps the day-to-day work around your core systems visible, assigned, and ready for decisions.",
+      "cta": "Download Clickt"
+    },
+    "industries": {
+      "kicker": "Find your scenario",
+      "title": "Choose the kind of coordination that needs to get clearer.",
+      "lead": "Each industry page shows a concrete example of where Clickt fits alongside the systems you already run.",
+      "schools": "Exam preparation, events, and departmental work, coordinated alongside your school-management system.",
+      "healthcare": "Non-clinical maintenance, checks, and shift handoffs, coordinated beside clinical and hospital systems.",
+      "banks": "Branch-readiness, follow-ups, and management updates, coordinated around core banking systems.",
+      "ngos": "Field follow-up, programme activities, and reporting, connected to donor and M&E systems.",
+      "hotels": "Service recovery, facilities, and shift handoffs, coordinated beside your PMS and booking systems.",
+      "restaurants": "Opening, service, and closing routines, coordinated alongside your POS and inventory systems.",
+      "construction": "Site follow-up, snag resolution, and procurement, coordinated alongside project and accounting systems."
+    },
+    "fit": {
+      "kicker": "Where Clickt fits",
+      "title": "Clickt sits beside your existing system, not inside it.",
+      "stepExisting": "Your existing system",
+      "stepClickt": "Clickt coordination layer",
+      "stepResult": "Clearer ownership, recurring work, reporting, and decisions"
+    },
+    "principles": {
+      "oneLabel": "Built alongside",
+      "oneTitle": "Keep the systems you already rely on.",
+      "oneCopy": "Clickt is the coordination layer around your ERP, school-management system, core banking system, PMS, clinical tools, or spreadsheets. It does not require replacing them.",
+      "twoLabel": "Made for action",
+      "twoTitle": "Move from updates to clear next steps.",
+      "twoCopy": "Teams assigns the work, Checklist keeps recurring work consistent, Builder clarifies data, and Presentation turns progress into a decision-ready story."
+    },
+    "paths": {
+      "kicker": "Two ways to start",
+      "title": "Use Clickt as it is—or build around it.",
+      "adoptTitle": "Adopt Clickt",
+      "adoptCopy": "Explore plans for one connected workspace.",
+      "adoptLink": "View pricing →",
+      "serviceTitle": "Need a tailored layer?",
+      "serviceCopy": "Click T builds custom software, integrations, dashboards, and mobile apps around your organization.",
+      "serviceLink": "Explore custom software →"
+    }
+  },
+  "clicktai": {
+    "hero": {
+      "kicker": "ClicktAI",
+      "title": "Ask once. Review before anything changes.",
+      "lead": "ClicktAI prepares useful work across your workspace—plans, tasks, checklists, charts, and presentations—then leaves the final decision with you.",
+      "providerNote": "Connect your own OpenAI, Anthropic, Google Gemini, or NVIDIA API key—your key, your usage, your quota.",
+      "ctaDownload": "Download Clickt",
+      "ctaTour": "Explore the Product Tour",
+      "demoAriaLabel": "ClicktAI proposal preview",
+      "aiHeaderLabel": "✦ ClicktAI",
+      "aiYouLabel": "You",
+      "demoPreparing": "Preparing a proposal",
+      "demoRequest": "Set up our next project launch and make a leadership update.",
+      "demoProposedWork": "Proposed work",
+      "demoPreviewOnly": "Preview only",
+      "demoTeams": "Assign launch tasks with clear owners",
+      "demoChecklist": "Create a ready-to-run launch checklist",
+      "demoBuilder": "Prepare a metrics view for launch data",
+      "demoPresentation": "Draft a leadership update to review",
+      "demoControl": "Nothing is applied until you review and approve it."
+    },
+    "benefits": {
+      "oneTitle": "Works across modules",
+      "oneBody": "One request can connect work that would otherwise be rebuilt separately in Teams, Checklist, Builder, and Presentation.",
+      "twoTitle": "Every proposal is reviewable",
+      "twoBody": "See the intended work before it is created, with a clear distinction between a draft and an applied change.",
+      "threeTitle": "People stay in control",
+      "threeBody": "ClicktAI is designed to assist the decision, not quietly make it for you."
+    },
+    "workflow": {
+      "kicker": "A simple flow",
+      "title": "From request to ready-to-review work.",
+      "lead": "Use the same deliberate sequence whether you are preparing a small task or an organization-wide plan.",
+      "step1Title": "Ask",
+      "step1Body": "Describe what needs to happen in everyday language.",
+      "step2Title": "Prepare",
+      "step2Body": "ClicktAI drafts a proposal in the right module.",
+      "step3Title": "Review",
+      "step3Body": "Check the proposed owners, steps, data, or story.",
+      "step4Title": "Apply",
+      "step4Body": "Approve only the work you want in your workspace."
+    },
+    "example": {
+      "imgAlt": "ClicktAI in the Clickt workspace",
+      "kicker": "One practical example",
+      "title": "Turn a project request into coordinated work.",
+      "body": "Ask for a launch plan, then review a draft with tasks for the team, a repeatable checklist, a metrics view, and a presentation outline. The proposal makes a cross-functional request concrete without removing your judgment.",
+      "linkText": "See the connected workflow"
+    },
+    "related": {
+      "kicker": "Built into Clickt",
+      "title": "AI that starts with the work in front of you.",
+      "teams": "Clear ownership",
+      "checklist": "Repeatable progress",
+      "builder": "Answers from data",
+      "presentation": "Stories for decisions"
+    },
+    "finalCta": {
+      "title": "Make the first draft easier to start.",
+      "body": "ClicktAI is available inside Clickt on iPhone, iPad, Mac, and Android."
+    }
+  },
+  "about": {
+    "hero": {
+      "kicker": "About Click T",
+      "title": "We build software that makes organizational work clearer.",
+      "lead": "Click T Pvt. Ltd. is a Kathmandu-based software company. We make Clickt, and we build thoughtful custom software for organizations that need better tools around the way they already work."
+    },
+    "story": {
+      "oneKicker": "Why Clickt exists",
+      "oneTitle": "Good work should not disappear into busywork.",
+      "oneBody": "Clickt brings tasks, repeatable processes, data, and presentations into one connected workspace. The aim is simple: make it easier to turn a request into work people can understand, review, and move forward.",
+      "twoKicker": "Why Click T builds custom software",
+      "twoTitle": "Not every organization needs the same tool.",
+      "twoBody": "Many teams already have systems they depend on. Click T helps them fill the missing layer—with internal tools, mobile apps, dashboards, integrations, and AI workflows designed around real operations.",
+      "twoLink": "Explore custom software"
+    },
+    "founder": {
+      "kicker": "Founder note",
+      "title": "Built thoughtfully from Kathmandu, for organizations anywhere.",
+      "body": "Click T is led by Aaryan Jha. The company combines product thinking with practical software engineering: understand the work first, make the next step clear, and build systems people can actually use."
+    },
+    "principles": {
+      "kicker": "How we think",
+      "title": "Principles that shape the work.",
+      "oneTitle": "AI proposes; people approve.",
+      "oneBody": "Useful assistance should leave decisions visible and reviewable.",
+      "twoTitle": "Build around existing systems first.",
+      "twoBody": "The right answer is often an extension or integration, not a replacement.",
+      "threeTitle": "Prefer clarity over busywork.",
+      "threeBody": "Software should make responsibility, status, and next steps easier to understand.",
+      "fourTitle": "Make the work durable.",
+      "fourBody": "We value considered engineering, understandable workflows, and improvements that last."
+    },
+    "paths": {
+      "kicker": "Start where you are",
+      "title": "Explore the product or discuss the work you need built.",
+      "ctaExplore": "Explore Clickt",
+      "ctaBrief": "Send a project brief"
     }
   }
 };

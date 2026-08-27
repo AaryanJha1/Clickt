@@ -3,72 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | Clickt</title>
-    <meta name="description" content="Get help with Clickt on iPhone, iPad, and Mac. Quick fixes for common issues plus direct support contact.">
+    <title>ClicktAI | Reviewable AI for Real Work</title>
+    <meta name="description" content="ClicktAI prepares work across Clickt. You review every proposal before anything changes.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="styles.css?v=20260826b">
 </head>
-<body class="support-page">
-    <div id="splash-screen" class="splash-screen" role="status" aria-live="polite" aria-label="Loading Clickt">
-        <img src="IOS Promotion/click_logo.webp" alt="Clickt" class="splash-logo" decoding="async">
-        <div class="splash-progress"><div class="splash-progress-bar" id="splash-progress-bar"></div></div>
-        <div class="splash-percent" id="splash-percent">0%</div>
-    </div>
-    <noscript><style>#splash-screen{display:none!important}</style></noscript>
-    <script>
-        (function () {
-            var KEY = 'clickt-splash-shown';
-            var splash = document.getElementById('splash-screen');
-            if (!splash) return;
-
-            var shown;
-            try { shown = sessionStorage.getItem(KEY); } catch (e) { shown = null; }
-            if (shown) {
-                splash.parentNode.removeChild(splash);
-                return;
-            }
-
-            document.documentElement.classList.add('splash-lock');
-
-            var percentEl = document.getElementById('splash-percent');
-            var barEl = document.getElementById('splash-progress-bar');
-
-            function finish() {
-                try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
-                document.documentElement.classList.remove('splash-lock');
-                splash.classList.add('is-hidden');
-                window.setTimeout(function () {
-                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
-                }, 550);
-            }
-
-            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduced) {
-                finish();
-                return;
-            }
-
-            var duration = 1300;
-            var start = null;
-
-            function tick(ts) {
-                if (start === null) start = ts;
-                var elapsed = ts - start;
-                var pct = Math.min(100, Math.round((elapsed / duration) * 100));
-                if (percentEl) percentEl.textContent = pct + '%';
-                if (barEl) barEl.style.width = pct + '%';
-                if (pct < 100) {
-                    window.requestAnimationFrame(tick);
-                } else {
-                    window.setTimeout(finish, 200);
-                }
-            }
-
-            window.requestAnimationFrame(tick);
-        }());
-    </script>
+<body class="product-detail-page clicktai-page">
     <div class="site-dots" aria-hidden="true">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -83,7 +25,6 @@
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         <span class="dot"></span><span class="dot"></span>
     </div>
-
     <!-- SITE-SHELL:UTILITY:START -->
 <!-- Shared platform and language utility strip. Rendered by build-shell.js. -->
 <div class="platform-strip shared-platform-strip" data-site-shell-utility aria-label="Clickt platform and language options" data-i18n-attr="aria-label:siteShell.utility.ariaLabel">
@@ -94,7 +35,7 @@
     </div>
 </div>
 <!-- SITE-SHELL:UTILITY:END -->
-<div class="container">
+    <div class="container">
         <!-- SITE-SHELL:HEADER:START -->
 <!-- Shared global header. Rendered by build-shell.js. -->
 <header class="page-header shared-site-header" data-site-shell-header>
@@ -114,7 +55,7 @@
                     <a href="checklist.html" data-i18n="siteShell.product.checklist" role="menuitem">Checklist</a>
                     <a href="builder.html" data-i18n="siteShell.product.builder" role="menuitem">Builder</a>
                     <a href="presentation.html" data-i18n="siteShell.product.presentation" role="menuitem">Presentation</a>
-                    <a href="clicktai.html" data-i18n="siteShell.product.clicktai" role="menuitem">ClicktAI</a>
+                    <a href="clicktai.html" data-i18n="siteShell.product.clicktai" class="is-current" role="menuitem" aria-current="page">ClicktAI</a>
                     <a href="pricing.html" data-i18n="siteShell.product.plans" role="menuitem">Plans</a>
                 </div>
             </div>
@@ -132,7 +73,7 @@
             <a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a>
             <a href="builder.html" data-i18n="siteShell.product.builder">Builder</a>
             <a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a>
-            <a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a>
+            <a href="clicktai.html" data-i18n="siteShell.product.clicktai" class="is-current" aria-current="page">ClicktAI</a>
             <a href="pricing.html" data-i18n="siteShell.product.plans">Plans</a>
             <div class="header-dropdown-divider" role="separator"></div>
             <a href="solutions.html" data-i18n="siteShell.header.solutions">Solutions</a>
@@ -143,70 +84,58 @@
     </details>
 </header>
 <!-- SITE-SHELL:HEADER:END -->
-
-        <main class="support-main">
-            <section data-observe class="support-hero">
-                <p class="support-kicker" data-i18n="support.hero.kicker">Support</p>
-                <h2 data-i18n="support.hero.heading">Get unstuck quickly</h2>
-                <p class="support-subtitle" data-i18n="support.hero.subtitle">Try the quick fixes below, then write to us if you still need help. We currently support Clickt on iPhone, iPad, and Mac.</p>
-            </section>
-
-            <section data-observe class="support-fast-help" aria-label="Common issues" data-i18n-attr="aria-label:support.commonIssues.ariaLabel">
-                <h3 data-i18n="support.commonIssues.heading">Common issues</h3>
-                <div class="support-issue-grid">
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.exportFailed.heading">Export failed</h4>
-                        <p data-i18n="support.exportFailed.body">Builder exports PNG, DOC, and PPT. Presentation exports HTML and PDF. Retry the format supported by the workspace you are using.</p>
-                        <a href="user-guide.html#troubleshoot" data-i18n="support.exportFailed.link">Open troubleshooting</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.notificationNotArriving.heading">Notification not arriving</h4>
-                        <p data-i18n="support.notificationNotArriving.body">Confirm device permissions and signed-in status, then check the notification guide.</p>
-                        <a href="user-guide.html#notifications" data-i18n="support.notificationNotArriving.link">Check notification guide</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.teamActionsUnavailable.heading">Team actions unavailable</h4>
-                        <p data-i18n="support.teamActionsUnavailable.body">Verify invite acceptance and team role permissions for assignment and decision actions.</p>
-                        <a href="user-guide.html#teams" data-i18n="support.teamActionsUnavailable.link">Review team permissions</a>
-                    </article>
-                    <article class="support-issue-card">
-                        <h4 data-i18n="support.moduleWalkthrough.heading">Need a module walkthrough</h4>
-                        <p data-i18n="support.moduleWalkthrough.body">Follow the quick-start path for Builder, Presentation, Teams, and Checklist in the User Guide.</p>
-                        <a href="user-guide.html#workflow" data-i18n="support.moduleWalkthrough.link">Go to quick start</a>
-                    </article>
+        <main>
+            <section class="product-detail-hero" data-observe>
+                <div>
+                    <p class="context-kicker" data-i18n="clicktai.hero.kicker">ClicktAI</p>
+                    <h1 data-i18n="clicktai.hero.title">Ask once. Review before anything changes.</h1>
+                    <p data-i18n="clicktai.hero.lead">ClicktAI prepares useful work across your workspace—plans, tasks, checklists, charts, and presentations—then leaves the final decision with you.</p>
+                    <p class="clicktai-provider-note" data-i18n="clicktai.hero.providerNote">Connect your own OpenAI, Anthropic, Google Gemini, or NVIDIA API key—your key, your usage, your quota.</p>
+                    <div class="product-detail-actions"><a class="btn" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener" data-i18n="clicktai.hero.ctaDownload">Download Clickt</a><a class="btn btn-outline" href="playbook.html" data-i18n="clicktai.hero.ctaTour">Explore the Product Tour</a></div>
+                </div>
+                <div class="ai-proposal-demo" aria-label="ClicktAI proposal preview" data-i18n-attr="aria-label:clicktai.hero.demoAriaLabel">
+                    <div class="ai-proposal-top"><strong data-i18n="clicktai.hero.aiHeaderLabel">✦ ClicktAI</strong><span data-i18n="clicktai.hero.demoPreparing">Preparing a proposal</span></div>
+                    <div class="ai-proposal-request"><span data-i18n="clicktai.hero.aiYouLabel">You</span><p data-i18n="clicktai.hero.demoRequest">Set up our next project launch and make a leadership update.</p></div>
+                    <div class="ai-proposal-result"><span data-i18n="clicktai.hero.demoProposedWork">Proposed work</span> <em data-i18n="clicktai.hero.demoPreviewOnly">Preview only</em><ul><li><b data-i18n="siteShell.product.teams">Teams</b> <span data-i18n="clicktai.hero.demoTeams">Assign launch tasks with clear owners</span></li><li><b data-i18n="siteShell.product.checklist">Checklist</b> <span data-i18n="clicktai.hero.demoChecklist">Create a ready-to-run launch checklist</span></li><li><b data-i18n="siteShell.product.builder">Builder</b> <span data-i18n="clicktai.hero.demoBuilder">Prepare a metrics view for launch data</span></li><li><b data-i18n="siteShell.product.presentation">Presentation</b> <span data-i18n="clicktai.hero.demoPresentation">Draft a leadership update to review</span></li></ul></div>
+                    <p class="ai-proposal-control" data-i18n="clicktai.hero.demoControl">Nothing is applied until you review and approve it.</p>
                 </div>
             </section>
 
-            <section data-observe class="support-contact-grid" aria-label="Contact support details" data-i18n-attr="aria-label:support.contactGrid.ariaLabel">
-                <article class="support-panel">
-                    <h3 data-i18n="support.beforeYouWrite.heading">Before you write to us</h3>
-                    <p data-i18n="support.beforeYouWrite.body">Including these details helps us resolve your issue faster.</p>
-                    <ul class="support-checklist">
-                        <li data-i18n="support.beforeYouWrite.item1">Device model and platform - for example, iPhone 15, iPad Pro, or MacBook Pro</li>
-                        <li data-i18n="support.beforeYouWrite.item2">Operating system version</li>
-                        <li data-i18n="support.beforeYouWrite.item3">Clickt app version</li>
-                        <li data-i18n="support.beforeYouWrite.item4">Clear issue summary and what you expected to happen</li>
-                        <li data-i18n="support.beforeYouWrite.item5">Screenshot or short screen recording if possible</li>
-                    </ul>
-                </article>
-
-                <article class="support-panel support-panel-highlight">
-                    <h3 data-i18n="support.contactSupport.heading">Contact Clickt Support</h3>
-                    <p data-i18n="support.contactSupport.body">Send your request and we will guide you through the next best step.</p>
-                    <div class="support-platforms" aria-label="Supported platforms" data-i18n-attr="aria-label:support.contactSupport.platformsAriaLabel">
-                        <span data-i18n="support.contactSupport.platformIos">iOS</span>
-                        <span data-i18n="support.contactSupport.platformIpados">iPadOS</span>
-                        <span data-i18n="support.contactSupport.platformMacos">macOS</span>
-                    </div>
-                    <p class="support-response" data-i18n="support.contactSupport.response">Typical response: within 1–2 business days.</p>
-                    <a href="mailto:clickt@click-t.com?subject=Clickt%20Support%20Request" class="btn" data-i18n="support.contactSupport.cta">Write to Support</a>
-                </article>
+            <section class="product-benefits" data-observe>
+                <article><span>01</span><h2 data-i18n="clicktai.benefits.oneTitle">Works across modules</h2><p data-i18n="clicktai.benefits.oneBody">One request can connect work that would otherwise be rebuilt separately in Teams, Checklist, Builder, and Presentation.</p></article>
+                <article><span>02</span><h2 data-i18n="clicktai.benefits.twoTitle">Every proposal is reviewable</h2><p data-i18n="clicktai.benefits.twoBody">See the intended work before it is created, with a clear distinction between a draft and an applied change.</p></article>
+                <article><span>03</span><h2 data-i18n="clicktai.benefits.threeTitle">People stay in control</h2><p data-i18n="clicktai.benefits.threeBody">ClicktAI is designed to assist the decision, not quietly make it for you.</p></article>
             </section>
+
+            <section class="product-workflow" data-observe>
+                <div class="dark-section-dots" aria-hidden="true">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dot"></span><span class="dot"></span>
+                </div>
+                <div class="product-workflow-copy"><p class="context-kicker" data-i18n="clicktai.workflow.kicker">A simple flow</p><h2 data-i18n="clicktai.workflow.title">From request to ready-to-review work.</h2><p data-i18n="clicktai.workflow.lead">Use the same deliberate sequence whether you are preparing a small task or an organization-wide plan.</p></div>
+                <ol><li><span>1</span><strong data-i18n="clicktai.workflow.step1Title">Ask</strong><p data-i18n="clicktai.workflow.step1Body">Describe what needs to happen in everyday language.</p></li><li><span>2</span><strong data-i18n="clicktai.workflow.step2Title">Prepare</strong><p data-i18n="clicktai.workflow.step2Body">ClicktAI drafts a proposal in the right module.</p></li><li><span>3</span><strong data-i18n="clicktai.workflow.step3Title">Review</strong><p data-i18n="clicktai.workflow.step3Body">Check the proposed owners, steps, data, or story.</p></li><li><span>4</span><strong data-i18n="clicktai.workflow.step4Title">Apply</strong><p data-i18n="clicktai.workflow.step4Body">Approve only the work you want in your workspace.</p></li></ol>
+            </section>
+
+            <section class="product-example" data-observe>
+                <img src="IOS Promotion/Clickt Images/ipad-clicktai-home.png" alt="ClicktAI in the Clickt workspace" loading="lazy" data-i18n-attr="alt:clicktai.example.imgAlt">
+                <div><p class="context-kicker" data-i18n="clicktai.example.kicker">One practical example</p><h2 data-i18n="clicktai.example.title">Turn a project request into coordinated work.</h2><p data-i18n="clicktai.example.body">Ask for a launch plan, then review a draft with tasks for the team, a repeatable checklist, a metrics view, and a presentation outline. The proposal makes a cross-functional request concrete without removing your judgment.</p><a href="index.html#clicktai" class="text-link"><span data-i18n="clicktai.example.linkText">See the connected workflow</span> <span aria-hidden="true">→</span></a></div>
+            </section>
+
+            <section class="product-related" data-observe><p class="context-kicker" data-i18n="clicktai.related.kicker">Built into Clickt</p><h2 data-i18n="clicktai.related.title">AI that starts with the work in front of you.</h2><div><a href="playbook.html#teams"><span data-i18n="siteShell.product.teams">Teams</span> <span data-i18n="clicktai.related.teams">Clear ownership</span></a><a href="playbook.html#checklist"><span data-i18n="siteShell.product.checklist">Checklist</span> <span data-i18n="clicktai.related.checklist">Repeatable progress</span></a><a href="playbook.html#builder"><span data-i18n="siteShell.product.builder">Builder</span> <span data-i18n="clicktai.related.builder">Answers from data</span></a><a href="playbook.html#presentation"><span data-i18n="siteShell.product.presentation">Presentation</span> <span data-i18n="clicktai.related.presentation">Stories for decisions</span></a></div></section>
+
+            <section class="product-final-cta" data-observe><h2 data-i18n="clicktai.finalCta.title">Make the first draft easier to start.</h2><p data-i18n="clicktai.finalCta.body">ClicktAI is available inside Clickt on iPhone, iPad, Mac, and Android.</p><a class="btn" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener" data-i18n="clicktai.hero.ctaDownload">Download Clickt</a></section>
         </main>
-
     </div>
-
-
     <!-- SITE-SHELL:FOOTER:START -->
 <!-- Shared global footer. Rendered by build-shell.js. -->
 <div class="container footer-shell shared-footer-shell" data-site-shell-footer>
@@ -220,7 +149,7 @@
         <li><a href="checklist.html" data-i18n="siteShell.product.checklist">Checklist</a></li>
         <li><a href="builder.html" data-i18n="siteShell.product.builder">Builder</a></li>
         <li><a href="presentation.html" data-i18n="siteShell.product.presentation">Presentation</a></li>
-        <li><a href="clicktai.html" data-i18n="siteShell.product.clicktai">ClicktAI</a></li>
+        <li><a href="clicktai.html" data-i18n="siteShell.product.clicktai" class="is-current" aria-current="page">ClicktAI</a></li>
         <li><a href="pricing.html" data-i18n="siteShell.product.plans">Plans</a></li>
         </ul>
     </section>
@@ -248,7 +177,7 @@
     <section class="shared-footer-group shared-footer-group--help" aria-labelledby="site-shell-footer-help">
         <h2 id="site-shell-footer-help" data-i18n="siteShell.footer.groups.help">Help</h2>
         <ul>
-        <li><a href="support.html" data-i18n="siteShell.footer.support" class="is-current" aria-current="page">Support</a></li>
+        <li><a href="support.html" data-i18n="siteShell.footer.support">Support</a></li>
         <li><a href="user-guide.html" data-i18n="siteShell.footer.userGuide">User Guide</a></li>
         </ul>
     </section>
@@ -294,74 +223,12 @@
     </footer>
 </div>
 <!-- SITE-SHELL:FOOTER:END -->
-
     <script src="i18n/en.js?v=20260825e"></script>
     <script src="i18n/ne.js?v=20260825e"></script>
     <script src="site-shell/shell-i18n.js?v=20260826a"></script>
     <script src="i18n.js?v=20260824e"></script>
+    <script src="analytics.js?v=20260826a"></script>
     <script src="reveal.js?v=20260824h"></script>
-    <a
-        href="https://apps.apple.com/us/app/clickt/id6759891499"
-        class="mobile-download-cta"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Download Clickt on the App Store"
-        data-i18n-attr="aria-label:index.finalCta.appStoreAriaLabel"
-    >
-        <span data-i18n="index.hero.downloadClickt">Download Clickt</span>
-    </a>
-
-    <button class="founder-btn" id="founder-btn" aria-label="About the maker" aria-expanded="false" data-i18n-attr="aria-label:index.founder.ariaLabel">👋</button>
-    <div class="founder-popover" id="founder-popover" hidden>
-        <p data-i18n-html="index.founder.message">Hey - I'm Aaryan, founder of Click T Pvt. Ltd. Clickt is designed and built by Click T and we also build custom software for different organizations as well. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.</p>
-        <div class="founder-links">
-            <a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://github.com/AaryanJha1" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-    </div>
-    <script>
-        (function () {
-            var btn = document.getElementById('founder-btn');
-            var pop = document.getElementById('founder-popover');
-            btn.addEventListener('click', function () {
-                var open = pop.hidden;
-                pop.hidden = !open;
-                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            });
-            document.addEventListener('click', function (e) {
-                if (!btn.contains(e.target) && !pop.contains(e.target)) {
-                    pop.hidden = true;
-                    btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            function closeNavDropdown(nd) {
-                nd.classList.remove('is-open');
-                var trigger = nd.querySelector('.nav-dropdown-trigger');
-                if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            }
-            document.querySelectorAll('.nav-dropdown').forEach(function (nd) {
-                var trigger = nd.querySelector('.nav-dropdown-trigger');
-                trigger.addEventListener('click', function () {
-                    var willOpen = !nd.classList.contains('is-open');
-                    document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
-                    if (willOpen) {
-                        nd.classList.add('is-open');
-                        trigger.setAttribute('aria-expanded', 'true');
-                    }
-                });
-            });
-            document.addEventListener('click', function (e) {
-                document.querySelectorAll('.nav-dropdown.is-open').forEach(function (nd) {
-                    if (!nd.contains(e.target)) closeNavDropdown(nd);
-                });
-            });
-            document.addEventListener('keydown', function (e) {
-                if (e.key !== 'Escape') return;
-                document.querySelectorAll('.nav-dropdown.is-open').forEach(closeNavDropdown);
-            });
-        }());
-    </script>
     <script src="site-shell/shell-runtime.js?v=20260826a"></script>
 </body>
 </html>

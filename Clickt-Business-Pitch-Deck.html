@@ -11,7 +11,10 @@
     --ink:#0b1220; --slate:#475569; --slate-lt:#64748b;
     --teams:#2563eb; --checklist:#16a34a; --builder:#d97706; --presentation:#4f46e5;
     --paper:#ffffff;
+    --v-reserve:72px;
   }
+  html:fullscreen{ --v-reserve:40px; }
+  html.force-landscape{ --v-reserve:40px; }
   *{box-sizing:border-box;}
   html,body{height:100%;}
   body{
@@ -21,7 +24,22 @@
     min-height:100vh; min-height:100dvh; overflow:hidden; touch-action:manipulation;
     -webkit-font-smoothing:antialiased;
   }
-  #stage{position:relative; width:min(100vw - 32px, 177.78vh); aspect-ratio:16/9; }
+  #deckRoot{ display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:10px; }
+  #stage{position:relative; width:min(100vw - 32px, calc((100vh - var(--v-reserve)) * 16 / 9)); aspect-ratio:16/9; }
+  :fullscreen .footer, :-webkit-full-screen .footer{ display:none; }
+
+  /* Forced-landscape fullscreen for phones: rotates the whole deck 90deg to fill
+     the screen even when the device physically stays in portrait (iOS has no
+     JS orientation-lock API, so this CSS rotation is the only reliable fallback). */
+  html.force-landscape body{ overflow:hidden; }
+  html.force-landscape #deckRoot{
+    position:fixed; top:0; left:0; margin:0; padding:0;
+    width:100vh; height:100vw;
+    transform:rotate(90deg) translateY(-100%);
+    transform-origin:top left;
+  }
+  html.force-landscape #stage{ width:min(100vh - 32px, calc((100vw - var(--v-reserve)) * 16 / 9)); }
+  html.force-landscape #footer{ max-width:min(100vh - 32px, 177.78vw); }
   .slide{
     position:absolute; inset:0; display:none; border-radius:18px; overflow:hidden;
     border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.55);
@@ -43,63 +61,72 @@
   .slide[data-bg="white"]{ background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%); color:var(--ink); }
   .blob{position:absolute; border-radius:50%; opacity:.5; pointer-events:none;}
 
-  .pad{position:absolute; inset:0; padding:6.2cqw 6.4cqw; display:flex; flex-direction:column; justify-content:center; gap:0; }
+  .pad{position:absolute; inset:0; padding:6.2cqw 6.4cqw; display:flex; flex-direction:column; justify-content:center; gap:0; overflow:hidden; }
+  /* Flex/grid items default to min-width:auto, which lets long headlines
+     refuse to wrap and bleed past the card edge instead of shrinking with
+     --fit. min-width:0 restores normal text wrapping inside these boxes. */
+  .pad > *, .title-center > *, .cta-wrap > *{ min-width:0; }
+  .feature .col-text{ min-width:0; overflow:hidden; }
   .kicker{
     display:inline-flex; align-items:center; font-weight:700; letter-spacing:.06em;
-    font-size:clamp(9px,1.35cqw,15px); text-transform:uppercase;
+    font-size:calc(clamp(9px,1.35cqw,15px) * var(--fit,1)); text-transform:uppercase;
     padding:.5em 1em; border-radius:999px; margin-bottom:1.1em;
   }
   .slide[data-bg="blue"] .kicker, .slide[data-bg="teal"] .kicker{ background:rgba(255,255,255,.16); color:#fff; }
   .kicker.dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:.6em;}
 
-  .h1{ font-weight:800; letter-spacing:-.01em; line-height:1.06; font-size:clamp(20px,5.6cqw,58px); margin:0 0 .3em; }
-  .h1.xl{ font-size:clamp(26px,7.4cqw,78px); }
+  .h1{ font-weight:800; letter-spacing:-.01em; line-height:1.06; font-size:calc(clamp(15px,5.6cqw,58px) * var(--fit,1)); margin:0 0 .3em; }
+  .h1.xl{ font-size:calc(clamp(18px,7.4cqw,78px) * var(--fit,1)); }
   .slide[data-bg="blue"] .h1, .slide[data-bg="teal"] .h1{ color:#fff; }
   .slide[data-bg="white"] .h1{ color:var(--ink); }
-  .lede{ font-size:clamp(11px,2.05cqw,24px); line-height:1.42; max-width:74%; }
+  .lede{ font-size:calc(clamp(9px,2.05cqw,24px) * var(--fit,1)); line-height:1.42; max-width:74%; }
   .slide[data-bg="blue"] .lede, .slide[data-bg="teal"] .lede{ color:rgba(255,255,255,.86); }
   .slide[data-bg="white"] .lede{ color:var(--slate); }
 
   .brand{ position:absolute; left:6.4cqw; bottom:5cqw; font-weight:800; font-size:clamp(10px,1.5cqw,18px); }
   .slide[data-bg="white"] .brand{ color:var(--ink); }
   .domain{ position:absolute; right:6.4cqw; bottom:5cqw; font-size:clamp(9px,1.2cqw,14px); opacity:.65; }
+  /* Tiny (non-fullscreen) mobile preview: the letterboxed stage is too short for
+     both centered copy and the footer wordmark, so drop the redundant wordmark. */
+  @container slide (max-width: 480px){ .brand, .domain{ display:none; } }
 
   .bullets{ list-style:none; margin:1.4em 0 0; padding:0; display:grid; gap:.85em; max-width:78%; }
-  .bullets li{ display:flex; gap:.7em; align-items:flex-start; font-size:clamp(10px,1.75cqw,20px); line-height:1.4; }
+  .bullets li{ display:flex; gap:.7em; align-items:flex-start; font-size:calc(clamp(10px,1.75cqw,20px) * var(--fit,1)); line-height:1.4; }
   .slide[data-bg="white"] .bullets li{ color:var(--ink); }
   .bullets li .arrow{ flex:none; font-weight:700; opacity:.75; }
   .bullets.strong li{ font-weight:600; }
 
   /* Title slide */
-  .title-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6cqw; gap:1cqw; }
-  .title-center .badge{ background:rgba(255,255,255,.18); padding:.5em 1.1em; border-radius:999px; font-weight:700; letter-spacing:.08em; font-size:clamp(9px,1.3cqw,14px); text-transform:uppercase; }
-  .title-center .brandword{ font-weight:800; font-size:clamp(40px,11cqw,120px); letter-spacing:-.02em; line-height:1; margin:.15em 0; }
-  .title-center .sub{ font-size:clamp(12px,2.3cqw,26px); color:rgba(255,255,255,.88); max-width:70%; }
+  .title-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6cqw; gap:1cqw; overflow:hidden; }
+  .title-center .badge{ background:rgba(255,255,255,.18); padding:.5em 1.1em; border-radius:999px; font-weight:700; letter-spacing:.08em; font-size:calc(clamp(9px,1.3cqw,14px) * var(--fit,1)); text-transform:uppercase; }
+  .title-center .brandword{ font-weight:800; font-size:calc(clamp(40px,11cqw,120px) * var(--fit,1)); letter-spacing:-.02em; line-height:1; margin:.15em 0; }
+  .title-center .sub{ font-size:calc(clamp(12px,2.3cqw,26px) * var(--fit,1)); color:rgba(255,255,255,.88); max-width:70%; }
   .title-foot{ position:absolute; left:6.4cqw; bottom:5cqw; font-weight:700; font-size:clamp(10px,1.4cqw,16px); }
   .title-foot .who{ opacity:.8; font-weight:500; }
 
   /* Module grid (slide 4) */
-  .grid4{ display:grid; grid-template-columns:1fr 1fr; gap:1.4cqw; margin-top:2.4cqw; max-width:100%; }
-  .gcard{ border-radius:16px; padding:1.6cqw 1.8cqw; color:#fff; min-height:11cqw; display:flex; flex-direction:column; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.18); }
-  .gcard h3{ margin:0 0 .3em; font-size:clamp(13px,2.2cqw,24px); font-weight:800; }
-  .gcard p{ margin:0; font-size:clamp(9px,1.4cqw,16px); opacity:.94; line-height:1.35; }
+  .grid4{ display:grid; grid-template-columns:1fr 1fr; gap:calc(1.4cqw * var(--fit,1)); margin-top:calc(2.4cqw * var(--fit,1)); max-width:100%; }
+  .gcard{ border-radius:16px; padding:calc(1.6cqw * var(--fit,1)) calc(1.8cqw * var(--fit,1)); color:#fff; min-height:calc(11cqw * var(--fit,1)); display:flex; flex-direction:column; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.18); }
+  .gcard h3{ margin:0 0 .3em; font-size:calc(clamp(13px,2.2cqw,24px) * var(--fit,1)); font-weight:800; }
+  .gcard p{ margin:0; font-size:calc(clamp(9px,1.4cqw,16px) * var(--fit,1)); opacity:.94; line-height:1.35; }
   .gcard.teams{ background:linear-gradient(135deg,#5b9bff,var(--teams)); }
   .gcard.checklist{ background:linear-gradient(135deg,#4ade80,var(--checklist)); }
   .gcard.builder{ background:linear-gradient(135deg,#fbbf24,var(--builder)); }
   .gcard.presentation{ background:linear-gradient(135deg,#818cf8,var(--presentation)); }
 
   /* Feature layout: text left, carousel right */
-  .feature{ position:absolute; inset:0; display:grid; grid-template-columns:1.15fr .85fr; align-items:center; padding:5cqw 5.5cqw; gap:2cqw; }
+  .feature{ position:absolute; inset:0; display:grid; grid-template-columns:1.15fr .85fr; align-items:center; padding:calc(5cqw * var(--fit,1)) calc(5.5cqw * var(--fit,1)); gap:calc(2cqw * var(--fit,1)); overflow:hidden; }
   .feature .col-text{ max-width:100%; }
-  .pill{ display:inline-block; font-weight:800; letter-spacing:.05em; text-transform:uppercase; font-size:clamp(9px,1.25cqw,14px); color:#fff; padding:.5em 1.1em; border-radius:999px; margin-bottom:.9em; }
+  .pill{ display:inline-block; font-weight:800; letter-spacing:.05em; text-transform:uppercase; font-size:calc(clamp(8px,1.25cqw,13px) * var(--fit,1)); color:#fff; padding:.5em 1.1em; border-radius:999px; margin-bottom:.9em; }
   .pill.teams{background:var(--teams);} .pill.checklist{background:var(--checklist);} .pill.builder{background:var(--builder);} .pill.presentation{background:var(--presentation);}
-  .feature .h1{ font-size:clamp(17px,3.2cqw,38px); margin-bottom:.35em; }
-  .feature .lede{ max-width:100%; font-size:clamp(10px,1.55cqw,17px); }
+  .feature .h1{ font-size:calc(clamp(16px,3.2cqw,37px) * var(--fit,1)); margin-bottom:.35em; }
+  .feature .lede{ max-width:100%; font-size:calc(clamp(9px,1.55cqw,14px) * var(--fit,1)); }
+  .feature .bullets li{ font-size:calc(clamp(9px,1.75cqw,19px) * var(--fit,1)); }
   .accent-bar{ position:absolute; top:0; left:0; right:0; height:.9cqw; }
   .accent-bar.teams{background:var(--teams);} .accent-bar.checklist{background:var(--checklist);} .accent-bar.builder{background:var(--builder);} .accent-bar.presentation{background:var(--presentation);}
 
-  .carousel-wrap{ display:flex; flex-direction:column; align-items:center; gap:1cqw; }
-  .carousel-frame{ position:relative; width:74%; aspect-ratio:1668/2420; border-radius:12px; overflow:hidden; background:#0b1220; box-shadow:0 20px 45px rgba(15,23,42,.28), 0 2px 8px rgba(15,23,42,.15); border:1px solid rgba(15,23,42,.08); }
+  .carousel-wrap{ display:flex; flex-direction:column; align-items:center; gap:calc(1cqw * var(--fit,1)); min-width:0; min-height:0; }
+  .carousel-frame{ position:relative; width:74%; max-height:100%; aspect-ratio:1668/2420; border-radius:12px; overflow:hidden; background:#0b1220; box-shadow:0 20px 45px rgba(15,23,42,.28), 0 2px 8px rgba(15,23,42,.15); border:1px solid rgba(15,23,42,.08); }
   .carousel-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; opacity:0; transform:scale(1.015); transition:opacity .7s ease, transform 6s linear; }
   .carousel-img.active{ opacity:1; transform:scale(1); z-index:2; }
   .dots{ display:flex; gap:.5em; }
@@ -109,16 +136,16 @@
   .dot.teams{--dotcolor:var(--teams);} .dot.checklist{--dotcolor:var(--checklist);} .dot.builder{--dotcolor:var(--builder);} .dot.presentation{--dotcolor:var(--presentation);}
 
   /* Grid cards for quote / bullets slides */
-  .quote-mark{ font-size:clamp(30px,6cqw,64px); opacity:.5; line-height:1; margin-bottom:.1em; }
-  .quote-text{ font-size:clamp(13px,2.5cqw,27px); line-height:1.45; font-weight:600; max-width:88%; }
-  .quote-by{ margin-top:1em; font-size:clamp(10px,1.5cqw,16px); opacity:.85; }
+  .quote-mark{ font-size:calc(clamp(30px,6cqw,64px) * var(--fit,1)); opacity:.5; line-height:1; margin-bottom:.1em; }
+  .quote-text{ font-size:calc(clamp(13px,2.5cqw,27px) * var(--fit,1)); line-height:1.45; font-weight:600; max-width:88%; }
+  .quote-by{ margin-top:1em; font-size:calc(clamp(10px,1.5cqw,16px) * var(--fit,1)); opacity:.85; }
 
   /* CTA slide */
-  .cta-wrap{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:6cqw 6.4cqw; }
-  .cta-btn{ display:inline-flex; align-items:center; gap:.6em; margin-top:1.6cqw; align-self:flex-start; background:#fff; color:var(--blue-3); font-weight:800; letter-spacing:.01em; font-size:clamp(11px,1.9cqw,20px); padding:.85em 1.6em; border-radius:999px; text-decoration:none; box-shadow:0 0 0 0 rgba(255,255,255,.6); animation:pulse 2.2s ease-in-out infinite; }
+  .cta-wrap{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:6cqw 6.4cqw; overflow:hidden; }
+  .cta-btn{ display:inline-flex; align-items:center; gap:.6em; margin-top:1.6cqw; align-self:flex-start; background:#fff; color:var(--blue-3); font-weight:800; letter-spacing:.01em; font-size:calc(clamp(11px,1.9cqw,20px) * var(--fit,1)); padding:.85em 1.6em; border-radius:999px; text-decoration:none; box-shadow:0 0 0 0 rgba(255,255,255,.6); animation:pulse 2.2s ease-in-out infinite; }
   .cta-btn:hover{ transform:translateY(-1px); }
   @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(255,255,255,.45);} 70%{box-shadow:0 0 0 18px rgba(255,255,255,0);} 100%{box-shadow:0 0 0 0 rgba(255,255,255,0);} }
-  .cta-sub{ margin-top:1.4cqw; font-size:clamp(9px,1.3cqw,15px); opacity:.8; }
+  .cta-sub{ margin-top:1.4cqw; font-size:calc(clamp(9px,1.3cqw,15px) * var(--fit,1)); opacity:.8; }
 
   /* Build-step pop animation */
   [data-b]{ opacity:0; visibility:hidden; }
@@ -129,17 +156,24 @@
   .slide-index{ position:absolute; top:1.6cqw; right:2cqw; font-size:clamp(8px,1cqw,12px); font-weight:700; opacity:.6; z-index:5; }
   .slide[data-bg="white"] .slide-index{ color:var(--ink); }
 
-  .footer{ margin-top:10px; width:100%; display:flex; align-items:center; justify-content:space-between; font-size:12px; color:#94a3b8; }
-  .progress{ width:min(46vw,340px); height:5px; border-radius:999px; background:#1e293b; overflow:hidden; }
+  .footer{ margin-top:10px; width:100%; max-width:min(100vw - 32px, 177.78vh); display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12px; color:#94a3b8; flex-wrap:wrap; }
+  .progress{ width:min(46vw,340px); height:5px; border-radius:999px; background:#1e293b; overflow:hidden; flex:none; }
   .progress>div{ height:100%; width:0; background:linear-gradient(90deg,#4f86f7,#2dd4bf); transition:width .25s ease; }
   .hint{ opacity:.65; }
-  .fs-btn{ border:1px solid #1e293b; background:#0b1220; color:#cbd5e1; border-radius:8px; padding:6px 10px; font-size:12px; cursor:pointer; }
+  .fs-btn{ border:1px solid #1e293b; background:#0b1220; color:#cbd5e1; border-radius:8px; padding:6px 10px; font-size:12px; cursor:pointer; flex:none; white-space:nowrap; }
   .fs-btn:hover{ background:#111c33; }
-
-  @media (max-width:700px){ .feature{ grid-template-columns:1fr; } .carousel-wrap{ display:none; } .feature .col-text{ max-width:100%; } .grid4{ grid-template-columns:1fr; } }
+  #counter{ flex:none; white-space:nowrap; }
+  @media (max-width:600px){
+    body{ padding:8px; }
+    .hint{ display:none; }
+    .footer{ font-size:11px; gap:8px; }
+    .fs-btn{ padding:5px 9px; font-size:11px; }
+    .progress{ width:min(28vw,140px); }
+  }
 </style>
 </head>
 <body>
+  <div id="deckRoot">
   <div id="stage">
 
     <!-- 1: TITLE -->
@@ -216,7 +250,7 @@
           <ul class="bullets" style="margin-top:1.2em;">
             <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>No more "wait, who's doing this?"</li>
             <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Status visible in real time — no check-in messages required</li>
-            <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>A week of assignments takes minutes, not a Monday meeting</li>
+            <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>A week of assignments takes minutes, not a Monday meeting.</li>
           </ul>
         </div>
         <div class="carousel-wrap" data-b="0">
@@ -248,7 +282,7 @@
           <ul class="bullets" style="margin-top:1.2em;">
             <li data-b="2"><span class="arrow" style="color:var(--checklist);">→</span>Processes survive when the person who "just knows it" is out</li>
             <li data-b="3"><span class="arrow" style="color:var(--checklist);">→</span>Every run looks the same — no missed steps under pressure</li>
-            <li data-b="4"><span class="arrow" style="color:var(--checklist);">→</span>New hires run it correctly from day one</li>
+            <li data-b="4"><span class="arrow" style="color:var(--checklist);">→</span>New hires run it correctly from day one.</li>
           </ul>
         </div>
         <div class="carousel-wrap" data-b="0">
@@ -278,7 +312,7 @@
           <ul class="bullets" style="margin-top:1.2em;">
             <li data-b="2"><span class="arrow" style="color:var(--builder);">→</span>Weekly reporting stops eating an afternoon</li>
             <li data-b="3"><span class="arrow" style="color:var(--builder);">→</span>Time goes into reading the data, not formatting it</li>
-            <li data-b="4"><span class="arrow" style="color:var(--builder);">→</span>Dashboards get more polished over time, not rebuilt worse under pressure</li>
+            <li data-b="4"><span class="arrow" style="color:var(--builder);">→</span>Dashboards get more polished over time, not rebuilt worse under pressure.</li>
           </ul>
         </div>
         <div class="carousel-wrap" data-b="0">
@@ -309,7 +343,7 @@
           <ul class="bullets" style="margin-top:1.2em;">
             <li data-b="2"><span class="arrow" style="color:var(--presentation);">→</span>No more blank-slide panic the night before a board meeting</li>
             <li data-b="3"><span class="arrow" style="color:var(--presentation);">→</span>Time goes into the story, not the formatting</li>
-            <li data-b="4"><span class="arrow" style="color:var(--presentation);">→</span>The deck you present is recognizably yours</li>
+            <li data-b="4"><span class="arrow" style="color:var(--presentation);">→</span>The deck you present is recognizably yours.</li>
           </ul>
         </div>
         <div class="carousel-wrap" data-b="0">
@@ -434,14 +468,14 @@
         <div class="cta-sub" data-b="4">Aaryan — Founder, Clickt &nbsp;·&nbsp; jha.aaryan01@gmail.com &nbsp;·&nbsp; clickt@click-t.com &nbsp;·&nbsp; click-t.com</div>
       </div>
     </section>
-
-    <button class="fs-btn" id="fsBtn" style="position:absolute; top:-40px; right:0; z-index:20;" onclick="event.stopPropagation(); toggleFullscreen();">⛶ Fullscreen</button>
   </div>
 
-  <div class="footer" id="footer" style="max-width:min(100vw - 32px, 177.78vh);">
-    <span class="hint" id="hint">Click / → to advance · Shift+Click / ← back · F fullscreen</span>
+  <div class="footer" id="footer">
+    <span class="hint" id="hint">Tap left ← back · Tap right → forward · F fullscreen</span>
+    <button class="fs-btn" id="fsBtn" onclick="event.stopPropagation(); toggleFullscreen();">⛶ Fullscreen</button>
     <span id="counter">1 / 14</span>
     <div class="progress"><div id="progressFill"></div></div>
+  </div>
   </div>
 
 <script>
@@ -472,6 +506,27 @@
       Array.from(dw.children).forEach((d,i) => d.classList.toggle('active', i===0));
     });
   }
+  // Static clamp() sizing can't know how many lines a headline/bullet list will
+  // wrap to at a given container size, so a slide with a lot of copy can still
+  // overflow its 16:9 frame on a short viewport. Shrink it via --fit until it
+  // actually fits, the same idea the earlier reference deck used a full JS
+  // autofit engine for, just scoped to a single scale variable per block.
+  function fitBlock(block){
+    if(!block) return;
+    block.style.setProperty('--fit', 1);
+    let fit = 1, guard = 0;
+    while(guard < 24 && (block.scrollHeight > block.clientHeight + 1 || block.scrollWidth > block.clientWidth + 1)){
+      fit -= 0.04;
+      if(fit <= 0.55){ block.style.setProperty('--fit', 0.55); break; }
+      block.style.setProperty('--fit', fit.toFixed(2));
+      guard++;
+    }
+  }
+  function fitActiveSlide(){
+    const slide = slides[idx];
+    if(!slide) return;
+    slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature').forEach(fitBlock);
+  }
   function render(){
     slides.forEach((s,i) => {
       const wasActive = s.classList.contains('active');
@@ -481,6 +536,7 @@
     });
     counter.textContent = `${idx+1} / ${slides.length}`;
     progressFill.style.width = `${((idx+1)/slides.length)*100}%`;
+    fitActiveSlide();
   }
   function next(){
     const current = slides[idx];
@@ -492,20 +548,66 @@
     if(buildIndex > 0){ buildIndex -= 1; render(); return; }
     if(idx > 0){ idx -= 1; buildIndex = maxBuild(slides[idx]); render(); }
   }
+  const fsBtn = document.getElementById('fsBtn');
+  function isPortrait(){
+    return window.matchMedia('(orientation: portrait)').matches;
+  }
+  function setForceLandscape(on){
+    document.documentElement.classList.toggle('force-landscape', on);
+  }
+  function syncOrientationLock(){
+    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if(fsBtn) fsBtn.textContent = isFs ? '✕ Exit fullscreen' : '⛶ Fullscreen';
+    if(!isFs){ setForceLandscape(false); return; }
+    // If the OS actually rotated the device (or a real orientation lock landed),
+    // the CSS rotation trick would double-rotate the content — only keep it
+    // active while the device is still physically in portrait.
+    setForceLandscape(isPortrait());
+  }
+  let fitTimer = null;
+  function scheduleFit(){
+    if(fitTimer) window.clearTimeout(fitTimer);
+    fitTimer = window.setTimeout(fitActiveSlide, 60);
+  }
+  window.addEventListener('resize', scheduleFit);
+  window.addEventListener('orientationchange', scheduleFit);
+  document.addEventListener('fullscreenchange', scheduleFit);
+  document.addEventListener('webkitfullscreenchange', scheduleFit);
   async function toggleFullscreen(){
     const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
     try{
-      if(!isFs) await (document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() : document.documentElement.webkitRequestFullscreen());
-      else await (document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen());
+      if(!isFs){
+        await (document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() : document.documentElement.webkitRequestFullscreen());
+        let locked = false;
+        if(screen.orientation && screen.orientation.lock){
+          try{ await screen.orientation.lock('landscape'); locked = true; }catch(_){}
+        }
+        if(!locked && isPortrait()) setForceLandscape(true);
+      } else {
+        if(screen.orientation && screen.orientation.unlock){ try{ screen.orientation.unlock(); }catch(_){} }
+        await (document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen());
+        setForceLandscape(false);
+      }
     }catch(_){}
   }
+  document.addEventListener('fullscreenchange', syncOrientationLock);
+  document.addEventListener('webkitfullscreenchange', syncOrientationLock);
+  window.matchMedia('(orientation: portrait)').addEventListener('change', syncOrientationLock);
 
   let pointerStart = {x:0,y:0};
   document.body.addEventListener('pointerdown', e => { pointerStart.x = e.clientX; pointerStart.y = e.clientY; });
   document.body.addEventListener('pointerup', e => {
     const dx = e.clientX - pointerStart.x, dy = e.clientY - pointerStart.y;
-    if(Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); return; }
-    if(Math.abs(dx) < 12 && Math.abs(dy) < 12){ e.shiftKey ? prev() : next(); }
+    const rotated = document.documentElement.classList.contains('force-landscape');
+    // The CSS rotation trick swaps which real screen axis reads as "forward":
+    // once the deck is spun 90deg, a tap toward the visual right of the
+    // (rotated) slide lands in the bottom half of the real, unrotated screen.
+    if(!rotated && Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); return; }
+    if(Math.abs(dx) < 12 && Math.abs(dy) < 12){
+      if(e.shiftKey){ prev(); return; }
+      if(rotated) (e.clientY < window.innerHeight / 2) ? prev() : next();
+      else (e.clientX < window.innerWidth / 2) ? prev() : next();
+    }
   });
   document.addEventListener('keydown', e => {
     if(['ArrowRight',' ','PageDown'].includes(e.key)) next();
@@ -535,6 +637,7 @@
     const qs = new URLSearchParams(location.search);
     const jump = parseInt(qs.get('slide'), 10);
     if(jump >= 1 && jump <= slides.length){ idx = jump - 1; buildIndex = maxBuild(slides[idx]); }
+    if(qs.get('fl') === '1') setForceLandscape(true);
   }catch(_){}
   render();
 </script>

@@ -99,6 +99,12 @@
   /* Tiny (non-fullscreen) mobile preview: the letterboxed stage is too short for
      both centered copy and the footer wordmark, so drop the redundant wordmark. */
   @container slide (max-width: 480px){ .brand, .domain{ display:none; } }
+  /* Belt-and-suspenders: a fixed width breakpoint can't anticipate every
+     browser's chrome eating into the real viewport (in-app browsers, iOS
+     Safari's collapsing toolbars). If JS finds the slide still doesn't fit
+     even at minimum scale, drop the footer wordmark/domain outright so it
+     can never overlap the actual copy. */
+  .slide.crowded .brand, .slide.crowded .domain, .slide.crowded .title-foot{ display:none; }
 
   .bullets{ list-style:none; margin:1.4em 0 0; padding:0; display:grid; gap:.85em; max-width:78%; }
   .bullets li{ display:flex; gap:.7em; align-items:flex-start; font-size:calc(clamp(10px,1.75cqw,20px) * var(--fit,1)); line-height:1.4; }
@@ -522,7 +528,7 @@
   // actually fits, the same idea the earlier reference deck used a full JS
   // autofit engine for, just scoped to a single scale variable per block.
   function fitBlock(block){
-    if(!block) return;
+    if(!block) return true;
     block.style.setProperty('--fit', 1);
     let fit = 1, guard = 0;
     while(guard < 24 && (block.scrollHeight > block.clientHeight + 1 || block.scrollWidth > block.clientWidth + 1)){
@@ -531,11 +537,21 @@
       block.style.setProperty('--fit', fit.toFixed(2));
       guard++;
     }
+    return block.scrollHeight <= block.clientHeight + 1 && block.scrollWidth <= block.clientWidth + 1;
   }
   function fitActiveSlide(){
     const slide = slides[idx];
     if(!slide) return;
-    slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature').forEach(fitBlock);
+    let anyOverflowed = false;
+    slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature').forEach(block => {
+      if(!fitBlock(block)) anyOverflowed = true;
+    });
+    // A width-based breakpoint can't predict every browser chrome (in-app
+    // Gmail/Slack browsers, iOS Safari's collapsing toolbars, etc. all shrink
+    // the real viewport differently) — if content still doesn't fit even at
+    // minimum scale, drop the redundant wordmark/domain footer rather than
+    // let it overlap the actual slide copy.
+    slide.classList.toggle('crowded', anyOverflowed);
   }
   function render(){
     slides.forEach((s,i) => {

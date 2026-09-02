@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- iOS has no web Fullscreen API, but a page saved via "Add to Home Screen"
+     launches with no Safari chrome at all when these are set. -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Clickt — Business Pitch Deck</title>
 <style>
   :root{
@@ -15,6 +19,7 @@
   }
   html:fullscreen{ --v-reserve:40px; }
   html.force-landscape{ --v-reserve:40px; }
+  html.fake-fullscreen{ --v-reserve:40px; }
   *{box-sizing:border-box;}
   html,body{height:100%;}
   body{
@@ -26,7 +31,12 @@
   }
   #deckRoot{ display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:10px; }
   #stage{position:relative; width:min(100vw - 32px, calc((100vh - var(--v-reserve)) * 16 / 9)); aspect-ratio:16/9; }
-  :fullscreen .footer, :-webkit-full-screen .footer{ display:none; }
+  :fullscreen .footer, :-webkit-full-screen .footer, html.fake-fullscreen .footer{ display:none; }
+  /* iOS Safari has no Fullscreen API at all (see toggleFullscreen), so the
+     fallback path fakes it: stage fills the true viewport instead of the
+     letterboxed preview size. */
+  html.fake-fullscreen{ overflow:hidden; }
+  html.fake-fullscreen body{ position:fixed; inset:0; }
 
   /* Forced-landscape fullscreen for phones: rotates the whole deck 90deg to fill
      the screen even when the device physically stays in portrait (iOS has no
@@ -555,8 +565,11 @@
   function setForceLandscape(on){
     document.documentElement.classList.toggle('force-landscape', on);
   }
+  function isFullscreenActive(){
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.documentElement.classList.contains('fake-fullscreen'));
+  }
   function syncOrientationLock(){
-    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    const isFs = isFullscreenActive();
     if(fsBtn) fsBtn.textContent = isFs ? '✕ Exit fullscreen' : '⛶ Fullscreen';
     if(!isFs){ setForceLandscape(false); return; }
     // If the OS actually rotated the device (or a real orientation lock landed),
@@ -573,8 +586,21 @@
   window.addEventListener('orientationchange', scheduleFit);
   document.addEventListener('fullscreenchange', scheduleFit);
   document.addEventListener('webkitfullscreenchange', scheduleFit);
+  const nativeFullscreenSupported = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
   async function toggleFullscreen(){
-    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    const isFs = isFullscreenActive();
+    // iOS Safari (and every browser on iPhone/iPad, since they're all WebKit)
+    // has no Fullscreen API for ordinary pages — requestFullscreen is simply
+    // undefined there. Fake it with the same CSS treatment real fullscreen
+    // gets (footer hidden, stage fills the true viewport, forced-landscape
+    // rotation) instead of silently doing nothing.
+    if(!nativeFullscreenSupported){
+      document.documentElement.classList.toggle('fake-fullscreen', !isFs);
+      syncOrientationLock();
+      if(!isFs && isPortrait()) setForceLandscape(true);
+      scheduleFit();
+      return;
+    }
     try{
       if(!isFs){
         await (document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() : document.documentElement.webkitRequestFullscreen());

@@ -539,19 +539,38 @@
     }
     return block.scrollHeight <= block.clientHeight + 1 && block.scrollWidth <= block.clientWidth + 1;
   }
+  function rectsOverlap(a, b){
+    return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+  }
+  // .brand/.domain/.title-foot live outside .pad as separate absolutely
+  // positioned siblings, so ".pad's content fits inside .pad" doesn't
+  // guarantee those don't overlap it — .pad's own padding reserve doesn't
+  // account for how tall the footer text itself renders. Check the actual
+  // rendered boxes directly instead.
+  function contentCollidesWithFooter(slide, block){
+    const footerEls = Array.from(slide.querySelectorAll('.brand, .domain, .title-foot')).filter(f => getComputedStyle(f).display !== 'none');
+    if(!footerEls.length) return false;
+    const kids = Array.from(block.children).filter(c => getComputedStyle(c).display !== 'none' && !c.classList.contains('brand') && !c.classList.contains('domain'));
+    if(!kids.length) return false;
+    return kids.some(kid => {
+      const kr = kid.getBoundingClientRect();
+      return footerEls.some(f => rectsOverlap(kr, f.getBoundingClientRect()));
+    });
+  }
   function fitActiveSlide(){
     const slide = slides[idx];
     if(!slide) return;
+    slide.classList.remove('crowded');
     let anyOverflowed = false;
-    slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature').forEach(block => {
-      if(!fitBlock(block)) anyOverflowed = true;
-    });
+    const blocks = Array.from(slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature'));
+    blocks.forEach(block => { if(!fitBlock(block)) anyOverflowed = true; });
     // A width-based breakpoint can't predict every browser chrome (in-app
     // Gmail/Slack browsers, iOS Safari's collapsing toolbars, etc. all shrink
     // the real viewport differently) — if content still doesn't fit even at
-    // minimum scale, drop the redundant wordmark/domain footer rather than
-    // let it overlap the actual slide copy.
-    slide.classList.toggle('crowded', anyOverflowed);
+    // minimum scale, or its rendered box actually collides with the footer
+    // wordmark/domain, drop that footer rather than let it overlap the copy.
+    const collides = blocks.some(block => contentCollidesWithFooter(slide, block));
+    slide.classList.toggle('crowded', anyOverflowed || collides);
   }
   function render(){
     slides.forEach((s,i) => {

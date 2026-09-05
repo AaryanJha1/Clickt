@@ -130,6 +130,26 @@
   .gcard.builder{ background:linear-gradient(135deg,#fbbf24,var(--builder)); }
   .gcard.presentation{ background:linear-gradient(135deg,#818cf8,var(--presentation)); }
 
+  /* Comparison table (How Clickt Compares) */
+  .compare-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:2px; margin-top:calc(2cqw * var(--fit,1)); border-radius:14px; overflow:hidden; background:rgba(11,18,32,.08); }
+  .compare-grid .cell{ background:#fff; padding:calc(1cqw * var(--fit,1)) calc(1.2cqw * var(--fit,1)); font-size:calc(clamp(8px,1.3cqw,15px) * var(--fit,1)); line-height:1.35; color:var(--ink); display:flex; align-items:center; }
+  .compare-grid .head{ font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:calc(clamp(7px,1.05cqw,12px) * var(--fit,1)); background:#f1f5f9; }
+  .compare-grid .row-label{ font-weight:700; background:#f8fafc; }
+  .compare-grid .clickt-col{ background:#eef2ff; font-weight:700; color:#3730a3; }
+  .compare-grid .head.clickt-col{ background:var(--blue-2); color:#fff; }
+
+  /* Pricing cards */
+  .price-grid{ display:grid; grid-template-columns:1fr 1fr; gap:calc(1.6cqw * var(--fit,1)); margin-top:calc(2cqw * var(--fit,1)); }
+  .price-card{ border-radius:18px; padding:calc(1.8cqw * var(--fit,1)) calc(2cqw * var(--fit,1)); background:#f8fafc; border:1px solid rgba(15,23,42,.08); color:var(--ink); }
+  .price-card.featured{ background:linear-gradient(135deg,var(--blue-1),var(--blue-2)); color:#fff; box-shadow:0 20px 45px rgba(43,95,217,.25); border:none; }
+  .price-card .ptag{ font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:calc(clamp(8px,1.1cqw,12px) * var(--fit,1)); opacity:.75; margin-bottom:.4em; }
+  .price-card h3{ margin:0 0 .1em; font-size:calc(clamp(14px,2.2cqw,24px) * var(--fit,1)); font-weight:800; }
+  .price-card .price{ font-size:calc(clamp(20px,3.4cqw,38px) * var(--fit,1)); font-weight:800; margin:.2em 0 .6em; }
+  .price-card .price span{ font-size:.4em; font-weight:600; opacity:.75; }
+  .price-card ul{ list-style:none; margin:0; padding:0; display:grid; gap:.5em; }
+  .price-card li{ font-size:calc(clamp(8px,1.3cqw,14px) * var(--fit,1)); display:flex; gap:.5em; align-items:flex-start; line-height:1.35; }
+  .price-foot{ margin-top:calc(1.2cqw * var(--fit,1)); font-size:calc(clamp(8px,1.15cqw,13px) * var(--fit,1)); opacity:.75; }
+
   /* Feature layout: text left, carousel right */
   .feature{ position:absolute; inset:0; display:grid; grid-template-columns:1.15fr .85fr; align-items:center; padding:calc(5cqw * var(--fit,1)) calc(5.5cqw * var(--fit,1)); gap:calc(2cqw * var(--fit,1)); overflow:hidden; }
   .feature .col-text{ max-width:100%; }
@@ -194,7 +214,7 @@
 
     <!-- 1: TITLE -->
     <section class="slide active" data-bg="blue">
-      <div class="slide-index">1 / 14</div>
+      <div class="slide-index">1 / 17</div>
       <div class="blob" style="width:46cqw;height:46cqw;top:-18cqw;right:-14cqw;background:rgba(255,255,255,.12);"></div>
       <div class="blob" style="width:34cqw;height:34cqw;bottom:-16cqw;left:-10cqw;background:rgba(255,255,255,.10);"></div>
       <div class="title-center">
@@ -208,7 +228,7 @@
 
     <!-- 2: THE PROBLEM -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">2 / 14</div>
+      <div class="slide-index">2 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="pad">
         <div class="kicker" data-b="0">The Problem</div>
@@ -221,7 +241,7 @@
 
     <!-- 3: COST OF STATUS QUO -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">3 / 14</div>
+      <div class="slide-index">3 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.1);"></div>
       <div class="pad">
         <div class="kicker" data-b="0">The Cost Of The Status Quo</div>
@@ -238,7 +258,7 @@
 
     <!-- 4: INTRODUCING CLICKT -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">4 / 14</div>
+      <div class="slide-index">4 / 17</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Introducing Clickt</div>
         <div class="h1" data-b="0">One workspace that replaces all of it.</div>
@@ -256,7 +276,7 @@
 
     <!-- 5: TEAMS -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">5 / 14</div>
+      <div class="slide-index">5 / 17</div>
       <div class="accent-bar teams"></div>
       <div class="feature">
         <div class="col-text">
@@ -288,7 +308,7 @@
 
     <!-- 6: CHECKLIST -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">6 / 14</div>
+      <div class="slide-index">6 / 17</div>
       <div class="accent-bar checklist"></div>
       <div class="feature">
         <div class="col-text">
@@ -318,7 +338,7 @@
 
     <!-- 7: BUILDER -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">7 / 14</div>
+      <div class="slide-index">7 / 17</div>
       <div class="accent-bar builder"></div>
       <div class="feature">
         <div class="col-text">
@@ -349,7 +369,7 @@
 
     <!-- 8: PRESENTATION -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">8 / 14</div>
+      <div class="slide-index">8 / 17</div>
       <div class="accent-bar presentation"></div>
       <div class="feature">
         <div class="col-text">
@@ -381,7 +401,7 @@
 
     <!-- 9: MEET CLICKTAI (differentiator + copilot showcase) -->
     <section class="slide" data-bg="teal">
-      <div class="slide-index">9 / 14</div>
+      <div class="slide-index">9 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="feature">
         <div class="col-text">
@@ -409,9 +429,28 @@
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 10: WHY NOW -->
+    <!-- 10: WHY AI ADOPTION FAILS -->
+    <section class="slide" data-bg="white">
+      <div class="slide-index">10 / 17</div>
+      <div class="pad">
+        <div class="kicker" data-b="0" style="background:#fee2e2;color:#991b1b;">The Market Problem</div>
+        <div class="h1" data-b="1">Most companies didn't get an AI problem. They got a training problem.</div>
+        <div class="lede" data-b="2" style="max-width:88%;">Every team is being handed AI tools right now. Almost none of them are being shown how to actually use them — and the data shows exactly what that costs.</div>
+        <ul class="bullets" style="margin-top:1.2em;">
+          <li data-b="3"><span class="arrow">→</span>90% of executives say AI hasn't measurably boosted productivity at their company</li>
+          <li data-b="4"><span class="arrow">→</span>82% of employees say their organization never actually trained them on the AI tools they were handed</li>
+          <li data-b="5"><span class="arrow">→</span>Companies are leaving up to 40% of potential AI productivity gains on the table due to gaps in onboarding and talent strategy — not the technology itself</li>
+          <li data-b="6"><span class="arrow">→</span>88% of employees already use AI daily — but only 5% use it for anything beyond basic search and summarizing</li>
+        </ul>
+        <div class="lede" data-b="7" style="max-width:92%;margin-top:1em;font-size:calc(clamp(7px,1.05cqw,11px) * var(--fit,1));opacity:.65;">Sources: Federal Reserve executive survey; EY 2025 AI &amp; talent strategy survey; Domino Data Lab enterprise AI ROI report.</div>
+      </div>
+      <div class="brand" data-b="0">Clickt</div>
+      <div class="domain" data-b="0">click-t.com</div>
+    </section>
+
+    <!-- 11: WHY NOW -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">10 / 14</div>
+      <div class="slide-index">11 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="pad">
         <div class="kicker" data-b="0">Why Now</div>
@@ -422,9 +461,47 @@
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 11: BUILT FOR TEAMS THAT NEED CONTROL -->
+    <!-- 12: HOW CLICKT COMPARES -->
+    <section class="slide" data-bg="white">
+      <div class="slide-index">12 / 17</div>
+      <div class="pad">
+        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">How Clickt Compares</div>
+        <div class="h1" data-b="0">Built to beat the market, not just join it.</div>
+        <div class="lede" data-b="0" style="max-width:90%;">Not a fight over features — a different category of tool.</div>
+        <div class="compare-grid" data-b="1">
+          <div class="cell head"></div>
+          <div class="cell head">Point Tools</div>
+          <div class="cell head">Bolt-On AI Copilots</div>
+          <div class="cell head clickt-col">Clickt</div>
+
+          <div class="cell row-label">Where work lives</div>
+          <div class="cell">Scattered across 4+ apps</div>
+          <div class="cell">Same fragmentation, plus a chat window</div>
+          <div class="cell clickt-col">One workspace</div>
+
+          <div class="cell row-label">AI behavior</div>
+          <div class="cell">None — you do it all manually</div>
+          <div class="cell">Often auto-executes without approval</div>
+          <div class="cell clickt-col">Drafts only — you approve every action</div>
+
+          <div class="cell row-label">Rollout</div>
+          <div class="cell">Self-serve signup, no training</div>
+          <div class="cell">Same self-serve gap</div>
+          <div class="cell clickt-col">Dedicated onboarding, guided orientation</div>
+
+          <div class="cell row-label">Risk if it's not the fit</div>
+          <div class="cell">Sunk cost</div>
+          <div class="cell">Sunk cost</div>
+          <div class="cell clickt-col">75% money-back guarantee</div>
+        </div>
+      </div>
+      <div class="brand" data-b="0">Clickt</div>
+      <div class="domain" data-b="0">click-t.com</div>
+    </section>
+
+    <!-- 13: BUILT FOR TEAMS THAT NEED CONTROL -->
     <section class="slide" data-bg="teal">
-      <div class="slide-index">11 / 14</div>
+      <div class="slide-index">13 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.1);"></div>
       <div class="pad">
         <div class="kicker" data-b="0">Built For Teams That Need Control</div>
@@ -439,9 +516,9 @@
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 12: TESTIMONIAL -->
+    <!-- 14: TESTIMONIAL -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">12 / 14</div>
+      <div class="slide-index">14 / 17</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="pad">
         <div class="quote-mark" data-b="0">&ldquo;</div>
@@ -453,27 +530,65 @@
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 13: PARTNERING WITH CLICKT -->
+    <!-- 15: PARTNERING WITH CLICKT -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">13 / 14</div>
+      <div class="slide-index">15 / 17</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Partnering With Clickt</div>
         <div class="h1" data-b="0">What working with us looks like.</div>
         <ul class="bullets">
-          <li data-b="1"><span class="arrow" style="color:var(--teams);">→</span>Dedicated onboarding for your team — not a self-serve signup</li>
-          <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>Priority support and a direct line to the team building the product</li>
-          <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Admin controls and workspace-level visibility across every module</li>
-          <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>A plan shaped around your team's size and workflow — not a one-size-fits-all tier</li>
+          <li data-b="1"><span class="arrow" style="color:var(--teams);">→</span>Dedicated onboarding for your team — guided orientation to every module, not a self-serve signup nobody actually opens</li>
+          <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>Adoption paced with your team, not handed down as a leadership mandate — every module is walked through before anyone's expected to use it</li>
+          <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Priority support and a direct line to the team building the product</li>
+          <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>Admin controls and workspace-level visibility across every module</li>
+          <li data-b="5"><span class="arrow" style="color:var(--teams);">→</span>A plan shaped around your team's size and workflow — not a one-size-fits-all tier</li>
         </ul>
-        <div class="lede" data-b="5" style="max-width:88%;margin-top:1.3em;font-weight:700;color:var(--ink);">We're not selling a seat. We're proposing a pilot — with your team, on your real workflow, backed by a 75% money-back guarantee if it's not the fit you expected.</div>
+        <div class="lede" data-b="6" style="max-width:88%;margin-top:1.3em;font-weight:700;color:var(--ink);">We're not selling a seat. We're proposing a pilot — with your team, on your real workflow, backed by a 75% money-back guarantee if it's not the fit you expected.</div>
       </div>
       <div class="brand" data-b="0">Clickt</div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 14: CTA / SIGN -->
+    <!-- 16: PRICING -->
+    <section class="slide" data-bg="white">
+      <div class="slide-index">16 / 17</div>
+      <div class="pad">
+        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Pricing</div>
+        <div class="h1" data-b="0">Simple enough to start today.</div>
+        <div class="lede" data-b="0" style="max-width:88%;">Start free. Move to Business when your team needs one workspace, not four.</div>
+        <div class="price-grid" data-b="1">
+          <div class="price-card">
+            <div class="ptag">Free</div>
+            <h3>Get started</h3>
+            <div class="price">$0 <span>forever</span></div>
+            <ul>
+              <li><span class="arrow">→</span>Full workflow: Teams, Checklist, Builder, Presentation</li>
+              <li><span class="arrow">→</span>ClicktAI copilots, using your own API key</li>
+              <li><span class="arrow">→</span>Core exports — PNG, DOC, PPT, HTML, PDF</li>
+              <li><span class="arrow">→</span>Calendar and reminders</li>
+            </ul>
+          </div>
+          <div class="price-card featured">
+            <div class="ptag">Business · Most teams start here</div>
+            <h3>Built for your whole team</h3>
+            <div class="price">$5 <span>/ user / month, billed annually</span></div>
+            <ul>
+              <li><span class="arrow">→</span>Everything in Free, unlimited team size</li>
+              <li><span class="arrow">→</span>Admin-provided ClicktAI, with flexible top-ups</li>
+              <li><span class="arrow">→</span>Admin controls, department-level visibility, priority support</li>
+              <li><span class="arrow">→</span>One-time setup, scoped to your team</li>
+            </ul>
+          </div>
+        </div>
+        <div class="price-foot" data-b="2">First-time Business customers: 75% refund on annual software fees if you cancel within 90 days. Custom enterprise plans available on request.</div>
+      </div>
+      <div class="brand" data-b="0">Clickt</div>
+      <div class="domain" data-b="0">click-t.com</div>
+    </section>
+
+    <!-- 17: CTA / SIGN -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">14 / 14</div>
+      <div class="slide-index">17 / 17</div>
       <div class="blob" style="width:46cqw;height:46cqw;top:-18cqw;right:-14cqw;background:rgba(255,255,255,.14);"></div>
       <div class="blob" style="width:34cqw;height:34cqw;bottom:-16cqw;left:-10cqw;background:rgba(255,255,255,.10);"></div>
       <div class="cta-wrap">
@@ -495,7 +610,7 @@
   <div class="footer" id="footer">
     <span class="hint" id="hint">Tap left ← back · Tap right → forward · F fullscreen</span>
     <button class="fs-btn" id="fsBtn" onclick="event.stopPropagation(); toggleFullscreen();">⛶ Fullscreen</button>
-    <span id="counter">1 / 14</span>
+    <span id="counter">1 / 17</span>
     <div class="progress"><div id="progressFill"></div></div>
   </div>
   </div>

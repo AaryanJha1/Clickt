@@ -560,7 +560,7 @@
           <div class="price-card">
             <div class="ptag">Free</div>
             <h3>Get started</h3>
-            <div class="price">$0 <span>forever</span></div>
+            <div class="price"><span class="price-amt" data-npr="NPR 0" data-usd="$0">$0</span> <span>forever</span></div>
             <ul>
               <li><span class="arrow">→</span>Full workflow: Teams, Checklist, Builder, Presentation</li>
               <li><span class="arrow">→</span>ClicktAI copilots, using your own API key</li>
@@ -571,7 +571,7 @@
           <div class="price-card featured">
             <div class="ptag">Business · Most teams start here</div>
             <h3>Built for your whole team</h3>
-            <div class="price">$5 <span>/ user / month, billed annually</span></div>
+            <div class="price"><span class="price-amt" data-npr="NPR 500" data-usd="$5">$5</span> <span>/ user / month, billed annually</span></div>
             <ul>
               <li><span class="arrow">→</span>Everything in Free, unlimited team size</li>
               <li><span class="arrow">→</span>Your own isolated app instance and database — never shared or mixed with other organizations</li>
@@ -823,6 +823,27 @@
     if(qs.get('fl') === '1') setForceLandscape(true);
   }catch(_){}
   render();
+
+  // Currency: mirrors click-t.com's own detection so the deck and the live
+  // site never disagree. Timezone check first (instant, no network); the
+  // IP lookup then confirms/corrects it for visitors whose clock doesn't
+  // match their location (VPNs, travel, misconfigured system clocks).
+  (function(){
+    function setCurrency(cur){
+      document.querySelectorAll('.price-amt').forEach(function(el){
+        el.textContent = cur === 'npr' ? el.dataset.npr : el.dataset.usd;
+      });
+      scheduleFit();
+    }
+    try{
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if(tz === 'Asia/Kathmandu') setCurrency('npr');
+    }catch(_){}
+    fetch('https://api.country.is/')
+      .then(r => r.json())
+      .then(data => setCurrency(data && data.country === 'NP' ? 'npr' : 'usd'))
+      .catch(function(){ /* timezone result or USD default remains in place */ });
+  })();
 </script>
 </body>
 </html>

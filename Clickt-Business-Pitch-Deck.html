@@ -217,7 +217,14 @@
   #counter{ flex:none; white-space:nowrap; }
   @media (max-width:600px){
     body{ padding:8px; }
-    .footer{ display:none; }
+    /* Keep the fullscreen button — it's the only way to enter fullscreen on
+       iOS Safari (no keyboard shortcut, no native Fullscreen API there) —
+       but drop the hint text, counter, and progress bar, which are less
+       essential and just crowd a small screen. */
+    .hint{ display:none; }
+    #counter{ display:none; }
+    .progress{ display:none; }
+    .footer{ justify-content:center; }
     /* The container-query hide above only fires when the *stage itself* is
        narrower than 480px, which depends on the height-driven aspect-ratio
        math and doesn't reliably track the actual device/viewport width. This

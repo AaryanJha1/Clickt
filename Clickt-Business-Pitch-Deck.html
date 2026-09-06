@@ -7,7 +7,7 @@
      launches with no Safari chrome at all when these are set. -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Clickt — Business Pitch Deck</title>
+<title>Clickt — Pitch Deck</title>
 <style>
   :root{
     --blue-1:#4f86f7; --blue-2:#2b5fd9; --blue-3:#0b1533;
@@ -30,7 +30,12 @@
     -webkit-font-smoothing:antialiased;
   }
   #deckRoot{ display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:10px; }
-  #stage{position:relative; width:min(100vw - 32px, calc((100vh - var(--v-reserve)) * 16 / 9)); aspect-ratio:16/9; }
+  /* 100vw here (instead of a %) would reserve phantom scrollbar-gutter width
+     in most browsers even though nothing actually scrolls, running the stage
+     off the right edge on narrow viewports. #deckRoot's width:100% is already
+     correctly sized against body's padded box, so measuring against that
+     avoids the vw quirk entirely. */
+  #stage{position:relative; width:min(100%, calc((100vh - var(--v-reserve)) * 16 / 9)); aspect-ratio:16/9; }
   :fullscreen .footer, :-webkit-full-screen .footer, html.fake-fullscreen .footer{ display:none; }
   /* iOS Safari has no Fullscreen API at all (see toggleFullscreen), so the
      fallback path fakes it: stage fills the true viewport instead of the
@@ -93,9 +98,15 @@
   .slide[data-bg="blue"] .lede, .slide[data-bg="teal"] .lede{ color:rgba(255,255,255,.86); }
   .slide[data-bg="white"] .lede{ color:var(--slate); }
 
-  .brand{ position:absolute; left:6.4cqw; bottom:5cqw; font-weight:800; font-size:clamp(10px,1.5cqw,18px); }
-  .slide[data-bg="white"] .brand{ color:var(--ink); }
-  .domain{ position:absolute; right:6.4cqw; bottom:5cqw; font-size:clamp(9px,1.2cqw,14px); opacity:.65; }
+  /* Brand mark: real Clickt logo image, not text. The source logo file has a
+     solid off-white canvas baked in (no alpha), so on colored slides it needs
+     a white card behind it to read as a logo rather than a stray rectangle;
+     on white slides it blends in natively. */
+  .brand{ position:absolute; left:6.4cqw; bottom:2.2cqw; display:flex; align-items:center; line-height:0; }
+  .brand img{ height:clamp(13px,1.7cqw,19px); width:auto; display:block; }
+  .slide[data-bg="blue"] .brand, .slide[data-bg="teal"] .brand{ background:#fff; padding:.35em .65em; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.18); }
+  .domain{ position:absolute; right:6.4cqw; bottom:2.2cqw; font-size:clamp(9px,1.2cqw,14px); opacity:.65; }
+  .slide[data-bg="white"] .domain{ color:var(--slate); }
   /* Tiny (non-fullscreen) mobile preview: the letterboxed stage is too short for
      both centered copy and the footer wordmark, so drop the redundant wordmark. */
   @container slide (max-width: 480px){ .brand, .domain{ display:none; } }
@@ -113,14 +124,19 @@
   .bullets.strong li{ font-weight:600; }
 
   /* Title slide */
-  .title-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6cqw; gap:1cqw; overflow:hidden; }
+  /* bottom is reserved (not inset:0) so this box's own height already excludes
+     the title-foot/domain zone — vertical centering can then never place the
+     last line of copy on top of that footer text, on any viewport size. */
+  .title-center{ position:absolute; top:0; left:0; right:0; bottom:11cqw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:5cqw 6cqw 0; gap:1cqw; overflow:hidden; }
   .title-center .badge{ background:rgba(255,255,255,.18); padding:.5em 1.1em; border-radius:999px; font-weight:700; letter-spacing:.08em; font-size:calc(clamp(9px,1.3cqw,14px) * var(--fit,1)); text-transform:uppercase; }
-  .title-center .brandword{ font-weight:800; font-size:calc(clamp(40px,11cqw,120px) * var(--fit,1)); letter-spacing:-.02em; line-height:1; margin:.15em 0; }
+  .logo-card{ padding:calc(clamp(8px,1.6cqw,18px) * var(--fit,1)) calc(clamp(16px,3.4cqw,40px) * var(--fit,1)); display:inline-flex; margin:.25em 0; }
+  .logo-card img{ height:calc(clamp(64px,15cqw,180px) * var(--fit,1)); width:auto; display:block; }
   .title-center .sub{ font-size:calc(clamp(12px,2.3cqw,26px) * var(--fit,1)); color:rgba(255,255,255,.88); max-width:70%; }
-  .title-foot{ position:absolute; left:6.4cqw; bottom:5cqw; font-weight:700; font-size:clamp(10px,1.4cqw,16px); }
+  .slide[data-bg="white"] .title-center .sub{ color:var(--slate); }
+  .title-foot{ position:absolute; left:6.4cqw; bottom:2.2cqw; font-weight:700; font-size:clamp(10px,1.4cqw,16px); }
   .title-foot .who{ opacity:.8; font-weight:500; }
 
-  /* Module grid (slide 4) */
+  /* Module grid */
   .grid4{ display:grid; grid-template-columns:1fr 1fr; gap:calc(1.4cqw * var(--fit,1)); margin-top:calc(2.4cqw * var(--fit,1)); max-width:100%; }
   .gcard{ border-radius:16px; padding:calc(1.6cqw * var(--fit,1)) calc(1.8cqw * var(--fit,1)); color:#fff; min-height:calc(11cqw * var(--fit,1)); display:flex; flex-direction:column; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.18); }
   .gcard h3{ margin:0 0 .3em; font-size:calc(clamp(13px,2.2cqw,24px) * var(--fit,1)); font-weight:800; }
@@ -131,9 +147,9 @@
   .gcard.presentation{ background:linear-gradient(135deg,#818cf8,var(--presentation)); }
 
   /* Comparison table (How Clickt Compares) */
-  .compare-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:2px; margin-top:calc(2cqw * var(--fit,1)); border-radius:14px; overflow:hidden; background:rgba(11,18,32,.08); }
-  .compare-grid .cell{ background:#fff; padding:calc(1cqw * var(--fit,1)) calc(1.2cqw * var(--fit,1)); font-size:calc(clamp(8px,1.3cqw,15px) * var(--fit,1)); line-height:1.35; color:var(--ink); display:flex; align-items:center; }
-  .compare-grid .head{ font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:calc(clamp(7px,1.05cqw,12px) * var(--fit,1)); background:#f1f5f9; }
+  .compare-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:2px; margin-top:calc(1.1cqw * var(--fit,1)); border-radius:14px; overflow:hidden; background:rgba(11,18,32,.08); }
+  .compare-grid .cell{ background:#fff; padding:calc(.65cqw * var(--fit,1)) calc(1cqw * var(--fit,1)); font-size:calc(clamp(7px,1.15cqw,13px) * var(--fit,1)); line-height:1.25; color:var(--ink); display:flex; align-items:center; }
+  .compare-grid .head{ font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:calc(clamp(7px,1cqw,11px) * var(--fit,1)); background:#f1f5f9; }
   .compare-grid .row-label{ font-weight:700; background:#f8fafc; }
   .compare-grid .clickt-col{ background:#eef2ff; font-weight:700; color:#3730a3; }
   .compare-grid .head.clickt-col{ background:var(--blue-2); color:#fff; }
@@ -171,10 +187,10 @@
   .dot.active{ background:var(--dotcolor,#0f172a); transform:scale(1.35); }
   .dot.teams{--dotcolor:var(--teams);} .dot.checklist{--dotcolor:var(--checklist);} .dot.builder{--dotcolor:var(--builder);} .dot.presentation{--dotcolor:var(--presentation);}
 
-  /* Grid cards for quote / bullets slides */
-  .quote-mark{ font-size:calc(clamp(30px,6cqw,64px) * var(--fit,1)); opacity:.5; line-height:1; margin-bottom:.1em; }
-  .quote-text{ font-size:calc(clamp(13px,2.5cqw,27px) * var(--fit,1)); line-height:1.45; font-weight:600; max-width:88%; }
-  .quote-by{ margin-top:1em; font-size:calc(clamp(10px,1.5cqw,16px) * var(--fit,1)); opacity:.85; }
+  /* Founder quote, folded into the Differentiator slide */
+  .mini-quote{ margin-top:1.1em; padding:.9em 1.15em; border-left:3px solid rgba(255,255,255,.5); background:rgba(255,255,255,.09); border-radius:0 10px 10px 0; }
+  .mini-quote-text{ font-size:calc(clamp(9px,1.5cqw,15px) * var(--fit,1)); line-height:1.45; font-style:italic; }
+  .mini-quote-by{ margin-top:.5em; font-size:calc(clamp(8px,1.2cqw,12px) * var(--fit,1)); opacity:.82; font-style:normal; }
 
   /* CTA slide */
   .cta-wrap{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:6cqw 6.4cqw; overflow:hidden; }
@@ -201,10 +217,15 @@
   #counter{ flex:none; white-space:nowrap; }
   @media (max-width:600px){
     body{ padding:8px; }
-    .hint{ display:none; }
-    .footer{ font-size:11px; gap:8px; }
-    .fs-btn{ padding:5px 9px; font-size:11px; }
-    .progress{ width:min(28vw,140px); }
+    .footer{ display:none; }
+    /* The container-query hide above only fires when the *stage itself* is
+       narrower than 480px, which depends on the height-driven aspect-ratio
+       math and doesn't reliably track the actual device/viewport width. This
+       ties the same hide directly to the real viewport instead. Slide 1 (the
+       title slide) keeps its "Prepared by.../click-t.com" footer, since that
+       one's attribution rather than repeated per-slide branding. */
+    .brand, .domain, .title-foot{ display:none; }
+    .slide:first-child .domain, .slide:first-child .title-foot{ display:block; }
   }
 </style>
 </head>
@@ -213,13 +234,11 @@
   <div id="stage">
 
     <!-- 1: TITLE -->
-    <section class="slide active" data-bg="blue">
-      <div class="slide-index">1 / 17</div>
-      <div class="blob" style="width:46cqw;height:46cqw;top:-18cqw;right:-14cqw;background:rgba(255,255,255,.12);"></div>
-      <div class="blob" style="width:34cqw;height:34cqw;bottom:-16cqw;left:-10cqw;background:rgba(255,255,255,.10);"></div>
+    <section class="slide active" data-bg="white">
+      <div class="slide-index">1 / 13</div>
       <div class="title-center">
-        <div class="badge" data-b="0">Business Partnership Proposal</div>
-        <div class="brandword" data-b="0">Clickt</div>
+        <div class="badge" data-b="0" style="background:var(--ink);color:#fff;">Business Partnership Proposal</div>
+        <div class="logo-card" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
         <div class="sub" data-b="1">One workspace for how your team actually gets work done — with an AI that drafts, and never decides for you.</div>
       </div>
       <div class="title-foot" data-b="2">Prepared by Aaryan, Founder</div>
@@ -228,41 +247,29 @@
 
     <!-- 2: THE PROBLEM -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">2 / 17</div>
+      <div class="slide-index">2 / 13</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="pad">
         <div class="kicker" data-b="0">The Problem</div>
         <div class="h1 xl" data-b="1">Your team's work is scattered<br>across too many tools.</div>
-        <div class="lede" data-b="2">Tasks in one app. Checklists in a doc. Dashboards in a spreadsheet. Decks rebuilt from scratch, every time. Nobody has one place to see the whole picture — so everyone spends half their day asking for updates instead of making them.</div>
-      </div>
-      <div class="brand" data-b="2">Clickt</div>
-      <div class="domain" data-b="2">click-t.com</div>
-    </section>
-
-    <!-- 3: COST OF STATUS QUO -->
-    <section class="slide" data-bg="blue">
-      <div class="slide-index">3 / 17</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.1);"></div>
-      <div class="pad">
-        <div class="kicker" data-b="0">The Cost Of The Status Quo</div>
-        <div class="h1" data-b="0">That fragmentation has a price — and your best people pay it.</div>
-        <ul class="bullets">
-          <li data-b="1"><span class="arrow">→</span>Hours lost every week to status-check messages and meetings that exist only to answer "where are we?"</li>
-          <li data-b="2"><span class="arrow">→</span>Processes that only live in one person's head — and quietly break the day that person is out.</li>
-          <li data-b="3"><span class="arrow">→</span>Reports and decks rebuilt from scratch every single cycle, instead of refreshed in minutes.</li>
+        <div class="lede" data-b="2" style="max-width:88%;">Tasks in one app. Checklists in a doc. Dashboards in a spreadsheet. Decks rebuilt from scratch, every time. Nobody has one place to see the whole picture — and that fragmentation has a price your best people pay every week.</div>
+        <ul class="bullets" style="margin-top:1.1em;">
+          <li data-b="3"><span class="arrow">→</span>Hours lost every week to status-check messages and meetings that exist only to answer "where are we?"</li>
+          <li data-b="4"><span class="arrow">→</span>Processes that only live in one person's head — and quietly break the day that person is out</li>
+          <li data-b="5"><span class="arrow">→</span>Reports and decks rebuilt from scratch every single cycle, instead of refreshed in minutes</li>
         </ul>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 4: INTRODUCING CLICKT -->
+    <!-- 3: INTRODUCING CLICKT -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">4 / 17</div>
+      <div class="slide-index">3 / 13</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Introducing Clickt</div>
         <div class="h1" data-b="0">One workspace that replaces all of it.</div>
-        <div class="lede" data-b="0" style="max-width:86%;">Four connected modules. One AI that works inside every one of them — the same assistant, the same rule, everywhere your team already works.</div>
+        <div class="lede" data-b="0" style="max-width:86%;">Four connected modules — the foundation we build your organization's own version of Clickt on top of. One AI works inside every one of them — the same assistant, the same rule, everywhere your team already works.</div>
         <div class="grid4">
           <div class="gcard teams" data-b="1"><h3>Teams</h3><p>Assign, own, and track work — without the status-check tax.</p></div>
           <div class="gcard checklist" data-b="2"><h3>Checklist</h3><p>Turn any process into a checklist your whole team runs the same way.</p></div>
@@ -270,13 +277,13 @@
           <div class="gcard presentation" data-b="4"><h3>Presentation</h3><p>Go from a single prompt to a board-ready deck draft.</p></div>
         </div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 5: TEAMS -->
+    <!-- 4: TEAMS -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">5 / 17</div>
+      <div class="slide-index">4 / 13</div>
       <div class="accent-bar teams"></div>
       <div class="feature">
         <div class="col-text">
@@ -304,11 +311,13 @@
           </div>
         </div>
       </div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
+      <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 6: CHECKLIST -->
+    <!-- 5: CHECKLIST -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">6 / 17</div>
+      <div class="slide-index">5 / 13</div>
       <div class="accent-bar checklist"></div>
       <div class="feature">
         <div class="col-text">
@@ -334,11 +343,13 @@
           </div>
         </div>
       </div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
+      <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 7: BUILDER -->
+    <!-- 6: BUILDER -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">7 / 17</div>
+      <div class="slide-index">6 / 13</div>
       <div class="accent-bar builder"></div>
       <div class="feature">
         <div class="col-text">
@@ -365,11 +376,13 @@
           </div>
         </div>
       </div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
+      <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 8: PRESENTATION -->
+    <!-- 7: PRESENTATION -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">8 / 17</div>
+      <div class="slide-index">7 / 13</div>
       <div class="accent-bar presentation"></div>
       <div class="feature">
         <div class="col-text">
@@ -397,17 +410,23 @@
           </div>
         </div>
       </div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
+      <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 9: MEET CLICKTAI (differentiator + copilot showcase) -->
+    <!-- 8: THE DIFFERENTIATOR -->
     <section class="slide" data-bg="teal">
-      <div class="slide-index">9 / 17</div>
+      <div class="slide-index">8 / 13</div>
       <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
       <div class="feature">
         <div class="col-text">
           <div class="kicker" data-b="0">The Differentiator</div>
           <div class="h1 xl" data-b="0">It drafts.<br>You decide.</div>
           <div class="lede" data-b="1">Every AI feature in Clickt follows the same rule: draft first, ship never — until you say yes. Tasks, checklists, dashboards, decks. ClicktAI removes the blank page. You keep the judgment.</div>
+          <div class="mini-quote" data-b="2">
+            <div class="mini-quote-text">"Every team I talked to before building this said the same thing about AI tools: 'I don't trust it enough to let it just do things.' So I built Clickt's AI to never just do things. It drafts. It waits. You decide."</div>
+            <div class="mini-quote-by">— Aaryan, Founder, Clickt</div>
+          </div>
         </div>
         <div class="carousel-wrap" data-b="0">
           <div class="carousel-frame">
@@ -425,49 +444,37 @@
           </div>
         </div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 10: WHY AI ADOPTION FAILS -->
+    <!-- 9: WHY AI ADOPTION FAILS -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">10 / 17</div>
+      <div class="slide-index">9 / 13</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#fee2e2;color:#991b1b;">The Market Problem</div>
         <div class="h1" data-b="1">Most companies didn't get an AI problem. They got a training problem.</div>
-        <div class="lede" data-b="2" style="max-width:88%;">Every team is being handed AI tools right now. Almost none of them are being shown how to actually use them — and the data shows exactly what that costs.</div>
-        <ul class="bullets" style="margin-top:1.2em;">
+        <div class="lede" data-b="2" style="max-width:88%;">Every team is being handed AI tools right now. Almost none of them are being shown how to actually use them.</div>
+        <ul class="bullets" style="margin-top:1em;">
           <li data-b="3"><span class="arrow">→</span>90% of executives say AI hasn't measurably boosted productivity at their company</li>
           <li data-b="4"><span class="arrow">→</span>82% of employees say their organization never actually trained them on the AI tools they were handed</li>
-          <li data-b="5"><span class="arrow">→</span>Companies are leaving up to 40% of potential AI productivity gains on the table due to gaps in onboarding and talent strategy — not the technology itself</li>
+          <li data-b="5"><span class="arrow">→</span>Up to 40% of potential AI productivity gains are lost to gaps in onboarding and talent strategy — not the technology itself</li>
           <li data-b="6"><span class="arrow">→</span>88% of employees already use AI daily — but only 5% use it for anything beyond basic search and summarizing</li>
         </ul>
-        <div class="lede" data-b="7" style="max-width:92%;margin-top:1em;font-size:calc(clamp(7px,1.05cqw,11px) * var(--fit,1));opacity:.65;">Sources: Federal Reserve executive survey; EY 2025 AI &amp; talent strategy survey; Domino Data Lab enterprise AI ROI report.</div>
+        <div class="lede" data-b="7" style="max-width:90%;margin-top:1em;font-weight:700;color:var(--ink);">The tools winning right now aren't the ones that automate the most — they're the ones people actually trust enough to use. That's exactly the shift Clickt is built for.</div>
+        <div class="lede" data-b="7" style="max-width:92%;margin-top:.5em;font-size:calc(clamp(7px,1.05cqw,11px) * var(--fit,1));opacity:.6;">Sources: Federal Reserve executive survey; EY 2025 AI &amp; talent strategy survey; Domino Data Lab enterprise AI ROI report.</div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 11: WHY NOW -->
-    <section class="slide" data-bg="blue">
-      <div class="slide-index">11 / 17</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
-      <div class="pad">
-        <div class="kicker" data-b="0">Why Now</div>
-        <div class="h1 xl" data-b="1">Every team is being told to "adopt AI." Most tools make that scarier, not safer.</div>
-        <div class="lede" data-b="2">The tools winning right now aren't the ones that automate the most — they're the ones people actually trust enough to use. Clickt is built for that shift: AI that works inside your existing workflow, with a guardrail your team can see, every single time.</div>
-      </div>
-      <div class="brand" data-b="0">Clickt</div>
-      <div class="domain" data-b="0">click-t.com</div>
-    </section>
-
-    <!-- 12: HOW CLICKT COMPARES -->
+    <!-- 10: HOW CLICKT COMPARES -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">12 / 17</div>
+      <div class="slide-index">10 / 13</div>
       <div class="pad">
-        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">How Clickt Compares</div>
-        <div class="h1" data-b="0">Built to beat the market, not just join it.</div>
-        <div class="lede" data-b="0" style="max-width:90%;">Not a fight over features — a different category of tool.</div>
+        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;margin-bottom:.6em;">How Clickt Compares</div>
+        <div class="h1" data-b="0" style="font-size:calc(clamp(14px,3.4cqw,32px) * var(--fit,1));margin-bottom:.2em;">Built to beat the market, not just join it.</div>
+        <div class="lede" data-b="0" style="max-width:90%;font-size:calc(clamp(8px,1.3cqw,15px) * var(--fit,1));">Not a fight over features — a different category of tool.</div>
         <div class="compare-grid" data-b="1">
           <div class="cell head"></div>
           <div class="cell head">Point Tools</div>
@@ -482,7 +489,7 @@
           <div class="cell row-label">AI behavior</div>
           <div class="cell">None — you do it all manually</div>
           <div class="cell">Often auto-executes without approval</div>
-          <div class="cell clickt-col">Drafts only — you approve every action</div>
+          <div class="cell clickt-col">Drafts only, you approve</div>
 
           <div class="cell row-label">Rollout</div>
           <div class="cell">Self-serve signup, no training</div>
@@ -495,63 +502,32 @@
           <div class="cell clickt-col">75% money-back guarantee</div>
         </div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 13: BUILT FOR TEAMS THAT NEED CONTROL -->
-    <section class="slide" data-bg="teal">
-      <div class="slide-index">13 / 17</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.1);"></div>
-      <div class="pad">
-        <div class="kicker" data-b="0">Built For Teams That Need Control</div>
-        <div class="h1" data-b="0">Every draft. Every module. Your approval, every time.</div>
-        <div class="lede" data-b="1">Nothing ClicktAI drafts ships without a human decision. Your team stays accountable for every task, every checklist, every number in every deck — Clickt just removes the busywork getting there.</div>
-        <ul class="bullets" style="margin-top:1.4em;">
-          <li data-b="2"><span class="arrow">→</span>Admin visibility across every module in your workspace</li>
-          <li data-b="3"><span class="arrow">→</span>Your data, your workspace, your rules — always reviewable, never silently automated</li>
-        </ul>
-      </div>
-      <div class="brand" data-b="0">Clickt</div>
-      <div class="domain" data-b="0">click-t.com</div>
-    </section>
-
-    <!-- 14: TESTIMONIAL -->
-    <section class="slide" data-bg="blue">
-      <div class="slide-index">14 / 17</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
-      <div class="pad">
-        <div class="quote-mark" data-b="0">&ldquo;</div>
-        <div class="quote-text" data-b="1">Every team I talked to before building this said the same thing about AI tools: "I don't trust it enough to let it just do things." So I built Clickt's AI to never just do things. It drafts. It waits. You decide.</div>
-        <div class="quote-text" data-b="2" style="margin-top:.8em;">That's slower to build. It's also the only version of "AI-powered" I'd trust enough to run my own team on.</div>
-        <div class="quote-by" data-b="2">— Aaryan, Founder, Clickt</div>
-      </div>
-      <div class="brand" data-b="0">Clickt</div>
-      <div class="domain" data-b="0">click-t.com</div>
-    </section>
-
-    <!-- 15: PARTNERING WITH CLICKT -->
+    <!-- 11: PARTNERING WITH CLICKT -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">15 / 17</div>
+      <div class="slide-index">11 / 13</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Partnering With Clickt</div>
         <div class="h1" data-b="0">What working with us looks like.</div>
         <ul class="bullets">
           <li data-b="1"><span class="arrow" style="color:var(--teams);">→</span>Dedicated onboarding for your team — guided orientation to every module, not a self-serve signup nobody actually opens</li>
           <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>Adoption paced with your team, not handed down as a leadership mandate — every module is walked through before anyone's expected to use it</li>
-          <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Priority support and a direct line to the team building the product</li>
-          <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>Admin controls and workspace-level visibility across every module</li>
-          <li data-b="5"><span class="arrow" style="color:var(--teams);">→</span>A plan shaped around your team's size and workflow — not a one-size-fits-all tier</li>
+          <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Admin controls and full workspace visibility — your data, your workspace, your rules, always reviewable, never silently automated</li>
+          <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>Direct founder access and priority support — not a support ticket queue, and real input into what gets built next</li>
+          <li data-b="5"><span class="arrow" style="color:var(--teams);">→</span>A plan shaped around your team's size and workflow, plus scoped custom work for anything the 4 core modules don't cover yet — nothing starts until you approve it</li>
         </ul>
         <div class="lede" data-b="6" style="max-width:88%;margin-top:1.3em;font-weight:700;color:var(--ink);">We're not selling a seat. We're proposing a pilot — with your team, on your real workflow, backed by a 75% money-back guarantee if it's not the fit you expected.</div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 16: PRICING -->
+    <!-- 12: PRICING -->
     <section class="slide" data-bg="white">
-      <div class="slide-index">16 / 17</div>
+      <div class="slide-index">12 / 13</div>
       <div class="pad">
         <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Pricing</div>
         <div class="h1" data-b="0">Simple enough to start today.</div>
@@ -571,7 +547,7 @@
           <div class="price-card featured">
             <div class="ptag">Business · Most teams start here</div>
             <h3>Built for your whole team</h3>
-            <div class="price"><span class="price-amt" data-npr="NPR 500" data-usd="$5">$5</span> <span>/ user / month, billed annually</span></div>
+            <div class="price"><span class="price-amt" data-npr="NPR 1000" data-usd="$10">$10</span> <span>/ user / month, billed annually</span></div>
             <ul>
               <li><span class="arrow">→</span>Everything in Free, unlimited team size</li>
               <li><span class="arrow">→</span>Your own isolated app instance and database — never shared or mixed with other organizations</li>
@@ -581,15 +557,15 @@
             </ul>
           </div>
         </div>
-        <div class="price-foot" data-b="2">Business runs on a dedicated instance per organization — your data never sits in a shared pool with other companies or general users. First-time customers: 75% refund on annual software fees if you cancel within 90 days. Custom enterprise plans available on request.</div>
+        <div class="price-foot" data-b="2">Business runs on a dedicated instance per organization — your data never sits in a shared pool with other companies or general users. First-time customers: 75% refund on annual software fees if you cancel within 90 days. Need something built specifically for your org? It's scoped and quoted upfront — nothing starts until you approve it. Custom enterprise plans also available on request.</div>
       </div>
-      <div class="brand" data-b="0">Clickt</div>
+      <div class="brand" data-b="0"><img src="https://raw.githubusercontent.com/AaryanJha1/Clickt/main/IOS%20Promotion/click_logo.png" alt="Clickt"></div>
       <div class="domain" data-b="0">click-t.com</div>
     </section>
 
-    <!-- 17: CTA / SIGN -->
+    <!-- 13: CTA / SIGN -->
     <section class="slide" data-bg="blue">
-      <div class="slide-index">17 / 17</div>
+      <div class="slide-index">13 / 13</div>
       <div class="blob" style="width:46cqw;height:46cqw;top:-18cqw;right:-14cqw;background:rgba(255,255,255,.14);"></div>
       <div class="blob" style="width:34cqw;height:34cqw;bottom:-16cqw;left:-10cqw;background:rgba(255,255,255,.10);"></div>
       <div class="cta-wrap">
@@ -611,7 +587,7 @@
   <div class="footer" id="footer">
     <span class="hint" id="hint">Tap left ← back · Tap right → forward · F fullscreen</span>
     <button class="fs-btn" id="fsBtn" onclick="event.stopPropagation(); toggleFullscreen();">⛶ Fullscreen</button>
-    <span id="counter">1 / 17</span>
+    <span id="counter">1 / 13</span>
     <div class="progress"><div id="progressFill"></div></div>
   </div>
   </div>

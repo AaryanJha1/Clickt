@@ -280,6 +280,15 @@ window.ClicktI18nDict.en = {
       "proofChip3": "One connected workflow",
       "downloadClickt": "Download Clickt"
     },
+    "testing": {
+      "trigger": "Google Play Store",
+      "openAriaLabel": "Open the Clickt Android internal-testing notice",
+      "kicker": "Testing version",
+      "title": "Try the Clickt Android test?",
+      "body": "This is an internal testing version. Continue only if your Google account has been added as a Clickt tester in Google Play.",
+      "cancel": "Not now",
+      "continue": "Continue to Google Play"
+    },
     "persona": {
       "kicker": "Who It Is For",
       "heading": "Pick your role and see your outcome",
@@ -971,8 +980,8 @@ window.ClicktI18nDict.en = {
       "switchToNpr": "Switch to NPR",
       "perUser": {
         "business": {
-          "npr": "NPR 500 / user / month",
-          "usd": "USD 5 / user / month"
+          "npr": "NPR 1,000 / user / month",
+          "usd": "USD 10 / user / month"
         }
       }
     },
@@ -1654,14 +1663,21 @@ window.ClicktI18nDict.en = {
   "googlePlay": {
     "hero": {
       "kicker": "Google Play Store",
-      "title": "Android for Clickt - coming soon",
-      "body": "Explore the Android version of Clickt before its Google Play release. The application is not yet available to download.",
-      "badgeAriaLabel": "View the Android preview; Clickt is not yet available on Google Play",
+      "title": "Try Clickt for Android",
+      "body": "The Android app is available through internal testing. Your Google account must be added as a tester before you can install it.",
+      "badgeAriaLabel": "Open the Clickt Android internal-testing notice",
       "badgeLabel": "Google Play Store",
-      "badgeStatus": "Coming soon",
+      "badgeStatus": "Internal testing",
       "ctaExplore": "Explore Android preview",
-      "disclosureStrong": "Not yet available for download on Google Play.",
-      "disclosureRest": "This page is a product preview."
+      "disclosureStrong": "Testing version — available only to invited internal testers.",
+      "disclosureRest": "Confirm before continuing to Google Play."
+    },
+    "testing": {
+      "kicker": "Testing version",
+      "title": "Try the Clickt Android test?",
+      "body": "This is an internal testing version. Continue only if your Google account has been added as a Clickt tester in Google Play.",
+      "cancel": "Not now",
+      "continue": "Continue to Google Play"
     },
     "proof": {
       "kicker": "Product preview",

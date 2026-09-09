@@ -280,6 +280,15 @@ window.ClicktI18nDict.ne = {
       "proofChip3": "एउटै जोडिएको वर्कफ्लो",
       "downloadClickt": "Clickt डाउनलोड गर्नुहोस्"
     },
+    "testing": {
+      "trigger": "Google Play Store",
+      "openAriaLabel": "Clickt Android आन्तरिक परीक्षण सूचना खोल्नुहोस्",
+      "kicker": "परीक्षण संस्करण",
+      "title": "Clickt Android परीक्षण गर्ने?",
+      "body": "यो आन्तरिक परीक्षण संस्करण हो। तपाईंको Google खाता Google Play मा Clickt परीक्षकका रूपमा थपिएको छ भने मात्र अगाडि बढ्नुहोस्।",
+      "cancel": "अहिले होइन",
+      "continue": "Google Play मा जारी राख्नुहोस्"
+    },
     "persona": {
       "kicker": "यो कसका लागि हो",
       "heading": "आफ्नो भूमिका छान्नुहोस् र आफ्नो नतिजा हेर्नुहोस्",
@@ -971,8 +980,8 @@ window.ClicktI18nDict.ne = {
       "switchToNpr": "NPR मा स्विच गर्नुहोस्",
       "perUser": {
         "business": {
-          "npr": "NPR 500 / प्रयोगकर्ता / महिना",
-          "usd": "USD 5 / प्रयोगकर्ता / महिना"
+          "npr": "NPR 1,000 / प्रयोगकर्ता / महिना",
+          "usd": "USD 10 / प्रयोगकर्ता / महिना"
         }
       }
     },
@@ -1654,14 +1663,21 @@ window.ClicktI18nDict.ne = {
   "googlePlay": {
     "hero": {
       "kicker": "Google Play Store",
-      "title": "Clickt का लागि Android - चाँडै आउँदैछ",
-      "body": "Google Play मा रिलिज हुनुअघि Clickt को Android संस्करण अन्वेषण गर्नुहोस्। एप्लिकेसन अझै डाउनलोडका लागि उपलब्ध छैन।",
-      "badgeAriaLabel": "Android पूर्वावलोकन हेर्नुहोस्; Clickt अझै Google Play मा उपलब्ध छैन",
+      "title": "Clickt को Android परीक्षण गर्नुहोस्",
+      "body": "Android एप आन्तरिक परीक्षणमार्फत उपलब्ध छ। स्थापना गर्नुअघि तपाईंको Google खाता परीक्षकका रूपमा थपिएको हुनुपर्छ।",
+      "badgeAriaLabel": "Clickt Android आन्तरिक परीक्षण सूचना खोल्नुहोस्",
       "badgeLabel": "Google Play Store",
-      "badgeStatus": "चाँडै आउँदैछ",
+      "badgeStatus": "आन्तरिक परीक्षण",
       "ctaExplore": "Android पूर्वावलोकन अन्वेषण गर्नुहोस्",
-      "disclosureStrong": "Google Play मा अझै डाउनलोडका लागि उपलब्ध छैन।",
-      "disclosureRest": "यो पृष्ठ एक प्रोडक्ट पूर्वावलोकन हो।"
+      "disclosureStrong": "परीक्षण संस्करण — निमन्त्रित आन्तरिक परीक्षकका लागि मात्र उपलब्ध।",
+      "disclosureRest": "Google Play मा जानुअघि पुष्टि गर्नुहोस्।"
+    },
+    "testing": {
+      "kicker": "परीक्षण संस्करण",
+      "title": "Clickt Android परीक्षण गर्ने?",
+      "body": "यो आन्तरिक परीक्षण संस्करण हो। तपाईंको Google खाता Google Play मा Clickt परीक्षकका रूपमा थपिएको छ भने मात्र अगाडि बढ्नुहोस्।",
+      "cancel": "अहिले होइन",
+      "continue": "Google Play मा जारी राख्नुहोस्"
     },
     "proof": {
       "kicker": "प्रोडक्ट पूर्वावलोकन",

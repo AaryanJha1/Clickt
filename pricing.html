@@ -203,10 +203,10 @@
                         <div class="pricing-card-head">
                             <span class="pricing-tier-label" data-i18n="pricing.tiers.business.label">Business</span>
                             <span class="pricing-amount"
-                                data-npr="NPR 500"
-                                data-usd="USD 5">USD 5</span>
+                                data-npr="NPR 1,000"
+                                data-usd="USD 10">USD 10</span>
                             <span class="pricing-period" data-i18n="pricing.tiers.business.period">per licensed user / month · billed annually · no limit on team size</span>
-                            <p class="pricing-users" data-pricing-seat-line>USD 5 / user / month</p>
+                            <p class="pricing-users" data-pricing-seat-line>USD 10 / user / month</p>
                             <p class="pricing-credit" data-i18n="pricing.tiers.business.credit">Clickt-provided AI, assigned per user by your admin</p>
                             <p class="pricing-tagline" data-i18n="pricing.tiers.business.tagline">One connected company workspace for teams that want to plan, assign, analyse, and present without adding another AI bill.</p>
                         </div>
@@ -431,7 +431,7 @@
             const amounts = document.querySelectorAll('.pricing-amount');
 
             const perUserMap = {
-                business: { npr: 'NPR 500 / user / month', usd: 'USD 5 / user / month' },
+                business: { npr: 'NPR 1,000 / user / month', usd: 'USD 10 / user / month' },
             };
             var t = function (key) { return window.ClicktI18n ? window.ClicktI18n.t(key) : key; };
 

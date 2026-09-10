@@ -1023,17 +1023,33 @@
     </a>
     <dialog class="play-test-modal" aria-labelledby="play-test-title" aria-describedby="play-test-description">
         <div class="play-test-modal-content">
-            <span class="context-kicker" data-i18n="index.testing.kicker">Testing version</span>
+            <div class="play-test-heading">
+                <span class="play-test-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 4.75 7.2v4.7c0 4.2 3 7.5 7.25 8.6 4.25-1.1 7.25-4.4 7.25-8.6V7.2L12 3.5Z"/><path d="m8.9 12.1 2 2 4.25-4.35"/></svg>
+                </span>
+                <span class="context-kicker" data-i18n="index.testing.kicker">Private preview</span>
+            </div>
             <h2 id="play-test-title" data-i18n="index.testing.title">Try the Clickt Android test?</h2>
-            <p id="play-test-description" data-i18n="index.testing.body">This is an internal testing version. Continue only if your Google account has been added as a Clickt tester in Google Play.</p>
+            <p id="play-test-description" data-i18n="index.testing.body">Clickt for Android is currently available through an invite-only test. Request access with the Google account you use in Play.</p>
+            <div class="play-test-note">
+                <span class="play-test-note-number">01</span>
+                <p><strong data-i18n="index.testing.noteTitle">Request access, then join the test</strong><span data-i18n="index.testing.noteBody">The button opens a pre-filled email for Clickt and the Google Play tester page. Send the email so we can add your account.</span></p>
+            </div>
             <div class="play-test-actions">
-                <button class="btn btn-outline" type="button" data-play-test-cancel data-i18n="index.testing.cancel">Not now</button>
-                <a class="btn" href="https://play.google.com/apps/internaltest/4701130549783587471" target="_blank" rel="noopener noreferrer" data-i18n="index.testing.continue">Continue to Google Play</a>
+                <a
+                    class="btn"
+                    href="https://play.google.com/apps/testing/com.clickt.android"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-play-tester-request
+                    data-i18n="index.testing.continue"
+                >Request access &amp; continue to Google Play</a>
+                <button class="play-test-cancel" type="button" data-play-test-cancel data-i18n="index.testing.cancel">Not now</button>
             </div>
         </div>
     </dialog>
-    <script src="i18n/en.js?v=20260825e"></script>
-    <script src="i18n/ne.js?v=20260825e"></script>
+    <script src="i18n/en.js?v=20260910a"></script>
+    <script src="i18n/ne.js?v=20260910a"></script>
     <script src="site-shell/shell-i18n.js?v=20260826a"></script>
     <script src="i18n.js?v=20260824e"></script>
     <script src="analytics.js?v=20260826a"></script>
@@ -1043,7 +1059,8 @@
             const openButton = document.querySelector('[data-play-test-dialog]');
             const dialog = document.querySelector('.play-test-modal');
             const cancelButton = document.querySelector('[data-play-test-cancel]');
-            if (!openButton || !dialog || !cancelButton) return;
+            const testerRequestButton = document.querySelector('[data-play-tester-request]');
+            if (!openButton || !dialog || !cancelButton || !testerRequestButton) return;
 
             openButton.addEventListener('click', () => {
                 dialog.showModal();
@@ -1051,6 +1068,13 @@
             });
             cancelButton.addEventListener('click', () => dialog.close());
             dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+            testerRequestButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                const playJoinUrl = testerRequestButton.href;
+                const requestEmail = 'mailto:clickt@click-t.com?subject=Clickt%20Android%20tester%20request&body=Hello%20Clickt%2C%0A%0AI%20would%20like%20to%20be%20added%20to%20the%20Clickt%20Android%20internal%20test.%0A%0AMy%20Google%20Play%20email%20address%3A%20%0A%0AThank%20you.';
+                window.open(playJoinUrl, '_blank', 'noopener,noreferrer');
+                window.location.href = requestEmail;
+            });
         })();
     </script>
 

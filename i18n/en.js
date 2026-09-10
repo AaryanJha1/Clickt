@@ -283,11 +283,13 @@ window.ClicktI18nDict.en = {
     "testing": {
       "trigger": "Google Play Store",
       "openAriaLabel": "Open the Clickt Android internal-testing notice",
-      "kicker": "Testing version",
+      "kicker": "Private preview",
       "title": "Try the Clickt Android test?",
-      "body": "This is an internal testing version. Continue only if your Google account has been added as a Clickt tester in Google Play.",
+      "body": "Clickt for Android is currently available through an invite-only test. Request access with the Google account you use in Play.",
+      "noteTitle": "Request access, then join the test",
+      "noteBody": "The button opens a pre-filled email for Clickt and the Google Play tester page. Send the email so we can add your account.",
       "cancel": "Not now",
-      "continue": "Continue to Google Play"
+      "continue": "Request access & continue to Google Play"
     },
     "persona": {
       "kicker": "Who It Is For",
@@ -1146,6 +1148,27 @@ window.ClicktI18nDict.en = {
     "section6": {
       "heading": "Data retention",
       "body": "We keep your information only for as long as needed to provide the service, meet legal obligations, and resolve disputes. You may request deletion of your account and associated data at any time by contacting support."
+    },
+    "accountDeletion": {
+      "heading": "Delete your Clickt account and data",
+      "intro": "You can permanently delete your Clickt account and associated data at any time.",
+      "inAppHeading": "Delete it in the app",
+      "step1": "Sign in to Clickt.",
+      "step2": "Open Settings, then choose Delete account.",
+      "step3": "Enter your current password and confirm the deletion.",
+      "requestHeading": "Request deletion if you cannot sign in",
+      "requestBody": "Email <a href=\"mailto:clickt@click-t.com?subject=Account%20deletion%20request\">clickt@click-t.com</a> from the email address associated with your account. Use the subject “Account deletion request” and include your username or account email. Do not send your password. We may ask for information needed to verify that the request is yours.",
+      "dataHeading": "What happens to your data",
+      "dataBody": "We delete your authentication account, profile and username, account-private workspace content, device tokens, notifications, and related private records. We remove your membership from shared workspaces. Shared workspace records needed by other members may remain, but they are no longer linked to your deleted account.",
+      "retentionBody": "Deletion is permanent once completed. We retain only information that we are required to keep by applicable law, and only for the legally required retention period."
+    },
+    "dataDeletion": {
+      "heading": "Request deletion of specific data",
+      "intro": "You may request deletion of specific account data without deleting your Clickt account.",
+      "step1": "Email <a href=\"mailto:clickt@click-t.com?subject=Data%20deletion%20request\">clickt@click-t.com</a> from the email address associated with your account.",
+      "step2": "Use the subject “Data deletion request” and include your username or account email.",
+      "step3": "State which data you want removed, such as your profile details, a task, checklist, Builder dataset, presentation, or other account-private workspace content. Do not send your password.",
+      "outcome": "After verifying the request, we delete the requested account-private data where technically possible without deleting your account. Shared workspace records needed by other members may remain. We retain only information that we are required to keep by applicable law, for the legally required retention period."
     },
     "section7": {
       "heading": "Children's privacy",

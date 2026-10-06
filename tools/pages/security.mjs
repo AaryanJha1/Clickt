@@ -2,7 +2,7 @@ import { icon } from '../lib/icons.mjs';
 import { url } from '../lib/shell.mjs';
 
 const GROUPS = [
-  ['dataInfra', 'data', ['stored', 'encrypted', 'backups', 'dedicated', 'audit']],
+  ['dataInfra', 'data', ['stored', 'notes', 'meetings', 'encrypted', 'backups', 'dedicated', 'audit']],
   ['access', 'lock', ['who', 'sso', 'delete']],
   ['ai', 'sparkle', ['training', 'providers', 'disable', 'byok']],
 ];

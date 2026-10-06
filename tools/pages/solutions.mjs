@@ -27,6 +27,15 @@ export default function solutions(p) {
   </div>
 </section>
 
+<section class="section section--tight" id="notes">
+  <div class="wrap">
+    <div class="sec-head">${p.e('span', 'solutions.notes.kicker', 'class="eyebrow"')}${p.e('h2', 'solutions.notes.title', 'class="title title--sm" data-reveal="wipe"')}${p.e('p', 'solutions.notes.lead', 'class="lead"')}</div>
+    <div class="grid grid--4">${[1, 2, 3, 4].map((n) => `<article class="card" data-reveal style="--d:${n - 1}"><span class="num">0${n}</span>${p.e('h3', `solutions.notes.b${n}`, 'style="margin-top:14px;font-size:1.15rem"')}${p.e('p', `solutions.notes.b${n}Body`)}</article>`).join('')}</div>
+    <div class="sec-head" style="margin-top:clamp(48px,6vw,80px)">${p.e('h3', 'solutions.notes.rolesTitle', 'class="title title--sm" data-reveal="wipe"')}${p.e('p', 'solutions.notes.rolesLead', 'class="lead"')}</div>
+    <div class="grid grid--3">${INDUSTRIES.map(([k, ico]) => `<a class="card rel" href="${url('solutions-' + k)}#notes" data-reveal style="--c:var(--notes)"><span class="ico-box">${icon(ico)}</span><span class="mod mod--notes">${p.t(`siteShell.industry.${k}`)}</span><h3>${p.t(`industryPages.${k}.notesRole`)}</h3>${p.e('p', `industryPages.${k}.notes`)}<span class="link-arrow">${p.tl('solutions.notes.roleLink')}${icon('arrow')}</span></a>`).join('')}</div>
+  </div>
+</section>
+
 <section class="section section--paper2">
   <div class="wrap">
     <div class="sec-head center" style="margin-inline:auto">${p.e('span', 'solutions.fit.kicker', 'class="eyebrow"')}${p.e('h2', 'solutions.fit.title', 'class="title title--sm" data-reveal="wipe"')}</div>

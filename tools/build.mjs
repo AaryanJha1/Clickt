@@ -8,7 +8,7 @@ import { ROOT, SITE, loadDictionaries, createPage } from './lib/core.mjs';
 import { document_ } from './lib/shell.mjs';
 import { splashHead, splashBody } from './lib/splash.mjs';
 
-const dict = await loadDictionaries(['shell', 'home', 'product', 'meta', 'fixes']);
+const dict = await loadDictionaries(['shell', 'home', 'product', 'meta', 'fixes', 'notes']);
 // Root-absolute links (/assets/…, /pages/…, /) become relative to the page, so the site
 // also works when index.html is opened straight from disk, not only from a web root.
 const relativize = (rel, html) => {

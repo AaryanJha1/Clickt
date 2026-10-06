@@ -18,10 +18,12 @@ export const splashBody = `<div class="splash" data-splash role="status" aria-li
   function done(instant) {
     try { sessionStorage.setItem('clickt-splash', '1'); } catch (e) {}
     root.classList.remove('splash-lock');
-    document.dispatchEvent(new CustomEvent('clickt:splash-done'));
-    if (instant) { el.remove(); return; }
+    if (instant) { el.remove(); document.dispatchEvent(new CustomEvent('clickt:splash-done')); return; }
+    /* Overlap: the splash dissolves while the page rises into place underneath it. */
+    root.classList.add('splash-reveal');
     el.classList.add('is-leaving');
-    setTimeout(function () { el.remove(); }, 900);
+    document.dispatchEvent(new CustomEvent('clickt:splash-done'));
+    setTimeout(function () { el.remove(); root.classList.remove('splash-reveal'); }, 1300);
   }
   if (!root.classList.contains('splash-lock')) { el.remove(); return; }
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(true); return; }
@@ -40,7 +42,7 @@ export const splashBody = `<div class="splash" data-splash role="status" aria-li
     num.textContent = fmt(n);
     bar.style.transform = 'scaleX(' + e + ')';
     if (p < 1) requestAnimationFrame(tick);
-    else setTimeout(function () { done(false); }, 320);
+    else setTimeout(function () { done(false); }, 420);
   }
   requestAnimationFrame(tick);
   setTimeout(function () { if (root.classList.contains('splash-lock')) done(false); }, 6000); // never trap the visitor

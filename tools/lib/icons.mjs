@@ -4,6 +4,10 @@ const s = (d, extra = '') =>
 
 export const icons = {
   teams: s('<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.2" cy="9.2" r="2.4"/><path d="M17.5 14.2c2.3.2 3.9 1.8 3.9 4.3"/>'),
+  instagram: s('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/>'),
+  tiktok: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.3 2.4 1.7 3.9 4 4.1v3c-1.4.1-2.7-.3-4-1.1v6.1c0 3.8-2.6 6.4-6 6.4-3.2 0-5.9-2.4-5.9-5.9 0-3.7 3-6.1 6.5-5.6v3.1c-1.9-.5-3.4.7-3.4 2.4 0 1.5 1.1 2.6 2.6 2.6 1.6 0 2.6-1.1 2.6-2.9V3h3.6z"/></svg>',
+  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 9h-3v11h3V9zM5 4.2a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM20.5 20v-6.2c0-3-1.6-4.4-3.8-4.4-1.7 0-2.5.9-2.9 1.6V9h-3v11h3v-6c0-1.6.7-2.5 2-2.5s1.7.9 1.7 2.5V20h3z"/></svg>',
+  notes: s('<path d="M6 3.5h9l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5z"/><path d="M14.5 3.5V8H19M8.5 12.5h7M8.5 16h5"/>'),
   checklist: s('<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12.2 2.8 2.8L16.4 9"/>'),
   builder: s('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
   presentation: s('<rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/>'),

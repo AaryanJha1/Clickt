@@ -3,7 +3,7 @@ import { url, storeButtons, androidDialog } from '../lib/shell.mjs';
 import { INDUSTRIES } from './solutions.mjs';
 import { APP_STORE } from '../lib/core.mjs';
 
-const MOD = [['teams', 'teams'], ['checklist', 'checklist'], ['builder', 'builder'], ['presentation', 'presentation']];
+const MOD = [['notes', 'notes'], ['teams', 'teams'], ['checklist', 'checklist'], ['builder', 'builder'], ['presentation', 'presentation']];
 
 export default function industry(p, def) {
   const k = def.industry;
@@ -48,6 +48,20 @@ export default function industry(p, def) {
         ${p.e('p', cm('reviewNote'), 'class="muted" style="margin-top:20px;font-size:.92rem;max-width:56ch"')}
       </div>
       <ol class="flows">${rows}</ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="notes">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="mod mod--notes">${p.t(cm('notesLabel'))}</span>
+        <h2 class="title title--sm" style="margin-top:18px" data-reveal="wipe">${p.t(cm('notesTitle'))}</h2>
+        <p class="lead" style="margin-top:18px"><b>${p.t(ip('notesRole'))}.</b> ${p.t(ip('notesScenario'))}</p>
+        <div style="margin-top:24px"><a class="link-arrow" href="${url('notes')}">${p.tl('modulePages.teams.relatedNotesLink')}${icon('arrow')}</a></div>
+      </div>
+      <div class="grid" style="gap:14px">${[1, 2, 3].map((n) => `<article class="card" data-reveal style="--d:${n - 1}"><h3 style="font-size:1.1rem">${p.t(cm('notesB' + n))}</h3>${p.e('p', cm('notesB' + n + 'Body'))}</article>`).join('')}</div>
     </div>
   </div>
 </section>

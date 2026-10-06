@@ -5,6 +5,7 @@ import { icon } from './icons.mjs';
 
 const MODS = [
   ['teams', 'Teams'],
+  ['notes', 'Notes'],
   ['checklist', 'Checklist'],
   ['builder', 'Builder'],
   ['presentation', 'Presentation'],
@@ -210,6 +211,30 @@ export function byok(p) {
     <li>${icon('arrowUpRight')}${p.t('scene.key.f2')}</li>
     <li>${icon('check')}${p.t('scene.key.f3')}</li>
   </ul>
+</div>`;
+}
+
+// Notes: extract work from a note, then choose where each draft goes.
+export function notesScene(p) {
+  ['receipt'].forEach((k) => p.js(`scene.notes.${k}`));
+  const drafts = [1, 2, 3].map((i) => `<li class="draft" data-draft>
+        <span class="draft-title">${p.t(`scene.notes.d${i}`)}</span>
+        <div class="dest" role="group" aria-label="${p.text('scene.notes.head')}">
+          ${['leave', 'checklist', 'teams'].map((d) => `<button type="button" data-dest="${d}" aria-pressed="${d === 'leave'}">${p.t(`scene.notes.${d}`)}</button>`).join('')}
+        </div>
+      </li>`).join('');
+  return `<div class="scene-card notes-scene" data-scene="notes">
+  <div class="task-head"><span class="mod mod--notes">Notes</span>${p.e('span', 'scene.notes.noteKicker', 'class="scene-kicker"')}</div>
+  ${p.e('h4', 'scene.notes.noteTitle', 'class="task-title"')}
+  ${p.e('p', 'scene.notes.noteBody', 'class="note-body"')}
+  <div class="note-actions"><button class="btn btn--primary btn--sm" type="button" data-extract>${icon('sparkle')}${p.t('scene.notes.extract')}</button>${p.e('span', 'scene.notes.sent', 'class="note-sent"')}</div>
+  <div class="drafts">
+    ${p.e('p', 'scene.notes.head', 'class="drafts-head"')}
+    <ul>${drafts}</ul>
+    <p class="scene-foot" style="margin-top:6px">${p.t('scene.notes.hint')}</p>
+    <div class="prop-actions"><button class="btn btn--primary btn--sm" type="button" data-confirm>${p.t('scene.notes.confirm')}</button></div>
+    <div class="drafts-receipt"><span class="receipt-ico">${icon('check')}</span><div><strong data-notes-receipt-title>${p.js('scene.notes.receipt').replace('{c}', '0').replace('{t}', '0').replace('{l}', '3')}</strong><small>${p.t('scene.notes.receiptSub')}</small></div><button type="button" class="receipt-replay" data-notes-reset>${p.t('scene.notes.reset')}</button></div>
+  </div>
 </div>`;
 }
 

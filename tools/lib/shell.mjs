@@ -1,11 +1,12 @@
 // Shared document shell: <head>, header, mobile menu, footer.
 import { icon } from './icons.mjs';
-import { SITE, APP_STORE, EMAIL, esc } from './core.mjs';
+import { SITE, APP_STORE, EMAIL, SOCIAL, esc } from './core.mjs';
 
 export const url = (name) => (name === 'home' ? '/' : `/pages/${name}.html`);
 
 const PRODUCT = [
   ['teams', 'teams', '--teams'],
+  ['notes', 'notes', '--notes'],
   ['checklist', 'checklist', '--checklist'],
   ['builder', 'builder', '--builder'],
   ['presentation', 'presentation', '--presentation'],
@@ -13,6 +14,9 @@ const PRODUCT = [
   ['pricing', 'plans', '--ink'],
 ];
 const INDUSTRIES = ['schools', 'healthcare', 'banks', 'ngos', 'hotels', 'restaurants', 'construction'];
+
+const socialLinks = (cls = '') => SOCIAL.filter((x) => x.url).map((x) =>
+  `<a class="social-btn${cls}" href="${x.url}" target="_blank" rel="noopener noreferrer" aria-label="${x.label}" title="${x.label}">${icon(x.id)}${cls ? `<span>${x.label}</span>` : ''}</a>`).join('');
 
 export function header(p, current) {
   const cur = (name) => (current === name ? ' aria-current="page"' : '');
@@ -43,7 +47,7 @@ export function header(p, current) {
         <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
         <button type="button" data-lang="ne" aria-pressed="false" lang="ne">ने</button>
       </div>
-      <a class="btn btn--dark btn--sm" href="${APP_STORE}" target="_blank" rel="noopener noreferrer">${p.e('span', 'siteShell.footer.download')}</a>
+      <div class="social-links">${socialLinks()}</div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-sheet" ${p.at({ 'aria-label': 'siteShell.header.openMenu' })}><span></span></button>
     </div>
   </div>
@@ -56,9 +60,7 @@ export function header(p, current) {
   <a href="${url('services')}">${p.e('span', 'siteShell.header.services')}</a>
   <a href="${url('about')}">${p.e('span', 'siteShell.header.about')}</a>
   <a href="${url('contact')}">${p.e('span', 'siteShell.header.contact')}</a>
-  <div style="margin-top:28px;display:grid;gap:12px">
-    <a class="btn btn--primary btn--lg" href="${APP_STORE}" target="_blank" rel="noopener noreferrer" style="border:0">${p.e('span', 'siteShell.footer.download')}</a>
-  </div>
+  <div class="social-links social-links--sheet">${socialLinks(' social-btn--wide')}</div>
 </div>`;
 }
 
@@ -170,7 +172,7 @@ export const androidDialog = (p) => `<dialog class="dialog" data-play-dialog ari
   <span class="eyebrow">${p.t('index.testing.kicker')}</span>
   ${p.e('h2', 'index.testing.title', 'id="play-title" class="title title--sm"')}
   ${p.e('p', 'index.testing.body', 'class="lead"')}
-  <div class="dialog-note"><span>01</span><p><strong>${p.t('index.testing.noteTitle')}</strong> ${p.t('index.testing.noteBody')}</p></div>
+  <div class="dialog-note">${p.e('p', 'index.testing.noteBody')}</div>
   <div class="dialog-actions">
     <a class="btn btn--primary" href="https://play.google.com/apps/testing/com.clickt.android" target="_blank" rel="noopener noreferrer" data-play-request>${p.e('span', 'index.testing.continue')}</a>
     <button class="btn btn--ghost" type="button" data-dialog-close>${p.t('index.testing.cancel')}</button>

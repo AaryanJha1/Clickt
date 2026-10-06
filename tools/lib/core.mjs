@@ -15,6 +15,13 @@ export const SITE = 'https://click-t.com';
 export const APP_STORE = 'https://apps.apple.com/us/app/clickt/id6759891499';
 export const PLAY_TEST = 'https://play.google.com/apps/testing/com.clickt.android';
 export const EMAIL = 'clickt@click-t.com';
+// Social profiles shown in the header and mobile menu. An entry with an empty url is not rendered,
+// so paste the TikTok and LinkedIn addresses here when they are ready and rebuild.
+export const SOCIAL = [
+  { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/__clickt/' },
+  { id: 'tiktok', label: 'TikTok', url: '' },
+  { id: 'linkedin', label: 'LinkedIn', url: '' },
+];
 
 const readJson = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/content', f), 'utf8'));
 
@@ -55,7 +62,7 @@ export const esc = (s) =>
 const isHtml = (v) => /<[a-z!/]/i.test(v);
 
 // Old copy links to pages by their previous flat file names.
-const PAGE_NAMES = ['teams', 'checklist', 'builder', 'presentation', 'clicktai', 'pricing', 'solutions', 'services', 'about',
+const PAGE_NAMES = ['teams', 'notes', 'checklist', 'builder', 'presentation', 'clicktai', 'pricing', 'solutions', 'services', 'about',
   'contact', 'support', 'security', 'privacy', 'terms', 'user-guide', 'android',
   'solutions-schools', 'solutions-healthcare', 'solutions-banks', 'solutions-ngos', 'solutions-hotels', 'solutions-restaurants', 'solutions-construction'];
 export function rewriteLinks(s) {

@@ -18,6 +18,11 @@ export default [
     css: ['scenes'], scripts: ['scenes'],
   },
   {
+    id: 'notes', module: 'product', module_key: 'notes', file: 'pages/notes.html', path: '/pages/notes.html', current: 'notes', priority: 0.8,
+    title: { key: 'meta.notes.title' }, desc: { key: 'meta.notes.desc' },
+    css: ['scenes'], scripts: ['scenes'],
+  },
+  {
     id: 'checklist', module: 'product', module_key: 'checklist', file: 'pages/checklist.html', path: '/pages/checklist.html', current: 'checklist', priority: 0.8,
     title: { key: 'meta.checklist.title' }, desc: { key: 'meta.checklist.desc' },
     css: ['scenes'], scripts: ['scenes'],

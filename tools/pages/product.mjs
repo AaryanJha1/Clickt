@@ -1,25 +1,29 @@
 import { icon } from '../lib/icons.mjs';
 import { url, storeButtons, androidDialog } from '../lib/shell.mjs';
-import { approve, claim, reminder, checklist, charts, deck } from '../lib/scenes.mjs';
+import { approve, claim, reminder, checklist, charts, deck, notesScene } from '../lib/scenes.mjs';
 
 const img = (src, alt, w, h, extra = '') => `<img src="/assets/img/${src}" alt="${alt}" width="${w}" height="${h}" decoding="async" ${extra}>`;
 
 const MODS = {
   teams: {
     color: '--teams', ico: 'teams', phone: 'phone/teams.webp', tablet: 'tablet/ipad-teams1.webp', caps: 5, scene: 'seeTeams',
-    scenes: (p) => `<div class="duo">${claim(p)}${reminder(p)}</div>`, next: 'checklist', others: ['checklist', 'builder', 'presentation'],
+    scenes: (p) => `<div class="duo">${claim(p)}${reminder(p)}</div>`, next: 'checklist', others: ['notes', 'checklist', 'builder', 'presentation'],
+  },
+  notes: {
+    color: '--notes', ico: 'notes', phone: 'phone/notes.webp', tablet: 'tablet/ipad-notes-add.webp', caps: 5, scene: 'seeNotes',
+    scenes: (p) => `<div class="solo">${notesScene(p)}</div>`, next: 'teams', others: ['teams', 'checklist', 'builder', 'presentation'], scenario: true,
   },
   checklist: {
     color: '--checklist', ico: 'checklist', phone: 'phone/checklist.webp', tablet: 'tablet/ipad-checklist1.webp', caps: 5, scene: 'seeChecklist',
-    scenes: (p) => `<div class="duo">${checklist(p)}${reminder(p)}</div>`, next: 'teams', others: ['teams', 'builder', 'presentation'],
+    scenes: (p) => `<div class="duo">${checklist(p)}${reminder(p)}</div>`, next: 'teams', others: ['teams', 'notes', 'builder', 'presentation'],
   },
   builder: {
     color: '--builder', ico: 'builder', phone: 'phone/builder.webp', tablet: 'tablet/ipad-builder3.webp', caps: 4, scene: 'seeBuilder',
-    scenes: (p) => `<div class="solo">${charts(p)}</div>`, next: 'presentation', others: ['teams', 'checklist', 'presentation'], scenario: true,
+    scenes: (p) => `<div class="solo">${charts(p)}</div>`, next: 'presentation', others: ['teams', 'notes', 'checklist', 'presentation'], scenario: true,
   },
   presentation: {
     color: '--presentation', ico: 'presentation', phone: 'phone/presentation.webp', tablet: 'tablet/ipad-presentation2.webp', caps: 4, scene: 'seePresentation',
-    scenes: (p) => `<div class="solo">${deck(p)}</div>`, next: 'builder', others: ['teams', 'checklist', 'builder'], scenario: true,
+    scenes: (p) => `<div class="solo">${deck(p)}</div>`, next: 'builder', others: ['teams', 'notes', 'checklist', 'builder'], scenario: true,
   },
 };
 const cap = (k) => k.charAt(0).toUpperCase() + k.slice(1);
@@ -43,6 +47,31 @@ export default function product(p, def) {
     request: mp('aiRequest'), head: mp('aiProposalTitle'), note: mp('aiControlNote'),
     rows: [1, 2, 3].map((n) => [k, mp(`aiProposal${n}`)]),
   };
+
+  const aiSide = k === 'notes'
+    ? `<div class="frame vignette" style="padding:clamp(16px,2.4vw,32px);display:grid;place-items:center" data-reveal="scale"><i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i><img src="/assets/img/desktop/create-ai-dialog.webp" alt="${p.text(mp('tab2Alt'))}" width="640" height="540" loading="lazy" decoding="async" style="position:relative;z-index:2;width:min(100%,520px);height:auto;border-radius:18px;box-shadow:var(--sh-3),0 0 0 1px var(--line-2)"></div>`
+    : `<div class="frame vignette" style="padding:clamp(16px,2.4vw,32px)" data-reveal="scale"><i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i><div style="position:relative;z-index:2">${approve(p, { compact: true, custom: aiCustom })}</div></div>`;
+  // Notes: one screenshot per step, in the same text-and-image rhythm as the rest of the page.
+  const noteShots = [
+    ['notes-light.webp', 1],
+    ['extract-dark.webp', 3],
+    ['extract-destination-dark.webp', 4],
+    ['add-checklist-light.webp', 5],
+    ['send-teams-light.webp', 6],
+    ['record-light.webp', 7],
+  ];
+  const gallery = k === 'notes' ? `<section class="section section--tight" id="screens">
+  <div class="wrap">
+    <div class="sec-head center" style="margin-inline:auto">${p.e('span', mp('galleryEyebrow'), 'class="eyebrow"')}${p.e('h2', mp('galleryTitle'), 'class="title" data-reveal="wipe"')}${p.e('p', mp('galleryLead'), 'class="lead"')}</div>
+    <div class="feature-rows">${noteShots.map(([file, n], i) => `<div class="split feature-row${i % 2 ? ' feature-row--flip' : ''}">
+      <div>
+        <span class="mod mod--notes" style="margin-bottom:14px">${p.t(mp(`tab${n}`))}</span>
+        <p class="lead" style="margin-top:6px">${p.t(mp(`tab${n}Cap`))}</p>
+      </div>
+      <div class="mac-window" data-reveal="scale"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="shots"><img class="is-on" src="/assets/img/desktop/${file}" alt="${p.text(mp(`tab${n}Alt`))}" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+    </div>`).join('')}</div>
+  </div>
+</section>` : '';
 
   const scenario = M.scenario ? `<section class="section section--tight">
   <div class="wrap wrap--narrow">
@@ -108,13 +137,13 @@ ${scenario}
         ${p.e('span', mp('aiEyebrow'), 'class="eyebrow"')}
         ${p.e('h2', mp('aiTitle'), 'class="title title--sm" style="margin-top:18px" data-reveal="wipe"')}
         ${p.e('p', mp('aiLead'), 'class="lead" style="margin-top:20px"')}
-        <div style="margin-top:28px"><a class="link-arrow" href="${url('clicktai')}">ClicktAI ${icon('arrow')}</a></div>
+        ${k === 'notes' ? '' : `<div style="margin-top:28px"><a class="link-arrow" href="${url('clicktai')}">ClicktAI ${icon('arrow')}</a></div>`}
       </div>
-      <div class="frame vignette" style="padding:clamp(16px,2.4vw,32px)" data-reveal="scale"><i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i><div style="position:relative;z-index:2">${approve(p, { compact: true, custom: aiCustom })}</div></div>
+      ${aiSide}
     </div>
   </div>
 </section>
-
+${gallery}
 <section class="section section--tight">
   <div class="wrap">
     <div class="split split--rev">
@@ -132,7 +161,7 @@ ${scenario}
 <section class="section section--paper2">
   <div class="wrap">
     <div class="sec-head">${p.e('h2', mp('relatedTitle'), 'class="title title--sm" data-reveal="wipe"')}${p.e('p', mp('relatedLead'), 'class="lead"')}</div>
-    <div class="grid grid--3">${related}</div>
+    <div class="grid grid--4">${related}</div>
   </div>
 </section>
 

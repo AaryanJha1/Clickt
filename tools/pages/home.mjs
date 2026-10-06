@@ -1,6 +1,6 @@
 import { icon } from '../lib/icons.mjs';
 import { url, storeButtons, androidDialog } from '../lib/shell.mjs';
-import { approve, claim, reminder, checklist, charts, deck, trust, byok, frame } from '../lib/scenes.mjs';
+import { approve, claim, reminder, checklist, charts, deck, trust, byok, frame, notesScene } from '../lib/scenes.mjs';
 import { APP_STORE } from '../lib/core.mjs';
 
 const img = (src, alt, w, h, extra = '') => `<img src="/assets/img/${src}" alt="${alt}" width="${w}" height="${h}" decoding="async" ${extra}>`;
@@ -9,6 +9,7 @@ const phoneEl = (src, alt, style = '', cls = '') => `<div class="phone ${cls}" s
 export default function home(p) {
   const steps = [
     ['teams', 'phone/teams-tasks.webp', 'var(--teams)', 'teams'],
+    ['notes', 'phone/notes.webp', 'var(--notes)', 'notes'],
     ['checklist', 'phone/checklist.webp', 'var(--checklist)', 'checklist'],
     ['builder', 'phone/builder.webp', 'var(--builder)', 'builder'],
     ['presentation', 'phone/presentation.webp', 'var(--presentation)', 'presentation'],
@@ -34,14 +35,14 @@ export default function home(p) {
   const droid = (src, alt) => phoneEl(src, alt, '--w:min(230px,44vw)', 'phone--android');
   // [platform, markup]
   const panels = [
-    ['apple', `<div class="dev-pair">${phoneEl('phone/home.webp', p.text('home.devices.iphoneAlt'), '--w:min(250px,44vw)')}${phoneEl('phone/ai-connect.webp', p.text('home.devices.iphoneAlt'), '--w:min(250px,44vw)')}</div>`],
+    ['apple', `<div class="dev-pair dev-pair--3">${phoneEl('phone/notes.webp', p.text('home.devices.notesAlt'), '--w:min(230px,44vw)')}<div class="tablet" style="--w:min(330px,60vw)"><div class="screen">${img('tablet/ipad-home.webp', p.text('home.devices.ipadAltHome'), 900, 1306, 'loading="lazy"')}</div></div>${phoneEl('phone/ai-connect.webp', p.text('home.devices.iphoneAlt'), '--w:min(230px,44vw)')}</div>`],
     ['android', `<div class="dev-pair dev-pair--3">${droid('android/android_homepage.webp', p.text('home.devices.androidAlt'))}${droid('android/android_team2.webp', p.text('home.devices.androidAlt'))}${droid('android/android_builder3.webp', p.text('home.devices.androidAlt'))}</div>`],
   ];
 
-  const faq = [1, 2, 3, 4, 5].map((i) => `<details data-reveal><summary>${p.t(`home.faq.q${i}`)}</summary>${p.e('div', `home.faq.a${i}`, 'class="ans"')}</details>`).join('');
+  const faq = [1, 2, 3, 4, 5, 6].map((i) => `<details data-reveal><summary>${p.t(`home.faq.q${i}`)}</summary>${p.e('div', `home.faq.a${i}`, 'class="ans"')}</details>`).join('');
 
   const proof = [
-    ['12', 'a'], ['23', 'b'], ['4', 'c'], ['0', 'd'],
+    ['12', 'a'], ['23', 'b'], ['4', 'c'], ['5', 'd'],
   ].map(([n, k]) => `<div data-reveal><span class="kpi" ${n !== '0' ? `data-count="${n}"` : ''}>${n}</span>${p.e('p', `home.proof.${k}`)}</div>`).join('');
 
   return `
@@ -56,16 +57,18 @@ export default function home(p) {
       ${p.e('p', 'home.hero.note', 'class="hero-note"')}
     </div>
   </div>
-  <div class="wrap hero-stage-wrap">
-    <div class="frame vignette hero-stage" data-stage>
-      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
-      <span class="frame-tag">ClicktAI · Live</span>
-      <span class="stage-glow stage-glow--a"></span><span class="stage-glow stage-glow--b"></span>
-      <div class="stage-grid">
-        ${approve(p)}
-        <div class="stage-phones" aria-hidden="false">
-          ${phoneEl('phone/home.webp', p.text('home.hero.phoneAlt'))}
-          ${phoneEl('phone/ai-home.webp', 'ClicktAI on iPhone')}
+  <div class="hero-pin" data-hero-pin>
+    <div class="wrap hero-stage-wrap">
+      <div class="frame vignette hero-stage" data-stage>
+        <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+        <span class="frame-tag">ClicktAI · Live</span>
+        <span class="stage-glow stage-glow--a"></span><span class="stage-glow stage-glow--b"></span>
+        <div class="stage-grid">
+          ${approve(p)}
+          <div class="stage-phones" aria-hidden="false">
+            ${phoneEl('phone/home.webp', p.text('home.hero.phoneAlt'))}
+            ${phoneEl('phone/ai-home.webp', 'ClicktAI on iPhone')}
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +87,7 @@ export default function home(p) {
       <div class="story-steps">${storyHtml}</div>
       <div class="story-stage" aria-hidden="true">
         <span class="story-glow" data-glow></span>
+        <div class="story-dots" data-dots>${steps.map((_, i) => `<i${i === 0 ? ' class="is-active"' : ''}></i>`).join('')}</div>
         <div class="phone"><div class="screen">${shots}</div></div>
       </div>
     </div>
@@ -101,6 +105,25 @@ export default function home(p) {
       <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
       <span class="glow glow--blue" style="width:420px;height:420px;left:-8%;top:-20%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:-6%;bottom:-25%"></span>
       <div class="duo">${claim(p)}${reminder(p)}</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="notes-scenes">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="slate" data-reveal><b>${p.t('home.chNotes.slate')}</b><i></i>${p.t('home.chNotes.name')}</span>
+      ${p.e('h2', 'home.chNotes.title', 'class="title" data-reveal="wipe"')}
+      ${p.e('p', 'home.chNotes.lead', 'class="lead" data-reveal style="--d:2"')}
+    </div>
+    <div class="frame vignette chapter-frame" data-reveal="scale">
+      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+      <span class="glow glow--peach" style="width:440px;height:440px;left:-8%;top:-20%"></span><span class="glow glow--violet" style="width:380px;height:380px;right:-6%;bottom:-25%"></span>
+      <div class="duo">
+        ${notesScene(p)}
+        <div class="mac-window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="shots"><img class="is-on" src="/assets/img/desktop/extract-destination-dark.webp" alt="${p.text('home.chNotes.shotAlt')}" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:26px"><a class="link-arrow" href="${url('notes')}">${p.tl('home.chNotes.cta')}${icon('arrow')}</a></div>
     </div>
   </div>
 </section>

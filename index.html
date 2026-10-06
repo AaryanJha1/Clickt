@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title data-i18n="meta.home.title">Clickt — Your busywork, handled. Your decisions, still yours.</title>
-<meta name="description" content="Clickt brings Teams, Checklist, Builder and Presentation into one workspace, with ClicktAI preparing the work and you approving every change. iPhone, iPad, Mac and Android." data-i18n-attr="content:meta.home.desc">
+<title data-i18n="meta.home.title">Clickt — AI that prepares the work. You make the call.</title>
+<meta name="description" content="Teams, Notes, Checklist, Builder and Presentation in one workspace. ClicktAI drafts every task, chart and deck for your review, and applies nothing without your approval. iPhone, iPad, Mac and Android." data-i18n-attr="content:meta.home.desc">
 
 <link rel="canonical" href="https://click-t.com/">
 <meta name="theme-color" content="#fbfaf6">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clickt">
 <meta property="og:url" content="https://click-t.com/">
-<meta property="og:title" content="Clickt — Your busywork, handled. Your decisions, still yours.">
-<meta property="og:description" content="Clickt brings Teams, Checklist, Builder and Presentation into one workspace, with ClicktAI preparing the work and you approving every change. iPhone, iPad, Mac and Android.">
+<meta property="og:title" content="Clickt — AI that prepares the work. You make the call.">
+<meta property="og:description" content="Teams, Notes, Checklist, Builder and Presentation in one workspace. ClicktAI drafts every task, chart and deck for your review, and applies nothing without your approval. iPhone, iPad, Mac and Android.">
 <meta property="og:image" content="https://click-t.com/assets/img/brand/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Clickt — Your busywork, handled. Your decisions, still yours.">
-<meta name="twitter:description" content="Clickt brings Teams, Checklist, Builder and Presentation into one workspace, with ClicktAI preparing the work and you approving every change. iPhone, iPad, Mac and Android.">
+<meta name="twitter:title" content="Clickt — AI that prepares the work. You make the call.">
+<meta name="twitter:description" content="Teams, Notes, Checklist, Builder and Presentation in one workspace. ClicktAI drafts every task, chart and deck for your review, and applies nothing without your approval. iPhone, iPad, Mac and Android.">
 <meta name="twitter:image" content="https://click-t.com/assets/img/brand/og.jpg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/brand/favicon-32.png">
@@ -52,10 +52,12 @@
   function done(instant) {
     try { sessionStorage.setItem('clickt-splash', '1'); } catch (e) {}
     root.classList.remove('splash-lock');
-    document.dispatchEvent(new CustomEvent('clickt:splash-done'));
-    if (instant) { el.remove(); return; }
+    if (instant) { el.remove(); document.dispatchEvent(new CustomEvent('clickt:splash-done')); return; }
+    /* Overlap: the splash dissolves while the page rises into place underneath it. */
+    root.classList.add('splash-reveal');
     el.classList.add('is-leaving');
-    setTimeout(function () { el.remove(); }, 900);
+    document.dispatchEvent(new CustomEvent('clickt:splash-done'));
+    setTimeout(function () { el.remove(); root.classList.remove('splash-reveal'); }, 1300);
   }
   if (!root.classList.contains('splash-lock')) { el.remove(); return; }
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(true); return; }
@@ -74,7 +76,7 @@
     num.textContent = fmt(n);
     bar.style.transform = 'scaleX(' + e + ')';
     if (p < 1) requestAnimationFrame(tick);
-    else setTimeout(function () { done(false); }, 320);
+    else setTimeout(function () { done(false); }, 420);
   }
   requestAnimationFrame(tick);
   setTimeout(function () { if (root.classList.contains('splash-lock')) done(false); }, 6000); // never trap the visitor
@@ -87,7 +89,7 @@
     <nav class="nav" aria-label="Site navigation" data-i18n-attr="aria-label:siteShell.header.navigation">
       <div class="nav-item" data-menu>
         <button class="nav-link" type="button" aria-expanded="false" aria-haspopup="true"><span data-i18n="siteShell.header.product">Product</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m6 9 6 6 6-6"/></svg></button>
-        <div class="mega" role="menu"><a class="mega-tile" href="pages/teams.html" style="--c:var(--teams)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.2" cy="9.2" r="2.4"/><path d="M17.5 14.2c2.3.2 3.9 1.8 3.9 4.3"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.teams">Teams</span></b><span data-i18n="shell.menu.teams">Ownership, tasks and decisions</span></span></a><a class="mega-tile" href="pages/checklist.html" style="--c:var(--checklist)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12.2 2.8 2.8L16.4 9"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.checklist">Checklist</span></b><span data-i18n="shell.menu.checklist">Repeatable work that stays on track</span></span></a><a class="mega-tile" href="pages/builder.html" style="--c:var(--builder)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.builder">Builder</span></b><span data-i18n="shell.menu.builder">Raw data to a clear answer</span></span></a><a class="mega-tile" href="pages/presentation.html" style="--c:var(--presentation)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.presentation">Presentation</span></b><span data-i18n="shell.menu.presentation">A finished, editable deck</span></span></a><a class="mega-tile" href="pages/clicktai.html" style="--c:var(--blue)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 17l-1.8-5-4.9-1.8 4.9-1.8L12 3.5z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.clicktai">ClicktAI</span></b><span data-i18n="shell.menu.clicktai">Reviewable AI across every module</span></span></a><a class="mega-tile" href="pages/pricing.html" style="--c:var(--ink)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3v18M16.5 7.2c-.7-1.2-2.2-2-4.2-2-2.4 0-4 1.2-4 3 0 4.2 8.4 2 8.4 6.2 0 1.8-1.7 3.1-4.4 3.1-2.2 0-3.8-.9-4.6-2.3"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.plans">Plans</span></b><span data-i18n="shell.menu.plans">Free to start. Business for teams</span></span></a></div>
+        <div class="mega" role="menu"><a class="mega-tile" href="pages/teams.html" style="--c:var(--teams)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.2" cy="9.2" r="2.4"/><path d="M17.5 14.2c2.3.2 3.9 1.8 3.9 4.3"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.teams">Teams</span></b><span data-i18n="shell.menu.teams">Ownership, tasks and decisions</span></span></a><a class="mega-tile" href="pages/notes.html" style="--c:var(--notes)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M6 3.5h9l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5z"/><path d="M14.5 3.5V8H19M8.5 12.5h7M8.5 16h5"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.notes">Notes</span></b><span data-i18n="shell.menu.notes">Write, record, then turn it into work</span></span></a><a class="mega-tile" href="pages/checklist.html" style="--c:var(--checklist)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12.2 2.8 2.8L16.4 9"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.checklist">Checklist</span></b><span data-i18n="shell.menu.checklist">Repeatable work that stays on track</span></span></a><a class="mega-tile" href="pages/builder.html" style="--c:var(--builder)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.builder">Builder</span></b><span data-i18n="shell.menu.builder">Raw data to a clear answer</span></span></a><a class="mega-tile" href="pages/presentation.html" style="--c:var(--presentation)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.presentation">Presentation</span></b><span data-i18n="shell.menu.presentation">A finished, editable deck</span></span></a><a class="mega-tile" href="pages/clicktai.html" style="--c:var(--blue)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 17l-1.8-5-4.9-1.8 4.9-1.8L12 3.5z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.clicktai">ClicktAI</span></b><span data-i18n="shell.menu.clicktai">Reviewable AI across every module</span></span></a><a class="mega-tile" href="pages/pricing.html" style="--c:var(--ink)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3v18M16.5 7.2c-.7-1.2-2.2-2-4.2-2-2.4 0-4 1.2-4 3 0 4.2 8.4 2 8.4 6.2 0 1.8-1.7 3.1-4.4 3.1-2.2 0-3.8-.9-4.6-2.3"/></svg></span><span class="mega-txt"><b><span data-i18n="siteShell.product.plans">Plans</span></b><span data-i18n="shell.menu.plans">Free to start. Business for teams</span></span></a></div>
       </div>
       <a class="nav-link" href="pages/solutions.html"><span data-i18n="siteShell.header.solutions">Solutions</span></a>
       <a class="nav-link" href="pages/services.html"><span data-i18n="siteShell.header.services">Services</span></a>
@@ -99,22 +101,20 @@
         <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
         <button type="button" data-lang="ne" aria-pressed="false" lang="ne">ने</button>
       </div>
-      <a class="btn btn--dark btn--sm" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener noreferrer"><span data-i18n="siteShell.footer.download">Download Clickt</span></a>
+      <div class="social-links"><a class="social-btn" href="https://www.instagram.com/__clickt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg></a></div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-sheet" aria-label="Open site navigation menu" data-i18n-attr="aria-label:siteShell.header.openMenu"><span></span></button>
     </div>
   </div>
 </header>
 <div class="mobile-sheet" id="mobile-sheet" data-sheet>
   <h4><span data-i18n="siteShell.header.product">Product</span></h4>
-  <a href="pages/teams.html" style="--c:var(--teams)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.2" cy="9.2" r="2.4"/><path d="M17.5 14.2c2.3.2 3.9 1.8 3.9 4.3"/></svg></span><span data-i18n="siteShell.product.teams">Teams</span></a><a href="pages/checklist.html" style="--c:var(--checklist)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12.2 2.8 2.8L16.4 9"/></svg></span><span data-i18n="siteShell.product.checklist">Checklist</span></a><a href="pages/builder.html" style="--c:var(--builder)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-i18n="siteShell.product.builder">Builder</span></a><a href="pages/presentation.html" style="--c:var(--presentation)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/></svg></span><span data-i18n="siteShell.product.presentation">Presentation</span></a><a href="pages/clicktai.html" style="--c:var(--blue)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 17l-1.8-5-4.9-1.8 4.9-1.8L12 3.5z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span data-i18n="siteShell.product.clicktai">ClicktAI</span></a><a href="pages/pricing.html" style="--c:var(--ink)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3v18M16.5 7.2c-.7-1.2-2.2-2-4.2-2-2.4 0-4 1.2-4 3 0 4.2 8.4 2 8.4 6.2 0 1.8-1.7 3.1-4.4 3.1-2.2 0-3.8-.9-4.6-2.3"/></svg></span><span data-i18n="siteShell.product.plans">Plans</span></a>
+  <a href="pages/teams.html" style="--c:var(--teams)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.2" cy="9.2" r="2.4"/><path d="M17.5 14.2c2.3.2 3.9 1.8 3.9 4.3"/></svg></span><span data-i18n="siteShell.product.teams">Teams</span></a><a href="pages/notes.html" style="--c:var(--notes)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M6 3.5h9l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5z"/><path d="M14.5 3.5V8H19M8.5 12.5h7M8.5 16h5"/></svg></span><span data-i18n="siteShell.product.notes">Notes</span></a><a href="pages/checklist.html" style="--c:var(--checklist)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12.2 2.8 2.8L16.4 9"/></svg></span><span data-i18n="siteShell.product.checklist">Checklist</span></a><a href="pages/builder.html" style="--c:var(--builder)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-i18n="siteShell.product.builder">Builder</span></a><a href="pages/presentation.html" style="--c:var(--presentation)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/></svg></span><span data-i18n="siteShell.product.presentation">Presentation</span></a><a href="pages/clicktai.html" style="--c:var(--blue)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 17l-1.8-5-4.9-1.8 4.9-1.8L12 3.5z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span data-i18n="siteShell.product.clicktai">ClicktAI</span></a><a href="pages/pricing.html" style="--c:var(--ink)"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M12 3v18M16.5 7.2c-.7-1.2-2.2-2-4.2-2-2.4 0-4 1.2-4 3 0 4.2 8.4 2 8.4 6.2 0 1.8-1.7 3.1-4.4 3.1-2.2 0-3.8-.9-4.6-2.3"/></svg></span><span data-i18n="siteShell.product.plans">Plans</span></a>
   <h4>Click T</h4>
   <a href="pages/solutions.html"><span data-i18n="siteShell.header.solutions">Solutions</span></a>
   <a href="pages/services.html"><span data-i18n="siteShell.header.services">Services</span></a>
   <a href="pages/about.html"><span data-i18n="siteShell.header.about">About Click T</span></a>
   <a href="pages/contact.html"><span data-i18n="siteShell.header.contact">Contact</span></a>
-  <div style="margin-top:28px;display:grid;gap:12px">
-    <a class="btn btn--primary btn--lg" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener noreferrer" style="border:0"><span data-i18n="siteShell.footer.download">Download Clickt</span></a>
-  </div>
+  <div class="social-links social-links--sheet"><a class="social-btn social-btn--wide" href="https://www.instagram.com/__clickt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg><span>Instagram</span></a></div>
 </div>
 <main id="main">
 
@@ -122,50 +122,52 @@
   <div class="hero-bg" aria-hidden="true"><span class="glow glow--blue"></span><span class="glow glow--peach"></span><span class="glow glow--violet"></span></div>
   <div class="wrap hero-in">
     <span class="slate" data-reveal><i class="rec"></i><b>Clickt</b><span data-i18n="home.hero.platforms">Apple · Android</span></span>
-    <h1 class="display" data-reveal="wipe" style="--d:1" data-i18n-html="home.hero.title"><span class="ln">Your busywork, <em>handled.</em></span> <span class="ln">Your decisions, <em>still yours.</em></span></h1>
-    <p class="lead" data-reveal style="--d:3" data-i18n="home.hero.lead">Clickt brings Teams, Checklist, Builder and Presentation into one connected workspace. ClicktAI prepares the work. You approve every change.</p>
+    <h1 class="display" data-reveal="wipe" style="--d:1" data-i18n-html="home.hero.title"><span class="ln">AI that <em>prepares</em> the work.</span> <span class="ln">You make the <em>call.</em></span></h1>
+    <p class="lead" data-reveal style="--d:3" data-i18n="home.hero.lead">Teams, Notes, Checklist, Builder and Presentation in one workspace. ClicktAI drafts every task, chart and deck for your review, and applies nothing without your approval.</p>
     <div class="hero-cta" data-reveal style="--d:4">
       <div class="store-row">
   <a class="btn btn--dark store-btn" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small><span data-i18n="shell.store.appleSmall">Download on the</span></small><strong><span data-i18n="shell.store.apple">App Store</span></strong></span></a>
   <button class="btn btn--ghost store-btn" type="button" data-play-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg><span><small><span data-i18n="shell.store.androidSmall">Private test on</span></small><strong><span data-i18n="shell.store.android">Google Play</span></strong></span></button>
 </div>
-      <p class="hero-note" data-i18n="home.hero.note">Free to start · Priced in NPR for Nepal</p>
+      <p class="hero-note" data-i18n="home.hero.note">Free to start</p>
     </div>
   </div>
-  <div class="wrap hero-stage-wrap">
-    <div class="frame vignette hero-stage" data-stage>
-      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
-      <span class="frame-tag">ClicktAI · Live</span>
-      <span class="stage-glow stage-glow--a"></span><span class="stage-glow stage-glow--b"></span>
-      <div class="stage-grid">
-        <div class="ai-card" data-scene="approve" data-request="scene.approve.request" data-receipt-n="4">
+  <div class="hero-pin" data-hero-pin>
+    <div class="wrap hero-stage-wrap">
+      <div class="frame vignette hero-stage" data-stage>
+        <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+        <span class="frame-tag">ClicktAI · Live</span>
+        <span class="stage-glow stage-glow--a"></span><span class="stage-glow stage-glow--b"></span>
+        <div class="stage-grid">
+          <div class="ai-card" data-scene="approve" data-request="scene.approve.request" data-receipt-n="5">
   <div class="ai-bar"><span class="spark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2 6.2 6.2 2-6.2 2-2 6.3-2-6.3-6.2-2 6.2-2 2-6.2z"/></svg></span><b>ClicktAI</b><span class="ai-status" data-status>Ready</span></div>
   <div class="ai-msgs">
-    <div class="msg msg--user"><span class="who"><span data-i18n="scene.approve.you">You</span></span><p data-typed>Plan our Dashain sale launch. Assign the team, build the checklist, chart last year’s sales and draft the leadership update.</p></div>
+    <div class="msg msg--user"><span class="who"><span data-i18n="scene.approve.you">You</span></span><p data-typed>Get ready for our Clickt rollout. Assign the setup tasks, turn the kickoff notes into action items, build the onboarding checklist, chart weekly active users and draft the update for leadership.</p></div>
     <div class="thinking" data-thinking aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="proposal" data-proposal>
       <div class="prop-head"><span data-i18n="scene.approve.head">Proposed work</span><span class="draft-badge" data-badge>Draft</span></div>
-      <ul class="prop-rows"><li data-row><span class="mod mod--teams">Teams</span><span class="row-text" data-i18n="scene.approve.teams">Assign 6 launch tasks with owners and deadlines</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--checklist">Checklist</span><span class="row-text" data-i18n="scene.approve.checklist">Create the store-opening checklist</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--builder">Builder</span><span class="row-text" data-i18n="scene.approve.builder">Chart last year’s sales by city</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--presentation">Presentation</span><span class="row-text" data-i18n="scene.approve.presentation">Draft an 8-slide leadership update</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li></ul>
+      <ul class="prop-rows"><li data-row><span class="mod mod--teams">Teams</span><span class="row-text" data-i18n="scene.approve.teams">Assign 6 setup tasks with owners and deadlines</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--notes">Notes</span><span class="row-text" data-i18n="scene.approve.notes">Pull action items from the kickoff meeting note</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--checklist">Checklist</span><span class="row-text" data-i18n="scene.approve.checklist">Create the new-team onboarding checklist</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--builder">Builder</span><span class="row-text" data-i18n="scene.approve.builder">Chart weekly active users by team</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li><li data-row><span class="mod mod--presentation">Presentation</span><span class="row-text" data-i18n="scene.approve.presentation">Draft an 8-slide rollout update</span><span class="row-state" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></li></ul>
       <p class="prop-note" data-i18n="scene.approve.note">Nothing is applied until you approve.</p>
       <div class="prop-actions">
         <button class="btn btn--primary btn--sm" type="button" data-approve><span data-i18n="scene.approve.button">Approve &amp; apply</span></button>
       </div>
       <div class="receipt" data-receipt>
         <span class="receipt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
-        <div><strong data-receipt-title>4 changes applied</strong><small><span data-i18n="scene.approve.receiptSub">Receipt saved · just now</span></small></div>
+        <div><strong data-receipt-title>5 changes applied</strong><small><span data-i18n="scene.approve.receiptSub">Receipt saved · just now</span></small></div>
         <button type="button" class="receipt-replay" data-replay><span data-i18n="scene.approve.reset">Watch again</span></button>
       </div>
     </div>
   </div>
 </div>
-        <div class="stage-phones" aria-hidden="false">
-          <div class="phone " style=""><div class="screen"><img src="assets/img/phone/home.webp" alt="Clickt home screen on iPhone with Teams, Builder and Presentation" width="640" height="1391" decoding="async" loading="lazy"></div></div>
-          <div class="phone " style=""><div class="screen"><img src="assets/img/phone/ai-home.webp" alt="ClicktAI on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div>
+          <div class="stage-phones" aria-hidden="false">
+            <div class="phone " style=""><div class="screen"><img src="assets/img/phone/home.webp" alt="Clickt home screen on iPhone with Teams, Notes, Builder and Presentation" width="640" height="1391" decoding="async" loading="lazy"></div></div>
+            <div class="phone " style=""><div class="screen"><img src="assets/img/phone/ai-home.webp" alt="ClicktAI on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="wrap"><div class="proof"><div data-reveal><span class="kpi" data-count="12">12</span><p data-i18n="home.proof.a">chart types in Builder</p></div><div data-reveal><span class="kpi" data-count="23">23</span><p data-i18n="home.proof.b">built-in presentation themes</p></div><div data-reveal><span class="kpi" data-count="4">4</span><p data-i18n="home.proof.c">AI providers, bring your own key</p></div><div data-reveal><span class="kpi" >0</span><p data-i18n="home.proof.d">changes applied without your approval</p></div></div></div>
+  <div class="wrap"><div class="proof"><div data-reveal><span class="kpi" data-count="12">12</span><p data-i18n="home.proof.a">chart types in Builder</p></div><div data-reveal><span class="kpi" data-count="23">23</span><p data-i18n="home.proof.b">built-in presentation themes</p></div><div data-reveal><span class="kpi" data-count="4">4</span><p data-i18n="home.proof.c">AI providers, bring your own key</p></div><div data-reveal><span class="kpi" data-count="5">5</span><p data-i18n="home.proof.d">modules, one workspace</p></div></div></div>
 </section>
 
 <section class="section" id="workspaces">
@@ -182,6 +184,12 @@
       <p data-i18n="home.ch1.teams.b">Direct tasks, claimable tasks, decisions and announcements. Each one has an owner and a status the whole team can see.</p>
       <a class="link-arrow" href="pages/teams.html"><span data-i18n="home.ch1.teams.l">Explore Teams</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <div class="step-shot"><div class="phone " style=""><div class="screen"><img src="assets/img/phone/teams-tasks.webp" alt="teams" width="640" height="1391" decoding="async" loading="lazy"></div></div></div>
+    </article><article class="story-step" data-step data-color="var(--notes)">
+      <span class="mod mod--notes"><span data-i18n="home.ch1.notes.k">Notes</span></span>
+      <h3 class="h-serif" data-i18n="home.ch1.notes.h">From a page of notes to a list of work.</h3>
+      <p data-i18n="home.ch1.notes.b">Write a note, draft one with AI or record a meeting, then extract the work and send it to your Checklist or your Teams.</p>
+      <a class="link-arrow" href="pages/notes.html"><span data-i18n="home.ch1.notes.l">Explore Notes</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="step-shot"><div class="phone " style=""><div class="screen"><img src="assets/img/phone/notes.webp" alt="notes" width="640" height="1391" decoding="async" loading="lazy"></div></div></div>
     </article><article class="story-step" data-step data-color="var(--checklist)">
       <span class="mod mod--checklist"><span data-i18n="home.ch1.checklist.k">Checklist</span></span>
       <h3 class="h-serif" data-i18n="home.ch1.checklist.h">Repeatable work, done the same way.</h3>
@@ -209,7 +217,8 @@
     </article></div>
       <div class="story-stage" aria-hidden="true">
         <span class="story-glow" data-glow></span>
-        <div class="phone"><div class="screen"><div class="shot is-active" data-shot><img src="assets/img/phone/teams-tasks.webp" alt="teams" width="640" height="1391" decoding="async" ></div><div class="shot" data-shot><img src="assets/img/phone/checklist.webp" alt="checklist" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/builder.webp" alt="builder" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/presentation.webp" alt="presentation" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/calendar.webp" alt="calendar" width="640" height="1391" decoding="async" loading="lazy"></div></div></div>
+        <div class="story-dots" data-dots><i class="is-active"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="phone"><div class="screen"><div class="shot is-active" data-shot><img src="assets/img/phone/teams-tasks.webp" alt="teams" width="640" height="1391" decoding="async" ></div><div class="shot" data-shot><img src="assets/img/phone/notes.webp" alt="notes" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/checklist.webp" alt="checklist" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/builder.webp" alt="builder" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/presentation.webp" alt="presentation" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/calendar.webp" alt="calendar" width="640" height="1391" decoding="async" loading="lazy"></div></div></div>
       </div>
     </div>
   </div>
@@ -269,10 +278,56 @@
   </div>
 </section>
 
+<section class="section section--tight" id="notes-scenes">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="slate" data-reveal><b><span data-i18n="home.chNotes.slate">Chapter 03</span></b><i></i><span data-i18n="home.chNotes.name">Notes</span></span>
+      <h2 class="title" data-reveal="wipe" data-i18n-html="home.chNotes.title">From a meeting to a <em>to-do list.</em></h2>
+      <p class="lead" data-reveal style="--d:2" data-i18n="home.chNotes.lead">Write it, draft it with AI, or record the meeting. Then extract the work and decide where each item goes: your Checklist, your Teams, or nowhere yet.</p>
+    </div>
+    <div class="frame vignette chapter-frame" data-reveal="scale">
+      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+      <span class="glow glow--peach" style="width:440px;height:440px;left:-8%;top:-20%"></span><span class="glow glow--violet" style="width:380px;height:380px;right:-6%;bottom:-25%"></span>
+      <div class="duo">
+        <div class="scene-card notes-scene" data-scene="notes">
+  <div class="task-head"><span class="mod mod--notes">Notes</span><span class="scene-kicker" data-i18n="scene.notes.noteKicker">Meeting note</span></div>
+  <h4 class="task-title" data-i18n="scene.notes.noteTitle">Clickt rollout kickoff</h4>
+  <p class="note-body" data-i18n="scene.notes.noteBody">Sam will set up the team workspace by Friday. Priya to send the onboarding invites. We should also review the weekly usage numbers before the leadership update.</p>
+  <div class="note-actions"><button class="btn btn--primary btn--sm" type="button" data-extract><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2 6.2 6.2 2-6.2 2-2 6.3-2-6.3-6.2-2 6.2-2 2-6.2z"/></svg><span data-i18n="scene.notes.extract">Extract work</span></button><span class="note-sent" data-i18n="scene.notes.sent">The selected note text is sent to your configured AI provider.</span></div>
+  <div class="drafts">
+    <p class="drafts-head" data-i18n="scene.notes.head">Review the drafts</p>
+    <ul><li class="draft" data-draft>
+        <span class="draft-title"><span data-i18n="scene.notes.d1">Set up the team workspace</span></span>
+        <div class="dest" role="group" aria-label="Review the drafts">
+          <button type="button" data-dest="leave" aria-pressed="true"><span data-i18n="scene.notes.leave">Leave open</span></button><button type="button" data-dest="checklist" aria-pressed="false"><span data-i18n="scene.notes.checklist">Checklist</span></button><button type="button" data-dest="teams" aria-pressed="false"><span data-i18n="scene.notes.teams">Teams</span></button>
+        </div>
+      </li><li class="draft" data-draft>
+        <span class="draft-title"><span data-i18n="scene.notes.d2">Send the onboarding invites</span></span>
+        <div class="dest" role="group" aria-label="Review the drafts">
+          <button type="button" data-dest="leave" aria-pressed="true"><span data-i18n="scene.notes.leave">Leave open</span></button><button type="button" data-dest="checklist" aria-pressed="false"><span data-i18n="scene.notes.checklist">Checklist</span></button><button type="button" data-dest="teams" aria-pressed="false"><span data-i18n="scene.notes.teams">Teams</span></button>
+        </div>
+      </li><li class="draft" data-draft>
+        <span class="draft-title"><span data-i18n="scene.notes.d3">Review weekly usage before the update</span></span>
+        <div class="dest" role="group" aria-label="Review the drafts">
+          <button type="button" data-dest="leave" aria-pressed="true"><span data-i18n="scene.notes.leave">Leave open</span></button><button type="button" data-dest="checklist" aria-pressed="false"><span data-i18n="scene.notes.checklist">Checklist</span></button><button type="button" data-dest="teams" aria-pressed="false"><span data-i18n="scene.notes.teams">Teams</span></button>
+        </div>
+      </li></ul>
+    <p class="scene-foot" style="margin-top:6px"><span data-i18n="scene.notes.hint">Every draft starts as Leave open. Nothing is created until you confirm it.</span></p>
+    <div class="prop-actions"><button class="btn btn--primary btn--sm" type="button" data-confirm><span data-i18n="scene.notes.confirm">Confirm choices</span></button></div>
+    <div class="drafts-receipt"><span class="receipt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><div><strong data-notes-receipt-title>0 to Checklist · 0 to Teams · 3 left open</strong><small><span data-i18n="scene.notes.receiptSub">Each one is created only after you confirm it.</span></small></div><button type="button" class="receipt-replay" data-notes-reset><span data-i18n="scene.notes.reset">Watch again</span></button></div>
+  </div>
+</div>
+        <div class="mac-window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="shots"><img class="is-on" src="assets/img/desktop/extract-destination-dark.webp" alt="Extract Work in Clickt Notes on Mac, with a destination chosen for each draft" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:26px"><a class="link-arrow" href="pages/notes.html"><span data-i18n="home.chNotes.cta" data-trim="1">See how Notes works</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
 <section class="section section--tight" id="data-scenes">
   <div class="wrap">
     <div class="chapter-head">
-      <span class="slate" data-reveal><b><span data-i18n="home.ch3.slate">Chapter 03</span></b><i></i><span data-i18n="home.ch3.name">Data</span></span>
+      <span class="slate" data-reveal><b><span data-i18n="home.ch3.slate">Chapter 04</span></b><i></i><span data-i18n="home.ch3.name">Data</span></span>
       <h2 class="title" data-reveal="wipe" data-i18n-html="home.ch3.title">From raw data to a <em>decision.</em></h2>
       <p class="lead" data-reveal style="--d:2" data-i18n="home.ch3.lead">Import a file, run the analysis, then pick the chart that makes the answer obvious. Twelve chart types, one dataset.</p>
     </div>
@@ -298,7 +353,7 @@
 <section class="section section--tight" id="deck-scenes">
   <div class="wrap">
     <div class="chapter-head">
-      <span class="slate" data-reveal><b><span data-i18n="home.ch4.slate">Chapter 04</span></b><i></i><span data-i18n="home.ch4.name">Story</span></span>
+      <span class="slate" data-reveal><b><span data-i18n="home.ch4.slate">Chapter 05</span></b><i></i><span data-i18n="home.ch4.name">Story</span></span>
       <h2 class="title" data-reveal="wipe" data-i18n-html="home.ch4.title">From a brief to a deck that <em>looks</em> designed.</h2>
       <p class="lead" data-reveal style="--d:2" data-i18n="home.ch4.lead">Describe the story. ClicktAI drafts the slides. You restyle with designed themes, edit anything, then present it or export it.</p>
     </div>
@@ -329,7 +384,7 @@
 <section class="section section--tight" id="trust">
   <div class="wrap">
     <div class="chapter-head">
-      <span class="slate" data-reveal><b><span data-i18n="home.ch5.slate">Chapter 05</span></b><i></i><span data-i18n="home.ch5.name">Trust</span></span>
+      <span class="slate" data-reveal><b><span data-i18n="home.ch5.slate">Chapter 06</span></b><i></i><span data-i18n="home.ch5.name">Trust</span></span>
       <h2 class="title" data-reveal="wipe" data-i18n-html="home.ch5.title">Nothing changes until <em>you say so.</em></h2>
       <p class="lead" data-reveal style="--d:2" data-i18n="home.ch5.lead">ClicktAI is built to assist the decision, not make it. Every change is previewed first, unsupported requests get a clear no, and unclear ones get a question.</p>
     </div>
@@ -406,7 +461,7 @@
     <div class="frame vignette dev-stage" data-devices>
       <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
       <span class="glow glow--blue" style="width:480px;height:480px;left:20%;top:10%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:14%;bottom:-10%"></span>
-      <div class="dev-panel is-active" data-platform="apple"><div class="dev-pair"><div class="phone " style="--w:min(250px,44vw)"><div class="screen"><img src="assets/img/phone/home.webp" alt="Clickt Teams on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone " style="--w:min(250px,44vw)"><div class="screen"><img src="assets/img/phone/ai-connect.webp" alt="Clickt Teams on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div></div></div><div class="dev-panel" data-platform="android"><div class="dev-pair dev-pair--3"><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_homepage.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_team2.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_builder3.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div></div><p class="dev-note" data-i18n="home.devices.androidNote">Android is in invite-only testing on Google Play.</p></div>
+      <div class="dev-panel is-active" data-platform="apple"><div class="dev-pair dev-pair--3"><div class="phone " style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/phone/notes.webp" alt="Clickt Notes recording a meeting on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="tablet" style="--w:min(330px,60vw)"><div class="screen"><img src="assets/img/tablet/ipad-home.webp" alt="Clickt home screen on iPad with Teams, Notes, Builder and Presentation" width="900" height="1306" decoding="async" loading="lazy"></div></div><div class="phone " style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/phone/ai-connect.webp" alt="Clickt Teams on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div></div></div><div class="dev-panel" data-platform="android"><div class="dev-pair dev-pair--3"><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_homepage.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_team2.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_builder3.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div></div><p class="dev-note" data-i18n="home.devices.androidNote">Android is in invite-only testing on Google Play.</p></div>
     </div>
   </div>
 </section>
@@ -482,7 +537,7 @@
     <div class="sec-head center" style="margin-inline:auto">
       <h2 class="title" data-reveal="wipe" data-i18n-html="home.faq.title">Questions, <em>answered.</em></h2>
     </div>
-    <div class="faq"><details data-reveal><summary><span data-i18n="home.faq.q1">Is Clickt free?</span></summary><div class="ans" data-i18n="home.faq.a1">Yes. Free includes Teams, Checklist, Builder, Presentation and Calendar, and you connect your own AI provider key for ClicktAI. Business adds a company workspace, admin controls and Clickt-provided AI for teams.</div></details><details data-reveal><summary><span data-i18n="home.faq.q2">Which devices does it run on?</span></summary><div class="ans" data-i18n="home.faq.a2">iPhone, iPad and Mac through the App Store. Android is in invite-only testing on Google Play, so request access first.</div></details><details data-reveal><summary><span data-i18n="home.faq.q3">Can ClicktAI change my work without asking?</span></summary><div class="ans" data-i18n="home.faq.a3">No. Every write action shows a preview first and waits for your approval. Nothing is applied until you say so.</div></details><details data-reveal><summary><span data-i18n="home.faq.q4">Do I need my own AI account?</span></summary><div class="ans" data-i18n="home.faq.a4">On Free, yes. You connect an OpenAI, Anthropic, Google Gemini or NVIDIA key, and usage is billed to your own account. On Business, your admin can assign Clickt-provided AI to the people who need it.</div></details><details data-reveal><summary><span data-i18n="home.faq.q5">Does Clickt replace our existing software?</span></summary><div class="ans" data-i18n="home.faq.a5">No. It is the coordination layer beside your ERP, school-management system, core banking or spreadsheets. If you need a tailored integration, Click T can build it.</div></details></div>
+    <div class="faq"><details data-reveal><summary><span data-i18n="home.faq.q1">Is Clickt free?</span></summary><div class="ans" data-i18n="home.faq.a1">Yes. Free includes Teams, Notes, Checklist, Builder, Presentation and Calendar, and you connect your own AI provider key for ClicktAI. Business adds a company workspace, admin controls and Clickt-provided AI for teams.</div></details><details data-reveal><summary><span data-i18n="home.faq.q2">Which devices does it run on?</span></summary><div class="ans" data-i18n="home.faq.a2">iPhone, iPad and Mac through the App Store. Android is in invite-only testing on Google Play, so request access first.</div></details><details data-reveal><summary><span data-i18n="home.faq.q3">Can ClicktAI change my work without asking?</span></summary><div class="ans" data-i18n="home.faq.a3">No. Every write action shows a preview first and waits for your approval. Nothing is applied until you say so.</div></details><details data-reveal><summary><span data-i18n="home.faq.q4">Do I need my own AI account?</span></summary><div class="ans" data-i18n="home.faq.a4">On Free, yes. You connect an OpenAI, Anthropic, Google Gemini or NVIDIA key, and usage is billed to your own account. On Business, your admin can assign Clickt-provided AI to the people who need it.</div></details><details data-reveal><summary><span data-i18n="home.faq.q5">Does Clickt replace our existing software?</span></summary><div class="ans" data-i18n="home.faq.a5">No. It is the coordination layer beside your ERP, school-management system, core banking or spreadsheets. If you need a tailored integration, Click T can build it.</div></details><details data-reveal><summary><span data-i18n="home.faq.q6">What can I do with Notes?</span></summary><div class="ans" data-i18n="home.faq.a6">Write notes in folders, draft one with AI, or record a meeting into a transcript. Then extract the work from the note and send each item to your personal Checklist or to a team you own. You review every draft first, and nothing is created until you confirm it.</div></details></div>
   </div>
 </section>
 
@@ -496,18 +551,18 @@
   <a class="btn btn--dark store-btn" href="https://apps.apple.com/us/app/clickt/id6759891499" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small><span data-i18n="shell.store.appleSmall">Download on the</span></small><strong><span data-i18n="shell.store.apple">App Store</span></strong></span></a>
   <button class="btn btn--ghost store-btn" type="button" data-play-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg><span><small><span data-i18n="shell.store.androidSmall">Private test on</span></small><strong><span data-i18n="shell.store.android">Google Play</span></strong></span></button>
 </div>
-      <p class="note" data-i18n="home.hero.note">Free to start · Priced in NPR for Nepal</p>
+      <p class="note" data-i18n="home.hero.note">Free to start</p>
     </div>
   </div>
 </section>
 <dialog class="dialog" data-play-dialog aria-labelledby="play-title">
   <button class="dialog-x" type="button" data-dialog-close aria-label="Close" data-i18n-attr="aria-label:shell.dialog.close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   <span class="eyebrow"><span data-i18n="index.testing.kicker">Private preview</span></span>
-  <h2 id="play-title" class="title title--sm" data-i18n="index.testing.title">Try the Clickt Android test?</h2>
-  <p class="lead" data-i18n="index.testing.body">Clickt for Android is currently available through an invite-only test. Request access with the Google account you use in Play.</p>
-  <div class="dialog-note"><span>01</span><p><strong><span data-i18n="index.testing.noteTitle">Request access, then join the test</span></strong> <span data-i18n="index.testing.noteBody">The button opens a pre-filled email for Clickt and the Google Play tester page. Send the email so we can add your account.</span></p></div>
+  <h2 id="play-title" class="title title--sm" data-i18n="index.testing.title">Try Clickt on Android.</h2>
+  <p class="lead" data-i18n="index.testing.body">We’re testing with a small group on Google Play. Ask for an invite and we’ll add your Google account.</p>
+  <div class="dialog-note"><p data-i18n="index.testing.noteBody">Tap Request access. We’ll open a pre-filled email to us and the Google Play tester page. Send the email and you’re in the queue.</p></div>
   <div class="dialog-actions">
-    <a class="btn btn--primary" href="https://play.google.com/apps/testing/com.clickt.android" target="_blank" rel="noopener noreferrer" data-play-request><span data-i18n="index.testing.continue">Request access &amp; continue to Google Play</span></a>
+    <a class="btn btn--primary" href="https://play.google.com/apps/testing/com.clickt.android" target="_blank" rel="noopener noreferrer" data-play-request><span data-i18n="index.testing.continue">Request access</span></a>
     <button class="btn btn--ghost" type="button" data-dialog-close><span data-i18n="index.testing.cancel">Not now</span></button>
   </div>
 </dialog>
@@ -528,7 +583,7 @@
           <span class="muted" data-i18n="siteShell.footer.officeLocation">Kathmandu, Nepal</span>
         </div>
       </div>
-      <div class="footer-col"><h3><span data-i18n="siteShell.footer.groups.product">Product</span></h3><ul><li><a href="pages/teams.html"><span data-i18n="siteShell.product.teams">Teams</span></a></li><li><a href="pages/checklist.html"><span data-i18n="siteShell.product.checklist">Checklist</span></a></li><li><a href="pages/builder.html"><span data-i18n="siteShell.product.builder">Builder</span></a></li><li><a href="pages/presentation.html"><span data-i18n="siteShell.product.presentation">Presentation</span></a></li><li><a href="pages/clicktai.html"><span data-i18n="siteShell.product.clicktai">ClicktAI</span></a></li><li><a href="pages/pricing.html"><span data-i18n="siteShell.product.plans">Plans</span></a></li></ul></div>
+      <div class="footer-col"><h3><span data-i18n="siteShell.footer.groups.product">Product</span></h3><ul><li><a href="pages/teams.html"><span data-i18n="siteShell.product.teams">Teams</span></a></li><li><a href="pages/notes.html"><span data-i18n="siteShell.product.notes">Notes</span></a></li><li><a href="pages/checklist.html"><span data-i18n="siteShell.product.checklist">Checklist</span></a></li><li><a href="pages/builder.html"><span data-i18n="siteShell.product.builder">Builder</span></a></li><li><a href="pages/presentation.html"><span data-i18n="siteShell.product.presentation">Presentation</span></a></li><li><a href="pages/clicktai.html"><span data-i18n="siteShell.product.clicktai">ClicktAI</span></a></li><li><a href="pages/pricing.html"><span data-i18n="siteShell.product.plans">Plans</span></a></li></ul></div>
       <div class="footer-col"><h3><span data-i18n="siteShell.footer.groups.solutions">Solutions</span></h3><ul><li><a href="pages/solutions-schools.html"><span data-i18n="siteShell.industry.schools">Schools</span></a></li><li><a href="pages/solutions-healthcare.html"><span data-i18n="siteShell.industry.healthcare">Healthcare</span></a></li><li><a href="pages/solutions-banks.html"><span data-i18n="siteShell.industry.banks">Banks</span></a></li><li><a href="pages/solutions-ngos.html"><span data-i18n="siteShell.industry.ngos">NGOs</span></a></li><li><a href="pages/solutions-hotels.html"><span data-i18n="siteShell.industry.hotels">Hotels</span></a></li><li><a href="pages/solutions-restaurants.html"><span data-i18n="siteShell.industry.restaurants">Restaurants</span></a></li><li><a href="pages/solutions-construction.html"><span data-i18n="siteShell.industry.construction">Construction &amp; Real Estate</span></a></li></ul></div>
       <div class="footer-col"><h3><span data-i18n="siteShell.footer.groups.clickT">Click T</span></h3><ul><li><a href="pages/about.html"><span data-i18n="siteShell.header.about">About Click T</span></a></li><li><a href="pages/services.html"><span data-i18n="siteShell.header.services">Services</span></a></li><li><a href="pages/contact.html"><span data-i18n="siteShell.header.contact">Contact</span></a></li><li><a href="pages/pitch-deck.html"><span data-i18n="shell.footer.pitchDeck">Pitch deck</span></a></li></ul></div>
       <div class="footer-col"><h3><span data-i18n="siteShell.footer.groups.help">Help</span></h3><ul><li><a href="pages/support.html"><span data-i18n="siteShell.footer.support">Support</span></a></li><li><a href="pages/user-guide.html"><span data-i18n="siteShell.footer.userGuide">User Guide</span></a></li><li><a href="pages/android.html"><span data-i18n="shell.footer.android">Android (private test)</span></a></li></ul></div>
@@ -544,7 +599,7 @@
     </div>
   </div>
 </footer>
-<script type="application/json" id="i18n-en">{"scene.approve.receiptN":"{n} changes applied","scene.approve.status.ready":"Ready","scene.approve.status.prep":"Preparing","scene.approve.status.review":"Waiting for your approval","scene.approve.status.done":"Done","scene.approve.request":"Plan our Dashain sale launch. Assign the team, build the checklist, chart last year’s sales and draft the leadership update.","scene.approve.draft":"Draft","scene.approve.applied":"Applied","scene.claim.winner":"{name} got it.","scene.claim.already":"Already claimed by {name}","scene.claim.n1":"Sam","scene.claim.n2":"Alex","scene.reminder.pre":"15 min before","scene.reminder.atDue":"Due","scene.reminder.deferred":"Deferred to the digest","scene.reminder.stopped":"Marked done. Reminders stop immediately.","scene.reminder.done":"Mark as done","scene.reminder.undo":"Reopen","scene.reminder.digest":"08:00 digest","scene.reminder.summary":"A reminder 15 minutes before it is due, then every 3 hours while it is still open. Follow-ups wait out quiet hours and arrive in one 08:00 digest.","scene.chart.kathmandu":"Kathmandu","scene.chart.pokhara":"Pokhara","scene.chart.lalitpur":"Lalitpur","scene.chart.biratnagar":"Biratnagar","scene.chart.butwal":"Butwal","scene.chart.bar":"Bar","scene.chart.line":"Line","scene.chart.area":"Area","scene.chart.donut":"Donut","scene.chart.scatter":"Scatter","scene.chart.heat":"Heatmap","scene.trust.askDone":"Got it. Preparing a preview for {team}…","scene.trust.askA":"Launch · Marketing","scene.trust.askB":"Launch · Product"}</script>
+<script type="application/json" id="i18n-en">{"scene.approve.receiptN":"{n} changes applied","scene.approve.status.ready":"Ready","scene.approve.status.prep":"Preparing","scene.approve.status.review":"Waiting for your approval","scene.approve.status.done":"Done","scene.approve.request":"Get ready for our Clickt rollout. Assign the setup tasks, turn the kickoff notes into action items, build the onboarding checklist, chart weekly active users and draft the update for leadership.","scene.approve.draft":"Draft","scene.approve.applied":"Applied","scene.claim.winner":"{name} got it.","scene.claim.already":"Already claimed by {name}","scene.claim.n1":"Sam","scene.claim.n2":"Alex","scene.reminder.pre":"15 min before","scene.reminder.atDue":"Due","scene.reminder.deferred":"Deferred to the digest","scene.reminder.stopped":"Marked done. Reminders stop immediately.","scene.reminder.done":"Mark as done","scene.reminder.undo":"Reopen","scene.reminder.digest":"08:00 digest","scene.reminder.summary":"A reminder 15 minutes before it is due, then every 3 hours while it is still open. Follow-ups wait out quiet hours and arrive in one 08:00 digest.","scene.notes.receipt":"{c} to Checklist · {t} to Teams · {l} left open","scene.chart.kathmandu":"Kathmandu","scene.chart.pokhara":"Pokhara","scene.chart.lalitpur":"Lalitpur","scene.chart.biratnagar":"Biratnagar","scene.chart.butwal":"Butwal","scene.chart.bar":"Bar","scene.chart.line":"Line","scene.chart.area":"Area","scene.chart.donut":"Donut","scene.chart.scatter":"Scatter","scene.chart.heat":"Heatmap","scene.trust.askDone":"Got it. Preparing a preview for {team}…","scene.trust.askA":"Launch · Marketing","scene.trust.askB":"Launch · Product"}</script>
 <script src="assets/js/app.js" defer></script>
 <script src="assets/js/scenes.js" defer></script>
 <script src="assets/js/home.js" defer></script>

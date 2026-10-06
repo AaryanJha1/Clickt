@@ -135,6 +135,7 @@ html[lang="ne"] .toc h3 { letter-spacing: 0; text-transform: none; }
 .module-builder .module-header .icon { background: color-mix(in srgb, var(--builder) 14%, white); }
 .module-presentation .module-header .icon { background: color-mix(in srgb, var(--presentation) 14%, white); }
 .module-teams .module-header .icon { background: color-mix(in srgb, var(--teams) 14%, white); }
+.module-notes .module-header .icon { background: color-mix(in srgb, var(--notes) 14%, white); }
 .module-checklist .module-header .icon { background: color-mix(in srgb, var(--checklist) 14%, white); }
 .module-subtitle { font-weight: 600; color: var(--ink) !important; margin-top: 10px !important; }
 .guide-path-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }

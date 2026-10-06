@@ -24,6 +24,7 @@
   --rose: #e86bb4;
 
   --teams: #2f6bff;
+  --notes: #e5584a;
   --checklist: #12a150;
   --builder: #e08a00;
   --presentation: #7a5cfa;
@@ -297,3 +298,13 @@ body.menu-open { overflow: hidden; }
   .glow, .slate .rec { animation: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* --- Social links (header + mobile menu) -------------------------------- */
+.social-links { display: flex; align-items: center; gap: 8px; }
+.social-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #fff; transition: transform 0.25s var(--ease), background 0.25s; }
+.social-btn svg { width: 18px; height: 18px; }
+.social-btn:hover { transform: translateY(-2px); background: var(--blue); }
+.social-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.social-links--sheet { margin-top: 28px; display: grid; gap: 10px; }
+.social-btn--wide { display: flex; justify-content: flex-start; align-items: center; gap: 12px; width: auto; height: 48px; padding: 0 18px; border-radius: var(--r-pill); font-weight: 600; }
+@media (max-width: 1020px) { .header-actions .social-links { display: none; } }

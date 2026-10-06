@@ -192,6 +192,47 @@
     paint();
   });
 
+  /* ---------------- notes: extract work, choose where each draft goes ---------------- */
+  qsa('[data-scene="notes"]').forEach(function (root) {
+    var extractBtn = root.querySelector('[data-extract]');
+    var confirmBtn = root.querySelector('[data-confirm]');
+    var resetBtn = root.querySelector('[data-notes-reset]');
+    var title = root.querySelector('[data-notes-receipt-title]');
+    var drafts = qsa('[data-draft]', root);
+    function choice(d) { var on = d.querySelector('[data-dest][aria-pressed="true"]'); return on ? on.getAttribute('data-dest') : 'leave'; }
+    function setDest(d, val) {
+      qsa('[data-dest]', d).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-dest') === val)); });
+    }
+    function count() {
+      var n = { checklist: 0, teams: 0, leave: 0 };
+      drafts.forEach(function (d) { n[choice(d)]++; });
+      return n;
+    }
+    function paint() {
+      var n = count();
+      title.textContent = T('scene.notes.receipt', { c: n.checklist, t: n.teams, l: n.leave });
+    }
+    drafts.forEach(function (d) {
+      qsa('[data-dest]', d).forEach(function (b) { b.addEventListener('click', function () { setDest(d, b.getAttribute('data-dest')); }); });
+    });
+    extractBtn.addEventListener('click', function () {
+      extractBtn.disabled = true;
+      var go = function () { root.classList.add('is-extracted'); extractBtn.disabled = false; };
+      if (reduced) go(); else setTimeout(go, 650);
+    });
+    confirmBtn.addEventListener('click', function () {
+      drafts.forEach(function (d) { d.classList.toggle('is-sent', choice(d) !== 'leave'); });
+      paint();
+      root.classList.add('is-sent');
+    });
+    resetBtn.addEventListener('click', function () {
+      root.classList.remove('is-sent', 'is-extracted');
+      drafts.forEach(function (d) { d.classList.remove('is-sent'); setDest(d, 'leave'); });
+    });
+    C.onLang(paint);
+    paint();
+  });
+
   /* ---------------- charts: one dataset, many chart types ---------------- */
   qsa('[data-scene="charts"]').forEach(function (root) {
     var vals = root.getAttribute('data-values').split(',').map(Number);

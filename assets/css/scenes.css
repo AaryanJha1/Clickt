@@ -255,3 +255,46 @@ html[lang="ne"] .mini-table th { text-transform: none; letter-spacing: 0; }
   .trust .seg { display: flex; }
   .trust .seg button { flex: 1 1 auto; }
 }
+
+/* --- Notes: extract-work scene ------------------------------------------ */
+.notes-scene .note-body { margin: 4px 0 0; padding: 14px 16px; border-radius: 14px; background: var(--paper-2); border: 1px solid var(--line); font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
+.notes-scene .note-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.notes-scene .note-sent { font-size: 0.8rem; color: var(--mute); }
+.notes-scene .drafts { display: none; margin-top: 16px; }
+.notes-scene.is-extracted .drafts { display: block; animation: pop 0.5s var(--ease) both; }
+.notes-scene.is-extracted [data-extract] { display: none; }
+.notes-scene.is-extracted .note-sent { display: none; }
+.notes-scene .drafts-head { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); margin-bottom: 4px; }
+html[lang="ne"] .notes-scene .drafts-head { text-transform: none; letter-spacing: 0; }
+.notes-scene .draft { padding: 12px 0; display: grid; gap: 10px; }
+.notes-scene .draft + .draft { border-top: 1px solid var(--line); }
+.notes-scene .draft-title { font-weight: 600; font-size: 0.98rem; }
+.notes-scene .dest { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: rgba(11, 16, 32, 0.06); justify-self: start; }
+.notes-scene .dest button { padding: 6px 13px; border-radius: var(--r-pill); font-size: 0.8rem; font-weight: 600; color: var(--mute); transition: background 0.25s, color 0.25s; }
+.notes-scene .dest button:hover { color: var(--ink); }
+.notes-scene .dest button[aria-pressed="true"] { background: var(--white); color: var(--ink); box-shadow: var(--sh-1), 0 0 0 1px var(--line); }
+.notes-scene .dest button[data-dest="checklist"][aria-pressed="true"] { background: var(--checklist); color: #fff; box-shadow: none; }
+.notes-scene .dest button[data-dest="teams"][aria-pressed="true"] { background: var(--teams); color: #fff; box-shadow: none; }
+.notes-scene .draft.is-sent .draft-title { color: var(--faint); text-decoration: line-through; text-decoration-color: rgba(11, 16, 32, 0.3); }
+.notes-scene .draft.is-sent .dest { pointer-events: none; opacity: 0.6; }
+.notes-scene .drafts .prop-actions { margin-top: 6px; }
+.notes-scene .drafts-receipt { display: none; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: #e8f7ee; color: #0b5d2c; flex-wrap: wrap; }
+.notes-scene .drafts-receipt strong { display: block; font-size: 0.93rem; }
+.notes-scene .drafts-receipt small { color: #2c7a4d; font-size: 0.8rem; }
+.notes-scene.is-sent .drafts-receipt { display: flex; animation: pop 0.6s var(--ease) both; }
+.notes-scene.is-sent [data-confirm] { display: none; }
+
+/* --- Notes: Mac screenshot rows ---------------------------------------- */
+.feature-rows { display: grid; gap: clamp(48px, 7vw, 96px); margin-top: clamp(32px, 5vw, 56px); }
+.feature-row { align-items: center; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.5fr); }
+.feature-row--flip { grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr); }
+.feature-row--flip .mac-window { order: -1; }
+@media (max-width: 900px) { .feature-row, .feature-row--flip { grid-template-columns: 1fr; } .feature-row--flip .mac-window { order: 0; } }
+.mac-window { position: relative; border-radius: 14px; overflow: hidden; background: #1c1c1e; box-shadow: var(--sh-3), 0 0 0 1px rgba(11, 16, 32, 0.12); }
+.mac-window .bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; background: linear-gradient(#e9e8e4, #dcdbd6); border-bottom: 1px solid rgba(11, 16, 32, 0.12); }
+.mac-window .bar i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.mac-window .bar i:nth-child(2) { background: #febc2e; }
+.mac-window .bar i:nth-child(3) { background: #28c840; }
+.mac-window .shots { position: relative; aspect-ratio: 16 / 9; background: #0b0b0d; }
+.mac-window .shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 620px) { .mac-window .bar { padding: 8px 10px; } .mac-window .bar i { width: 9px; height: 9px; } }

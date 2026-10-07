@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#fbfaf6">
+  <title>Verify your email · Clickt</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/brand/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/img/brand/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/inter-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/fonts.css">
+  <style>
+    :root { color-scheme: light; --ink: #17171b; --muted: #696a72; --line: #e7e5e0; --paper: #fbfaf6; --blue: #1677f0; --blue-dark: #075cc7; --good: #16745a; --bad: #bd3540; }
+    * { box-sizing: border-box; }
+    body { min-height: 100svh; margin: 0; display: grid; place-items: center; padding: 24px; background: var(--paper); color: var(--ink); font-family: Inter, Arial, sans-serif; }
+    .shell { width: min(100%, 480px); text-align: center; }
+    .brand { display: inline-block; margin-bottom: clamp(36px, 8vh, 72px); }
+    .brand img { display: block; width: 142px; height: auto; }
+    .card { position: relative; overflow: hidden; padding: clamp(32px, 7vw, 48px); border: 1px solid var(--line); border-radius: 28px; background: #fff; box-shadow: 0 20px 55px rgba(20, 26, 41, .08); }
+    .card::before { content: ""; position: absolute; z-index: 0; width: 210px; height: 210px; top: -130px; left: 50%; border-radius: 50%; transform: translateX(-50%); background: rgba(33, 130, 255, .1); filter: blur(8px); }
+    .content { position: relative; z-index: 1; }
+    .mark { width: 56px; height: 56px; display: grid; place-items: center; margin: 0 auto 22px; border-radius: 50%; color: var(--blue); background: #eaf3ff; }
+    .mark svg { width: 27px; height: 27px; }
+    h1 { margin: 0; font-size: clamp(1.55rem, 5vw, 2rem); letter-spacing: -.04em; line-height: 1.1; }
+    p { margin: 15px auto 0; max-width: 360px; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+    .status { min-height: 23px; margin-top: 22px; font-size: .9rem; line-height: 1.45; color: var(--muted); }
+    .status--error { color: var(--bad); }
+    .status--success { color: var(--good); }
+    .spinner { width: 21px; height: 21px; margin: 24px auto 0; border: 2px solid #dbeafb; border-top-color: var(--blue); border-radius: 50%; animation: spin .75s linear infinite; }
+    .spinner[hidden] { display: none; }
+    .actions { display: none; margin-top: 28px; }
+    .actions.is-visible { display: block; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; padding: 0 22px; border-radius: 13px; background: var(--blue); color: #fff; font-weight: 700; font-size: .95rem; text-decoration: none; transition: background .16s ease, transform .16s ease; }
+    .button:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .help { display: block; margin-top: 18px; color: #5d606a; font-size: .86rem; }
+    .help a { color: inherit; text-underline-offset: 3px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } .button { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <a class="brand" href="../" aria-label="Clickt home">
+      <img src="../assets/img/brand/logo.webp" alt="Clickt" width="142" height="46">
+    </a>
+    <section class="card" aria-labelledby="title">
+      <div class="content">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h1 id="title">Verifying your email</h1>
+        <p id="description">Please wait while we securely confirm your email address.</p>
+        <div class="spinner" id="spinner" aria-hidden="true"></div>
+        <p class="status" id="status" aria-live="polite"></p>
+        <div class="actions" id="actions">
+          <a class="button" href="../">Visit Clickt</a>
+          <span class="help" id="help">You can now return to the Clickt app and finish creating your account.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { applyActionCode, getAuth } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+    // This is Firebase's public Web App configuration. It is safe to include in browser code.
+    const firebaseConfig = {
+      apiKey: "AIzaSyBiNhCEVNDv7i3DKNzZ52S25VzB-WQMo8E",
+      authDomain: "tool-kit-8d79c.firebaseapp.com",
+      projectId: "tool-kit-8d79c",
+      storageBucket: "tool-kit-8d79c.firebasestorage.app",
+      messagingSenderId: "123408275822",
+      appId: "1:123408275822:web:97ee512760d4e31295097f",
+      measurementId: "G-QR63DQNCFX"
+    };
+
+    const title = document.querySelector("#title");
+    const description = document.querySelector("#description");
+    const status = document.querySelector("#status");
+    const spinner = document.querySelector("#spinner");
+    const actions = document.querySelector("#actions");
+    const help = document.querySelector("#help");
+    const params = new URLSearchParams(window.location.search);
+
+    function showResult({ heading, message, state, actionMessage }) {
+      title.textContent = heading;
+      description.textContent = message;
+      status.textContent = "";
+      status.className = "status";
+      if (state) status.classList.add(`status--${state}`);
+      if (actionMessage) help.textContent = actionMessage;
+      spinner.hidden = true;
+      actions.classList.add("is-visible");
+    }
+
+    async function verifyEmail() {
+      const mode = params.get("mode");
+      const actionCode = params.get("oobCode");
+
+      if (mode !== "verifyEmail") {
+        showResult({
+          heading: "This link is not supported here",
+          message: "Use this page only for Clickt email-verification links.",
+          state: "error",
+          actionMessage: "Return to Clickt and request a new verification email if needed."
+        });
+        return;
+      }
+
+      if (!actionCode) {
+        showResult({
+          heading: "This verification link is incomplete",
+          message: "Please request a new verification email from the Clickt app and use the newest link.",
+          state: "error",
+          actionMessage: "Return to Clickt to send another verification email."
+        });
+        return;
+      }
+
+      try {
+        const app = initializeApp(firebaseConfig);
+        await applyActionCode(getAuth(app), actionCode);
+        showResult({
+          heading: "Email verified",
+          message: "Your email address has been confirmed. Return to Clickt to finish creating your account.",
+          state: "success",
+          actionMessage: "You may safely close this page and return to the Clickt app."
+        });
+      } catch (error) {
+        const expired = error?.code === "auth/expired-action-code" || error?.code === "auth/invalid-action-code";
+        const noAccount = error?.code === "auth/user-not-found";
+        showResult({
+          heading: expired ? "This link has expired" : "We could not verify this email",
+          message: expired
+            ? "Verification links can be used only once and may expire. Request a new email from Clickt."
+            : noAccount
+              ? "The account for this verification link is no longer available. Please create your account again in Clickt."
+              : "Please request a new verification email from Clickt and try again.",
+          state: "error",
+          actionMessage: "Return to Clickt to send another verification email."
+        });
+        console.warn("Email verification failed:", error?.code || error);
+      }
+    }
+
+    verifyEmail();
+  </script>
+</body>
+</html>

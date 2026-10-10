@@ -26,8 +26,8 @@
 .hero-stage { --p: 0; width: 100%; transform: translate3d(0, calc((1 - var(--p)) * 40px), 0) scale(calc(0.94 + var(--p) * 0.06 + var(--pin) * 0.015)); transform-origin: 50% 0; will-change: transform; padding: clamp(28px, 4vw, 56px); min-height: 520px; }
 .stage-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 480px) 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
 .stage-glow { position: absolute; z-index: 0; border-radius: 50%; filter: blur(70px); pointer-events: none; opacity: calc(0.7 + var(--pin) * 0.3); }
-.stage-glow--a { width: 420px; height: 420px; right: 6%; top: -14%; background: radial-gradient(circle, rgba(31, 75, 255, 0.4), transparent 65%); }
-.stage-glow--b { width: 380px; height: 380px; left: 4%; bottom: -20%; background: radial-gradient(circle, rgba(255, 176, 120, 0.55), transparent 65%); }
+.stage-glow--a { width: 420px; height: 420px; right: 6%; top: -14%; background: radial-gradient(circle, rgba(11, 16, 32, 0.14), transparent 65%); }
+.stage-glow--b { width: 380px; height: 380px; left: 4%; bottom: -20%; background: radial-gradient(circle, rgba(11, 16, 32, 0.1), transparent 65%); }
 .stage-phones { position: relative; height: 560px; display: flex; justify-content: center; align-items: center; }
 .stage-phones .phone { position: absolute; will-change: transform; }
 .stage-phones .phone:nth-child(1) { --w: 250px; transform: translate(calc(-58% - var(--pin) * 5%), calc(12px - var(--pin) * 18px)) rotate(calc(-6deg - var(--pin) * 8deg)); z-index: 1; }
@@ -61,7 +61,7 @@
 .story-step .step-shot { display: none; }
 .story-stage { position: sticky; top: max(84px, calc(50vh - 350px)); height: min(700px, calc(100vh - 100px)); display: grid; place-items: center; }
 .story-stage .phone { --w: min(316px, calc((100vh - 170px) * 0.46)); z-index: 2; }
-.story-glow { position: absolute; z-index: 0; width: 520px; height: 520px; border-radius: 50%; filter: blur(80px); opacity: 0.55; background: radial-gradient(circle, var(--mc, var(--blue)), transparent 65%); transition: background 0.8s var(--ease); }
+.story-glow { position: absolute; z-index: 0; width: 520px; height: 520px; border-radius: 50%; filter: blur(80px); opacity: 0.55; background: radial-gradient(circle, rgba(11, 16, 32, 0.22), transparent 65%); }
 .story-stage .phone .screen { background: #0b0e17; }
 .shot { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity 0.7s var(--ease), transform 0.9s var(--ease); }
 .shot.is-active { opacity: 1; transform: none; }

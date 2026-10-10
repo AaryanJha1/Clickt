@@ -56,7 +56,7 @@ html[lang="ne"] .fund span { letter-spacing: 0; text-transform: none; }
 .flows { display: grid; gap: 12px; }
 .flow { display: grid; gap: 8px; padding: 20px 22px; border-radius: var(--r-md); background: var(--white); border: 1px solid var(--line); box-shadow: var(--sh-1); }
 .flow p { color: var(--ink-2); font-size: 0.96rem; }
-.result { padding: clamp(32px, 5vw, 64px); border-radius: var(--r-xl); background: radial-gradient(120% 140% at 20% 0%, #2a45d8 0%, #1636c7 35%, #0b1240 100%); color: #fff; box-shadow: var(--sh-3); }
+.result { padding: clamp(32px, 5vw, 64px); border-radius: var(--r-xl); background: radial-gradient(120% 140% at 20% 0%, #2b2f3a 0%, #14171f 35%, #05070c 100%); color: #fff; box-shadow: var(--sh-3); }
 .boundary { display: flex; gap: 14px; align-items: flex-start; margin-top: 24px; padding: 18px 20px; border-radius: var(--r-md); background: var(--paper-2); font-size: 0.92rem; color: var(--ink-2); }
 .boundary svg { flex: none; width: 22px; height: 22px; color: var(--mute); margin-top: 2px; }
 

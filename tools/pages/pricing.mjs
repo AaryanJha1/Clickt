@@ -26,7 +26,6 @@ export default function pricing(p) {
       <article class="plan" data-reveal>
         ${p.e('span', 'pricing.tiers.free.label', 'class="plan-label"')}
         <div class="plan-price"><span class="kpi" data-price data-npr="NPR 0" data-usd="USD 0">USD 0</span></div>
-        ${p.e('p', 'pricing.tiers.free.period', 'class="plan-period"')}
         ${p.e('p', 'pricing.tiers.free.users', 'class="plan-users"')}
         ${p.e('p', 'pricing.tiers.free.tagline', 'class="plan-tag"')}
         <a class="btn btn--dark btn--lg" href="${APP_STORE}" target="_blank" rel="noopener noreferrer">${p.t('pricing.tiers.free.cta')}</a>

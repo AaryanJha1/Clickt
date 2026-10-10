@@ -71,7 +71,7 @@ export default {
       },
     },
     pricing: {
-      hero: { lead: 'Every plan includes Teams, Notes, Builder, Presentation and Checklist on iPhone, iPad and Mac. Android is in private testing.' },
+      hero: { lead: 'Every plan includes Teams, Notes, Builder, Presentation and Checklist on iPhone, iPad and Mac. On Android, Business organisations get their own app; the free app is in private testing.' },
       tiers: { free: { feature1: 'Teams, Notes, Builder, Presentation &amp; Checklist' } },
       faq: { q1: { answer: 'The Free plan includes the full Clickt workflow - Teams, Notes, Builder, Presentation, Checklist, and Calendar - for individuals and small teams. You can use every ClicktAI Copilot, and AI in Notes, by connecting your own AI provider API key in Settings.' } },
     },
@@ -334,7 +334,7 @@ export default {
       },
     },
     pricing: {
-      hero: { lead: 'हरेक योजनामा iPhone, iPad र Mac मा Teams, Notes, Builder, Presentation र Checklist समावेश छ। Android निजी परीक्षणमा छ।' },
+      hero: { lead: 'हरेक योजनामा iPhone, iPad र Mac मा Teams, Notes, Builder, Presentation र Checklist समावेश छ। Android मा Business संस्थाहरूले आफ्नै एप पाउँछन्; नि:शुल्क एप निजी परीक्षणमा छ।' },
       tiers: { free: { feature1: 'Teams, Notes, Builder, Presentation &amp; Checklist' } },
       faq: { q1: { answer: 'निःशुल्क योजनामा पूरा Clickt वर्कफ्लो - Teams, Notes, Builder, Presentation, Checklist, र Calendar - व्यक्ति र साना टोलीका लागि समावेश छ। सेटिङ्समा आफ्नै AI प्रदायकको API की जोडेर तपाईंले हरेक ClicktAI कोपाइलट र Notes भित्रको AI प्रयोग गर्न सक्नुहुन्छ।' } },
     },

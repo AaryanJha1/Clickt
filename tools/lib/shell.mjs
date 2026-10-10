@@ -118,7 +118,7 @@ export function document_({ p, id, path, current, title, desc, main, css = [], s
 <meta name="description" content="${esc(descT)}"${descAttr}>
 ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <link rel="canonical" href="${canonical}">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clickt">
 <meta property="og:url" content="${canonical}">

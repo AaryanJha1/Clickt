@@ -86,7 +86,7 @@ export default function product(p, def) {
 
   return `
 <section class="page-hero prod-hero" style="--mod:var(${M.color})">
-  <span class="glow glow--blue" style="width:640px;height:640px;left:-12%;top:-30%;background:radial-gradient(circle,color-mix(in srgb,var(--mod) 40%,transparent),transparent 65%)"></span>
+  <span class="glow glow--blue" style="width:640px;height:640px;left:-12%;top:-30%"></span>
   <span class="glow glow--peach" style="width:520px;height:520px;right:-10%;top:0"></span>
   <div class="wrap prod-hero-in">
     <div class="prod-hero-copy">

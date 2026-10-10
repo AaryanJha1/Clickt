@@ -58,7 +58,10 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { color-scheme: only light; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
+/* The site has one, light, design. Stating that again inside the dark-preference query is
+   what some browsers (Samsung Internet) look for before applying their own dark recolouring. */
+@media (prefers-color-scheme: dark) { html { color-scheme: only light; } }
 body {
   margin: 0;
   background: var(--paper);

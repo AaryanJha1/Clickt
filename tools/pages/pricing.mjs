@@ -39,7 +39,7 @@ export default function pricing(p) {
         ${p.e('p', 'pricing.tiers.business.period', 'class="plan-users"')}
         ${p.e('p', 'pricing.tiers.business.tagline', 'class="plan-tag"')}
         <a class="btn btn--primary btn--lg" href="${url('contact')}">${p.t('pricing.tiers.business.cta')}</a>
-        <ul class="tick-list">${list('business', 12)}</ul>
+        <ul class="tick-list">${list('business', 13)}</ul>
         <p class="plan-setup"><b>${p.t('pricing.tiers.business.setupFeeLabel')}</b> ${p.t('pricing.tiers.business.setupFeeAmount')}</p>
       </article>
     </div>

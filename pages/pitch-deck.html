@@ -2,815 +2,739 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="color-scheme" content="only light" />
 <!-- iOS has no web Fullscreen API, but a page saved via "Add to Home Screen"
      launches with no Safari chrome at all when these are set. -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Clickt — Pitch Deck</title>
+<link rel="stylesheet" href="../assets/css/fonts.css" />
 <style>
+  /* The deck tells one story in twelve slides, in the order the strongest sales decks use: a
+     shift in the world, the old way against the new, the promise, the product as the way
+     there, who is behind it, the price and one next step.
+
+     Layout: the stage fills the window instead of letterboxing a fixed 16:9 frame. Every
+     size inside a slide is a multiple of --u, a unit taken from the slide's own width and
+     height, so type and spacing keep their proportions on any screen. A slide wider than
+     6:5 uses the side-by-side layouts; anything narrower (a phone or tablet held upright)
+     stacks them. If a slide's copy still does not fit, fitActiveSlide() scales it via --fit. */
   :root{
-    --blue-1:#4f86f7; --blue-2:#2b5fd9; --blue-3:#0b1533;
-    --teal-1:#2dd4bf; --teal-2:#0f766e; --teal-3:#05201c;
-    --ink:#0b1220; --slate:#475569; --slate-lt:#64748b;
-    --teams:#2563eb; --checklist:#16a34a; --builder:#d97706; --presentation:#4f46e5;
-    --paper:#ffffff;
-    --v-reserve:72px;
+    --ink:#0b1020; --ink-2:#2a3145; --mute:#5b6376; --faint:#8a91a3;
+    --line:rgba(11,16,32,.1); --line-2:rgba(11,16,32,.18);
+    --paper:#ffffff; --paper-2:#f4f4f5;
+    --blue:#1f4bff;
+    --grad:linear-gradient(115deg,#2a4df0 0%,#1a36c4 45%,#0b1020 100%);
+    --grad-ink:linear-gradient(115deg,#9db1ff 0%,#ffffff 85%);
+    --teams:#2f6bff; --notes:#e5584a; --checklist:#12a150; --builder:#e08a00; --presentation:#7a5cfa;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --font-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+    --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-  html:fullscreen{ --v-reserve:40px; }
-  html.force-landscape{ --v-reserve:40px; }
-  html.fake-fullscreen{ --v-reserve:40px; }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
+  *{ box-sizing:border-box; }
+  html{ color-scheme:only light; }
+  html,body{ height:100%; }
   body{
-    margin:0; padding:16px; background:#04060c; color:#e2e8f0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    display:flex; align-items:center; justify-content:center; flex-direction:column;
-    min-height:100vh; min-height:100dvh; overflow:hidden; touch-action:manipulation;
-    -webkit-font-smoothing:antialiased;
+    margin:0; height:100vh; height:100dvh; padding:14px; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    background:#05070c; color:#cbd5e1; font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased; touch-action:manipulation;
   }
-  #deckRoot{ display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:10px; }
-  /* 100vw here (instead of a %) would reserve phantom scrollbar-gutter width
-     in most browsers even though nothing actually scrolls, running the stage
-     off the right edge on narrow viewports. #deckRoot's width:100% is already
-     correctly sized against body's padded box, so measuring against that
-     avoids the vw quirk entirely. */
-  #stage{position:relative; width:min(100%, calc((100vh - var(--v-reserve)) * 16 / 9)); aspect-ratio:16/9; }
-  :fullscreen .footer, :-webkit-full-screen .footer, html.fake-fullscreen .footer{ display:none; }
-  /* iOS Safari has no Fullscreen API at all (see toggleFullscreen), so the
-     fallback path fakes it: stage fills the true viewport instead of the
-     letterboxed preview size. */
-  html.fake-fullscreen{ overflow:hidden; }
+  /* The stage takes whatever room the window has, up to 2:1 so an ultra-wide screen does
+     not stretch a slide into a ribbon. */
+  #stage{ position:relative; flex:1 1 0; min-height:0; width:100%; max-width:calc((100dvh - 78px) * 2); }
+
+  .progress{ position:fixed; inset:0 0 auto 0; height:3px; background:rgba(255,255,255,.08); z-index:20; }
+  .progress > div{ height:100%; width:0; background:linear-gradient(90deg,#2a4df0,#9db1ff); transition:width .35s var(--ease); }
+
+  .footer{ flex:none; width:100%; display:flex; align-items:center; justify-content:center; gap:10px; font-size:12px; color:#94a3b8; }
+  .footer button{ font:inherit; color:#cbd5e1; background:#0b1220; border:1px solid #1e293b; border-radius:8px; cursor:pointer; white-space:nowrap; }
+  .footer button:hover{ background:#111c33; }
+  .nav-btn{ width:34px; height:30px; font-size:17px; line-height:1; }
+  .fs-btn{ padding:6px 10px; margin-left:auto; }
+  .hint{ opacity:.6; margin-left:8px; }
+  #counter{ min-width:4.2em; text-align:center; font-variant-numeric:tabular-nums; }
+  @media (max-width:700px){ body{ padding:8px; gap:8px; } .hint{ display:none; } }
+  /* A phone held sideways has no height to spare: the slide gets all of it. */
+  @media (max-height:460px){ body{ padding:6px; } .footer{ display:none; } #stage{ max-width:calc((100dvh - 12px) * 2); } }
+  /* Fullscreen, real or (on iOS, which has no Fullscreen API) faked: the slide fills the screen. */
+  html:fullscreen body, html:-webkit-full-screen body, html.fake-fullscreen body{ padding:0; }
+  html:fullscreen .footer, html:-webkit-full-screen .footer, html.fake-fullscreen .footer{ display:none; }
+  html:fullscreen #stage, html:-webkit-full-screen #stage, html.fake-fullscreen #stage{ max-width:calc(100dvh * 2); }
+  html:fullscreen .slide, html:-webkit-full-screen .slide, html.fake-fullscreen .slide{ border-radius:0; }
   html.fake-fullscreen body{ position:fixed; inset:0; }
 
-  /* Forced-landscape fullscreen for phones: rotates the whole deck 90deg to fill
-     the screen even when the device physically stays in portrait (iOS has no
-     JS orientation-lock API, so this CSS rotation is the only reliable fallback). */
-  html.force-landscape body{ overflow:hidden; }
-  html.force-landscape #deckRoot{
-    position:fixed; top:0; left:0; margin:0; padding:0;
-    width:100vh; height:100vw;
-    transform:rotate(90deg) translateY(-100%);
-    transform-origin:top left;
-  }
-  html.force-landscape #stage{ width:min(100vh - 32px, calc((100vw - var(--v-reserve)) * 16 / 9)); }
-  html.force-landscape #footer{ max-width:min(100vh - 32px, 177.78vw); }
+  /* --- Slides ------------------------------------------------------------------- */
   .slide{
-    position:absolute; inset:0; display:none; border-radius:18px; overflow:hidden;
-    border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.55);
-    container-type:inline-size; container-name:slide; cursor:pointer;
+    position:absolute; inset:0; display:none; overflow:hidden; border-radius:18px; cursor:pointer;
+    container:slide / size; color:var(--ink);
+    background:
+      radial-gradient(70% 60% at 0% 0%, rgba(11,16,32,.055), transparent 60%),
+      radial-gradient(60% 60% at 100% 100%, rgba(11,16,32,.04), transparent 60%),
+      var(--paper);
   }
-  .slide.active{display:block;}
-  .slide[data-bg="blue"]{ background:
-      radial-gradient(60% 55% at 88% 8%, rgba(255,255,255,.16), transparent 60%),
-      radial-gradient(46% 60% at 4% 96%, rgba(255,255,255,.10), transparent 60%),
-      linear-gradient(135deg, var(--blue-1) 0%, var(--blue-2) 45%, var(--blue-3) 100%);
-    color:#eef2ff;
+  .slide[data-bg="ink"]{ color:#fff; background:radial-gradient(120% 140% at 15% 0%, #2b2f3a 0%, #14171f 38%, #05070c 100%); }
+  .slide.active, .slide.leaving{ display:block; }
+  /* The outgoing slide stays underneath while the new one arrives, so there is never a flash of the backdrop. */
+  .slide.leaving{ z-index:1; }
+  .slide.active{ z-index:2; animation:slide-in .5s var(--ease) both; }
+  html.back .slide.active{ animation-name:slide-back; }
+  @keyframes slide-in{ from{ opacity:0; transform:translate3d(2.5%,0,0); } }
+  @keyframes slide-back{ from{ opacity:0; transform:translate3d(-2.5%,0,0); } }
+
+  /* Side-by-side scale. The --fs-* numbers are multiples of --u. */
+  .slide > *{
+    --u:min(1cqw, 1.78cqh);
+    --fs-xl:6.2; --fs-h1:4.5; --fs-h2:3.5; --fs-lede:1.75; --fs-body:1.55; --fs-sm:1.18; --fs-xs:.98;
+    --pad-x:6.4; --pad-top:5.4; --pad-bot:6.8; --gap:1.7;
   }
-  .slide[data-bg="teal"]{ background:
-      radial-gradient(58% 55% at 90% 6%, rgba(255,255,255,.14), transparent 60%),
-      radial-gradient(46% 60% at 2% 98%, rgba(255,255,255,.10), transparent 60%),
-      linear-gradient(135deg, var(--teal-1) 0%, var(--teal-2) 48%, var(--teal-3) 100%);
-    color:#ecfeff;
+  .slide[data-mod="teams"]{ --mod:var(--teams); } .slide[data-mod="notes"]{ --mod:var(--notes); }
+  .slide[data-mod="checklist"]{ --mod:var(--checklist); } .slide[data-mod="builder"]{ --mod:var(--builder); }
+  .slide[data-mod="presentation"]{ --mod:var(--presentation); }
+
+  .pad, .feature{
+    position:absolute; inset:0; overflow:hidden;
+    padding:calc(var(--u) * var(--pad-top)) calc(var(--u) * var(--pad-x)) calc(var(--u) * var(--pad-bot));
   }
-  .slide[data-bg="white"]{ background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%); color:var(--ink); }
-  .blob{position:absolute; border-radius:50%; opacity:.5; pointer-events:none;}
+  .pad{ display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:calc(var(--u) * var(--gap) * var(--fit,1)); }
+  .pad > *, .col-text > *{ min-width:0; max-width:100%; }
+  .pad.center{ align-items:center; text-align:center; }
 
-  .pad{position:absolute; inset:0; padding:6.2cqw 6.4cqw; display:flex; flex-direction:column; justify-content:center; gap:0; overflow:hidden; }
-  /* Flex/grid items default to min-width:auto, which lets long headlines
-     refuse to wrap and bleed past the card edge instead of shrinking with
-     --fit. min-width:0 restores normal text wrapping inside these boxes. */
-  .pad > *, .title-center > *, .cta-wrap > *{ min-width:0; }
-  .feature .col-text{ min-width:0; overflow:hidden; }
-  .kicker{
-    display:inline-flex; align-items:center; font-weight:700; letter-spacing:.06em;
-    font-size:calc(clamp(9px,1.35cqw,15px) * var(--fit,1)); text-transform:uppercase;
-    padding:.5em 1em; border-radius:999px; margin-bottom:1.1em;
+  .h1{ margin:0; font-family:var(--font-display); font-weight:400; line-height:1.03; letter-spacing:-.02em; text-wrap:balance; font-size:max(20px, calc(var(--u) * var(--fs-h1) * var(--fit,1))); }
+  .h1.xl{ font-size:max(24px, calc(var(--u) * var(--fs-xl) * var(--fit,1))); }
+  .h1.md{ font-size:max(18px, calc(var(--u) * var(--fs-h2) * var(--fit,1))); }
+  .h1 em{ font-style:italic; padding-right:.06em; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .slide[data-bg="ink"] .h1 em{ background-image:var(--grad-ink); }
+  .lede{ margin:0; max-width:46em; line-height:1.45; color:var(--ink-2); text-wrap:pretty; font-size:max(11px, calc(var(--u) * var(--fs-lede) * var(--fit,1))); }
+  .lede.strong{ color:var(--ink); font-weight:600; }
+  .small{ margin:0; line-height:1.45; color:var(--mute); font-size:max(9px, calc(var(--u) * var(--fs-sm) * var(--fit,1))); }
+  .slide[data-bg="ink"] .lede{ color:rgba(255,255,255,.82); }
+  .slide[data-bg="ink"] .lede.strong{ color:#fff; }
+  .slide[data-bg="ink"] .small{ color:rgba(255,255,255,.6); }
+
+  .kicker, .pill, .tag{ display:inline-flex; align-items:center; font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:max(9px, calc(var(--u) * var(--fs-xs) * var(--fit,1))); }
+  .kicker{ gap:.9em; color:var(--mute); }
+  .kicker::before{ content:""; width:2.2em; height:1px; background:currentColor; opacity:.6; }
+  .slide[data-bg="ink"] .kicker{ color:rgba(255,255,255,.7); }
+  .pill{ gap:.65em; padding:.5em 1.05em; border:1px solid var(--line-2); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.7); }
+  .pill i{ width:.6em; height:.6em; border-radius:50%; background:var(--mod, var(--blue)); }
+  .tag{ padding:.55em 1.2em; border-radius:999px; background:var(--ink); color:#fff; }
+
+  .bullets{ list-style:none; margin:0; padding:0; display:grid; gap:calc(var(--u) * var(--gap) * .5 * var(--fit,1)); }
+  .bullets li{ display:flex; gap:.7em; align-items:flex-start; line-height:1.4; font-size:max(10px, calc(var(--u) * var(--fs-body) * var(--fit,1))); }
+  .bullets .arrow{ flex:none; font-weight:700; color:var(--blue); }
+  .slide[data-bg="ink"] .bullets .arrow{ color:#9db1ff; }
+
+  /* Slide furniture */
+  .brand{ position:absolute; left:calc(var(--u) * var(--pad-x)); bottom:calc(var(--u) * 2.3); height:max(12px, calc(var(--u) * 2)); }
+  .brand img{ height:100%; width:auto; display:block; }
+  .slide[data-bg="ink"] .brand img{ filter:brightness(0) invert(1); opacity:.92; }
+  .domain{ position:absolute; right:calc(var(--u) * var(--pad-x)); bottom:calc(var(--u) * 2.5); color:var(--faint); font-size:max(9px, calc(var(--u) * var(--fs-xs))); }
+  .slide-index{ position:absolute; top:calc(var(--u) * 2.2); right:calc(var(--u) * var(--pad-x)); z-index:5; font-weight:600; letter-spacing:.1em; color:var(--faint); font-variant-numeric:tabular-nums; font-size:max(9px, calc(var(--u) * var(--fs-xs))); }
+  .slide[data-bg="ink"] .domain, .slide[data-bg="ink"] .slide-index{ color:rgba(255,255,255,.55); }
+
+  /* Title */
+  .title-logo{ display:block; width:auto; height:calc(var(--u) * 7.5 * var(--fit,1)); }
+  .by{ margin:0; color:var(--mute); font-size:max(9px, calc(var(--u) * var(--fs-sm) * var(--fit,1))); }
+  .by b{ color:var(--ink); font-weight:600; }
+
+  /* The shift: four numbers */
+  .stats{ width:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:calc(var(--u) * 2.2 * var(--fit,1)); }
+  .stat{ display:grid; align-content:start; gap:.5em; padding-top:calc(var(--u) * 1.3 * var(--fit,1)); border-top:1px solid rgba(255,255,255,.22); }
+  .stat .num{ font-family:var(--font-display); font-weight:400; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; font-size:max(26px, calc(var(--u) * var(--fs-h1) * 1.5 * var(--fit,1))); }
+  .stat .num small{ font-family:var(--font-body); font-size:.2em; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin-right:.5em; }
+  .stat > span{ line-height:1.4; color:rgba(255,255,255,.78); font-size:max(9px, calc(var(--u) * var(--fs-sm) * 1.14 * var(--fit,1))); }
+
+  /* Old way against the new */
+  .versus{ width:100%; display:grid; gap:calc(var(--u) * .55 * var(--fit,1)); }
+  .vs-row{ display:grid; grid-template-columns:.62fr 1fr 1.12fr; gap:calc(var(--u) * .55 * var(--fit,1)); }
+  .vs-row > *{ display:flex; align-items:center; border-radius:calc(var(--u) * .9); padding:calc(var(--u) * 1.35 * var(--fit,1)) calc(var(--u) * 1.7 * var(--fit,1)); line-height:1.3; font-size:max(9px, calc(var(--u) * var(--fs-body) * var(--fit,1))); }
+  .vs-row .lab{ padding-left:0; font-weight:600; color:var(--mute); }
+  .vs-row .old{ background:var(--paper-2); color:var(--mute); }
+  .vs-row .new{ background:var(--ink); color:#fff; font-weight:600; }
+  .vs-head > *{ padding-top:0; padding-bottom:0; background:none !important; font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:max(8px, calc(var(--u) * var(--fs-xs) * var(--fit,1))); }
+  .vs-head .old{ color:var(--faint); } .vs-head .new{ color:var(--ink); }
+
+  /* Product slides: copy beside a screenshot carousel */
+  .feature{ display:grid; grid-template-columns:1.1fr .9fr; gap:calc(var(--u) * 3.4); }
+  .feature.wide{ grid-template-columns:.72fr 1.28fr; }
+  .col-text{ align-self:center; display:flex; flex-direction:column; align-items:flex-start; gap:calc(var(--u) * var(--gap) * .85 * var(--fit,1)); }
+  .feature .lede{ font-size:max(10px, calc(var(--u) * var(--fs-lede) * .86 * var(--fit,1))); }
+  .media{ min-width:0; min-height:0; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  /* frame-box is its own size container so the frame can be "the largest box of this shape that fits".
+     Lengths inside it are therefore in px, not --u. */
+  .frame-box{ flex:1 1 0; min-height:0; width:100%; container-type:size; display:grid; place-items:center; }
+  .frame{ position:relative; width:min(100cqw, calc(100cqh * var(--ar))); aspect-ratio:var(--ar); overflow:hidden; border-radius:12px; background:#0b1020; border:1px solid rgba(11,16,32,.1); box-shadow:0 22px 50px rgba(11,16,32,.22), 0 2px 8px rgba(11,16,32,.12); }
+  .slide[data-bg="ink"] .frame{ border-color:rgba(255,255,255,.14); box-shadow:0 22px 60px rgba(0,0,0,.5); }
+  .carousel-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; opacity:0; transform:scale(1.02); transition:opacity .7s ease, transform 6s linear; }
+  .carousel-img.active{ opacity:1; transform:none; z-index:2; }
+  .dots{ flex:none; display:flex; gap:7px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:rgba(11,16,32,.2); transition:background .3s ease, transform .3s ease; }
+  .dot.active{ background:var(--ink); transform:scale(1.35); }
+  .slide[data-bg="ink"] .dot{ background:rgba(255,255,255,.3); }
+  .slide[data-bg="ink"] .dot.active{ background:#fff; }
+
+  .quote{ margin:0; padding:.9em 1.2em; border-left:2px solid rgba(255,255,255,.5); background:rgba(255,255,255,.07); border-radius:0 10px 10px 0; font-size:max(9px, calc(var(--u) * var(--fs-sm) * 1.08 * var(--fit,1))); line-height:1.5; }
+  .quote p{ margin:0; font-style:italic; color:rgba(255,255,255,.9); }
+  .quote footer{ margin-top:.6em; color:rgba(255,255,255,.65); }
+
+  /* Founder: story beside what has been built */
+  .duo{ width:100%; display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--u) * 3.4 * var(--fit,1)); align-items:start; }
+  .duo-col{ display:grid; gap:calc(var(--u) * var(--gap) * .9 * var(--fit,1)); min-width:0; }
+  .duo .lede{ font-size:max(10px, calc(var(--u) * var(--fs-lede) * .86 * var(--fit,1))); }
+  .slide[data-bg="paper"] .quote{ border-left-color:var(--ink); background:var(--paper-2); }
+  .slide[data-bg="paper"] .quote p{ color:var(--ink-2); }
+  .slide[data-bg="paper"] .quote footer{ color:var(--mute); }
+  .creds{ list-style:none; margin:0; padding:0; display:grid; min-width:0; }
+  .creds li{ display:grid; gap:.25em; padding:calc(var(--u) * .95 * var(--fit,1)) 0; border-top:1px solid var(--line); line-height:1.4; font-size:max(9px, calc(var(--u) * var(--fs-sm) * 1.14 * var(--fit,1))); }
+  .creds b{ font-family:var(--font-display); font-weight:400; font-size:1.5em; line-height:1.15; }
+  .creds span{ color:var(--ink-2); }
+
+  /* Numbered steps: the close */
+  .steps{ list-style:none; margin:0; padding:0; width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:calc(var(--u) * 1.4 * var(--fit,1)); }
+  .steps li{ display:grid; align-content:start; gap:.45em; padding:calc(var(--u) * 1.6 * var(--fit,1)); border-radius:calc(var(--u) * 1.3); border:1px solid var(--line); background:rgba(255,255,255,.75); font-size:max(9px, calc(var(--u) * var(--fs-sm) * 1.2 * var(--fit,1))); line-height:1.42; }
+  .steps i{ font-family:var(--font-display); font-style:normal; line-height:1; font-size:2.5em; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .steps b{ font-size:1.22em; font-weight:700; }
+  .steps span{ color:var(--ink-2); }
+  .slide[data-bg="ink"] .steps li{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
+  .slide[data-bg="ink"] .steps i{ background-image:var(--grad-ink); }
+  .slide[data-bg="ink"] .steps span{ color:rgba(255,255,255,.78); }
+
+  /* Pricing */
+  .plan{ width:100%; display:grid; grid-template-columns:.62fr 1.38fr; column-gap:calc(var(--u) * 3 * var(--fit,1)); align-items:center; padding:calc(var(--u) * 2.6 * var(--fit,1)) calc(var(--u) * 3 * var(--fit,1)); border-radius:calc(var(--u) * 1.5); border:1px solid var(--line); background:rgba(255,255,255,.8); font-size:max(9px, calc(var(--u) * var(--fs-sm) * 1.22 * var(--fit,1))); line-height:1.4; }
+  .plan.pro{ color:#fff; border-color:transparent; background:radial-gradient(120% 140% at 15% 0%, #2b2f3a 0%, #14171f 38%, #05070c 100%); box-shadow:0 20px 50px rgba(11,16,32,.28); }
+  .plan .ptag{ font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:.8em; opacity:.7; }
+  .plan-head{ display:grid; gap:.5em; }
+  .plan .price{ font-family:var(--font-display); line-height:.95; font-size:4.6em; }
+  .plan .per{ opacity:.72; }
+  .plan ul{ list-style:none; margin:0; padding:0; display:grid; gap:.5em; }
+  .plan li{ display:flex; gap:.55em; }
+  .plan li::before{ content:"→"; flex:none; font-weight:700; color:var(--blue); }
+  .plan.pro li::before{ color:#9db1ff; }
+
+  .cta-btn{ display:inline-flex; align-items:center; gap:.6em; padding:.85em 1.7em; border-radius:999px; background:#fff; color:var(--ink); font-weight:700; text-decoration:none; font-size:max(11px, calc(var(--u) * var(--fs-body) * 1.05 * var(--fit,1))); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(255,255,255,.4); } 70%{ box-shadow:0 0 0 16px rgba(255,255,255,0); } 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+
+  /* --- Upright screens: everything stacks ---------------------------------------- */
+  @container slide (max-aspect-ratio: 6/5){
+    .slide > *{
+      --u:min(1cqw, .62cqh);
+      --fs-xl:10.4; --fs-h1:8.2; --fs-h2:7.4; --fs-lede:4.1; --fs-body:3.8; --fs-sm:3.1; --fs-xs:2.7;
+      --pad-x:6; --pad-top:9; --pad-bot:6; --gap:3.6;
+    }
+    .brand, .domain{ display:none; }
+    .title-logo{ height:calc(var(--u) * 15 * var(--fit,1)); }
+    .stats{ grid-template-columns:1fr 1fr; gap:calc(var(--u) * 4 * var(--fit,1)); }
+    .stat{ padding-top:calc(var(--u) * 2.4 * var(--fit,1)); }
+    .versus, .vs-row{ gap:calc(var(--u) * 1.2 * var(--fit,1)); }
+    .vs-row{ grid-template-columns:1fr 1fr; }
+    .vs-row .lab{ grid-column:1 / -1; padding-bottom:0; padding-top:calc(var(--u) * 1.4 * var(--fit,1)); }
+    .vs-head .lab{ display:none; }
+    .vs-row > *{ border-radius:calc(var(--u) * 2); padding:calc(var(--u) * 2.2 * var(--fit,1)) calc(var(--u) * 2.6 * var(--fit,1)); }
+    .vs-head > *{ padding-top:0; padding-bottom:0; }
+    /* Copy on top, screenshot filling what is left (never less than a quarter of the slide). */
+    .feature, .feature.wide{ grid-template-columns:1fr; grid-template-rows:auto minmax(25cqh, 1fr); gap:calc(var(--u) * 4); }
+    .col-text{ align-self:start; }
+    .feature .lede{ font-size:max(10px, calc(var(--u) * var(--fs-lede) * .94 * var(--fit,1))); }
+    /* An upright screenshot would be a sliver in that band, so it fills the band and shows its top. */
+    .frame.tall{ width:100cqw; height:100cqh; aspect-ratio:auto; }
+    .steps{ grid-template-columns:1fr; gap:calc(var(--u) * 2.4 * var(--fit,1)); }
+    .steps li{ grid-template-columns:auto 1fr; column-gap:1em; padding:calc(var(--u) * 3 * var(--fit,1)); border-radius:calc(var(--u) * 3); }
+    .steps i{ grid-row:1 / span 2; }
+    .duo{ grid-template-columns:1fr; gap:calc(var(--u) * 3 * var(--fit,1)); }
+    .creds li{ padding:calc(var(--u) * 1.8 * var(--fit,1)) 0; }
+    .plan{ grid-template-columns:1fr; row-gap:calc(var(--u) * 3 * var(--fit,1)); padding:calc(var(--u) * 4.4 * var(--fit,1)); border-radius:calc(var(--u) * 3.2); }
+    .plan .price{ font-size:3.6em; }
   }
-  .slide[data-bg="blue"] .kicker, .slide[data-bg="teal"] .kicker{ background:rgba(255,255,255,.16); color:#fff; }
-  .kicker.dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:.6em;}
 
-  .h1{ font-weight:800; letter-spacing:-.01em; line-height:1.06; font-size:calc(clamp(15px,5.6cqw,58px) * var(--fit,1)); margin:0 0 .3em; }
-  .h1.xl{ font-size:calc(clamp(18px,7.4cqw,78px) * var(--fit,1)); }
-  .slide[data-bg="blue"] .h1, .slide[data-bg="teal"] .h1{ color:#fff; }
-  .slide[data-bg="white"] .h1{ color:var(--ink); }
-  .lede{ font-size:calc(clamp(9px,2.05cqw,24px) * var(--fit,1)); line-height:1.42; max-width:74%; }
-  .slide[data-bg="blue"] .lede, .slide[data-bg="teal"] .lede{ color:rgba(255,255,255,.86); }
-  .slide[data-bg="white"] .lede{ color:var(--slate); }
-
-  /* Brand mark: real Clickt logo image, not text. The source logo file has a
-     solid off-white canvas baked in (no alpha), so on colored slides it needs
-     a white card behind it to read as a logo rather than a stray rectangle;
-     on white slides it blends in natively. */
-  .brand{ position:absolute; left:6.4cqw; bottom:2.2cqw; display:flex; align-items:center; line-height:0; }
-  .brand img{ height:clamp(13px,1.7cqw,19px); width:auto; display:block; }
-  .slide[data-bg="blue"] .brand, .slide[data-bg="teal"] .brand{ background:#fff; padding:.35em .65em; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.18); }
-  .domain{ position:absolute; right:6.4cqw; bottom:2.2cqw; font-size:clamp(9px,1.2cqw,14px); opacity:.65; }
-  .slide[data-bg="white"] .domain{ color:var(--slate); }
-  /* Tiny (non-fullscreen) mobile preview: the letterboxed stage is too short for
-     both centered copy and the footer wordmark, so drop the redundant wordmark. */
-  @container slide (max-width: 480px){ .brand, .domain{ display:none; } }
-  /* Belt-and-suspenders: a fixed width breakpoint can't anticipate every
-     browser's chrome eating into the real viewport (in-app browsers, iOS
-     Safari's collapsing toolbars). If JS finds the slide still doesn't fit
-     even at minimum scale, drop the footer wordmark/domain outright so it
-     can never overlap the actual copy. */
-  .slide.crowded .brand, .slide.crowded .domain, .slide.crowded .title-foot{ display:none; }
-
-  .bullets{ list-style:none; margin:1.4em 0 0; padding:0; display:grid; gap:.85em; max-width:78%; }
-  .bullets li{ display:flex; gap:.7em; align-items:flex-start; font-size:calc(clamp(10px,1.75cqw,20px) * var(--fit,1)); line-height:1.4; }
-  .slide[data-bg="white"] .bullets li{ color:var(--ink); }
-  .bullets li .arrow{ flex:none; font-weight:700; opacity:.75; }
-  .bullets.strong li{ font-weight:600; }
-
-  /* Title slide */
-  /* bottom is reserved (not inset:0) so this box's own height already excludes
-     the title-foot/domain zone — vertical centering can then never place the
-     last line of copy on top of that footer text, on any viewport size. */
-  .title-center{ position:absolute; top:0; left:0; right:0; bottom:11cqw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:5cqw 6cqw 0; gap:1cqw; overflow:hidden; }
-  .title-center .badge{ background:rgba(255,255,255,.18); padding:.5em 1.1em; border-radius:999px; font-weight:700; letter-spacing:.08em; font-size:calc(clamp(9px,1.3cqw,14px) * var(--fit,1)); text-transform:uppercase; }
-  .logo-card{ padding:calc(clamp(8px,1.6cqw,18px) * var(--fit,1)) calc(clamp(16px,3.4cqw,40px) * var(--fit,1)); display:inline-flex; margin:.25em 0; }
-  .logo-card img{ height:calc(clamp(64px,15cqw,180px) * var(--fit,1)); width:auto; display:block; }
-  .title-center .sub{ font-size:calc(clamp(12px,2.3cqw,26px) * var(--fit,1)); color:rgba(255,255,255,.88); max-width:70%; }
-  .slide[data-bg="white"] .title-center .sub{ color:var(--slate); }
-  .title-foot{ position:absolute; left:6.4cqw; bottom:2.2cqw; font-weight:700; font-size:clamp(10px,1.4cqw,16px); }
-  .title-foot .who{ opacity:.8; font-weight:500; }
-
-  /* Module grid */
-  .grid4{ display:grid; grid-template-columns:1fr 1fr; gap:calc(1.4cqw * var(--fit,1)); margin-top:calc(2.4cqw * var(--fit,1)); max-width:100%; }
-  .gcard{ border-radius:16px; padding:calc(1.6cqw * var(--fit,1)) calc(1.8cqw * var(--fit,1)); color:#fff; min-height:calc(11cqw * var(--fit,1)); display:flex; flex-direction:column; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.18); }
-  .gcard h3{ margin:0 0 .3em; font-size:calc(clamp(13px,2.2cqw,24px) * var(--fit,1)); font-weight:800; }
-  .gcard p{ margin:0; font-size:calc(clamp(9px,1.4cqw,16px) * var(--fit,1)); opacity:.94; line-height:1.35; }
-  .gcard.teams{ background:linear-gradient(135deg,#5b9bff,var(--teams)); }
-  .gcard.checklist{ background:linear-gradient(135deg,#4ade80,var(--checklist)); }
-  .gcard.builder{ background:linear-gradient(135deg,#fbbf24,var(--builder)); }
-  .gcard.presentation{ background:linear-gradient(135deg,#818cf8,var(--presentation)); }
-
-  /* Comparison table (How Clickt Compares) */
-  .compare-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:2px; margin-top:calc(1.1cqw * var(--fit,1)); border-radius:14px; overflow:hidden; background:rgba(11,18,32,.08); }
-  .compare-grid .cell{ background:#fff; padding:calc(.65cqw * var(--fit,1)) calc(1cqw * var(--fit,1)); font-size:calc(clamp(7px,1.15cqw,13px) * var(--fit,1)); line-height:1.25; color:var(--ink); display:flex; align-items:center; }
-  .compare-grid .head{ font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:calc(clamp(7px,1cqw,11px) * var(--fit,1)); background:#f1f5f9; }
-  .compare-grid .row-label{ font-weight:700; background:#f8fafc; }
-  .compare-grid .clickt-col{ background:#eef2ff; font-weight:700; color:#3730a3; }
-  .compare-grid .head.clickt-col{ background:var(--blue-2); color:#fff; }
-
-  /* Pricing cards */
-  .price-grid{ display:grid; grid-template-columns:1fr 1fr; gap:calc(1.6cqw * var(--fit,1)); margin-top:calc(2cqw * var(--fit,1)); }
-  .price-card{ border-radius:18px; padding:calc(1.8cqw * var(--fit,1)) calc(2cqw * var(--fit,1)); background:#f8fafc; border:1px solid rgba(15,23,42,.08); color:var(--ink); }
-  .price-card.featured{ background:linear-gradient(135deg,var(--blue-1),var(--blue-2)); color:#fff; box-shadow:0 20px 45px rgba(43,95,217,.25); border:none; }
-  .price-card .ptag{ font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:calc(clamp(8px,1.1cqw,12px) * var(--fit,1)); opacity:.75; margin-bottom:.4em; }
-  .price-card h3{ margin:0 0 .1em; font-size:calc(clamp(14px,2.2cqw,24px) * var(--fit,1)); font-weight:800; }
-  .price-card .price{ font-size:calc(clamp(20px,3.4cqw,38px) * var(--fit,1)); font-weight:800; margin:.2em 0 .6em; }
-  .price-card .price span{ font-size:.4em; font-weight:600; opacity:.75; }
-  .price-card ul{ list-style:none; margin:0; padding:0; display:grid; gap:.5em; }
-  .price-card li{ font-size:calc(clamp(8px,1.3cqw,14px) * var(--fit,1)); display:flex; gap:.5em; align-items:flex-start; line-height:1.35; }
-  .price-foot{ margin-top:calc(1.2cqw * var(--fit,1)); font-size:calc(clamp(8px,1.15cqw,13px) * var(--fit,1)); opacity:.75; }
-
-  /* Feature layout: text left, carousel right */
-  .feature{ position:absolute; inset:0; display:grid; grid-template-columns:1.15fr .85fr; align-items:center; padding:calc(5cqw * var(--fit,1)) calc(5.5cqw * var(--fit,1)); gap:calc(2cqw * var(--fit,1)); overflow:hidden; }
-  .feature .col-text{ max-width:100%; }
-  .pill{ display:inline-block; font-weight:800; letter-spacing:.05em; text-transform:uppercase; font-size:calc(clamp(8px,1.25cqw,13px) * var(--fit,1)); color:#fff; padding:.5em 1.1em; border-radius:999px; margin-bottom:.9em; }
-  .pill.teams{background:var(--teams);} .pill.checklist{background:var(--checklist);} .pill.builder{background:var(--builder);} .pill.presentation{background:var(--presentation);}
-  .feature .h1{ font-size:calc(clamp(16px,3.2cqw,37px) * var(--fit,1)); margin-bottom:.35em; }
-  .feature .lede{ max-width:100%; font-size:calc(clamp(9px,1.55cqw,14px) * var(--fit,1)); }
-  .feature .bullets li{ font-size:calc(clamp(9px,1.75cqw,19px) * var(--fit,1)); }
-  .accent-bar{ position:absolute; top:0; left:0; right:0; height:.9cqw; }
-  .accent-bar.teams{background:var(--teams);} .accent-bar.checklist{background:var(--checklist);} .accent-bar.builder{background:var(--builder);} .accent-bar.presentation{background:var(--presentation);}
-
-  .carousel-wrap{ display:flex; flex-direction:column; align-items:center; gap:calc(1cqw * var(--fit,1)); min-width:0; min-height:0; }
-  .carousel-frame{ position:relative; width:74%; max-height:100%; aspect-ratio:1668/2420; border-radius:12px; overflow:hidden; background:#0b1220; box-shadow:0 20px 45px rgba(15,23,42,.28), 0 2px 8px rgba(15,23,42,.15); border:1px solid rgba(15,23,42,.08); }
-  .carousel-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; opacity:0; transform:scale(1.015); transition:opacity .7s ease, transform 6s linear; }
-  .carousel-img.active{ opacity:1; transform:scale(1); z-index:2; }
-  .dots{ display:flex; gap:.5em; }
-  .dot{ width:.55cqw; height:.55cqw; min-width:5px; min-height:5px; border-radius:50%; background:rgba(15,23,42,.2); transition:background .3s ease, transform .3s ease; }
-  .slide[data-bg="blue"] .dot, .slide[data-bg="teal"] .dot{ background:rgba(255,255,255,.32); }
-  .dot.active{ background:var(--dotcolor,#0f172a); transform:scale(1.35); }
-  .dot.teams{--dotcolor:var(--teams);} .dot.checklist{--dotcolor:var(--checklist);} .dot.builder{--dotcolor:var(--builder);} .dot.presentation{--dotcolor:var(--presentation);}
-
-  /* Founder quote, folded into the Differentiator slide */
-  .mini-quote{ margin-top:1.1em; padding:.9em 1.15em; border-left:3px solid rgba(255,255,255,.5); background:rgba(255,255,255,.09); border-radius:0 10px 10px 0; }
-  .mini-quote-text{ font-size:calc(clamp(9px,1.5cqw,15px) * var(--fit,1)); line-height:1.45; font-style:italic; }
-  .mini-quote-by{ margin-top:.5em; font-size:calc(clamp(8px,1.2cqw,12px) * var(--fit,1)); opacity:.82; font-style:normal; }
-
-  /* CTA slide */
-  .cta-wrap{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:6cqw 6.4cqw; overflow:hidden; }
-  .cta-btn{ display:inline-flex; align-items:center; gap:.6em; margin-top:1.6cqw; align-self:flex-start; background:#fff; color:var(--blue-3); font-weight:800; letter-spacing:.01em; font-size:calc(clamp(11px,1.9cqw,20px) * var(--fit,1)); padding:.85em 1.6em; border-radius:999px; text-decoration:none; box-shadow:0 0 0 0 rgba(255,255,255,.6); animation:pulse 2.2s ease-in-out infinite; }
-  .cta-btn:hover{ transform:translateY(-1px); }
-  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(255,255,255,.45);} 70%{box-shadow:0 0 0 18px rgba(255,255,255,0);} 100%{box-shadow:0 0 0 0 rgba(255,255,255,0);} }
-  .cta-sub{ margin-top:1.4cqw; font-size:calc(clamp(9px,1.3cqw,15px) * var(--fit,1)); opacity:.8; }
-
-  /* Build-step pop animation */
+  /* --- Build steps: each tap brings in the next piece ----------------------------- */
   [data-b]{ opacity:0; visibility:hidden; }
-  [data-b].shown{ visibility:visible; animation:pop .5s cubic-bezier(.22,1.1,.36,1) both; }
-  @keyframes pop{ 0%{opacity:0; transform:translateY(16px) scale(.92);} 60%{opacity:1;} 100%{opacity:1; transform:translateY(0) scale(1);} }
-  @media (prefers-reduced-motion:reduce){ [data-b].shown{animation:none; opacity:1;} .carousel-img{transition:opacity .3s ease;} }
-
-  .slide-index{ position:absolute; top:1.6cqw; right:2cqw; font-size:clamp(8px,1cqw,12px); font-weight:700; opacity:.6; z-index:5; }
-  .slide[data-bg="white"] .slide-index{ color:var(--ink); }
-
-  .footer{ margin-top:10px; width:100%; max-width:min(100vw - 32px, 177.78vh); display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12px; color:#94a3b8; flex-wrap:wrap; }
-  .progress{ width:min(46vw,340px); height:5px; border-radius:999px; background:#1e293b; overflow:hidden; flex:none; }
-  .progress>div{ height:100%; width:0; background:linear-gradient(90deg,#4f86f7,#2dd4bf); transition:width .25s ease; }
-  .hint{ opacity:.65; }
-  .fs-btn{ border:1px solid #1e293b; background:#0b1220; color:#cbd5e1; border-radius:8px; padding:6px 10px; font-size:12px; cursor:pointer; flex:none; white-space:nowrap; }
-  .fs-btn:hover{ background:#111c33; }
-  #counter{ flex:none; white-space:nowrap; }
-  @media (max-width:600px){
-    body{ padding:8px; }
-    /* Keep the fullscreen button — it's the only way to enter fullscreen on
-       iOS Safari (no keyboard shortcut, no native Fullscreen API there) —
-       but drop the hint text, counter, and progress bar, which are less
-       essential and just crowd a small screen. */
-    .hint{ display:none; }
-    #counter{ display:none; }
-    .progress{ display:none; }
-    .footer{ justify-content:center; }
-    /* The container-query hide above only fires when the *stage itself* is
-       narrower than 480px, which depends on the height-driven aspect-ratio
-       math and doesn't reliably track the actual device/viewport width. This
-       ties the same hide directly to the real viewport instead. Slide 1 (the
-       title slide) keeps its "Prepared by.../click-t.com" footer, since that
-       one's attribution rather than repeated per-slide branding. */
-    .brand, .domain, .title-foot{ display:none; }
-    .slide:first-child .domain, .slide:first-child .title-foot{ display:block; }
+  [data-b].shown{ visibility:visible; animation:pop .55s var(--ease) both; }
+  @keyframes pop{ from{ opacity:0; transform:translate3d(0,14px,0) scale(.97); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion:reduce){
+    [data-b].shown, .slide.active{ animation:none; opacity:1; }
+    .carousel-img{ transition:opacity .3s ease; transform:none; }
+    .cta-btn{ animation:none; }
   }
 </style>
 </head>
 <body>
-  <div id="deckRoot">
+  <div class="progress" aria-hidden="true"><div id="progressFill"></div></div>
   <div id="stage">
 
-    <!-- 1: TITLE -->
-    <section class="slide active" data-bg="white">
-      <div class="slide-index">1 / 13</div>
-      <div class="title-center">
-        <div class="badge" data-b="0" style="background:var(--ink);color:#fff;">Business Partnership Proposal</div>
-        <div class="logo-card" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-        <div class="sub" data-b="1">One workspace for how your team actually gets work done — with an AI that drafts, and never decides for you.</div>
+    <!-- TITLE — the promise, before anything about us -->
+    <section class="slide active" data-bg="paper">
+      <div class="slide-index"></div>
+      <div class="pad center">
+        <div class="tag" data-b="0">Business partnership proposal</div>
+        <img class="title-logo" data-b="0" src="../assets/img/brand/logo.webp" alt="Clickt" width="552" height="180">
+        <h1 class="h1 xl" data-b="1">AI that <em>prepares</em> the work.<br>You make the <em>call.</em></h1>
+        <p class="lede" data-b="2">One workspace for how your team actually gets work done, with an AI that drafts and never decides for you.</p>
+        <p class="by" data-b="3"><span data-for hidden>Prepared for <b data-for-name></b> &nbsp;·&nbsp; </span>Prepared by Aaryan, Founder &nbsp;·&nbsp; click-t.com</p>
       </div>
-      <div class="title-foot" data-b="2">Prepared by Aaryan, Founder</div>
-      <div class="domain" data-b="2">click-t.com</div>
     </section>
 
-    <!-- 2: THE PROBLEM -->
-    <section class="slide" data-bg="blue">
-      <div class="slide-index">2 / 13</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
+    <!-- THE SHIFT — a change in the world the buyer already feels -->
+    <section class="slide" data-bg="ink">
+      <div class="slide-index"></div>
       <div class="pad">
-        <div class="kicker" data-b="0">The Problem</div>
-        <div class="h1 xl" data-b="1">Your team's work is scattered<br>across too many tools.</div>
-        <div class="lede" data-b="2" style="max-width:88%;">Tasks in one app. Checklists in a doc. Dashboards in a spreadsheet. Decks rebuilt from scratch, every time. Nobody has one place to see the whole picture — and that fragmentation has a price your best people pay every week.</div>
-        <ul class="bullets" style="margin-top:1.1em;">
-          <li data-b="3"><span class="arrow">→</span>Hours lost every week to status-check messages and meetings that exist only to answer "where are we?"</li>
-          <li data-b="4"><span class="arrow">→</span>Processes that only live in one person's head — and quietly break the day that person is out</li>
-          <li data-b="5"><span class="arrow">→</span>Reports and decks rebuilt from scratch every single cycle, instead of refreshed in minutes</li>
-        </ul>
+        <div class="kicker" data-b="0">The shift</div>
+        <h2 class="h1" data-b="0">Every team has been handed AI. Almost none were shown how to <em>use it.</em></h2>
+        <div class="stats">
+          <div class="stat" data-b="1"><b class="num"><span data-count="90">90</span>%</b><span>of executives say AI hasn't measurably boosted productivity at their company</span></div>
+          <div class="stat" data-b="2"><b class="num"><span data-count="82">82</span>%</b><span>of employees say their organization never trained them on the AI tools they were handed</span></div>
+          <div class="stat" data-b="3"><b class="num"><small>up to</small><span data-count="40">40</span>%</b><span>of potential AI productivity gains are lost to gaps in onboarding and talent strategy, not the technology</span></div>
+          <div class="stat" data-b="4"><b class="num"><span data-count="5">5</span>%</b><span>use AI for anything beyond basic search and summarizing, though 88% already use it daily</span></div>
+        </div>
+        <p class="lede strong" data-b="5">The teams pulling ahead are not the ones that automate the most. They are the ones whose people trust the tool enough to use it.</p>
+        <p class="small" data-b="5">Sources: Federal Reserve executive survey; EY 2025 AI &amp; talent strategy survey; Domino Data Lab enterprise AI ROI report.</p>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 3: INTRODUCING CLICKT -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">3 / 13</div>
+    <!-- OLD WAY / NEW WAY -->
+    <section class="slide" data-bg="paper">
+      <div class="slide-index"></div>
       <div class="pad">
-        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Introducing Clickt</div>
-        <div class="h1" data-b="0">One workspace that replaces all of it.</div>
-        <div class="lede" data-b="0" style="max-width:86%;">Four connected modules — the foundation we build your organization's own version of Clickt on top of. One AI works inside every one of them — the same assistant, the same rule, everywhere your team already works.</div>
-        <div class="grid4">
-          <div class="gcard teams" data-b="1"><h3>Teams</h3><p>Assign, own, and track work — without the status-check tax.</p></div>
-          <div class="gcard checklist" data-b="2"><h3>Checklist</h3><p>Turn any process into a checklist your whole team runs the same way.</p></div>
-          <div class="gcard builder" data-b="3"><h3>Builder</h3><p>Drop in data, get a dashboard — in minutes, not an afternoon.</p></div>
-          <div class="gcard presentation" data-b="4"><h3>Presentation</h3><p>Go from a single prompt to a board-ready deck draft.</p></div>
+        <div class="kicker" data-b="0">A different kind of tool</div>
+        <h2 class="h1 md" data-b="0">Not more features. A different <em>way of working.</em></h2>
+        <div class="versus">
+          <div class="vs-row vs-head" data-b="1"><span class="lab"></span><span class="old">The old way</span><span class="new">With Clickt</span></div>
+          <div class="vs-row" data-b="1"><span class="lab">Where work lives</span><span class="old">Scattered across four or more apps</span><span class="new">One workspace</span></div>
+          <div class="vs-row" data-b="2"><span class="lab">What the AI does</span><span class="old">Acts on its own, or sits in a separate chat window</span><span class="new">Drafts only. Nothing ships until you approve it</span></div>
+          <div class="vs-row" data-b="3"><span class="lab">How it rolls out</span><span class="old">Self-serve signup, no training</span><span class="new">Guided onboarding, module by module</span></div>
+          <div class="vs-row" data-b="4"><span class="lab">If it isn't the fit</span><span class="old">Sunk cost</span><span class="new">75% money-back guarantee</span></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 4: TEAMS -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">4 / 13</div>
-      <div class="accent-bar teams"></div>
+    <!-- THE RULE — the promise everything else hangs on -->
+    <section class="slide" data-bg="ink">
+      <div class="slide-index"></div>
       <div class="feature">
         <div class="col-text">
-          <div class="pill teams" data-b="0">Teams</div>
-          <div class="h1" data-b="0">Know who owns what —<br>without asking.</div>
-          <div class="lede" data-b="1">Tell ClicktAI who's free and what needs doing. It drafts the assignments, owners, and deadlines. You approve or adjust in seconds.</div>
-          <ul class="bullets" style="margin-top:1.2em;">
-            <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>No more "wait, who's doing this?"</li>
-            <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Status visible in real time — no check-in messages required</li>
-            <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>A week of assignments takes minutes, not a Monday meeting.</li>
+          <div class="kicker" data-b="0">The rule</div>
+          <h2 class="h1 xl" data-b="0">It drafts.<br>You <em>decide.</em></h2>
+          <p class="lede" data-b="1">Every AI feature in Clickt follows the same rule: draft first, ship never, until you say yes. Tasks, notes, checklists, dashboards, decks. ClicktAI removes the blank page. You keep the judgment.</p>
+          <p class="lede strong" data-b="2">Five connected modules, one AI, one rule. And the foundation we build your organization's own version of Clickt on.</p>
+        </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame tall" style="--ar:1668/2420">
+            <img class="carousel-img active" style="object-position:50% 38%" src="../assets/img/tablet/ipad-clicktai1.webp" alt="ClicktAI in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-clicktai2.webp" alt="ClicktAI in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad_teamscopilot.webp" alt="Teams Copilot">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-checklistcopilot.webp" alt="Checklist Copilot">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-buildercopilot.webp" alt="Builder Copilot">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-presentationcopilot.webp" alt="Presentation Copilot">
+          </div></div>
+          <div class="dots"></div>
+        </div>
+      </div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
+    </section>
+
+    <!-- TEAMS -->
+    <section class="slide" data-bg="paper" data-mod="teams">
+      <div class="slide-index"></div>
+      <div class="feature">
+        <div class="col-text">
+          <div class="pill" data-b="0"><i></i>Teams</div>
+          <h2 class="h1 md" data-b="0">Know who owns what, <em>without asking.</em></h2>
+          <p class="lede" data-b="1">Tell ClicktAI who's free and what needs doing. It drafts the assignments, owners, and deadlines. You approve or adjust in seconds.</p>
+          <ul class="bullets">
+            <li data-b="2"><span class="arrow">→</span>No more "wait, who's doing this?"</li>
+            <li data-b="3"><span class="arrow">→</span>Status visible in real time, with no check-in messages required</li>
+            <li data-b="4"><span class="arrow">→</span>A week of assignments takes minutes, not a Monday meeting</li>
           </ul>
         </div>
-        <div class="carousel-wrap" data-b="0">
-          <div class="carousel-frame">
-            <div class="carousel">
-              <img class="carousel-img active" src="../assets/img/tablet/ipad-teams1.webp" alt="Teams">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-teams2.webp" alt="Teams">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-teams3.webp" alt="Teams">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-teams4.webp" alt="Teams">
-              <img class="carousel-img" src="../assets/img/tablet/ipad_teamscopilot.webp" alt="Teams Copilot">
-            </div>
-          </div>
-          <div class="dots">
-            <div class="dot teams active"></div><div class="dot teams"></div><div class="dot teams"></div><div class="dot teams"></div><div class="dot teams"></div>
-          </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame tall" style="--ar:1668/2420">
+            <img class="carousel-img active" loading="lazy" src="../assets/img/tablet/ipad-teams1.webp" alt="Teams in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-teams2.webp" alt="Teams in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-teams3.webp" alt="Teams in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-teams4.webp" alt="Teams in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad_teamscopilot.webp" alt="Teams Copilot">
+          </div></div>
+          <div class="dots"></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 5: CHECKLIST -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">5 / 13</div>
-      <div class="accent-bar checklist"></div>
-      <div class="feature">
+    <!-- NOTES -->
+    <section class="slide" data-bg="paper" data-mod="notes">
+      <div class="slide-index"></div>
+      <div class="feature wide">
         <div class="col-text">
-          <div class="pill checklist" data-b="0">Checklist</div>
-          <div class="h1" data-b="0">Run every process the<br>same way, every time.</div>
-          <div class="lede" data-b="1">Describe a process once. ClicktAI drafts it into a reusable checklist — you approve it, and it never forgets a step again.</div>
-          <ul class="bullets" style="margin-top:1.2em;">
-            <li data-b="2"><span class="arrow" style="color:var(--checklist);">→</span>Processes survive when the person who "just knows it" is out</li>
-            <li data-b="3"><span class="arrow" style="color:var(--checklist);">→</span>Every run looks the same — no missed steps under pressure</li>
-            <li data-b="4"><span class="arrow" style="color:var(--checklist);">→</span>New hires run it correctly from day one.</li>
+          <div class="pill" data-b="0"><i></i>Notes</div>
+          <h2 class="h1 md" data-b="0">From a meeting to a <em>to-do list.</em></h2>
+          <p class="lede" data-b="1">Write a note, draft one with AI, or record the meeting. ClicktAI pulls the work out of it, and you choose where each item goes: your Checklist, your Teams, or nowhere yet.</p>
+          <ul class="bullets">
+            <li data-b="2"><span class="arrow">→</span>Action items stop dying in someone's notebook</li>
+            <li data-b="3"><span class="arrow">→</span>You review every draft. Nothing is created until you confirm it</li>
+            <li data-b="4"><span class="arrow">→</span>The meeting ends with owners and next steps, not a recap email</li>
           </ul>
         </div>
-        <div class="carousel-wrap" data-b="0">
-          <div class="carousel-frame">
-            <div class="carousel">
-              <img class="carousel-img active" src="../assets/img/tablet/ipad-checklist1.webp" alt="Checklist">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-checklist2.webp" alt="Checklist">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-checklistcopilot.webp" alt="Checklist Copilot">
-            </div>
-          </div>
-          <div class="dots">
-            <div class="dot checklist active"></div><div class="dot checklist"></div><div class="dot checklist"></div>
-          </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame" style="--ar:16/9">
+            <img class="carousel-img active" loading="lazy" src="../assets/img/desktop/notes-light.webp" alt="A note open in Clickt Notes on Mac">
+            <img class="carousel-img" loading="lazy" src="../assets/img/desktop/record-light.webp" alt="Recording a meeting in Clickt Notes">
+            <img class="carousel-img" loading="lazy" src="../assets/img/desktop/extract-destination-dark.webp" alt="Extract Work in Clickt Notes, with a destination chosen for each draft">
+            <img class="carousel-img" loading="lazy" src="../assets/img/desktop/send-teams-light.webp" alt="Sending extracted work to Teams">
+            <img class="carousel-img" loading="lazy" src="../assets/img/desktop/add-checklist-light.webp" alt="Adding extracted work to Checklist">
+          </div></div>
+          <div class="dots"></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 6: BUILDER -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">6 / 13</div>
-      <div class="accent-bar builder"></div>
+    <!-- CHECKLIST -->
+    <section class="slide" data-bg="paper" data-mod="checklist">
+      <div class="slide-index"></div>
       <div class="feature">
         <div class="col-text">
-          <div class="pill builder" data-b="0">Builder</div>
-          <div class="h1" data-b="0">From raw data to a shareable dashboard, in minutes.</div>
-          <div class="lede" data-b="1">Drop in a CSV. ClicktAI proposes the chart. You decide what ships — and the shape persists, so next week is a refresh, not a rebuild.</div>
-          <ul class="bullets" style="margin-top:1.2em;">
-            <li data-b="2"><span class="arrow" style="color:var(--builder);">→</span>Weekly reporting stops eating an afternoon</li>
-            <li data-b="3"><span class="arrow" style="color:var(--builder);">→</span>Time goes into reading the data, not formatting it</li>
-            <li data-b="4"><span class="arrow" style="color:var(--builder);">→</span>Dashboards get more polished over time, not rebuilt worse under pressure.</li>
+          <div class="pill" data-b="0"><i></i>Checklist</div>
+          <h2 class="h1 md" data-b="0">Run every process the same way, <em>every time.</em></h2>
+          <p class="lede" data-b="1">Describe a process once. ClicktAI drafts it into a reusable checklist. You approve it, and it never forgets a step again.</p>
+          <ul class="bullets">
+            <li data-b="2"><span class="arrow">→</span>Processes survive when the person who "just knows it" is out</li>
+            <li data-b="3"><span class="arrow">→</span>Every run looks the same, with no missed steps under pressure</li>
+            <li data-b="4"><span class="arrow">→</span>New hires run it correctly from day one</li>
           </ul>
         </div>
-        <div class="carousel-wrap" data-b="0">
-          <div class="carousel-frame">
-            <div class="carousel">
-              <img class="carousel-img active" src="../assets/img/tablet/ipad-builder1.webp" alt="Builder">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-builder2.webp" alt="Builder">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-builder3.webp" alt="Builder">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-buildercopilot.webp" alt="Builder Copilot">
-            </div>
-          </div>
-          <div class="dots">
-            <div class="dot builder active"></div><div class="dot builder"></div><div class="dot builder"></div><div class="dot builder"></div>
-          </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame tall" style="--ar:1668/2420">
+            <img class="carousel-img active" loading="lazy" src="../assets/img/tablet/ipad-checklist1.webp" alt="Checklist in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-checklist2.webp" alt="Checklist in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-checklistcopilot.webp" alt="Checklist Copilot">
+          </div></div>
+          <div class="dots"></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 7: PRESENTATION -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">7 / 13</div>
-      <div class="accent-bar presentation"></div>
+    <!-- BUILDER -->
+    <section class="slide" data-bg="paper" data-mod="builder">
+      <div class="slide-index"></div>
       <div class="feature">
         <div class="col-text">
-          <div class="pill presentation" data-b="0">Presentation</div>
-          <div class="h1" data-b="0">A real narrative draft, not a blank slide.</div>
-          <div class="lede" data-b="1">One prompt in — ClicktAI drafts the structure and story of your deck. You finish it, in your own words, with your own data.</div>
-          <ul class="bullets" style="margin-top:1.2em;">
-            <li data-b="2"><span class="arrow" style="color:var(--presentation);">→</span>No more blank-slide panic the night before a board meeting</li>
-            <li data-b="3"><span class="arrow" style="color:var(--presentation);">→</span>Time goes into the story, not the formatting</li>
-            <li data-b="4"><span class="arrow" style="color:var(--presentation);">→</span>The deck you present is recognizably yours.</li>
+          <div class="pill" data-b="0"><i></i>Builder</div>
+          <h2 class="h1 md" data-b="0">From raw data to a shareable dashboard, <em>in minutes.</em></h2>
+          <p class="lede" data-b="1">Drop in a CSV. ClicktAI proposes the chart. You decide what ships, and the shape persists, so next week is a refresh, not a rebuild.</p>
+          <ul class="bullets">
+            <li data-b="2"><span class="arrow">→</span>Weekly reporting stops eating an afternoon</li>
+            <li data-b="3"><span class="arrow">→</span>Time goes into reading the data, not formatting it</li>
+            <li data-b="4"><span class="arrow">→</span>Dashboards get more polished over time, not rebuilt worse under pressure</li>
           </ul>
         </div>
-        <div class="carousel-wrap" data-b="0">
-          <div class="carousel-frame">
-            <div class="carousel">
-              <img class="carousel-img active" src="../assets/img/tablet/ipad-presentation1.webp" alt="Presentation">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-presentation2.webp" alt="Presentation">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-presentation3.webp" alt="Presentation">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-presentationcopilot.webp" alt="Presentation Copilot">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-presentationcopilot2.webp" alt="Presentation Copilot">
-            </div>
-          </div>
-          <div class="dots">
-            <div class="dot presentation active"></div><div class="dot presentation"></div><div class="dot presentation"></div><div class="dot presentation"></div><div class="dot presentation"></div>
-          </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame tall" style="--ar:1668/2420">
+            <img class="carousel-img active" loading="lazy" src="../assets/img/tablet/ipad-builder1.webp" alt="Builder in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-builder2.webp" alt="Builder in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-builder3.webp" alt="Builder in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-buildercopilot.webp" alt="Builder Copilot">
+          </div></div>
+          <div class="dots"></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 8: THE DIFFERENTIATOR -->
-    <section class="slide" data-bg="teal">
-      <div class="slide-index">8 / 13</div>
-      <div class="blob" style="width:40cqw;height:40cqw;top:-16cqw;right:-12cqw;background:rgba(255,255,255,.12);"></div>
+    <!-- PRESENTATION -->
+    <section class="slide" data-bg="paper" data-mod="presentation">
+      <div class="slide-index"></div>
       <div class="feature">
         <div class="col-text">
-          <div class="kicker" data-b="0">The Differentiator</div>
-          <div class="h1 xl" data-b="0">It drafts.<br>You decide.</div>
-          <div class="lede" data-b="1">Every AI feature in Clickt follows the same rule: draft first, ship never — until you say yes. Tasks, checklists, dashboards, decks. ClicktAI removes the blank page. You keep the judgment.</div>
-          <div class="mini-quote" data-b="2">
-            <div class="mini-quote-text">"Every team I talked to before building this said the same thing about AI tools: 'I don't trust it enough to let it just do things.' So I built Clickt's AI to never just do things. It drafts. It waits. You decide."</div>
-            <div class="mini-quote-by">— Aaryan, Founder, Clickt</div>
-          </div>
+          <div class="pill" data-b="0"><i></i>Presentation</div>
+          <h2 class="h1 md" data-b="0">A real narrative draft, <em>not a blank slide.</em></h2>
+          <p class="lede" data-b="1">One prompt in, and ClicktAI drafts the structure and story of your deck. You finish it, in your own words, with your own data.</p>
+          <ul class="bullets">
+            <li data-b="2"><span class="arrow">→</span>No more blank-slide panic the night before a board meeting</li>
+            <li data-b="3"><span class="arrow">→</span>Time goes into the story, not the formatting</li>
+            <li data-b="4"><span class="arrow">→</span>The deck you present is recognizably yours</li>
+          </ul>
         </div>
-        <div class="carousel-wrap" data-b="0">
-          <div class="carousel-frame">
-            <div class="carousel">
-              <img class="carousel-img active" src="../assets/img/tablet/ipad-clicktai1.webp" alt="ClicktAI">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-clicktai2.webp" alt="ClicktAI">
-              <img class="carousel-img" src="../assets/img/tablet/ipad_teamscopilot.webp" alt="Teams Copilot">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-checklistcopilot.webp" alt="Checklist Copilot">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-buildercopilot.webp" alt="Builder Copilot">
-              <img class="carousel-img" src="../assets/img/tablet/ipad-presentationcopilot.webp" alt="Presentation Copilot">
-            </div>
-          </div>
-          <div class="dots">
-            <div class="dot active" style="--dotcolor:#fff;"></div><div class="dot" style="--dotcolor:#fff;"></div><div class="dot" style="--dotcolor:#fff;"></div><div class="dot" style="--dotcolor:#fff;"></div><div class="dot" style="--dotcolor:#fff;"></div><div class="dot" style="--dotcolor:#fff;"></div>
-          </div>
+        <div class="media" data-b="0">
+          <div class="frame-box"><div class="frame tall" style="--ar:1668/2420">
+            <img class="carousel-img active" loading="lazy" src="../assets/img/tablet/ipad-presentation1.webp" alt="Presentation in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-presentation2.webp" alt="Presentation in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-presentation3.webp" alt="Presentation in Clickt on iPad">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-presentationcopilot.webp" alt="Presentation Copilot">
+            <img class="carousel-img" loading="lazy" src="../assets/img/tablet/ipad-presentationcopilot2.webp" alt="Presentation Copilot">
+          </div></div>
+          <div class="dots"></div>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 9: WHY AI ADOPTION FAILS -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">9 / 13</div>
+    <!-- FOUNDER — who the buyer will actually be dealing with -->
+    <section class="slide" data-bg="paper">
+      <div class="slide-index"></div>
       <div class="pad">
-        <div class="kicker" data-b="0" style="background:#fee2e2;color:#991b1b;">The Market Problem</div>
-        <div class="h1" data-b="1">Most companies didn't get an AI problem. They got a training problem.</div>
-        <div class="lede" data-b="2" style="max-width:88%;">Every team is being handed AI tools right now. Almost none of them are being shown how to actually use them.</div>
-        <ul class="bullets" style="margin-top:1em;">
-          <li data-b="3"><span class="arrow">→</span>90% of executives say AI hasn't measurably boosted productivity at their company</li>
-          <li data-b="4"><span class="arrow">→</span>82% of employees say their organization never actually trained them on the AI tools they were handed</li>
-          <li data-b="5"><span class="arrow">→</span>Up to 40% of potential AI productivity gains are lost to gaps in onboarding and talent strategy — not the technology itself</li>
-          <li data-b="6"><span class="arrow">→</span>88% of employees already use AI daily — but only 5% use it for anything beyond basic search and summarizing</li>
-        </ul>
-        <div class="lede" data-b="7" style="max-width:90%;margin-top:1em;font-weight:700;color:var(--ink);">The tools winning right now aren't the ones that automate the most — they're the ones people actually trust enough to use. That's exactly the shift Clickt is built for.</div>
-        <div class="lede" data-b="7" style="max-width:92%;margin-top:.5em;font-size:calc(clamp(7px,1.05cqw,11px) * var(--fit,1));opacity:.6;">Sources: Federal Reserve executive survey; EY 2025 AI &amp; talent strategy survey; Domino Data Lab enterprise AI ROI report.</div>
-      </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
-    </section>
-
-    <!-- 10: HOW CLICKT COMPARES -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">10 / 13</div>
-      <div class="pad">
-        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;margin-bottom:.6em;">How Clickt Compares</div>
-        <div class="h1" data-b="0" style="font-size:calc(clamp(14px,3.4cqw,32px) * var(--fit,1));margin-bottom:.2em;">Built to beat the market, not just join it.</div>
-        <div class="lede" data-b="0" style="max-width:90%;font-size:calc(clamp(8px,1.3cqw,15px) * var(--fit,1));">Not a fight over features — a different category of tool.</div>
-        <div class="compare-grid" data-b="1">
-          <div class="cell head"></div>
-          <div class="cell head">Point Tools</div>
-          <div class="cell head">Bolt-On AI Copilots</div>
-          <div class="cell head clickt-col">Clickt</div>
-
-          <div class="cell row-label">Where work lives</div>
-          <div class="cell">Scattered across 4+ apps</div>
-          <div class="cell">Same fragmentation, plus a chat window</div>
-          <div class="cell clickt-col">One workspace</div>
-
-          <div class="cell row-label">AI behavior</div>
-          <div class="cell">None — you do it all manually</div>
-          <div class="cell">Often auto-executes without approval</div>
-          <div class="cell clickt-col">Drafts only, you approve</div>
-
-          <div class="cell row-label">Rollout</div>
-          <div class="cell">Self-serve signup, no training</div>
-          <div class="cell">Same self-serve gap</div>
-          <div class="cell clickt-col">Dedicated onboarding, guided orientation</div>
-
-          <div class="cell row-label">Risk if it's not the fit</div>
-          <div class="cell">Sunk cost</div>
-          <div class="cell">Sunk cost</div>
-          <div class="cell clickt-col">75% money-back guarantee</div>
+        <div class="kicker" data-b="0">Who you'll be working with</div>
+        <h2 class="h1 md" data-b="0">Meet <em>Aaryan Jha,</em> founder of Clickt.</h2>
+        <div class="duo">
+          <div class="duo-col">
+            <p class="lede" data-b="1">Click T Pvt. Ltd. is a Kathmandu-based software company. It combines product thinking with practical software engineering: understand the work first, make the next step clear, and build systems people can actually use.</p>
+            <blockquote class="quote" data-b="2">
+              <p>"Every team I talked to before building this said the same thing about AI tools: 'I don't trust it enough to let it just do things.' So I built Clickt's AI to never just do things. It drafts. It waits. You decide."</p>
+              <footer>Aaryan Jha, Founder</footer>
+            </blockquote>
+          </div>
+          <ul class="creds">
+            <li data-b="3"><b>Clickt</b><span>Designed and built for iPhone, iPad, Mac and Android, with multi-user workflows and an AI action layer.</span></li>
+            <li data-b="4"><b>Battery testing data and prediction platform</b><span>Built at Johnson Energy Storage, an Atlanta solid-state battery company.</span></li>
+            <li data-b="5"><b>Toolkit</b><span>A production iOS app on the App Store, with a Python machine-learning API behind it.</span></li>
+            <li data-b="6"><b>Direct founder access</b><span>Your team gets a reply from the founder within the same business day, not a ticket queue.</span></li>
+          </ul>
         </div>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 11: PARTNERING WITH CLICKT -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">11 / 13</div>
+    <!-- PRICING: one plan -->
+    <section class="slide" data-bg="paper">
+      <div class="slide-index"></div>
       <div class="pad">
-        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Partnering With Clickt</div>
-        <div class="h1" data-b="0">What working with us looks like.</div>
-        <ul class="bullets">
-          <li data-b="1"><span class="arrow" style="color:var(--teams);">→</span>Dedicated onboarding for your team — guided orientation to every module, not a self-serve signup nobody actually opens</li>
-          <li data-b="2"><span class="arrow" style="color:var(--teams);">→</span>Adoption paced with your team, not handed down as a leadership mandate — every module is walked through before anyone's expected to use it</li>
-          <li data-b="3"><span class="arrow" style="color:var(--teams);">→</span>Admin controls and full workspace visibility — your data, your workspace, your rules, always reviewable, never silently automated</li>
-          <li data-b="4"><span class="arrow" style="color:var(--teams);">→</span>Direct founder access and priority support — not a support ticket queue, and real input into what gets built next</li>
-          <li data-b="5"><span class="arrow" style="color:var(--teams);">→</span>A plan shaped around your team's size and workflow, plus scoped custom work for anything the 4 core modules don't cover yet — nothing starts until you approve it</li>
-        </ul>
-        <div class="lede" data-b="6" style="max-width:88%;margin-top:1.3em;font-weight:700;color:var(--ink);">We're not selling a seat. We're proposing a pilot — with your team, on your real workflow, backed by a 75% money-back guarantee if it's not the fit you expected.</div>
-      </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
-    </section>
-
-    <!-- 12: PRICING -->
-    <section class="slide" data-bg="white">
-      <div class="slide-index">12 / 13</div>
-      <div class="pad">
-        <div class="kicker" data-b="0" style="background:#eef2ff;color:#3730a3;">Pricing</div>
-        <div class="h1" data-b="0">Simple enough to start today.</div>
-        <div class="lede" data-b="0" style="max-width:88%;">Start free. Move to Business when your team needs one workspace, not four.</div>
-        <div class="price-grid" data-b="1">
-          <div class="price-card">
-            <div class="ptag">Free</div>
-            <h3>Get started</h3>
-            <div class="price"><span class="price-amt" data-npr="NPR 0" data-usd="$0">$0</span> <span>forever</span></div>
-            <ul>
-              <li><span class="arrow">→</span>Full workflow: Teams, Checklist, Builder, Presentation</li>
-              <li><span class="arrow">→</span>ClicktAI copilots, using your own API key</li>
-              <li><span class="arrow">→</span>Core exports — PNG, DOC, PPT, HTML, PDF</li>
-              <li><span class="arrow">→</span>Calendar and reminders</li>
-            </ul>
+        <div class="kicker" data-b="0">Pricing</div>
+        <h2 class="h1 md" data-b="0">One plan for <em>your whole team.</em></h2>
+        <div class="plan pro" data-b="1">
+          <div class="plan-head">
+            <div class="ptag">Business</div>
+            <div class="price"><span class="price-amt" data-npr="NPR 1,000" data-usd="$10">$10</span></div>
+            <div class="per">per user / month, billed annually</div>
           </div>
-          <div class="price-card featured">
-            <div class="ptag">Business · Most teams start here</div>
-            <h3>Built for your whole team</h3>
-            <div class="price"><span class="price-amt" data-npr="NPR 1,000" data-usd="$10">$10</span> <span>/ user / month, billed annually</span></div>
-            <ul>
-              <li><span class="arrow">→</span>Everything in Free, unlimited team size</li>
-              <li><span class="arrow">→</span>Your own isolated app instance and database — never shared or mixed with other organizations</li>
-              <li><span class="arrow">→</span>Admin-provided ClicktAI, with flexible top-ups</li>
-              <li><span class="arrow">→</span>Admin controls, department-level visibility, priority support</li>
-              <li><span class="arrow">→</span>One-time setup, scoped to your team</li>
-            </ul>
-          </div>
+          <ul>
+            <li>All five modules, at any team size</li>
+            <li>Your organization's own version of Clickt, on its own instance and database, never mixed with other organizations</li>
+            <li>Clickt-provided AI, with flexible top-ups</li>
+            <li>Admin controls, department-level visibility, priority support</li>
+            <li>One-time setup, scoped to your team</li>
+            <li>New features on request, quoted separately</li>
+          </ul>
         </div>
-        <div class="price-foot" data-b="2">Business runs on a dedicated instance per organization — your data never sits in a shared pool with other companies or general users. First-time customers: 75% refund on annual software fees if you cancel within 90 days. Need something built specifically for your org? It's scoped and quoted upfront — nothing starts until you approve it. Custom enterprise plans also available on request.</div>
+        <p class="small" data-b="2">First-time customers: 75% refund on annual software fees if you cancel within 90 days. Custom enterprise plans are available on request.</p>
       </div>
-      <div class="brand" data-b="0"><img src="../assets/img/brand/logo.png" alt="Clickt"></div>
-      <div class="domain" data-b="0">click-t.com</div>
+      <div class="brand"><img src="../assets/img/brand/logo.webp" alt="Clickt"></div>
+      <div class="domain">click-t.com</div>
     </section>
 
-    <!-- 13: CTA / SIGN -->
-    <section class="slide" data-bg="blue">
-      <div class="slide-index">13 / 13</div>
-      <div class="blob" style="width:46cqw;height:46cqw;top:-18cqw;right:-14cqw;background:rgba(255,255,255,.14);"></div>
-      <div class="blob" style="width:34cqw;height:34cqw;bottom:-16cqw;left:-10cqw;background:rgba(255,255,255,.10);"></div>
-      <div class="cta-wrap">
-        <div class="kicker" data-b="0">Next Step</div>
-        <div class="h1 xl" data-b="1">Let's put Clickt in front of your team.</div>
-        <div class="lede" data-b="2" style="max-width:76%;">Here's exactly how it works — you sign, we take on the risk.</div>
-        <ul class="bullets" data-b="3">
-          <li><span class="arrow">→</span>Sign, and we deploy Clickt for your whole team</li>
-          <li><span class="arrow">→</span>Run it for 3 months with full support from us</li>
-          <li><span class="arrow">→</span>Not the right fit? Get 75% of your cost back — no fights, no fine print</li>
-        </ul>
-        <div class="lede" data-b="4" style="max-width:80%;margin-top:1.1em;font-weight:700;">No more chasing status updates, hunting for files, or redoing the same task twice. And if Clickt isn't the fit you expected, you're not stuck — the risk is ours, not yours.</div>
-        <a class="cta-btn" data-b="5" href="mailto:clickt@click-t.com?subject=I%27d%20like%20the%20Clickt%20business%20plan&body=Hi%20Aaryan%2C%0A%0AI%27d%20like%20to%20get%20the%20business%20plan%20for%20Clickt%20and%20learn%20more%20about%20starting%20a%20pilot%20with%20my%20team.%0A%0AThanks%2C" onclick="event.stopPropagation();">Join Clickt →</a>
-        <div class="cta-sub" data-b="6">Aaryan — Founder, Clickt &nbsp;·&nbsp; jha.aaryan01@gmail.com &nbsp;·&nbsp; clickt@click-t.com &nbsp;·&nbsp; click-t.com</div>
+    <!-- NEXT STEP — one concrete ask -->
+    <section class="slide" data-bg="ink">
+      <div class="slide-index"></div>
+      <div class="pad">
+        <div class="kicker" data-b="0">Next step<span data-for hidden>&nbsp;for <span data-for-name></span></span></div>
+        <h2 class="h1" data-b="0">Let's put Clickt in front of <em>your team.</em></h2>
+        <p class="lede" data-b="1">Here's exactly how it works. You sign, we take on the risk.</p>
+        <ol class="steps">
+          <li data-b="2"><i>1</i><b>Sign</b><span>We deploy your organization's own version of Clickt, for Apple and Android.</span></li>
+          <li data-b="3"><i>2</i><b>Onboard, then run it</b><span>Guided orientation to every module, then three months on your real work with full support from us.</span></li>
+          <li data-b="4"><i>3</i><b>Decide</b><span>Not the right fit? Get 75% of your cost back. No fights, no fine print.</span></li>
+        </ol>
+        <a class="cta-btn" data-b="5" href="mailto:clickt@click-t.com?subject=I%27d%20like%20the%20Clickt%20business%20plan&body=Hi%20Aaryan%2C%0A%0AI%27d%20like%20to%20get%20the%20business%20plan%20for%20Clickt%20and%20learn%20more%20about%20starting%20a%20pilot%20with%20my%20team.%0A%0AThanks%2C">Start a pilot →</a>
+        <p class="small" data-b="5">Aaryan, Founder, Clickt &nbsp;·&nbsp; jha.aaryan01@gmail.com &nbsp;·&nbsp; clickt@click-t.com &nbsp;·&nbsp; click-t.com</p>
       </div>
     </section>
   </div>
 
   <div class="footer" id="footer">
-    <span class="hint" id="hint">Tap left ← back · Tap right → forward · F fullscreen</span>
-    <button class="fs-btn" id="fsBtn" onclick="event.stopPropagation(); toggleFullscreen();">⛶ Fullscreen</button>
-    <span id="counter">1 / 13</span>
-    <div class="progress"><div id="progressFill"></div></div>
-  </div>
+    <button class="nav-btn" id="prevBtn" type="button" aria-label="Previous">‹</button>
+    <span id="counter">1 / 12</span>
+    <button class="nav-btn" id="nextBtn" type="button" aria-label="Next">›</button>
+    <span class="hint">Tap or use ← → &nbsp;·&nbsp; F for fullscreen</span>
+    <button class="fs-btn" id="fsBtn" type="button">⛶ Fullscreen</button>
   </div>
 
 <script>
+  const root = document.documentElement;
   const slides = Array.from(document.querySelectorAll('.slide'));
   const counter = document.getElementById('counter');
   const progressFill = document.getElementById('progressFill');
-  const stage = document.getElementById('stage');
+  const fsBtn = document.getElementById('fsBtn');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let idx = 0;
   let buildIndex = 0;
+
+  slides.forEach((s, i) => {
+    s.querySelector('.slide-index').textContent = `${i + 1} / ${slides.length}`;
+    // One dot per screenshot.
+    s.querySelectorAll('.media').forEach(m => {
+      const dots = m.querySelector('.dots');
+      if(dots) dots.innerHTML = Array.from(m.querySelectorAll('.carousel-img'), (_, k) => `<div class="dot${k ? '' : ' active'}"></div>`).join('');
+    });
+  });
 
   function maxBuild(slide){
     return Math.max(0, ...Array.from(slide.querySelectorAll('[data-b]')).map(n => Number(n.dataset.b || 0)));
   }
+  // Numbers count up the first moment they appear.
+  function countUp(el){
+    const to = Number(el.dataset.count);
+    if(reducedMotion || !to){ el.textContent = to; return; }
+    const t0 = performance.now(), dur = 900;
+    (function tick(now){
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+      if(p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
   function renderBuild(slide){
-    const max = maxBuild(slide);
-    buildIndex = Math.min(buildIndex, max);
+    buildIndex = Math.min(buildIndex, maxBuild(slide));
     slide.querySelectorAll('[data-b]').forEach(n => {
-      n.classList.toggle('shown', Number(n.dataset.b || 0) <= buildIndex);
+      const show = Number(n.dataset.b || 0) <= buildIndex;
+      const was = n.classList.contains('shown');
+      n.classList.toggle('shown', show);
+      if(show && !was) n.querySelectorAll('[data-count]').forEach(countUp);
     });
   }
-  function resetCarousels(slide){
-    slide.querySelectorAll('.carousel').forEach(car => {
-      const imgs = Array.from(car.querySelectorAll('.carousel-img'));
-      imgs.forEach((im,i) => im.classList.toggle('active', i===0));
-    });
-    const dotsWrap = slide.querySelectorAll('.dots');
-    dotsWrap.forEach(dw => {
-      Array.from(dw.children).forEach((d,i) => d.classList.toggle('active', i===0));
-    });
+  function setCarousel(media, k){
+    media.querySelectorAll('.carousel-img').forEach((im, i) => im.classList.toggle('active', i === k));
+    media.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === k));
   }
-  // Static clamp() sizing can't know how many lines a headline/bullet list will
-  // wrap to at a given container size, so a slide with a lot of copy can still
-  // overflow its 16:9 frame on a short viewport. Shrink it via --fit until it
-  // actually fits, the same idea the earlier reference deck used a full JS
-  // autofit engine for, just scoped to a single scale variable per block.
+  // Screenshots load lazily; fetch this slide's and the next one's ahead of the tap.
+  function warm(slide){
+    if(slide) slide.querySelectorAll('img[loading="lazy"]').forEach(im => { im.loading = 'eager'; });
+  }
+  // Sizes follow the slide, but nothing can know in advance how many lines a headline
+  // wraps to. If a block's content is taller than the block, shrink it via --fit until it fits.
   function fitBlock(block){
-    if(!block) return true;
     block.style.setProperty('--fit', 1);
-    let fit = 1, guard = 0;
-    while(guard < 24 && (block.scrollHeight > block.clientHeight + 1 || block.scrollWidth > block.clientWidth + 1)){
+    let fit = 1;
+    while(fit > 0.5 && (block.scrollHeight > block.clientHeight + 1 || block.scrollWidth > block.clientWidth + 1)){
       fit -= 0.04;
-      if(fit <= 0.55){ block.style.setProperty('--fit', 0.55); break; }
       block.style.setProperty('--fit', fit.toFixed(2));
-      guard++;
     }
-    return block.scrollHeight <= block.clientHeight + 1 && block.scrollWidth <= block.clientWidth + 1;
-  }
-  function rectsOverlap(a, b){
-    return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
-  }
-  // .brand/.domain/.title-foot live outside .pad as separate absolutely
-  // positioned siblings, so ".pad's content fits inside .pad" doesn't
-  // guarantee those don't overlap it — .pad's own padding reserve doesn't
-  // account for how tall the footer text itself renders. Check the actual
-  // rendered boxes directly instead.
-  function contentCollidesWithFooter(slide, block){
-    const footerEls = Array.from(slide.querySelectorAll('.brand, .domain, .title-foot')).filter(f => getComputedStyle(f).display !== 'none');
-    if(!footerEls.length) return false;
-    const kids = Array.from(block.children).filter(c => getComputedStyle(c).display !== 'none' && !c.classList.contains('brand') && !c.classList.contains('domain'));
-    if(!kids.length) return false;
-    return kids.some(kid => {
-      const kr = kid.getBoundingClientRect();
-      return footerEls.some(f => rectsOverlap(kr, f.getBoundingClientRect()));
-    });
   }
   function fitActiveSlide(){
     const slide = slides[idx];
-    if(!slide) return;
-    slide.classList.remove('crowded');
-    let anyOverflowed = false;
-    const blocks = Array.from(slide.querySelectorAll('.pad, .title-center, .cta-wrap, .feature'));
-    blocks.forEach(block => { if(!fitBlock(block)) anyOverflowed = true; });
-    // A width-based breakpoint can't predict every browser chrome (in-app
-    // Gmail/Slack browsers, iOS Safari's collapsing toolbars, etc. all shrink
-    // the real viewport differently) — if content still doesn't fit even at
-    // minimum scale, or its rendered box actually collides with the footer
-    // wordmark/domain, drop that footer rather than let it overlap the copy.
-    const collides = blocks.some(block => contentCollidesWithFooter(slide, block));
-    slide.classList.toggle('crowded', anyOverflowed || collides);
+    if(slide) slide.querySelectorAll('.pad, .feature').forEach(fitBlock);
   }
   function render(){
-    slides.forEach((s,i) => {
+    slides.forEach((s, i) => {
       const wasActive = s.classList.contains('active');
-      s.classList.toggle('active', i===idx);
-      if(i===idx && !wasActive) resetCarousels(s);
-      if(i===idx) renderBuild(s);
+      s.classList.toggle('active', i === idx);
+      if(i === idx && !wasActive) s.querySelectorAll('.media').forEach(m => setCarousel(m, 0));
+      if(i === idx) renderBuild(s);
     });
-    counter.textContent = `${idx+1} / ${slides.length}`;
-    progressFill.style.width = `${((idx+1)/slides.length)*100}%`;
+    warm(slides[idx]); warm(slides[idx + 1]);
+    counter.textContent = `${idx + 1} / ${slides.length}`;
+    progressFill.style.width = `${((idx + 1) / slides.length) * 100}%`;
     fitActiveSlide();
   }
+  let leaveTimer = null;
+  function go(to, build, back){
+    const from = slides[idx];
+    slides.forEach(s => s.classList.remove('leaving'));
+    if(slides[to] !== from) from.classList.add('leaving');
+    window.clearTimeout(leaveTimer);
+    leaveTimer = window.setTimeout(() => from.classList.remove('leaving'), 520);
+    root.classList.toggle('back', !!back);
+    idx = to; buildIndex = build;
+    render();
+  }
   function next(){
-    const current = slides[idx];
-    const max = maxBuild(current);
-    if(buildIndex < max){ buildIndex += 1; render(); return; }
-    if(idx < slides.length - 1){ idx += 1; buildIndex = 0; render(); }
+    if(buildIndex < maxBuild(slides[idx])){ buildIndex += 1; render(); return; }
+    if(idx < slides.length - 1) go(idx + 1, 0, false);
   }
   function prev(){
     if(buildIndex > 0){ buildIndex -= 1; render(); return; }
-    if(idx > 0){ idx -= 1; buildIndex = maxBuild(slides[idx]); render(); }
+    if(idx > 0) go(idx - 1, maxBuild(slides[idx - 1]), true);
   }
-  const fsBtn = document.getElementById('fsBtn');
-  function isPortrait(){
-    return window.matchMedia('(orientation: portrait)').matches;
-  }
-  function setForceLandscape(on){
-    document.documentElement.classList.toggle('force-landscape', on);
-  }
-  function isFullscreenActive(){
-    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.documentElement.classList.contains('fake-fullscreen'));
-  }
-  function syncOrientationLock(){
-    const isFs = isFullscreenActive();
-    if(fsBtn) fsBtn.textContent = isFs ? '✕ Exit fullscreen' : '⛶ Fullscreen';
-    if(!isFs){ setForceLandscape(false); return; }
-    // If the OS actually rotated the device (or a real orientation lock landed),
-    // the CSS rotation trick would double-rotate the content — only keep it
-    // active while the device is still physically in portrait.
-    setForceLandscape(isPortrait());
-  }
+
   let fitTimer = null;
   function scheduleFit(){
-    if(fitTimer) window.clearTimeout(fitTimer);
+    window.clearTimeout(fitTimer);
     fitTimer = window.setTimeout(fitActiveSlide, 60);
   }
   window.addEventListener('resize', scheduleFit);
   window.addEventListener('orientationchange', scheduleFit);
-  document.addEventListener('fullscreenchange', scheduleFit);
-  document.addEventListener('webkitfullscreenchange', scheduleFit);
-  const nativeFullscreenSupported = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+
+  // Fullscreen. iOS Safari (and every browser on iPhone and iPad) has no Fullscreen API for
+  // ordinary pages, so there it is faked with the same styling real fullscreen gets.
+  const nativeFullscreen = !!(root.requestFullscreen || root.webkitRequestFullscreen);
+  function isFullscreen(){
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || root.classList.contains('fake-fullscreen'));
+  }
+  function syncFullscreen(){
+    fsBtn.textContent = isFullscreen() ? '✕ Exit fullscreen' : '⛶ Fullscreen';
+    scheduleFit();
+  }
   async function toggleFullscreen(){
-    const isFs = isFullscreenActive();
-    // iOS Safari (and every browser on iPhone/iPad, since they're all WebKit)
-    // has no Fullscreen API for ordinary pages — requestFullscreen is simply
-    // undefined there. Fake it with the same CSS treatment real fullscreen
-    // gets (footer hidden, stage fills the true viewport, forced-landscape
-    // rotation) instead of silently doing nothing.
-    if(!nativeFullscreenSupported){
-      document.documentElement.classList.toggle('fake-fullscreen', !isFs);
-      syncOrientationLock();
-      if(!isFs && isPortrait()) setForceLandscape(true);
-      scheduleFit();
-      return;
-    }
+    const on = isFullscreen();
+    if(!nativeFullscreen){ root.classList.toggle('fake-fullscreen', !on); syncFullscreen(); return; }
     try{
-      if(!isFs){
-        await (document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() : document.documentElement.webkitRequestFullscreen());
-        let locked = false;
-        if(screen.orientation && screen.orientation.lock){
-          try{ await screen.orientation.lock('landscape'); locked = true; }catch(_){}
-        }
-        if(!locked && isPortrait()) setForceLandscape(true);
-      } else {
-        if(screen.orientation && screen.orientation.unlock){ try{ screen.orientation.unlock(); }catch(_){} }
-        await (document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen());
-        setForceLandscape(false);
-      }
+      if(!on) await (root.requestFullscreen ? root.requestFullscreen() : root.webkitRequestFullscreen());
+      else await (document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen());
     }catch(_){}
   }
-  document.addEventListener('fullscreenchange', syncOrientationLock);
-  document.addEventListener('webkitfullscreenchange', syncOrientationLock);
-  window.matchMedia('(orientation: portrait)').addEventListener('change', syncOrientationLock);
+  document.addEventListener('fullscreenchange', syncFullscreen);
+  document.addEventListener('webkitfullscreenchange', syncFullscreen);
+  fsBtn.addEventListener('click', toggleFullscreen);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.getElementById('nextBtn').addEventListener('click', next);
 
-  let pointerStart = {x:0,y:0};
-  document.body.addEventListener('pointerdown', e => { pointerStart.x = e.clientX; pointerStart.y = e.clientY; });
+  // Tap the right half to go on, the left half to go back, or swipe. Buttons and links keep their own job.
+  let pointerStart = null;
+  document.body.addEventListener('pointerdown', e => { pointerStart = { x:e.clientX, y:e.clientY }; });
   document.body.addEventListener('pointerup', e => {
+    if(!pointerStart || e.target.closest('a, button')) return;
     const dx = e.clientX - pointerStart.x, dy = e.clientY - pointerStart.y;
-    const rotated = document.documentElement.classList.contains('force-landscape');
-    // The CSS rotation trick swaps which real screen axis reads as "forward":
-    // once the deck is spun 90deg, a tap toward the visual right of the
-    // (rotated) slide lands in the bottom half of the real, unrotated screen.
-    if(!rotated && Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); return; }
+    pointerStart = null;
+    if(Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); return; }
     if(Math.abs(dx) < 12 && Math.abs(dy) < 12){
-      if(e.shiftKey){ prev(); return; }
-      if(rotated) (e.clientY < window.innerHeight / 2) ? prev() : next();
-      else (e.clientX < window.innerWidth / 2) ? prev() : next();
+      if(e.shiftKey || e.clientX < window.innerWidth / 2) prev(); else next();
     }
   });
   document.addEventListener('keydown', e => {
-    if(['ArrowRight',' ','PageDown'].includes(e.key)) next();
-    if(['ArrowLeft','Backspace','PageUp'].includes(e.key)) prev();
+    if(e.metaKey || e.ctrlKey || e.altKey) return;
+    if(['ArrowRight', ' ', 'PageDown', 'Enter'].includes(e.key)){ e.preventDefault(); next(); }
+    if(['ArrowLeft', 'Backspace', 'PageUp'].includes(e.key)){ e.preventDefault(); prev(); }
+    if(e.key === 'Home') go(0, 0, true);
+    if(e.key === 'End') go(slides.length - 1, maxBuild(slides[slides.length - 1]), false);
     if(e.key === 'f' || e.key === 'F') toggleFullscreen();
   });
 
   setInterval(() => {
     const slide = slides[idx];
-    if(!slide) return;
-    slide.querySelectorAll('.carousel').forEach((car, ci) => {
-      const imgs = Array.from(car.querySelectorAll('.carousel-img'));
+    if(!slide || document.hidden) return;
+    slide.querySelectorAll('.media').forEach(m => {
+      const imgs = Array.from(m.querySelectorAll('.carousel-img'));
       if(imgs.length < 2) return;
-      let curr = imgs.findIndex(im => im.classList.contains('active'));
-      if(curr < 0) curr = 0;
-      const nextI = (curr + 1) % imgs.length;
-      imgs[curr].classList.remove('active');
-      imgs[nextI].classList.add('active');
-      const dotsWrap = slide.querySelectorAll('.dots')[ci];
-      if(dotsWrap){
-        Array.from(dotsWrap.children).forEach((d,i) => d.classList.toggle('active', i===nextI));
-      }
+      setCarousel(m, (Math.max(0, imgs.findIndex(im => im.classList.contains('active'))) + 1) % imgs.length);
     });
   }, 2800);
 
+  // ?slide=7 opens on a slide with everything on it showing; ?for=Acme%20Bank names who the deck is for.
   try{
     const qs = new URLSearchParams(location.search);
     const jump = parseInt(qs.get('slide'), 10);
     if(jump >= 1 && jump <= slides.length){ idx = jump - 1; buildIndex = maxBuild(slides[idx]); }
-    if(qs.get('fl') === '1') setForceLandscape(true);
+    const who = (qs.get('for') || '').trim().slice(0, 60);
+    if(who){
+      document.querySelectorAll('[data-for]').forEach(n => { n.hidden = false; });
+      document.querySelectorAll('[data-for-name]').forEach(n => { n.textContent = who; });
+      document.title = `Clickt for ${who}`;
+    }
   }catch(_){}
   render();
 
-  // Currency: mirrors click-t.com's own detection so the deck and the live
-  // site never disagree. Timezone check first (instant, no network); the
-  // IP lookup then confirms/corrects it for visitors whose clock doesn't
-  // match their location (VPNs, travel, misconfigured system clocks).
+  // Currency: timezone check first (instant, no network); the IP lookup then confirms or
+  // corrects it for visitors whose clock doesn't match their location.
   (function(){
     function setCurrency(cur){
       document.querySelectorAll('.price-amt').forEach(function(el){

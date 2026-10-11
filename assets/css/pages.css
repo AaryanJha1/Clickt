@@ -152,9 +152,6 @@ html[lang="ne"] .toc h3 { letter-spacing: 0; text-transform: none; }
 .status-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .status-row .badge, .guide-section .badge { background: var(--paper-2); color: var(--ink-2); letter-spacing: 0; text-transform: none; }
 
-.region-pill { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 9px 18px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.75); border: 1px solid var(--line); font-size: 0.86rem; font-weight: 600; color: var(--ink-2); }
-.region-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px rgba(31, 75, 255, 0.15); }
-.region-pill.is-npr .region-dot { background: var(--calendar); box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.16); }
 
 @media (max-width: 640px) {
   [data-sysmap] .seg { display: grid; grid-template-columns: 1fr 1fr; width: 100%; border-radius: 22px; overflow: visible; }

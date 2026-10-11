@@ -7,8 +7,6 @@
   if (!C) return;
   var prices = C.qsa('[data-price]');
   var seat = document.querySelector('[data-seat-line]');
-  var noteText = document.querySelector('[data-cur-text]');
-  var note = document.querySelector('[data-cur-note]');
   var cur = 'usd';
   try {
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
@@ -21,8 +19,6 @@
     document.documentElement.setAttribute('data-currency', cur);
     prices.forEach(function (el) { el.textContent = el.getAttribute('data-' + cur); });
     if (seat) seat.textContent = C.t('pricing.currency.perUser.business.' + cur);
-    if (noteText) noteText.textContent = C.t(cur === 'npr' ? 'pricing.currency.showingNepal' : 'pricing.currency.showingIntl');
-    if (note) note.classList.toggle('is-npr', cur === 'npr');
   }
   C.onLang(paint);
   paint();

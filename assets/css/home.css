@@ -91,7 +91,6 @@
 .dev-panel .phone { --w: 290px; }
 .dev-panel .tablet { --w: 430px; }
 .dev-panel .mac { max-width: 860px; }
-.dev-note { margin-top: 24px; font-size: 0.9rem; color: var(--mute); text-align: center; }
 @media (max-width: 700px) { .dev-stage { min-height: 560px; } .dev-panel .tablet { --w: 320px; } .dev-panel .phone { --w: 240px; } }
 
 /* --- Nepal / industries -------------------------------------------------- */

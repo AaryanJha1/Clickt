@@ -16,13 +16,11 @@
  "pricing": {
   "hero": {
    "kicker": "Pricing",
-   "heading": "Start free. Bring your whole team.",
+   "heading": "Simple pricing. Bring your whole team.",
    "lead": "Every plan includes Teams, Builder, Presentation, and Checklist on iPhone, iPad, and Mac. Android for Clickt is currently shown as a coming-soon preview."
   },
   "currency": {
    "toggleAriaLabel": "Choose pricing currency",
-   "showingNepal": "Showing Nepal prices.",
-   "showingIntl": "Showing international prices.",
    "perUser": {
     "business": {
      "npr": "NPR 1,000 / user / month",
@@ -223,7 +221,7 @@
   "hero": {
    "kicker": "Support",
    "heading": "Get unstuck quickly",
-   "subtitle": "Try the quick fixes below, then write to us if you still need help. We currently support Clickt on iPhone, iPad, and Mac."
+   "subtitle": "Try the quick fixes below, then write to us if you still need help. We support Clickt on Apple and Android."
   },
   "commonIssues": {
    "heading": "Common issues"
@@ -857,7 +855,7 @@
    "lead": "Write in anytime at <a href=\"mailto:clickt@click-t.com\">clickt@click-t.com</a> - whatever you share is up to you, but a few details like these help us get back to you faster.",
    "support": {
     "title": "Clickt product & support",
-    "item1": "Device and platform - iPhone, iPad, or Mac",
+    "item1": "Device and platform - Apple or Android",
     "item2": "What you expected vs. what happened",
     "item3": "A screenshot or short screen recording, if possible"
    },

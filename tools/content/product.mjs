@@ -3,7 +3,6 @@
 export default {
   en: {
     prod: {
-      release: 'iPhone, iPad and Mac on the App Store · Android in private testing',
       crumbProduct: 'Product',
       seeKicker: 'See it work',
       aiKicker: 'ClicktAI',
@@ -42,7 +41,6 @@ export default {
   },
   ne: {
     prod: {
-      release: 'App Store मा iPhone, iPad र Mac · Android निजी परीक्षणमा',
       crumbProduct: 'उत्पादन',
       seeKicker: 'काम गरेको हेर्नुहोस्',
       aiKicker: 'ClicktAI',

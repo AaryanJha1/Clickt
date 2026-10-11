@@ -16,10 +16,11 @@ export const APP_STORE = 'https://apps.apple.com/us/app/clickt/id6759891499';
 export const PLAY_TEST = 'https://play.google.com/apps/testing/com.clickt.android';
 export const EMAIL = 'clickt@click-t.com';
 // Social profiles shown in the header and mobile menu. An entry with an empty url is not rendered,
-// so paste the TikTok and LinkedIn addresses here when they are ready and rebuild.
+// so paste the LinkedIn address here when it is ready and rebuild.
 export const SOCIAL = [
   { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/__clickt/' },
-  { id: 'tiktok', label: 'TikTok', url: '' },
+  { id: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/channel/UCrLfnjm_z-bA6H1RweHl-ww' },
+  { id: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@_clickt' },
   { id: 'linkedin', label: 'LinkedIn', url: '' },
 ];
 

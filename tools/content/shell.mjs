@@ -8,13 +8,13 @@ export default {
         checklist: 'Repeatable work that stays on track',
         builder: 'Raw data to a clear answer',
         presentation: 'A finished, editable deck',
-        plans: 'Free to start. Business for teams',
+        plans: 'Business for teams',
         clicktai: 'Reviewable AI across every module',
       },
       footer: {
         tagline: 'Team execution, simplified. Made in Kathmandu.',
         pitchDeck: 'Pitch deck',
-        android: 'Android (private test)',
+        android: 'Android',
       },
       store: {
         appleSmall: 'Download on the',
@@ -34,13 +34,13 @@ export default {
         checklist: 'दोहोरिने काम, ट्र्याकमै',
         builder: 'कच्चा डेटाबाट स्पष्ट उत्तर',
         presentation: 'सम्पादन गर्न मिल्ने तयार डेक',
-        plans: 'निःशुल्क सुरु। टिमका लागि बिजनेस',
+        plans: 'टिमका लागि बिजनेस',
         clicktai: 'हरेक मोड्युलमा समीक्षायोग्य एआई',
       },
       footer: {
         tagline: 'टिमको काम, सरल बनाइएको। काठमाडौंमा निर्मित।',
         pitchDeck: 'पिच डेक',
-        android: 'एन्ड्रोइड (निजी परीक्षण)',
+        android: 'एन्ड्रोइड',
       },
       store: {
         appleSmall: 'डाउनलोड गर्नुहोस्',

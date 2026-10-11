@@ -54,7 +54,6 @@ export default function home(p) {
     ${p.e('p', 'home.hero.lead', 'class="lead" data-reveal style="--d:3"')}
     <div class="hero-cta" data-reveal style="--d:4">
       ${storeButtons(p)}
-      ${p.e('p', 'home.hero.note', 'class="hero-note"')}
     </div>
   </div>
   <div class="hero-pin" data-hero-pin>
@@ -199,7 +198,7 @@ export default function home(p) {
     <div class="frame vignette dev-stage" data-devices>
       <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
       <span class="glow glow--blue" style="width:480px;height:480px;left:20%;top:10%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:14%;bottom:-10%"></span>
-      ${panels.map(([pl, html], i) => `<div class="dev-panel${i === 0 ? ' is-active' : ''}" data-platform="${pl}">${html}${pl === 'android' ? p.e('p', 'home.devices.androidNote', 'class="dev-note"') : ''}</div>`).join('')}
+      ${panels.map(([pl, html], i) => `<div class="dev-panel${i === 0 ? ' is-active' : ''}" data-platform="${pl}">${html}</div>`).join('')}
     </div>
   </div>
 </section>
@@ -265,7 +264,6 @@ export default function home(p) {
       ${p.e('h2', 'home.final.title', 'class="title"')}
       ${p.e('p', 'home.final.lead', 'class="lead"')}
       ${storeButtons(p)}
-      ${p.e('p', 'home.hero.note', 'class="note"')}
     </div>
   </div>
 </section>

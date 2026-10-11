@@ -4,7 +4,6 @@ import { APP_STORE, EMAIL } from '../lib/core.mjs';
 
 export default function pricing(p) {
   p.js('pricing.currency.perUser.business.npr'); p.js('pricing.currency.perUser.business.usd');
-  p.js('pricing.currency.showingNepal'); p.js('pricing.currency.showingIntl');
   const list = (tier, n) => Array.from({ length: n }, (_, i) => `<li>${p.t(`pricing.tiers.${tier}.feature${i + 1}`)}</li>`).join('');
   const faq = [1, 2, 3, 4, 5, 7].map((i) => `<details data-reveal><summary>${p.t(`pricing.faq.q${i}.question`)}</summary>${p.e('div', `pricing.faq.q${i}.answer`, 'class="ans"')}</details>`).join('');
   const funds = ['workspace', 'ai', 'sync', 'support'].map((k) => `<div class="fund" data-reveal><span>${p.t(`pricing.vs.col${k.charAt(0).toUpperCase() + k.slice(1)}`)}</span><b>${p.t(`pricing.vs.business.${k}`)}</b></div>`).join('');
@@ -16,7 +15,6 @@ export default function pricing(p) {
     ${p.e('span', 'pricing.hero.kicker', 'class="eyebrow" data-reveal')}
     ${p.e('h1', 'pricing.hero.heading', 'class="title" style="font-size:clamp(2.6rem,6vw,5rem);max-width:16ch;margin-inline:auto" data-reveal="wipe"')}
     ${p.e('p', 'pricing.hero.lead', 'class="lead" style="margin-inline:auto" data-reveal')}
-    <p class="region-pill" data-reveal data-cur-note><span class="region-dot"></span><span data-cur-text>${p.t('pricing.currency.showingIntl')}</span></p>
   </div>
 </section>
 

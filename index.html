@@ -7,8 +7,9 @@
 <meta name="description" content="Teams, Notes, Checklist, Builder and Presentation in one workspace. ClicktAI drafts every task, chart and deck for your review, and applies nothing without your approval. iPhone, iPad, Mac and Android." data-i18n-attr="content:meta.home.desc">
 
 <link rel="canonical" href="https://click-t.com/">
-<meta name="theme-color" content="#ffffff">
-<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1422" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clickt">
 <meta property="og:url" content="https://click-t.com/">
@@ -32,6 +33,7 @@
 <link rel="stylesheet" href="assets/css/ui.css">
 <link rel="stylesheet" href="assets/css/scenes.css">
 <link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/dark.css">
 <script>document.documentElement.classList.remove('no-js')</script>
 <script>try{if(!sessionStorage.getItem('clickt-splash'))document.documentElement.classList.add('splash-lock')}catch(e){}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Click T Pvt. Ltd.","url":"https://click-t.com","logo":"https://click-t.com/assets/img/brand/logo.png","email":"clickt@click-t.com","address":{"@type":"PostalAddress","addressLocality":"Kathmandu","addressCountry":"NP"}},{"@type":"SoftwareApplication","name":"Clickt","applicationCategory":"BusinessApplication","operatingSystem":"iOS, iPadOS, macOS","url":"https://apps.apple.com/us/app/clickt/id6759891499","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}</script>
@@ -194,6 +196,7 @@
       <p class="lead" data-reveal style="--d:2" data-i18n="home.ch1.lead">Tell ClicktAI what needs to happen. It prepares the work in the right module, and every date lands on a single calendar.</p>
     </div>
     <div class="story-body" data-story>
+      <div class="story-viewport">
       <div class="story-steps"><article class="story-step is-active" data-step data-color="var(--teams)">
       <span class="mod mod--teams"><span data-i18n="home.ch1.teams.k">Teams</span></span>
       <h3 class="h-serif" data-i18n="home.ch1.teams.h">Ownership, out in the open.</h3>
@@ -235,6 +238,7 @@
         <span class="story-glow" data-glow></span>
         <div class="story-dots" data-dots><i class="is-active"></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="phone"><div class="screen"><div class="shot is-active" data-shot><img src="assets/img/phone/teams-tasks.webp" alt="teams" width="640" height="1391" decoding="async" ></div><div class="shot" data-shot><img src="assets/img/phone/notes.webp" alt="notes" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/checklist.webp" alt="checklist" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/builder.webp" alt="builder" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/presentation.webp" alt="presentation" width="640" height="1391" decoding="async" loading="lazy"></div><div class="shot" data-shot><img src="assets/img/phone/calendar.webp" alt="calendar" width="640" height="1391" decoding="async" loading="lazy"></div></div></div>
+      </div>
       </div>
     </div>
   </div>

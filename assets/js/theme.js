@@ -13,6 +13,10 @@
   function apply() {
     var resolved = preference === 'system' ? (media && media.matches ? 'dark' : 'light') : preference;
     root.setAttribute('data-theme', resolved);
+    // Samsung Internet may hide its forced darkening from prefers-color-scheme.
+    var samsungSystemLight = /SamsungBrowser\//i.test(navigator.userAgent) && preference === 'system' && resolved === 'light';
+    if (samsungSystemLight) root.setAttribute('data-samsung-system', '');
+    else root.removeAttribute('data-samsung-system');
     root.style.colorScheme = preference === 'system' ? 'light dark' : resolved;
     var scheme = document.querySelector('meta[name="color-scheme"]');
     if (scheme) scheme.content = preference === 'system' ? 'light dark' : resolved;

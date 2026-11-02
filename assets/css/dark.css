@@ -123,3 +123,16 @@ html[data-theme="dark"] .guarantee-num .kpi {
     -webkit-text-fill-color: #aabeff;
   }
 }
+
+/* Samsung Internet can recolor a light page without exposing that state.
+   Ordinary text gives its darkening algorithm a chance to adjust the accent. */
+html[data-samsung-system] .display em,
+html[data-samsung-system] .title em,
+html[data-samsung-system] .h-serif em,
+html[data-samsung-system] .guarantee-num .kpi {
+  background: none;
+  color: #254de0;
+}
+html[data-samsung-system] .endcard .title em {
+  color: #aabeff;
+}

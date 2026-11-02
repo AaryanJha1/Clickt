@@ -54,6 +54,7 @@
 .story-head .slate { margin-bottom: 20px; }
 .story-head .lead { margin-top: 22px; }
 .story-body { margin-top: clamp(24px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 460px); gap: clamp(32px, 6vw, 120px); align-items: start; }
+.story-viewport { display: contents; }
 .story-step { min-height: 64vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 16px; opacity: 0.28; transition: opacity 0.6s var(--ease); max-width: 520px; }
 .story-step.is-active { opacity: 1; }
 .story-step .h-serif { font-size: clamp(2rem, 3.6vw, 3.1rem); line-height: 1.02; }
@@ -75,6 +76,22 @@
   .story-step { min-height: 0; opacity: 1; padding: 28px 0; border-top: 1px solid var(--line); }
   .story-step .step-shot { display: block; width: 100%; padding: 28px 0 8px; }
   .story-step .step-shot .phone { --w: 210px; margin-inline: auto; }
+}
+
+
+/* On taller phones, keep the story visible while the visitor scrolls through it.
+   The regular stacked layout remains the fallback for short screens and no JS. */
+@media (max-width: 860px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .story-body.story-mobile { --story-panel: calc((100svh - 88px) * .46); display: block; height: 450svh; }
+  .story-mobile .story-viewport { display: grid; position: sticky; top: 76px; grid-template-rows: var(--story-panel) var(--story-panel); }
+  .story-mobile .story-steps { position: relative; height: var(--story-panel); }
+  .story-mobile .story-step { position: absolute; inset: 0; min-height: 0; max-width: none; padding: 8px 0; border: 0; opacity: 0; visibility: hidden; pointer-events: none; justify-content: center; gap: 10px; transform: translateY(8px); transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s; }
+  .story-mobile .story-step.is-active { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+  .story-mobile .story-step .step-shot { display: none; }
+  .story-mobile .story-stage { display: grid; position: relative; top: auto; height: var(--story-panel); }
+  .story-mobile .story-stage .phone { --w: min(185px, calc(var(--story-panel) * .43)); }
+  .story-mobile .story-glow { width: min(90vw, 350px); height: min(90vw, 350px); }
+  .story-mobile .story-dots { display: none; }
 }
 
 /* --- Devices ------------------------------------------------------------ */

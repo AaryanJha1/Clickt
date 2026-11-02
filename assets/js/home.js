@@ -50,10 +50,15 @@
     var glow = story.querySelector('[data-glow]');
     var stageEl = story.querySelector('.story-stage');
     var active = -1;
+    var mobileStory = window.matchMedia('(max-width: 860px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)');
+    var mobileActive = false;
     var setActive = function (i) {
       if (i === active) return;
       active = i;
-      steps.forEach(function (s, n) { s.classList.toggle('is-active', n === i); });
+      steps.forEach(function (s, n) {
+        s.classList.toggle('is-active', n === i);
+        s.inert = mobileActive && n !== i;
+      });
       shots.forEach(function (s, n) { s.classList.toggle('is-active', n === i); });
       dots.forEach(function (d, n) { d.classList.toggle('is-active', n === i); });
       var col = steps[i].getAttribute('data-color');
@@ -65,7 +70,14 @@
       var storyTicking = false;
       var updateStory = function () {
         storyTicking = false;
-        var r = stepsCol.getBoundingClientRect();
+        var nextMobile = mobileStory.matches;
+        if (nextMobile !== mobileActive) {
+          mobileActive = nextMobile;
+          story.classList.toggle('story-mobile', mobileActive);
+          active = -1;
+          if (!mobileActive) steps.forEach(function (s) { s.inert = false; });
+        }
+        var r = (mobileActive ? story : stepsCol).getBoundingClientRect();
         var vh = window.innerHeight;
         var total = r.height - vh;
         var progress = total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0;

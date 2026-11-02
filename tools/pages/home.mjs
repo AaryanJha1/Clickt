@@ -83,11 +83,13 @@ export default function home(p) {
       ${p.e('p', 'home.ch1.lead', 'class="lead" data-reveal style="--d:2"')}
     </div>
     <div class="story-body" data-story>
+      <div class="story-viewport">
       <div class="story-steps">${storyHtml}</div>
       <div class="story-stage" aria-hidden="true">
         <span class="story-glow" data-glow></span>
         <div class="story-dots" data-dots>${steps.map((_, i) => `<i${i === 0 ? ' class="is-active"' : ''}></i>`).join('')}</div>
         <div class="phone"><div class="screen">${shots}</div></div>
+      </div>
       </div>
     </div>
   </div>

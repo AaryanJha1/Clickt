@@ -20,7 +20,7 @@ const socialLinks = (cls = '') => SOCIAL.filter((x) => x.url).map((x) =>
 
 const themeControl = (p) => `<div class="theme-control" role="group" ${p.at({ 'aria-label': 'shell.theme.label' })}>
   ${p.e('span', 'shell.theme.label', 'class="theme-label"')}
-  <div class="theme-options">${['system', 'light', 'dark'].map((mode) => `<button type="button" data-theme-choice="${mode}" aria-pressed="${mode === 'system'}">${p.t(`shell.theme.${mode}`)}</button>`).join('')}</div>
+  <div class="theme-options">${['light', 'dark'].map((mode) => `<button type="button" data-theme-choice="${mode}" aria-pressed="${mode === 'light'}">${p.t(`shell.theme.${mode}`)}</button>`).join('')}</div>
 </div>`;
 
 export function header(p, current) {

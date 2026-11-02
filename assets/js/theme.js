@@ -21,7 +21,7 @@
     var scheme = document.querySelector('meta[name="color-scheme"]');
     if (scheme) scheme.content = preference === 'system' ? 'light dark' : resolved;
     document.querySelectorAll('[data-theme-choice]').forEach(function (button) {
-      button.setAttribute('aria-pressed', button.getAttribute('data-theme-choice') === preference ? 'true' : 'false');
+      button.setAttribute('aria-pressed', button.getAttribute('data-theme-choice') === resolved ? 'true' : 'false');
     });
     document.querySelectorAll('meta[name="theme-color"][media]').forEach(function (tag) {
       if (!tag.hasAttribute('data-original-media')) tag.setAttribute('data-original-media', tag.media);
@@ -30,11 +30,10 @@
     });
   }
   function choose(value) {
-    if (value !== 'system' && value !== 'light' && value !== 'dark') return;
+    if (value !== 'light' && value !== 'dark') return;
     preference = value;
     try {
-      if (value === 'system') localStorage.removeItem(key);
-      else localStorage.setItem(key, value);
+      localStorage.setItem(key, value);
     } catch (e) {}
     apply();
   }

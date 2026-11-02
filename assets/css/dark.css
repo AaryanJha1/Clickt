@@ -101,3 +101,25 @@ html:not([data-theme]) {
   html:not([data-theme]) .module-checklist .module-header .icon { background: #293650; }
 
 }
+
+/* Solid text stays legible when a browser handles clipped gradients poorly. */
+html[data-theme="dark"] .display em,
+html[data-theme="dark"] .title em,
+html[data-theme="dark"] .h-serif em,
+html[data-theme="dark"] .endcard .title em,
+html[data-theme="dark"] .guarantee-num .kpi {
+  background: none;
+  color: #aabeff;
+  -webkit-text-fill-color: #aabeff;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .display em,
+  html:not([data-theme]) .title em,
+  html:not([data-theme]) .h-serif em,
+  html:not([data-theme]) .endcard .title em,
+  html:not([data-theme]) .guarantee-num .kpi {
+    background: none;
+    color: #aabeff;
+    -webkit-text-fill-color: #aabeff;
+  }
+}

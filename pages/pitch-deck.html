@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="color-scheme" content="only light" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#0e1422" media="(prefers-color-scheme: dark)" />
 <!-- iOS has no web Fullscreen API, but a page saved via "Add to Home Screen"
      launches with no Safari chrome at all when these are set. -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +34,7 @@
     --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{ box-sizing:border-box; }
-  html{ color-scheme:only light; }
+  html{ color-scheme:light dark; }
   html,body{ height:100%; }
   body{
     margin:0; height:100vh; height:100dvh; padding:14px; overflow:hidden;
@@ -215,6 +216,20 @@
 
   .cta-btn{ display:inline-flex; align-items:center; gap:.6em; padding:.85em 1.7em; border-radius:999px; background:#fff; color:var(--ink); font-weight:700; text-decoration:none; font-size:max(11px, calc(var(--u) * var(--fs-body) * 1.05 * var(--fit,1))); animation:pulse 2.4s ease-in-out infinite; }
   @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(255,255,255,.4); } 70%{ box-shadow:0 0 0 16px rgba(255,255,255,0); } 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#f4f6fc; --ink-2:#d2d9e8; --mute:#b9c4d8; --faint:#a6b2c7;
+      --line:rgba(203,216,242,.16); --line-2:rgba(203,216,242,.28);
+      --paper:#0e1422; --paper-2:#1a2335; --blue:#aabeff;
+      --grad:linear-gradient(115deg,#aabeff,#e0e6ff); }
+    .slide[data-bg="paper"] .brand img, .slide[data-bg="paper"] .title-logo { filter:brightness(0) invert(1); }
+    .slide[data-bg="paper"] .pill, .slide[data-bg="paper"] .steps li, .slide[data-bg="paper"] .plan:not(.pro) { background:#1a2335; }
+    .slide[data-bg="paper"] .vs-row .new, .slide[data-bg="paper"] .tag { background:#aabeff; color:#0e1422; }
+    .slide[data-bg="paper"] .vs-head .new { color:var(--ink); }
+    .slide[data-bg="paper"] .dot { background:rgba(255,255,255,.3); }
+    .slide[data-bg="paper"] .dot.active { background:#fff; }
+    .cta-btn { color:#0e1422; }
+  }
 
   /* --- Upright screens: everything stacks ---------------------------------------- */
   @container slide (max-aspect-ratio: 6/5){

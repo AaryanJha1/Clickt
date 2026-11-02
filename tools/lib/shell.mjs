@@ -18,6 +18,11 @@ const INDUSTRIES = ['schools', 'healthcare', 'banks', 'ngos', 'hotels', 'restaur
 const socialLinks = (cls = '') => SOCIAL.filter((x) => x.url).map((x) =>
   `<a class="social-btn${cls}" href="${x.url}" target="_blank" rel="noopener noreferrer" aria-label="${x.label}" title="${x.label}">${icon(x.id)}${cls ? `<span>${x.label}</span>` : ''}</a>`).join('');
 
+const themeControl = (p) => `<div class="theme-control" role="group" ${p.at({ 'aria-label': 'shell.theme.label' })}>
+  ${p.e('span', 'shell.theme.label', 'class="theme-label"')}
+  <div class="theme-options">${['system', 'light', 'dark'].map((mode) => `<button type="button" data-theme-choice="${mode}" aria-pressed="${mode === 'system'}">${p.t(`shell.theme.${mode}`)}</button>`).join('')}</div>
+</div>`;
+
 export function header(p, current) {
   const cur = (name) => (current === name ? ' aria-current="page"' : '');
   const tiles = PRODUCT.map(([name, ico, col]) => {
@@ -60,11 +65,12 @@ export function header(p, current) {
   <a href="${url('services')}">${p.e('span', 'siteShell.header.services')}</a>
   <a href="${url('about')}">${p.e('span', 'siteShell.header.about')}</a>
   <a href="${url('contact')}">${p.e('span', 'siteShell.header.contact')}</a>
+  ${current === 'home' ? themeControl(p) : ''}
   <div class="social-links social-links--sheet">${socialLinks(' social-btn--wide')}</div>
 </div>`;
 }
 
-export function footer(p) {
+export function footer(p, current) {
   const col = (titleKey, items) =>
     `<div class="footer-col"><h3>${p.t(titleKey)}</h3><ul>${items.map(([href, key]) => `<li><a href="${href}">${p.t(key)}</a></li>`).join('')}</ul></div>`;
   return `<footer class="site-footer">
@@ -90,6 +96,7 @@ export function footer(p) {
     </div>
     </div>
     <div class="footer-bottom">
+      ${current === 'home' ? themeControl(p) : ''}
       ${p.e('span', 'siteShell.footer.copyright')}
       <span class="lang" role="group" ${p.at({ 'aria-label': 'siteShell.utility.languageLabel' })}>
         <button type="button" data-lang="en" class="is-active" aria-pressed="true">English</button>
@@ -121,6 +128,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1422" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
+<script src="/assets/js/theme.js"></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clickt">
 <meta property="og:url" content="${canonical}">
@@ -155,7 +163,7 @@ ${header(p, current)}
 <main id="main">
 ${main}
 </main>
-${footer(p)}
+${footer(p, current)}
 <script type="application/json" id="i18n-en">${JSON.stringify(jsEn).replace(/</g, '\\u003c')}</script>
 <script src="/assets/js/app.js" defer></script>
 ${scripts.map((s) => `<script src="/assets/js/${s}.js" defer></script>`).join('\n')}

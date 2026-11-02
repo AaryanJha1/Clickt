@@ -3,6 +3,7 @@ export default {
   en: {
     shell: {
       skip: 'Skip to content',
+      theme: { label: 'Appearance', system: 'System', light: 'Light', dark: 'Dark' },
       menu: {
         teams: 'Ownership, tasks and decisions',
         checklist: 'Repeatable work that stays on track',
@@ -29,6 +30,7 @@ export default {
   ne: {
     shell: {
       skip: 'सामग्रीमा जानुहोस्',
+      theme: { label: 'रूप', system: 'प्रणाली', light: 'उज्यालो', dark: 'अँध्यारो' },
       menu: {
         teams: 'जिम्मेवारी, कार्य र निर्णय',
         checklist: 'दोहोरिने काम, ट्र्याकमै',

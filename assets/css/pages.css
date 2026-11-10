@@ -49,14 +49,14 @@ html[lang="ne"] .fund span { letter-spacing: 0; text-transform: none; }
 .fit-node svg { width: 28px; height: 28px; color: var(--blue); }
 .fit-node b { font-size: 0.95rem; line-height: 1.35; }
 .fit-node--mid { background: var(--ink); border-color: var(--ink); color: #fff; box-shadow: var(--sh-3); }
-.fit-node--mid svg { color: #a9bbff; }
+.fit-node--mid svg { color: #a5b4fc; }
 .fit-line { width: 56px; height: 2px; background: repeating-linear-gradient(90deg, var(--line-2) 0 6px, transparent 6px 12px); position: relative; }
 @media (max-width: 860px) { .fit { flex-direction: column; } .fit-line { width: 2px; height: 36px; background: repeating-linear-gradient(0deg, var(--line-2) 0 6px, transparent 6px 12px); } }
 .ind-card p { font-size: 1rem; }
 .flows { display: grid; gap: 12px; }
 .flow { display: grid; gap: 8px; padding: 20px 22px; border-radius: var(--r-md); background: var(--white); border: 1px solid var(--line); box-shadow: var(--sh-1); }
 .flow p { color: var(--ink-2); font-size: 0.96rem; }
-.result { padding: clamp(32px, 5vw, 64px); border-radius: var(--r-xl); background: radial-gradient(120% 140% at 20% 0%, #2b2f3a 0%, #14171f 35%, #05070c 100%); color: #fff; box-shadow: var(--sh-3); }
+.result { padding: clamp(32px, 5vw, 64px); border-radius: var(--r-xl); background: radial-gradient(120% 140% at 20% 0%, #34302b 0%, #1c1917 35%, #0f0d0b 100%); color: #fff; box-shadow: var(--sh-3); }
 .boundary { display: flex; gap: 14px; align-items: flex-start; margin-top: 24px; padding: 18px 20px; border-radius: var(--r-md); background: var(--paper-2); font-size: 0.92rem; color: var(--ink-2); }
 .boundary svg { flex: none; width: 22px; height: 22px; color: var(--mute); margin-top: 2px; }
 
@@ -113,7 +113,7 @@ html[lang="ne"] .toc h3 { letter-spacing: 0; text-transform: none; }
 .intro-tools { display: grid; gap: 16px; }
 .guide-search label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 8px; }
 .guide-search input { width: 100%; max-width: 520px; padding: 14px 18px; border-radius: var(--r-pill); border: 1px solid var(--line-2); background: #fff; font: inherit; }
-.guide-search input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(31, 75, 255, 0.14); }
+.guide-search input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.14); }
 .search-hint { margin-top: 6px; font-size: 0.84rem; color: var(--mute); }
 .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .quick-actions a { padding: 8px 14px; border-radius: var(--r-pill); background: var(--white); border: 1px solid var(--line); font-size: 0.86rem; font-weight: 500; transition: background 0.2s; }

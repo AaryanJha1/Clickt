@@ -8,8 +8,51 @@
 .hero-bg .glow--blue { width: 60vw; height: 60vw; max-width: 900px; max-height: 900px; left: -12%; top: -24%; }
 .hero-bg .glow--peach { width: 50vw; height: 50vw; max-width: 760px; max-height: 760px; right: -10%; top: -10%; }
 .hero-bg .glow--violet { width: 40vw; height: 40vw; max-width: 600px; max-height: 600px; left: 32%; top: 28%; opacity: 0.35; }
-.hero-bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(11, 16, 32, 0.09) 1px, transparent 1.4px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(70% 60% at 50% 35%, #000, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 35%, #000, transparent 75%); }
+.hero-bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(28, 25, 23, 0.09) 1px, transparent 1.4px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(70% 60% at 50% 35%, #000, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 35%, #000, transparent 75%); }
 .hero-in { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+/* --- Hero background: "Drafts, then your call" (assets/js/hero-fx.js) -------
+   Loose work drifts in, becomes faint draft tasks around the copy, and the Clickt
+   cursor clicks the headline's last word to apply them. Cards stay faint until
+   that moment. Everything here is decoration: aria-hidden, no pointer events. */
+.hero-top { --hfx-scrap: #fff6d6; --hfx-ok: #0e7f3f; position: relative; padding-bottom: 28px; }
+.hero-top .hero-in { position: relative; z-index: 1; }
+.hfx { position: absolute; inset: 0; pointer-events: none; }
+.hfx-glow { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.16; mix-blend-mode: multiply; animation: hfx-orbit 30s linear infinite; }
+.hfx-glow--a { width: 46vw; max-width: 720px; aspect-ratio: 1; left: -8%; top: -40%; background: var(--teams); }
+.hfx-glow--b { width: 40vw; max-width: 640px; aspect-ratio: 1; right: -8%; top: -30%; background: var(--presentation); animation-duration: 36s; animation-delay: -12s; }
+.hfx-glow--c { width: 34vw; max-width: 520px; aspect-ratio: 1; left: 36%; bottom: -40%; background: var(--builder); animation-duration: 26s; animation-delay: -6s; }
+@keyframes hfx-orbit { from { transform: rotate(0deg) translateX(8%) rotate(0deg); } to { transform: rotate(360deg) translateX(8%) rotate(-360deg); } }
+.hfx-field { position: absolute; inset: 0; z-index: 0; }
+.hfx-card { --rawk: 1; --ap: 0; --cw: 212px; position: absolute; left: 0; top: 0; width: var(--cw); opacity: 0; will-change: transform, opacity; }
+.hfx-raw { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-2deg); width: max-content; max-width: 190px; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.15; color: var(--ink); background: var(--hfx-scrap); padding: 7px 11px; border-radius: 4px; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1); opacity: var(--rawk); }
+.hfx-task { opacity: calc(1 - var(--rawk)); background: var(--white); border: 1.5px dashed color-mix(in srgb, var(--ink) 28%, transparent); border-radius: 14px; padding: 10px 12px; display: grid; gap: 4px; text-align: left; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.22); }
+.hfx-card.is-applied .hfx-task { border-style: solid; border-color: color-mix(in srgb, var(--checklist) 45%, transparent); }
+.hfx-mod { --c: var(--teams); justify-self: start; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; color: color-mix(in srgb, var(--c) 75%, var(--ink)); background: color-mix(in srgb, var(--c) 14%, var(--white)); }
+.hfx-task b { font-size: 0.86rem; font-weight: 650; line-height: 1.25; color: var(--ink); }
+.hfx-meta { display: flex; justify-content: space-between; gap: 8px; font-size: 0.72rem; color: var(--mute); }
+.hfx-state { display: grid; justify-items: end; }
+.hfx-state > * { grid-area: 1 / 1; font-weight: 700; white-space: nowrap; }
+.hfx-d { opacity: calc(1 - var(--ap)); }
+.hfx-a { opacity: var(--ap); color: var(--hfx-ok); }
+.hfx-origin { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; }
+.hfx-ring { position: absolute; left: -60px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid var(--blue); opacity: 0; }
+.hfx-ray { position: absolute; left: -1px; top: 0; width: 2px; height: 20px; transform-origin: 50% 0; }
+.hfx-ray i { position: absolute; inset: 0; border-radius: 2px; background: var(--blue); opacity: 0; }
+.hfx-cursor { position: absolute; left: -6px; top: -4px; width: 40px; height: 40px; opacity: 0; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2)); }
+.hfx-cursor svg { display: block; width: 100%; height: 100%; fill: var(--ink); stroke: var(--paper); stroke-width: 1.4; stroke-linejoin: round; }
+.hfx-on .hero-in .display .ln:last-of-type em:last-of-type { text-shadow: 0 0 calc(var(--hfx-glow, 0) * 36px) color-mix(in srgb, var(--blue) calc(var(--hfx-glow, 0) * 75%), transparent); }
+@media (max-width: 560px) {
+  .hero-top { padding-bottom: 104px; }
+  .hfx-card { --cw: 156px; }
+  .hfx-task { padding: 8px 9px; }
+  .hfx-task b { font-size: 0.76rem; }
+  .hfx-meta { font-size: 0.66rem; }
+  .hfx-raw { font-size: 0.95rem; max-width: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hfx-glow { animation: none; }
+}
 .hero-in .slate { padding: 8px 16px 8px 14px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.7); border: 1px solid var(--line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .hero .display { margin-top: 28px; max-width: none; font-size: clamp(2.7rem, 7.2vw, 6.6rem); }
 .hero .display .ln { display: block; }
@@ -26,8 +69,8 @@
 .hero-stage { --p: 0; width: 100%; transform: translate3d(0, calc((1 - var(--p)) * 40px), 0) scale(calc(0.94 + var(--p) * 0.06 + var(--pin) * 0.015)); transform-origin: 50% 0; will-change: transform; padding: clamp(28px, 4vw, 56px); min-height: 520px; }
 .stage-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 480px) 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
 .stage-glow { position: absolute; z-index: 0; border-radius: 50%; filter: blur(70px); pointer-events: none; opacity: calc(0.7 + var(--pin) * 0.3); }
-.stage-glow--a { width: 420px; height: 420px; right: 6%; top: -14%; background: radial-gradient(circle, rgba(11, 16, 32, 0.14), transparent 65%); }
-.stage-glow--b { width: 380px; height: 380px; left: 4%; bottom: -20%; background: radial-gradient(circle, rgba(11, 16, 32, 0.1), transparent 65%); }
+.stage-glow--a { width: 420px; height: 420px; right: 6%; top: -14%; background: radial-gradient(circle, rgba(28, 25, 23, 0.14), transparent 65%); }
+.stage-glow--b { width: 380px; height: 380px; left: 4%; bottom: -20%; background: radial-gradient(circle, rgba(28, 25, 23, 0.1), transparent 65%); }
 .stage-phones { position: relative; height: 560px; display: flex; justify-content: center; align-items: center; }
 .stage-phones .phone { position: absolute; will-change: transform; }
 .stage-phones .phone:nth-child(1) { --w: 250px; transform: translate(calc(-58% - var(--pin) * 5%), calc(12px - var(--pin) * 18px)) rotate(calc(-6deg - var(--pin) * 8deg)); z-index: 1; }
@@ -62,7 +105,7 @@
 .story-step .step-shot { display: none; }
 .story-stage { position: sticky; top: max(84px, calc(50vh - 350px)); height: min(700px, calc(100vh - 100px)); display: grid; place-items: center; }
 .story-stage .phone { --w: min(316px, calc((100vh - 170px) * 0.46)); z-index: 2; }
-.story-glow { position: absolute; z-index: 0; width: 520px; height: 520px; border-radius: 50%; filter: blur(80px); opacity: 0.55; background: radial-gradient(circle, rgba(11, 16, 32, 0.22), transparent 65%); }
+.story-glow { position: absolute; z-index: 0; width: 520px; height: 520px; border-radius: 50%; filter: blur(80px); opacity: 0.55; background: radial-gradient(circle, rgba(28, 25, 23, 0.22), transparent 65%); }
 .story-stage .phone .screen { background: #0b0e17; }
 .shot { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity 0.7s var(--ease), transform 0.9s var(--ease); }
 .shot.is-active { opacity: 1; transform: none; }
@@ -82,7 +125,7 @@
 /* On taller phones, keep the story visible while the visitor scrolls through it.
    The regular stacked layout remains the fallback for short screens and no JS. */
 @media (max-width: 860px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
-  .story-body.story-mobile { --story-panel: calc((100svh - 88px) * .46); display: block; height: 450svh; }
+  .story-body.story-mobile { --story-panel: calc((100svh - 88px) * .46); display: block; height: 525svh; }
   .story-mobile .story-viewport { display: grid; position: sticky; top: 76px; grid-template-rows: var(--story-panel) var(--story-panel); }
   .story-mobile .story-steps { position: relative; height: var(--story-panel); }
   .story-mobile .story-step { position: absolute; inset: 0; min-height: 0; max-width: none; padding: 8px 0; border: 0; opacity: 0; visibility: hidden; pointer-events: none; justify-content: center; gap: 10px; transform: translateY(8px); transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s; }
@@ -92,6 +135,134 @@
   .story-mobile .story-stage .phone { --w: min(185px, calc(var(--story-panel) * .43)); }
   .story-mobile .story-glow { width: min(90vw, 350px); height: min(90vw, 350px); }
   .story-mobile .story-dots { display: none; }
+}
+
+/* --- Story cards ----------------------------------------------------------
+   Each step's key moment (claiming, reminders, extract work, a recurring
+   checklist, charts, themes, approval), drawn as a small card beside the phone.
+   The resting style is the card's final state; while the step is active the
+   card plays once from its starting state. Without motion it simply rests. */
+.story-cards { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.story-card { position: absolute; right: -6%; bottom: 6%; width: min(276px, 72%); opacity: 0; transform: translateY(16px) scale(0.97); transition: opacity 0.45s var(--ease), transform 0.6s var(--ease); }
+.story-card.is-active { opacity: 1; transform: none; transition-delay: 0.12s; }
+.sc { --d: 0.45s; font-size: 13px; line-height: 1.35; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--sh-3); padding: 1.05em 1.1em; display: grid; gap: 0.6em; text-align: left; }
+.sc-top { font-size: 0.72em; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+.sc-title { font-weight: 650; font-size: 1.05em; }
+.sc-sub { font-size: 0.84em; color: var(--mute); margin-top: -0.4em; }
+.sc-foot { margin: 0; font-size: 0.78em; color: var(--mute); line-height: 1.4; }
+.sc-foot b { color: var(--ink); font-weight: 650; }
+.sc-muted { color: var(--mute); }
+.sc-pills { display: flex; flex-wrap: wrap; gap: 0.35em; }
+.sc-pill { --c: var(--blue); display: inline-flex; align-items: center; font-size: 0.74em; font-weight: 700; letter-spacing: 0.03em; padding: 0.3em 0.7em; border-radius: 999px; color: color-mix(in srgb, var(--c) 72%, var(--ink)); background: color-mix(in srgb, var(--c) 14%, var(--white)); white-space: nowrap; }
+.sc-pill[data-on] { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c) 55%, transparent); }
+.sc-btn { display: inline-block; font-size: 0.8em; font-weight: 700; padding: 0.45em 0.95em; border-radius: 999px; background: var(--ink); color: var(--paper); white-space: nowrap; }
+.sc-btn--off { background: var(--paper-2); color: var(--faint); }
+.sc-ok { font-size: 0.8em; font-weight: 700; white-space: nowrap; color: color-mix(in srgb, var(--checklist) 80%, var(--ink)); }
+.sc-swap { display: grid; justify-items: end; }
+.sc-swap > * { grid-area: 1 / 1; }
+.sc-a { opacity: 0; }
+/* Claim: both tap Claim at once; exactly one wins. */
+.sc--claim { --t: 1.35s; }
+.sc-rows { display: grid; gap: 0.45em; }
+.sc-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.6em; padding: 0.45em 0.55em; border: 1px solid var(--line); border-radius: 12px; font-size: 0.92em; }
+.sc-av { font-style: normal; width: 1.95em; height: 1.95em; border-radius: 50%; display: grid; place-items: center; font-size: 0.78em; font-weight: 700; color: #fff; background: var(--c); }
+.sc-row--win { border-color: color-mix(in srgb, var(--checklist) 45%, var(--line)); background: color-mix(in srgb, var(--checklist) 9%, var(--white)); }
+/* Reminders: a timeline that respects the night. */
+.sc-time { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55em; position: relative; }
+.sc-time::before { content: ""; position: absolute; left: 0.4em; top: 0.6em; bottom: 0.6em; width: 2px; background: var(--line-2); }
+.sc-time li { position: relative; padding-left: 1.55em; font-size: 0.88em; font-weight: 550; }
+.sc-time li::before { content: ""; position: absolute; left: 0; top: 0.26em; width: 0.9em; height: 0.9em; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px var(--white); }
+.sc-time li.sc-quiet { color: var(--mute); }
+.sc-time li.sc-quiet::before { background: repeating-linear-gradient(135deg, var(--mute) 0 2px, var(--white) 2px 4px); box-shadow: 0 0 0 3px var(--white), inset 0 0 0 1px var(--mute); }
+/* Notes: every draft starts as Leave open, then goes where it belongs. */
+.sc-draft { --t: calc(1s + var(--i) * 0.35s); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.6em; align-items: center; font-size: 0.88em; padding: 0.5em 0.6em; border: 1px solid var(--line); border-radius: 12px; }
+/* Checklist: a recurring routine ticked off, back next week. */
+.sc-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45em; }
+.sc-items li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.6em; align-items: center; font-size: 0.88em; }
+.sc-box { font-style: normal; width: 1.35em; height: 1.35em; border-radius: 0.4em; display: grid; place-items: center; font-size: 0.78em; font-weight: 800; color: #fff; background: var(--checklist); border: 1.5px solid var(--checklist); }
+.sc-items li span { color: var(--mute); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--mute) 70%, transparent); }
+.sc-bar { height: 6px; border-radius: 99px; background: var(--paper-2); overflow: hidden; }
+.sc-bar i { display: block; height: 100%; background: var(--checklist); transform-origin: left; }
+.sc-done { font-weight: 650; color: color-mix(in srgb, var(--checklist) 80%, var(--ink)); }
+/* Builder: one dataset, the chart that makes the answer obvious. */
+.sc-bars { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5em; height: 7.4em; }
+.sc-bars div { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 0.25em; min-width: 0; height: 100%; }
+.sc-bars b { font-size: 0.72em; font-weight: 700; font-variant-numeric: tabular-nums; }
+.sc-bars i { width: 100%; height: calc(var(--h) * 0.62); border-radius: 6px 6px 3px 3px; background: color-mix(in srgb, var(--builder) 55%, var(--white)); transform-origin: bottom; }
+.sc-bars div:first-child i { background: var(--builder); }
+.sc-bars span { font-size: 0.6em; color: var(--mute); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Presentation: the same deck restyled through designed themes. The slide is
+   theme content, so it keeps its own colours in light and dark. */
+.sc-slide { border-radius: 12px; padding: 0.95em 1em; display: grid; gap: 0.3em; background: #1f1b4d; color: #ffffff; }
+.sc-slide-sub { font-size: 0.64em; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+.sc-slide-title { font-family: var(--font-display); font-weight: 400; font-size: 1.5em; line-height: 1.05; }
+.sc-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5em; margin-top: 0.4em; }
+.sc-kpis b { display: block; font-size: 0.9em; }
+.sc-kpis span { display: block; font-size: 0.62em; opacity: 0.75; }
+.sc-themes .sc-pill { --c: var(--mute); }
+.sc-themes .sc-th1 { --c: var(--presentation); }
+/* ClicktAI: a preview first, applied only on approval. */
+.sc-ask { margin: 0; justify-self: end; max-width: 92%; background: var(--ink); color: var(--paper); font-size: 0.84em; padding: 0.55em 0.8em; border-radius: 14px 14px 4px 14px; }
+.sc-preview { display: grid; gap: 0.22em; font-size: 0.84em; padding: 0.7em 0.8em; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-2); }
+.sc-label { font-size: 0.8em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+.sc-actions { display: flex; gap: 0.4em; margin-top: 0.45em; }
+.sc-approve { background: var(--blue); color: var(--paper); }
+.sc-receipt { margin: 0; font-size: 0.84em; font-weight: 650; color: color-mix(in srgb, var(--checklist) 80%, var(--ink)); }
+
+/* The moment, played while the step is active. */
+.story-card.is-active .sc-a { animation: sc-hide 0.25s var(--ease) var(--t) both; }
+.story-card.is-active .sc-b { animation: sc-show 0.35s var(--ease) var(--t) both; }
+.story-card.is-active .sc--claim .sc-a { animation: sc-press 0.35s var(--ease) 0.95s, sc-hide 0.25s var(--ease) var(--t) both; }
+.story-card.is-active .sc-row--win { animation: sc-win 0.4s var(--ease) var(--t) both; }
+.story-card.is-active .sc-time li,
+.story-card.is-active .sc-draft { animation: sc-rise 0.4s var(--ease) calc(var(--d) + var(--i) * 0.22s) both; }
+.story-card.is-active .sc-box { animation: sc-tick 0.3s var(--ease) calc(0.7s + var(--i) * 0.35s) both; }
+.story-card.is-active .sc-items li span { animation: sc-strike 0.3s var(--ease) calc(0.7s + var(--i) * 0.35s) both; }
+.story-card.is-active .sc-bar i { animation: sc-grow 1.4s linear 0.7s both; }
+.story-card.is-active .sc-done { animation: sc-rise 0.4s var(--ease) 2.2s both; }
+.story-card.is-active .sc-bars i { animation: sc-bar 0.6s var(--ease) calc(var(--d) + var(--i) * 0.1s) both; }
+.story-card.is-active .sc-bars b { animation: sc-rise 0.3s var(--ease) calc(0.95s + var(--i) * 0.1s) both; }
+.story-card.is-active .sc-slide { animation: sc-theme 2.7s var(--ease) 0.4s both; }
+.story-card.is-active .sc-th1 { animation: sc-th-c 2.7s var(--ease) 0.4s both; }
+.story-card.is-active .sc-th2 { animation: sc-th-b 2.7s var(--ease) 0.4s both; }
+.story-card.is-active .sc-th3 { animation: sc-th-a 2.7s var(--ease) 0.4s both; }
+.story-card.is-active .sc-ask { animation: sc-rise 0.4s var(--ease) 0.35s both; }
+.story-card.is-active .sc-preview { animation: sc-rise 0.4s var(--ease) 0.8s both; }
+.story-card.is-active .sc-approve { animation: sc-press 0.35s var(--ease) 1.65s; }
+.story-card.is-active .sc-receipt { animation: sc-rise 0.4s var(--ease) 2s both; }
+@keyframes sc-hide { from { opacity: 1; } to { opacity: 0; } }
+@keyframes sc-show { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
+@keyframes sc-rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes sc-press { 50% { transform: scale(0.9); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 12%, transparent); } }
+@keyframes sc-win { from { border-color: var(--line); background: var(--white); } }
+@keyframes sc-tick { from { background: transparent; color: transparent; border-color: var(--line-2); transform: scale(0.9); } }
+@keyframes sc-strike { from { color: var(--ink); text-decoration-color: transparent; } }
+@keyframes sc-grow { from { transform: scaleX(0); } }
+@keyframes sc-bar { from { transform: scaleY(0); } }
+@keyframes sc-theme {
+  0%, 30% { background: #ffffff; color: #111111; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); }
+  36%, 64% { background: #f4efe0; color: #1c1917; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+  70%, 100% { background: #1f1b4d; color: #ffffff; box-shadow: none; }
+}
+@keyframes sc-th-a {
+  0%, 30% { color: color-mix(in srgb, var(--presentation) 72%, var(--ink)); background: color-mix(in srgb, var(--presentation) 14%, var(--white)); }
+  36%, 100% { color: color-mix(in srgb, var(--mute) 72%, var(--ink)); background: color-mix(in srgb, var(--mute) 14%, var(--white)); }
+}
+@keyframes sc-th-b {
+  0%, 30%, 70%, 100% { color: color-mix(in srgb, var(--mute) 72%, var(--ink)); background: color-mix(in srgb, var(--mute) 14%, var(--white)); }
+  36%, 64% { color: color-mix(in srgb, var(--presentation) 72%, var(--ink)); background: color-mix(in srgb, var(--presentation) 14%, var(--white)); }
+}
+@keyframes sc-th-c {
+  0%, 64% { color: color-mix(in srgb, var(--mute) 72%, var(--ink)); background: color-mix(in srgb, var(--mute) 14%, var(--white)); }
+  70%, 100% { color: color-mix(in srgb, var(--presentation) 72%, var(--ink)); background: color-mix(in srgb, var(--presentation) 14%, var(--white)); }
+}
+/* Stacked phone layout (short screens, no JS): the card rests under its phone. */
+.story-step .step-shot .sc { position: relative; z-index: 3; max-width: 300px; margin: -64px auto 0; }
+/* Taller phones, sticky story: a smaller card overlapping the phone. */
+.story-mobile .story-card { right: 0; bottom: 0; width: min(218px, 58vw); }
+.story-mobile .sc { font-size: 10.5px; padding: 0.85em 0.9em; gap: 0.5em; }
+@media (prefers-reduced-motion: reduce) {
+  .story-card, .story-card * { animation: none !important; transition: none !important; }
 }
 
 /* --- Devices ------------------------------------------------------------ */

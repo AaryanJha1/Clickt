@@ -6,20 +6,20 @@
    ========================================================================== */
 
 :root {
-  --paper: #ffffff;
-  --paper-2: #f5f5f5;
-  --paper-3: #ececec;
+  --paper: #faf8f5;
+  --paper-2: #f2efea;
+  --paper-3: #e8e3db;
   --white: #ffffff;
-  --ink: #0b1020;
-  --ink-2: #2a3145;
-  --mute: #5b6376;
-  --faint: #8a91a3;
-  --line: rgba(11, 16, 32, 0.09);
-  --line-2: rgba(11, 16, 32, 0.16);
+  --ink: #1c1917;
+  --ink-2: #3a3430;
+  --mute: #6b635b;
+  --faint: #8f867c;
+  --line: rgba(28, 25, 23, 0.09);
+  --line-2: rgba(28, 25, 23, 0.16);
 
-  --blue: #1f4bff;
-  --blue-deep: #1636c7;
-  --blue-soft: #e8edff;
+  --blue: #4338ca;
+  --blue-deep: #3730a3;
+  --blue-soft: #ecebfb;
   --violet: #7a5cfa;
   --rose: #e86bb4;
 
@@ -29,7 +29,7 @@
   --builder: #e08a00;
   --presentation: #7a5cfa;
   --calendar: #e5484d;
-  --ai: linear-gradient(115deg, #2a4df0 0%, #1a36c4 45%, #0b1020 100%);
+  --ai: linear-gradient(115deg, #5145e0 0%, #4338ca 45%, #1c1917 100%);
 
   --success: #12a150;
   --warn: #e08a00;
@@ -41,10 +41,10 @@
   --r-xl: 34px;
   --r-pill: 999px;
 
-  --sh-1: 0 1px 2px rgba(11, 16, 32, 0.05), 0 1px 1px rgba(11, 16, 32, 0.03);
-  --sh-2: 0 2px 4px rgba(11, 16, 32, 0.04), 0 10px 30px -8px rgba(11, 16, 32, 0.12);
-  --sh-3: 0 4px 8px rgba(11, 16, 32, 0.04), 0 28px 70px -16px rgba(11, 16, 32, 0.22);
-  --sh-device: 0 2px 6px rgba(11, 16, 32, 0.12), 0 30px 80px -20px rgba(11, 16, 32, 0.38), 0 60px 120px -40px rgba(11, 16, 32, 0.22);
+  --sh-1: 0 1px 2px rgba(28, 25, 23, 0.05), 0 1px 1px rgba(28, 25, 23, 0.03);
+  --sh-2: 0 2px 4px rgba(28, 25, 23, 0.04), 0 10px 30px -8px rgba(28, 25, 23, 0.12);
+  --sh-3: 0 4px 8px rgba(28, 25, 23, 0.04), 0 28px 70px -16px rgba(28, 25, 23, 0.22);
+  --sh-device: 0 2px 6px rgba(28, 25, 23, 0.12), 0 30px 80px -20px rgba(28, 25, 23, 0.38), 0 60px 120px -40px rgba(28, 25, 23, 0.22);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
@@ -106,7 +106,8 @@ body::after {
 .wrap--prose { max-width: calc(760px + var(--gutter) * 2); }
 .section { padding-block: clamp(72px, 10vw, 150px); position: relative; }
 .section--tight { padding-block: clamp(48px, 6vw, 88px); }
-.section--paper2 { background: var(--paper-2); }
+/* One page colour everywhere: the old alternating band now shares the page background. */
+.section--paper2 { background: transparent; }
 .center { text-align: center; }
 .stack > * + * { margin-top: var(--stack, 1rem); }
 
@@ -116,8 +117,12 @@ body::after {
 .title { font-size: clamp(2.3rem, 5vw, 4.1rem); line-height: 1; text-wrap: balance; }
 .title--sm { font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.04; }
 .display em, .title em, .h-serif em {
-  font-style: italic; padding-right: 0.06em;
+  /* The gradient only paints inside the word's box, and italic letters lean past it
+     (the tail of a "p", the end of a "y"). Extra padding on every side gives them
+     room; the negative left margin keeps the word exactly where it was. */
+  font-style: italic; padding: 0.12em 0.08em 0.16em 0.14em; margin-left: -0.14em;
   background: var(--ai); -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 h3, .h3 { font-size: 1.2rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
 .lead { font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--ink-2); max-width: 60ch; text-wrap: pretty; }
@@ -156,11 +161,11 @@ html[lang="ne"] .eyebrow, html[lang="ne"] .slate { letter-spacing: 0.04em; text-
   background: var(--bg); color: var(--fg); border: 1px solid var(--bd);
   font-size: 0.95rem; font-weight: 600; letter-spacing: -0.005em; line-height: 1; white-space: nowrap;
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.2s;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 6px 18px -8px rgba(11, 16, 32, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 6px 18px -8px rgba(28, 25, 23, 0.5);
 }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 14px 28px -10px rgba(11, 16, 32, 0.55); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 14px 28px -10px rgba(28, 25, 23, 0.55); }
 .btn:active { transform: translateY(0); }
-.btn--primary { --bg: var(--blue); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 10px 26px -8px rgba(31, 75, 255, 0.65); }
+.btn--primary { --bg: var(--blue); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 10px 26px -8px rgba(67, 56, 202, 0.65); }
 .btn--ghost { --bg: transparent; --fg: var(--ink); --bd: var(--line-2); box-shadow: none; }
 .btn--ghost:hover { background: var(--white); box-shadow: var(--sh-2); }
 .btn--white { --bg: #fff; --fg: var(--ink); }
@@ -182,7 +187,7 @@ html[lang="ne"] .eyebrow, html[lang="ne"] .slate { letter-spacing: 0.04em; text-
 /* --- Header ------------------------------------------------------------ */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 60; height: var(--header-h); transition: background 0.3s, box-shadow 0.3s; }
 .site-header.is-scrolled, body.menu-open .site-header {
-  background: rgba(251, 250, 246, 0.8);
+  background: rgba(250, 248, 245, 0.85);
   -webkit-backdrop-filter: saturate(1.5) blur(20px); backdrop-filter: saturate(1.5) blur(20px);
   box-shadow: 0 1px 0 var(--line);
 }
@@ -194,7 +199,7 @@ html[lang="ne"] .eyebrow, html[lang="ne"] .slate { letter-spacing: 0.04em; text-
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--r-pill);
   font-size: 0.92rem; font-weight: 500; color: var(--ink-2); transition: background 0.2s, color 0.2s;
 }
-.nav-link:hover, .nav-item.is-open > .nav-link, .nav-link[aria-current="page"] { background: rgba(11, 16, 32, 0.06); color: var(--ink); }
+.nav-link:hover, .nav-item.is-open > .nav-link, .nav-link[aria-current="page"] { background: rgba(28, 25, 23, 0.06); color: var(--ink); }
 .nav-link svg { width: 12px; height: 12px; transition: transform 0.3s var(--ease); }
 .nav-item { position: relative; }
 .nav-item[data-menu] { position: static; }
@@ -222,12 +227,12 @@ html[lang="ne"] .eyebrow, html[lang="ne"] .slate { letter-spacing: 0.04em; text-
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .lang {
-  display: inline-flex; padding: 3px; border-radius: var(--r-pill); background: rgba(11, 16, 32, 0.06);
+  display: inline-flex; padding: 3px; border-radius: var(--r-pill); background: rgba(28, 25, 23, 0.06);
   font-size: 0.78rem; font-weight: 600;
 }
 .lang button { padding: 5px 12px; border-radius: var(--r-pill); color: var(--mute); min-width: 38px; transition: background 0.25s, color 0.25s; }
 .lang button.is-active { background: var(--white); color: var(--ink); box-shadow: var(--sh-1); }
-.burger { display: none; width: 44px; height: 44px; border-radius: 50%; place-items: center; background: rgba(11, 16, 32, 0.06); }
+.burger { display: none; width: 44px; height: 44px; border-radius: 50%; place-items: center; background: rgba(28, 25, 23, 0.06); }
 .burger span, .burger span::before { display: block; width: 18px; height: 1.6px; background: var(--ink); border-radius: 2px; position: relative; transition: transform 0.3s var(--ease); }
 .burger span::before { content: ""; position: absolute; top: 6px; left: 0; }
 .burger span { transform: translateY(-3px); }
@@ -254,7 +259,7 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 1021px) { .mobile-sheet { display: none; } }
 
 /* --- Footer ------------------------------------------------------------ */
-.site-footer { position: relative; overflow: hidden; background: var(--paper-2); border-top: 1px solid var(--line); padding-top: clamp(56px, 8vw, 96px); }
+.site-footer { position: relative; overflow: hidden; background: transparent; border-top: 1px solid var(--line); padding-top: clamp(56px, 8vw, 96px); }
 .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); gap: 32px; position: relative; z-index: 1; }
 .footer-brand img { height: 34px; width: auto; }
 .footer-brand p { margin-top: 16px; color: var(--mute); font-size: 0.92rem; max-width: 30ch; }
@@ -279,10 +284,10 @@ body.menu-open { overflow: hidden; }
 /* --- Ambient light: soft drifting shade behind hero and key frames. The page is black on
        white, so every variant is a neutral grey; the names only set how strong it is. ---- */
 .glow { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55; pointer-events: none; will-change: transform; }
-.glow--blue { background: radial-gradient(circle, rgba(11, 16, 32, 0.16), transparent 65%); }
-.glow--peach { background: radial-gradient(circle, rgba(11, 16, 32, 0.1), transparent 65%); }
-.glow--violet { background: radial-gradient(circle, rgba(11, 16, 32, 0.12), transparent 65%); }
-.glow--teal { background: radial-gradient(circle, rgba(11, 16, 32, 0.1), transparent 65%); }
+.glow--blue { background: radial-gradient(circle, rgba(28, 25, 23, 0.16), transparent 65%); }
+.glow--peach { background: radial-gradient(circle, rgba(28, 25, 23, 0.1), transparent 65%); }
+.glow--violet { background: radial-gradient(circle, rgba(28, 25, 23, 0.12), transparent 65%); }
+.glow--teal { background: radial-gradient(circle, rgba(28, 25, 23, 0.1), transparent 65%); }
 @keyframes drift { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(4%, -6%, 0) scale(1.08); } 100% { transform: translate3d(-3%, 4%, 0) scale(1); } }
 .glow { animation: drift 18s ease-in-out infinite alternate; }
 .glow:nth-of-type(2n) { animation-duration: 24s; animation-direction: alternate-reverse; }
@@ -317,3 +322,39 @@ body.menu-open { overflow: hidden; }
 .theme-options button { padding: 6px 11px; border-radius: var(--r-pill); color: var(--mute); font-size: .78rem; font-weight: 600; }
 .theme-options button[aria-pressed="true"] { background: var(--white); color: var(--ink); box-shadow: var(--sh-1); }
 .mobile-sheet .theme-control { margin-top: 28px; }
+
+/* --- The Clickt cursor across the site (assets/js/pointer.js) ---------------
+   Decoration only: it glides to a section's main control and shows a click. */
+.ptr { position: fixed; inset: 0; z-index: 55; pointer-events: none; }
+.ptr-cursor { position: absolute; left: -6px; top: -4px; width: 34px; height: 34px; opacity: 0; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); will-change: transform, opacity; }
+.ptr-cursor svg { display: block; width: 100%; height: 100%; fill: var(--ink); stroke: var(--paper); stroke-width: 1.4; stroke-linejoin: round; }
+.ptr-press { position: absolute; opacity: 0; }
+.ptr-click { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.ptr-ring { position: absolute; left: -40px; top: -40px; width: 80px; height: 80px; border-radius: 50%; border: 1.5px solid var(--blue); opacity: 0; }
+.ptr-ray { position: absolute; left: -1px; top: 0; width: 2px; height: 14px; transform-origin: 50% 0; }
+.ptr-ray i { position: absolute; inset: 0; border-radius: 2px; background: var(--blue); opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .ptr { display: none; } }
+
+/* --- The light that follows the mouse, on every page (assets/js/light.js) ----
+   Fixed behind the content (z-index -1), so it glows on the page background and
+   passes under cards. Mouse and pen only; off with reduced motion. */
+:root { --light-c: color-mix(in srgb, var(--blue) 13%, transparent); }
+.mouse-light { position: fixed; left: 0; top: 0; width: 680px; height: 680px; margin: -340px 0 0 -340px; border-radius: 50%; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, var(--light-c), transparent 72%); opacity: 0; transition: opacity 0.45s ease; will-change: transform; }
+.mouse-light.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .mouse-light { display: none; } }
+
+/* --- The site's background, on every page ----------------------------------
+   One fixed layer behind everything: the page colour stays the same, with the
+   hero's look carried through every section: soft module-colour glows drifting
+   slowly over a faint dot grid. Sections are transparent, so it shows through;
+   cards keep their own surfaces. The mouse light sits just above it. */
+.ambient { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.ambient::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1.4px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(85% 75% at 50% 45%, #000 30%, transparent 85%); mask-image: radial-gradient(85% 75% at 50% 45%, #000 30%, transparent 85%); opacity: 0.8; }
+.ambient-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.11; mix-blend-mode: multiply; will-change: transform; animation: ambient-orbit 48s linear infinite; }
+.ambient-glow--a { width: 44vw; max-width: 760px; aspect-ratio: 1; left: -10%; top: -12%; background: var(--teams); }
+.ambient-glow--b { width: 38vw; max-width: 660px; aspect-ratio: 1; right: -10%; top: 18%; background: var(--presentation); animation-duration: 56s; animation-delay: -18s; }
+.ambient-glow--c { width: 34vw; max-width: 580px; aspect-ratio: 1; left: 30%; bottom: -22%; background: var(--builder); opacity: 0.08; animation-duration: 42s; animation-delay: -9s; }
+.ambient-glow--d { width: 28vw; max-width: 480px; aspect-ratio: 1; left: -6%; bottom: 8%; background: var(--checklist); opacity: 0.06; animation-duration: 62s; animation-delay: -30s; }
+@keyframes ambient-orbit { from { transform: rotate(0deg) translateX(10%) rotate(0deg); } to { transform: rotate(360deg) translateX(10%) rotate(-360deg); } }
+@media (max-width: 700px) { .ambient-glow { width: 80vw; filter: blur(70px); } }
+@media (prefers-reduced-motion: reduce) { .ambient-glow { animation: none; } }

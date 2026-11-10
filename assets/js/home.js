@@ -39,13 +39,14 @@
 
   /* Sticky module story: scroll progress through the steps column is
      bucketed into N equal steps (0–1/N is step 1, 1/N–2/N is step 2, …).
-     Crossing a boundary snaps the active step; the phone screen and copy
-     crossfade via CSS transition. Dots show and jump to the current step. */
+     Crossing a boundary snaps the active step; the phone screen, copy and
+     the step's animated card crossfade via CSS transition. Dots show and jump to the current step. */
   var story = document.querySelector('[data-story]');
   var stepsCol = story && story.querySelector('.story-steps');
   if (story && stepsCol) {
     var steps = qsa('[data-step]', story);
     var shots = qsa('[data-shot]', story);
+    var cards = qsa('[data-card]', story);
     var dots = qsa('[data-dots] i', story);
     var glow = story.querySelector('[data-glow]');
     var stageEl = story.querySelector('.story-stage');
@@ -60,6 +61,8 @@
         s.inert = mobileActive && n !== i;
       });
       shots.forEach(function (s, n) { s.classList.toggle('is-active', n === i); });
+      /* The step's card replays its moment each time the step becomes active. */
+      cards.forEach(function (c, n) { c.classList.toggle('is-active', n === i); });
       dots.forEach(function (d, n) { d.classList.toggle('is-active', n === i); });
       var col = steps[i].getAttribute('data-color');
       if (glow) glow.style.setProperty('--mc', col);

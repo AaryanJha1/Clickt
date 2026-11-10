@@ -239,7 +239,7 @@
     var keys = ['kathmandu', 'pokhara', 'lalitpur', 'biratnagar', 'butwal'];
     var canvas = root.querySelector('[data-canvas]');
     var tabs = qsa('[data-kind]', root);
-    var COL = ['#e08a00', '#1f4bff', '#12a150', '#7a5cfa', '#e5484d'];
+    var COL = ['#e08a00', '#4338ca', '#12a150', '#7a5cfa', '#e5484d'];
     var kind = 'bar';
     var max = Math.max.apply(null, vals);
     var total = vals.reduce(function (a, b) { return a + b; }, 0);
@@ -250,7 +250,7 @@
     function gy(v) { return YB - (v / (max * 1.12)) * (YB - YT); }
     function grid() {
       var s = '';
-      for (var i = 0; i <= 3; i++) { var y = YB - i * ((YB - YT) / 3); s += '<line x1="' + X0 + '" x2="' + X1 + '" y1="' + y + '" y2="' + y + '" stroke="rgba(11,16,32,.08)"/>'; }
+      for (var i = 0; i <= 3; i++) { var y = YB - i * ((YB - YT) / 3); s += '<line x1="' + X0 + '" x2="' + X1 + '" y1="' + y + '" y2="' + y + '" stroke="rgba(28, 25, 23,.08)"/>'; }
       return s;
     }
     function labels(n) {
@@ -286,7 +286,7 @@
           s += '<circle class="c-fade" style="animation-delay:' + i * 90 + 'ms" cx="120" cy="105" r="' + r + '" fill="none" stroke="' + COL[i] + '" stroke-width="26" stroke-dasharray="' + (len - 2) + ' ' + (c - len + 2) + '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 120 105)"/>';
           off += len;
         });
-        s += '<text x="120" y="104" text-anchor="middle" style="font-size:24px;font-weight:700;fill:#0b1020">' + total + '</text><text x="120" y="122" text-anchor="middle">' + T('scene.chart.sales').split('(')[0].trim() + '</text>';
+        s += '<text x="120" y="104" text-anchor="middle" style="font-size:24px;font-weight:700;fill:#1c1917">' + total + '</text><text x="120" y="122" text-anchor="middle">' + T('scene.chart.sales').split('(')[0].trim() + '</text>';
         n.forEach(function (t, i) { s += '<rect x="226" y="' + (52 + i * 24) + '" width="10" height="10" rx="3" fill="' + COL[i] + '"/><text x="244" y="' + (61 + i * 24) + '" style="font-size:11px">' + t + '</text>'; });
         return svg(s);
       },

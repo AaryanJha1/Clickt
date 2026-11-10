@@ -54,7 +54,7 @@
   font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint);
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
-.vignette::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; background: radial-gradient(120% 100% at 50% 40%, transparent 55%, rgba(11, 16, 32, 0.05) 100%); }
+.vignette::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; background: radial-gradient(120% 100% at 50% 40%, transparent 55%, rgba(28, 25, 23, 0.05) 100%); }
 
 /* --- Chips, tags, segmented controls ----------------------------------- */
 .chip {
@@ -72,7 +72,7 @@
 .mod--calendar { --c: var(--calendar); }
 html[lang="ne"] .mod { text-transform: none; letter-spacing: 0; }
 
-.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: rgba(11, 16, 32, 0.06); }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: rgba(28, 25, 23, 0.06); }
 .seg button { padding: 8px 16px; border-radius: var(--r-pill); font-size: 0.86rem; font-weight: 600; color: var(--mute); transition: background 0.25s, color 0.25s, box-shadow 0.25s; }
 .seg button:hover { color: var(--ink); }
 .seg button[aria-selected="true"], .seg button.is-active { background: var(--white); color: var(--ink); box-shadow: var(--sh-1), 0 0 0 1px var(--line); }
@@ -140,18 +140,18 @@ a.card:hover, .card--lift:hover { transform: translateY(-4px); box-shadow: var(-
   font: inherit; color: var(--ink); transition: border-color 0.2s, box-shadow 0.2s;
 }
 .field textarea { min-height: 130px; resize: vertical; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(31, 75, 255, 0.14); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.14); }
 .form-note { font-size: 0.86rem; color: var(--mute); }
 .form-ok { padding: 16px 18px; border-radius: var(--r-md); background: #e8f7ee; color: #0b5d2c; font-weight: 600; }
 
 /* --- Dialog ------------------------------------------------------------- */
 .dialog { width: min(520px, calc(100vw - 32px)); border: 0; border-radius: var(--r-xl); padding: clamp(24px, 4vw, 40px); background: var(--white); color: var(--ink); box-shadow: var(--sh-3); }
-.dialog::backdrop { background: rgba(11, 16, 32, 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.dialog::backdrop { background: rgba(28, 25, 23, 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .dialog[open] { animation: pop 0.45s var(--ease); }
 @keyframes pop { from { opacity: 0; transform: translateY(14px) scale(0.96); } }
 .dialog .title { margin: 14px 0 12px; }
 .dialog .lead { font-size: 1rem; }
-.dialog-x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(11, 16, 32, 0.06); }
+.dialog-x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(28, 25, 23, 0.06); }
 .dialog-x svg { width: 18px; height: 18px; }
 .dialog-note { display: flex; gap: 14px; margin: 22px 0; padding: 16px; border-radius: var(--r-md); background: var(--paper-2); font-size: 0.9rem; color: var(--ink-2); }
 .dialog-note span { font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
@@ -187,10 +187,10 @@ a.card:hover, .card--lift:hover { transform: translateY(-4px); box-shadow: var(-
 .crumbs span[aria-hidden] { opacity: 0.5; }
 
 /* --- Final CTA end-card -------------------------------------------------- */
-.endcard { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-xl); padding: clamp(48px, 8vw, 110px) clamp(24px, 6vw, 80px); text-align: center; color: #fff; background: radial-gradient(120% 140% at 20% 0%, #2b2f3a 0%, #14171f 35%, #05070c 100%); box-shadow: var(--sh-3); }
+.endcard { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-xl); padding: clamp(48px, 8vw, 110px) clamp(24px, 6vw, 80px); text-align: center; color: #fff; background: radial-gradient(120% 140% at 20% 0%, #34302b 0%, #1c1917 35%, #0f0d0b 100%); box-shadow: var(--sh-3); }
 .endcard .glow { z-index: -1; background: radial-gradient(circle, rgba(255, 255, 255, 0.22), transparent 65%); }
 .endcard .title { color: #fff; margin-inline: auto; max-width: 16ch; }
-.endcard .title em { background: linear-gradient(115deg, #8fa6ff, #ffffff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.endcard .title em { background: linear-gradient(115deg, #a5b4fc, #ffffff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .endcard .lead { color: rgba(255, 255, 255, 0.78); margin: 22px auto 0; }
 .endcard .store-row { justify-content: center; margin-top: 36px; }
 .endcard .btn--dark { --bg: #fff; --fg: var(--ink); }
@@ -213,7 +213,7 @@ a.card:hover, .card--lift:hover { transform: translateY(-4px); box-shadow: var(-
 .prod-hero-copy .lead { margin-top: 24px; }
 .prod-hero-copy .actions { margin-top: 32px; }
 .prod-hero-device { position: relative; display: grid; justify-items: center; gap: 22px; }
-.prod-hero-device::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; top: 10%; left: 50%; transform: translateX(-50%); background: radial-gradient(circle, rgba(11, 16, 32, 0.16), transparent 65%); filter: blur(60px); z-index: 0; }
+.prod-hero-device::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; top: 10%; left: 50%; transform: translateX(-50%); background: radial-gradient(circle, rgba(28, 25, 23, 0.16), transparent 65%); filter: blur(60px); z-index: 0; }
 .prod-hero-device .phone { z-index: 1; }
 .prod-hero-device figcaption { position: relative; z-index: 1; display: grid; gap: 2px; max-width: 320px; text-align: center; font-size: 0.88rem; color: var(--mute); }
 .prod-hero-device figcaption strong { color: var(--ink); }

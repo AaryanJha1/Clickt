@@ -239,6 +239,16 @@ html:not([data-theme]) { --ink:#f4f6fc; --ink-2:#d2d9e8; --mute:#b9c4d8; --faint
   
 }
 
+  /* Dark-mode accents use a solid color for browsers that recolor gradients. */
+  html[data-theme="dark"] .slide .h1 em, html[data-theme="dark"] .slide .steps i {
+    background: none; color: #aabeff; -webkit-text-fill-color: #aabeff;
+  }
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .slide .h1 em, html:not([data-theme]) .slide .steps i {
+      background: none; color: #aabeff; -webkit-text-fill-color: #aabeff;
+    }
+  }
+
   /* --- Upright screens: everything stacks ---------------------------------------- */
   @container slide (max-aspect-ratio: 6/5){
     .slide > *{

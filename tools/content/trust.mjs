@@ -7,6 +7,8 @@
 // until there are real ones. Loaded last, so it overrides older home copy.
 export default {
   en: {
+    // The founder's note on the home page: Clickt is customised to each organisation (no custom-software pitch).
+    index: { founder: { message: 'Hey - I’m Aaryan, founder of Click T Pvt. Ltd. We design and build Clickt, and we customise it to each organisation’s needs. Write to us any time at <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - I read every message.' } },
     // The Solutions menu in the header: one line under each industry.
     shell: { menu: { ind: {
       schools: 'Exams, events and departments', healthcare: 'Maintenance, checks and handoffs', banks: 'Branch readiness and follow-ups',
@@ -70,6 +72,7 @@ export default {
     },
   },
   ne: {
+    index: { founder: { message: 'नमस्ते - म आर्यन हुँ, Click T Pvt. Ltd. को संस्थापक। Clickt लाई हामीले डिजाइन र निर्माण गरेका हौं, र हरेक संस्थाको आवश्यकताअनुसार यसलाई अनुकूलन गर्छौं। जहिले पनि लेख्नुहोस्: <a href="mailto:clickt@click-t.com" style="color:inherit;text-decoration:underline">clickt@click-t.com</a> - म हरेक सन्देश पढ्छु।' } },
     shell: { menu: { ind: {
       schools: 'परीक्षा, कार्यक्रम र विभाग', healthcare: 'मर्मत, जाँच र सिफ्ट हस्तान्तरण', banks: 'शाखा तयारी र फलो-अप',
       ngos: 'फिल्ड काम र रिपोर्टिङ', hotels: 'सेवा, सुविधा र सिफ्ट', restaurants: 'खोल्ने, सेवा र बन्द गर्ने काम',

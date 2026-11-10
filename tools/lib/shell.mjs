@@ -125,8 +125,8 @@ export function document_({ p, id, path, current, title, desc, main, css = [], s
 <meta name="description" content="${esc(descT)}"${descAttr}>
 ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <link rel="canonical" href="${canonical}">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e1422" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <script src="/assets/js/theme.js"></script>
 <meta property="og:type" content="website">
@@ -157,6 +157,7 @@ ${head}
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
+<div class="ambient" aria-hidden="true"><span class="ambient-glow ambient-glow--a"></span><span class="ambient-glow ambient-glow--b"></span><span class="ambient-glow ambient-glow--c"></span><span class="ambient-glow ambient-glow--d"></span></div>
 ${bodyStart}
 <a class="skip-link" href="#main">${p.t('shell.skip')}</a>
 ${header(p, current)}
@@ -166,6 +167,8 @@ ${main}
 ${footer(p, current)}
 <script type="application/json" id="i18n-en">${JSON.stringify(jsEn).replace(/</g, '\\u003c')}</script>
 <script src="/assets/js/app.js" defer></script>
+<script src="/assets/js/pointer.js" defer></script>
+<script src="/assets/js/light.js" defer></script>
 ${scripts.map((s) => `<script src="/assets/js/${s}.js" defer></script>`).join('\n')}
 </body>
 </html>

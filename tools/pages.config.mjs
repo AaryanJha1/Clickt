@@ -3,7 +3,7 @@ export default [
   {
     id: 'home', module: 'home', splash: true, file: 'index.html', path: '/', current: 'home', priority: 1.0,
     title: { key: 'meta.home.title' }, desc: { key: 'meta.home.desc' },
-    css: ['scenes', 'home'], scripts: ['scenes', 'home'],
+    css: ['scenes', 'home'], scripts: ['scenes', 'home', 'hero-fx'],
     jsonld: {
       '@context': 'https://schema.org',
       '@graph': [

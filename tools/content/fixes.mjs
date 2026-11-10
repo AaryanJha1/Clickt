@@ -9,6 +9,13 @@ export default {
   en: {
     modulePages: Object.fromEntries(mods.map((m) => [m, { finalLead: enFinal(m) }])),
     clicktai: { finalCta: { body: 'ClicktAI is inside Clickt on Apple and Android.' } },
+    // Each Business organisation's app runs on its own instance and database (owner, confirmed 2026-11-10).
+    security: {
+      dataInfra: {
+        stored: { q: 'Where is data stored?', a: 'On managed cloud infrastructure (Firebase / Google Cloud). We don\'t run our own data centers. On Business, your organisation\'s app runs on its own instance with its own database.' },
+        dedicated: { q: 'Is our data kept separate from other organisations?', a: 'Yes. Every Business organisation gets its own app, running on its own instance and its own database, never mixed with another organisation\'s data. This is part of Business, not an add-on. The free public app runs on shared infrastructure.' },
+      },
+    },
     pricing: {
       companyEdition: {
         heading: 'One initial setup. Your own Clickt, ready for your team.',
@@ -34,6 +41,12 @@ export default {
   ne: {
     modulePages: Object.fromEntries(mods.map((m) => [m, { finalLead: neFinal(m) }])),
     clicktai: { finalCta: { body: 'ClicktAI Clickt भित्र Apple र Android मा उपलब्ध छ।' } },
+    security: {
+      dataInfra: {
+        stored: { q: 'डाटा कहाँ भण्डारण गरिन्छ?', a: 'व्यवस्थित क्लाउड पूर्वाधारमा (Firebase / Google Cloud)। हामी आफ्नै डाटा सेन्टर सञ्चालन गर्दैनौं। Business मा, तपाईंको संस्थाको एप आफ्नै इन्स्ट्यान्स र आफ्नै डाटाबेसमा चल्छ।' },
+        dedicated: { q: 'के हाम्रो डाटा अरू संस्थाबाट अलग राखिन्छ?', a: 'हो। हरेक Business संस्थाले आफ्नै एप पाउँछ, जुन आफ्नै इन्स्ट्यान्स र आफ्नै डाटाबेसमा चल्छ, अर्को संस्थाको डाटासँग कहिल्यै मिसिँदैन। यो Business कै भाग हो, थप सेवा होइन। निःशुल्क सार्वजनिक एप साझा पूर्वाधारमा चल्छ।' },
+      },
+    },
     pricing: {
       companyEdition: {
         heading: 'एक प्रारम्भिक सेटअप। तपाईंको टोलीका लागि तयार, तपाईंको आफ्नै Clickt।',

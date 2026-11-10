@@ -1,7 +1,7 @@
 import { icon } from '../lib/icons.mjs';
 import { url, storeButtons, androidDialog } from '../lib/shell.mjs';
 import { approve } from '../lib/scenes.mjs';
-import { APP_STORE } from '../lib/core.mjs';
+import { APP_STORE, EMAIL } from '../lib/core.mjs';
 
 const img = (src, alt, w, h, extra = '') => `<img src="/assets/img/${src}" alt="${alt}" width="${w}" height="${h}" decoding="async" ${extra}>`;
 const phoneEl = (src, alt, style = '', cls = '') => `<div class="phone ${cls}" style="${style}"><div class="screen">${img(src, alt, 640, 1391, 'loading="lazy"')}</div></div>`;
@@ -73,33 +73,27 @@ export default function home(p) {
         <p class="sc-foot"><b>${T('scene.key.title')}</b><br>${T('scene.key.openai')} · ${T('scene.key.anthropic')} · ${T('scene.key.gemini')} · ${T('scene.key.nvidia')}</p>
       </div>`,
   };
+  // One team's week, in the order the work happens (the same story as the Open Day Week
+  // videos): each step names its day, its module, what changed for the team, and links on.
   // [card, screen, colour, link page, label class, keys {k, h, b, l}]
   const steps = [
-    ['teams', 'phone/teams-tasks.webp', 'var(--teams)', 'teams', 'mod--teams'],
-    ['calendar', 'phone/calendar.webp', 'var(--calendar)', 'clicktai', 'mod--calendar', { h: 'home.ch2.reminderK', b: ['home.ch1.calendar.b'] }],
     ['notes', 'phone/notes.webp', 'var(--notes)', 'notes', 'mod--notes'],
+    ['teams', 'phone/teams-tasks.webp', 'var(--teams)', 'teams', 'mod--teams'],
+    ['calendar', 'phone/calendar.webp', 'var(--calendar)', 'clicktai', 'mod--calendar'],
     ['checklist', 'phone/checklist.webp', 'var(--checklist)', 'checklist', 'mod--checklist'],
     ['builder', 'phone/builder.webp', 'var(--builder)', 'builder', 'mod--builder'],
     ['presentation', 'phone/presentation.webp', 'var(--presentation)', 'presentation', 'mod--presentation'],
     ['ai', 'phone/ai-teams.webp', 'var(--blue)', 'clicktai', '', { k: 'home.story.ai.k', h: 'home.ch5.title', b: ['home.ch5.lead'], l: 'home.story.ai.l' }],
   ];
   const storyHtml = steps.map(([k, src, col, page, modCls, keys = {}], i) => `<article class="story-step${i === 0 ? ' is-active' : ''}" data-step data-color="${col}">
-      <span class="mod ${modCls}"${modCls ? '' : ` style="--c:${col}"`}>${p.t(keys.k || `home.ch1.${k}.k`)}</span>
-      ${p.e('h3', keys.h || `home.ch1.${k}.h`, 'class="h-serif"')}
-      ${keys.b ? `<p>${keys.b.map((b) => p.t(b)).join(' ')}</p>` : p.e('p', `home.ch1.${k}.b`)}
+      <span class="step-tag"><span class="mod ${modCls}"${modCls ? '' : ` style="--c:${col}"`}>${p.t(keys.k || `home.ch1.${k}.k`)}</span>${p.e('span', `home.week.${k}.when`, 'class="step-when"')}</span>
+      ${p.e('h3', keys.h || `home.week.${k}.h`, 'class="h-serif"')}
+      ${keys.b ? `<p>${keys.b.map((b) => p.t(b)).join(' ')}</p>` : p.e('p', `home.week.${k}.b`)}
       <a class="link-arrow" href="${url(page)}">${p.t(keys.l || `home.ch1.${k}.l`)}${icon('arrow')}</a>
       <div class="step-shot">${phoneEl(src, k, '', '')}${cards[k]}</div>
     </article>`).join('');
   const cardHtml = steps.map(([k], i) => `<div class="story-card${i === 0 ? ' is-active' : ''}" data-card>${cards[k]}</div>`).join('');
   const shots = steps.map(([k, src], i) => `<div class="shot${i === 0 ? ' is-active' : ''}" data-shot>${img(src, k, 640, 1391, i === 0 ? '' : 'loading="lazy"')}</div>`).join('');
-
-  const industries = [
-    ['schools', 'school'], ['healthcare', 'heart'], ['banks', 'bank'], ['ngos', 'hands'], ['hotels', 'bed'], ['restaurants', 'utensils'], ['construction', 'hardhat'],
-  ];
-  const indHtml = industries.map(([k, ico]) => `<a class="card ind" href="${url('solutions-' + k)}" data-reveal style="--c:var(--blue)">
-      <span class="ico-box">${icon(ico)}</span>${icon('arrowUpRight').replace('<svg', '<svg class="arrow-out"')}
-      <h3>${p.t(`siteShell.industry.${k}`)}</h3>${p.e('p', `solutions.industries.${k}`)}
-    </a>`).join('') + `<a class="card ind" href="${url('solutions')}" data-reveal style="background:var(--paper-2)"><span class="ico-box" style="--c:var(--ink)">${icon('arrow')}</span><h3>${p.t('home.nepal.all')}</h3></a>`;
 
   const droid = (src, alt) => phoneEl(src, alt, '--w:min(230px,44vw)', 'phone--android');
   // [platform, markup]
@@ -135,9 +129,13 @@ export default function home(p) {
 
   const faq = [1, 2, 3, 4, 5, 6].map((i) => `<details data-reveal><summary>${p.t(`home.faq.q${i}`)}</summary>${p.e('div', `home.faq.a${i}`, 'class="ans"')}</details>`).join('');
 
-  const proof = [
-    ['12', 'a'], ['23', 'b'], ['4', 'c'], ['5', 'd'],
-  ].map(([n, k]) => `<div data-reveal><span class="kpi" ${n !== '0' ? `data-count="${n}"` : ''}>${n}</span>${p.e('p', `home.proof.${k}`)}</div>`).join('');
+  // Four plain assurances under the hero demo, in place of feature counts: what a team
+  // deciding whether to adopt Clickt needs to hear first.
+  const assure = [['approve', 'check'], ['own', 'lock'], ['days', 'calendar'], ['local', 'pin']]
+    .map(([k, ico], i) => `<div class="assure-item" data-reveal style="--d:${i}"><span class="ico-box" style="--c:var(--blue)">${icon(ico)}</span><div>${p.e('h3', `home.assure.${k}.h`)}${p.e('p', `home.assure.${k}.b`)}</div></div>`).join('');
+  const demoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(p.text('home.hero.demoSubject'))}`;
+  const compare = [1, 2, 3, 4, 5].map((i) => `<div class="cmp-row" data-reveal>${p.e('p', `home.compare.r${i}.a`, 'class="cmp-a"')}<span class="cmp-arrow" aria-hidden="true">${icon('arrow')}</span>${p.e('p', `home.compare.r${i}.b`, 'class="cmp-b"')}</div>`).join('');
+  const startSteps = [1, 2, 3].map((i) => `<li data-reveal style="--d:${i}"><span class="start-n">0${i}</span>${p.e('h3', `home.start.s${i}.h`)}${p.e('p', `home.start.s${i}.b`)}</li>`).join('');
 
   return `
 <section class="hero">
@@ -151,6 +149,7 @@ export default function home(p) {
     <div class="hero-cta" data-reveal style="--d:4">
       ${storeButtons(p)}
     </div>
+    <p class="hero-demo" data-reveal style="--d:5">${p.t('home.hero.demo')} <a class="link-arrow" href="${demoHref}">${p.t('home.hero.demoCta')}${icon('arrow')}</a></p>
   </div>
   </div>
   <div class="hero-pin" data-hero-pin>
@@ -169,7 +168,7 @@ export default function home(p) {
       </div>
     </div>
   </div>
-  <div class="wrap"><div class="proof">${proof}</div></div>
+  <div class="wrap"><div class="assure">${assure}</div></div>
 </section>
 
 <section class="section" id="workspaces">
@@ -189,6 +188,19 @@ export default function home(p) {
         <div class="story-cards">${cardHtml}</div>
       </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      ${p.e('span', 'home.compare.kicker', 'class="eyebrow"')}
+      ${p.e('h2', 'home.compare.title', 'class="title title--sm" data-reveal="wipe"')}
+    </div>
+    <div class="cmp">
+      <div class="cmp-row cmp-head"><span>${p.t('home.compare.today')}</span><span></span><span>${p.t('home.compare.with')}</span></div>
+      ${compare}
     </div>
   </div>
 </section>
@@ -214,47 +226,26 @@ export default function home(p) {
   </div>
 </section>
 
-<section class="section section--paper2" id="nepal">
+<section class="section" id="start">
   <div class="wrap">
-    <div class="sec-head">
-      ${p.e('span', 'home.nepal.kicker', 'class="eyebrow"')}
-      ${p.e('h2', 'home.nepal.title', 'class="title" data-reveal="wipe"')}
-      ${p.e('p', 'home.nepal.lead', 'class="lead"')}
-    </div>
-    <div class="ind-grid">${indHtml}</div>
-    <div class="price-band" data-reveal>
-      ${p.e('p', 'home.nepal.price')}
-      <a class="btn" href="${url('pricing')}">${p.t('home.nepal.priceCta')}${icon('arrow').replace('<svg', '<svg class="arrow"')}</a>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="custom" data-reveal>
-      <div>
-        ${p.e('span', 'home.custom.kicker', 'class="eyebrow"')}
-        ${p.e('h2', 'home.custom.title', 'class="title title--sm" style="margin-top:18px"')}
-        ${p.e('p', 'home.custom.body')}
-        ${p.e('p', 'home.custom.existing')}
+    <!-- How to start, and who it is built for (the industries are in the header's Solutions menu). -->
+    <div class="start" data-reveal>
+      <div class="start-main">
+        ${p.e('span', 'home.start.kicker', 'class="eyebrow"')}
+        ${p.e('h2', 'home.start.title', 'class="title start-title"')}
+        ${p.e('p', 'home.start.lead', 'class="start-lead"')}
+        <ol class="start-steps">${startSteps}</ol>
         <div class="actions">
-          <a class="btn btn--dark" href="${url('contact')}">${p.t('home.custom.cta')}</a>
-          <a class="btn btn--ghost" href="${url('services')}#work">${p.t('home.custom.work')}</a>
+          <a class="btn btn--dark" href="${demoHref}">${p.t('home.start.demo')}</a>
+          <a class="btn btn--ghost" href="${url('security')}">${icon('shield')}${p.t('home.start.security')}</a>
         </div>
+        <p class="start-guarantee">${icon('check')}${p.t('home.start.note')} <a href="${url('pricing')}">${p.t('home.nepal.priceCta')}</a></p>
       </div>
-      <div class="chips-grid">
-        ${['custom', 'web', 'mobile', 'data', 'ai', 'integrations'].map((k) => `<span class="chip">${p.t(`services.capabilities.${k}.title`)}</span>`).join('')}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="founder" data-reveal>
-      <span class="eyebrow">${p.t('home.founder.title')}</span>
-      <blockquote style="margin-top:22px">${p.e('span', 'index.founder.message', 'style="display:block"')}</blockquote>
-      <div class="by"><span>${p.t('home.founder.by')}</span><a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+      <figure class="start-founder">
+        <span class="eyebrow">${p.t('home.founder.title')}</span>
+        <blockquote>${p.e('span', 'index.founder.message', 'style="display:block"')}</blockquote>
+        <figcaption class="by"><span>${p.t('home.founder.by')}</span><a href="https://www.linkedin.com/in/aaryan-j-3895541a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -275,6 +266,7 @@ export default function home(p) {
       ${p.e('h2', 'home.final.title', 'class="title"')}
       ${p.e('p', 'home.final.lead', 'class="lead"')}
       ${storeButtons(p)}
+      <div class="final-demo"><a class="btn btn--ghost" href="${demoHref}">${p.t('home.start.demo')}</a></div>
     </div>
   </div>
 </section>

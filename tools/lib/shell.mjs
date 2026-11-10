@@ -14,6 +14,8 @@ const PRODUCT = [
   ['pricing', 'plans', '--ink'],
 ];
 const INDUSTRIES = ['schools', 'healthcare', 'banks', 'ngos', 'hotels', 'restaurants', 'construction'];
+// The Solutions menu: each industry page, with its icon and a one-line summary.
+const INDUSTRY_ICON = { schools: 'school', healthcare: 'heart', banks: 'bank', ngos: 'hands', hotels: 'bed', restaurants: 'utensils', construction: 'hardhat' };
 
 const socialLinks = (cls = '') => SOCIAL.filter((x) => x.url).map((x) =>
   `<a class="social-btn${cls}" href="${x.url}" target="_blank" rel="noopener noreferrer" aria-label="${x.label}" title="${x.label}">${icon(x.id)}${cls ? `<span>${x.label}</span>` : ''}</a>`).join('');
@@ -34,6 +36,11 @@ export function header(p, current) {
     return `<a href="${url(name)}" style="--c:var(${col})"><span class="mega-ico">${icon(ico)}</span>${p.e('span', `siteShell.product.${key}`)}</a>`;
   }).join('');
 
+  const solTiles = INDUSTRIES.map((n) => `<a class="mega-tile" href="${url('solutions-' + n)}"${cur('solutions-' + n)}><span class="mega-ico">${icon(INDUSTRY_ICON[n])}</span><span class="mega-txt"><b>${p.t(`siteShell.industry.${n}`)}</b>${p.e('span', `shell.menu.ind.${n}`)}</span></a>`).join('')
+    + `<a class="mega-tile" href="${url('solutions')}"${cur('solutions')} style="--c:var(--ink)"><span class="mega-ico">${icon('arrow')}</span><span class="mega-txt"><b>${p.t('home.nepal.all')}</b>${p.e('span', 'shell.menu.ind.all')}</span></a>`;
+  const mobileSol = INDUSTRIES.map((n) => `<a href="${url('solutions-' + n)}"><span class="mega-ico">${icon(INDUSTRY_ICON[n])}</span>${p.e('span', `siteShell.industry.${n}`)}</a>`).join('')
+    + `<a href="${url('solutions')}" style="--c:var(--ink)"><span class="mega-ico">${icon('arrow')}</span>${p.e('span', 'home.nepal.all')}</a>`;
+
   return `<header class="site-header" data-header>
   <div class="wrap header-in">
     <a class="brand" href="/" aria-label="Clickt"><img src="/assets/img/brand/logo.webp" alt="Clickt" width="120" height="39" decoding="async"></a>
@@ -42,7 +49,10 @@ export function header(p, current) {
         <button class="nav-link" type="button" aria-expanded="false" aria-haspopup="true">${p.e('span', 'siteShell.header.product')}${icon('chevron')}</button>
         <div class="mega" role="menu">${tiles}</div>
       </div>
-      <a class="nav-link" href="${url('solutions')}"${cur('solutions')}>${p.t('siteShell.header.solutions')}</a>
+      <div class="nav-item" data-menu>
+        <button class="nav-link" type="button" aria-expanded="false" aria-haspopup="true"${current === 'solutions' ? ' aria-current="page"' : ''}>${p.e('span', 'siteShell.header.solutions')}${icon('chevron')}</button>
+        <div class="mega" role="menu">${solTiles}</div>
+      </div>
       <a class="nav-link" href="${url('services')}"${cur('services')}>${p.t('siteShell.header.services')}</a>
       <a class="nav-link" href="${url('about')}"${cur('about')}>${p.t('siteShell.header.about')}</a>
       <a class="nav-link" href="${url('contact')}"${cur('contact')}>${p.t('siteShell.header.contact')}</a>
@@ -58,10 +68,16 @@ export function header(p, current) {
   </div>
 </header>
 <div class="mobile-sheet" id="mobile-sheet" data-sheet>
-  <h4>${p.t('siteShell.header.product')}</h4>
-  ${mobileTiles}
+  <!-- Product and Solutions fold open and closed (native details, no script needed). -->
+  <details class="sheet-group">
+    <summary>${p.e('span', 'siteShell.header.product')}${icon('chevron')}</summary>
+    <div class="sheet-links">${mobileTiles}</div>
+  </details>
+  <details class="sheet-group">
+    <summary>${p.e('span', 'siteShell.header.solutions')}${icon('chevron')}</summary>
+    <div class="sheet-links">${mobileSol}</div>
+  </details>
   <h4>Click T</h4>
-  <a href="${url('solutions')}">${p.e('span', 'siteShell.header.solutions')}</a>
   <a href="${url('services')}">${p.e('span', 'siteShell.header.services')}</a>
   <a href="${url('about')}">${p.e('span', 'siteShell.header.about')}</a>
   <a href="${url('contact')}">${p.e('span', 'siteShell.header.contact')}</a>

@@ -68,7 +68,9 @@
     if (!slate || !ctas) return out;
     var s = rel(slate), b = rel(ctas);
     if (narrow) {
-      var y = b.bottom + 16 + ch / 2;
+      // Under the "Book a demo" line when there is one, so the cards never sit on it.
+      var demo = root.querySelector('.hero-demo');
+      var y = (demo ? rel(demo).bottom : b.bottom) + 16 + ch / 2;
       add(W / 2 - cw / 2 - 6, y); add(W / 2 + cw / 2 + 6, y);
       return out;
     }

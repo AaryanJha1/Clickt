@@ -358,3 +358,14 @@ body.menu-open { overflow: hidden; }
 @keyframes ambient-orbit { from { transform: rotate(0deg) translateX(10%) rotate(0deg); } to { transform: rotate(360deg) translateX(10%) rotate(-360deg); } }
 @media (max-width: 700px) { .ambient-glow { width: 80vw; filter: blur(70px); } }
 @media (prefers-reduced-motion: reduce) { .ambient-glow { animation: none; } }
+
+/* Phone menu: Product and Solutions fold open and closed. */
+.sheet-group { border-bottom: 1px solid var(--line); }
+.sheet-group:first-of-type { margin-top: 8px; }
+.sheet-group summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 4px; font-size: 1.15rem; font-weight: 600; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent; }
+.sheet-group summary::-webkit-details-marker { display: none; }
+.sheet-group summary svg { width: 18px; height: 18px; color: var(--mute); transition: transform 0.3s var(--ease); }
+.sheet-group[open] summary svg { transform: rotate(180deg); }
+.sheet-group summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 8px; }
+.sheet-links { padding: 0 0 10px 6px; }
+.sheet-links a:last-child { border-bottom: 0; }

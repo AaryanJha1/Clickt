@@ -44,6 +44,7 @@
 .hfx-on .hero-in .display .ln:last-of-type em:last-of-type { text-shadow: 0 0 calc(var(--hfx-glow, 0) * 36px) color-mix(in srgb, var(--blue) calc(var(--hfx-glow, 0) * 75%), transparent); }
 @media (max-width: 560px) {
   .hero-top { padding-bottom: 104px; }
+  .hero-top:has(.hero-demo) { padding-bottom: 112px; }
   .hfx-card { --cw: 156px; }
   .hfx-task { padding: 8px 9px; }
   .hfx-task b { font-size: 0.76rem; }
@@ -436,3 +437,63 @@ html.splash-reveal .site-header, html.splash-reveal main { animation: page-in 1.
   .hero-stage .stage-phones .phone:nth-child(1) { display: block; --w: 150px; transform: translate(-54%, 14px) rotate(-5deg); }
   .hero-stage .stage-phones .phone:nth-child(2) { --w: 158px; position: absolute; transform: translate(40%, -6px) rotate(4deg); }
 }
+
+/* ---- November 2026: buyer questions (see tools/content/trust.mjs) ---- */
+/* Hero: a quiet second path for organisations, under the store buttons. */
+.hero-demo { margin-top: 18px; font-size: 0.98rem; color: var(--mute); display: flex; flex-wrap: wrap; gap: 6px 10px; justify-content: center; align-items: center; }
+.hero-demo .link-arrow { font-weight: 600; }
+
+/* Four assurances under the hero demo (replaces the feature counts). */
+.assure { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); margin-top: clamp(56px, 7vw, 96px); }
+.assure-item { display: flex; gap: 14px; align-items: flex-start; padding: clamp(22px, 2.6vw, 34px) clamp(14px, 1.8vw, 26px); border-left: 1px solid var(--line); }
+.assure-item:first-child { border-left: 0; }
+.assure-item .ico-box { flex: none; }
+.assure-item h3 { font-size: 1rem; font-weight: 650; letter-spacing: -0.01em; color: var(--ink); line-height: 1.25; }
+.assure-item p { margin-top: 6px; font-size: 0.88rem; line-height: 1.45; color: var(--mute); }
+@media (max-width: 1000px) { .assure { grid-template-columns: repeat(2, 1fr); } .assure-item:nth-child(3) { border-left: 0; } .assure-item:nth-child(n + 3) { border-top: 1px solid var(--line); } }
+@media (max-width: 560px) { .assure { grid-template-columns: 1fr; } .assure-item { border-left: 0; } .assure-item + .assure-item { border-top: 1px solid var(--line); } }
+
+/* Story steps: the module label plus the day it happens. */
+.step-tag { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.step-when { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); }
+
+/* Today vs with Clickt. */
+.cmp { margin-top: clamp(28px, 4vw, 48px); border-top: 1px solid var(--line-2); }
+.cmp-row { display: grid; grid-template-columns: 1fr 44px 1fr; gap: 12px 20px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.cmp-head { padding: 14px 0; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+.cmp-head > span { color: var(--mute); }
+.cmp-head > span:last-child { color: var(--blue); }
+.cmp-a { color: var(--mute); font-size: 1.02rem; text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--mute) 45%, transparent); text-decoration-thickness: 1px; }
+.cmp-b { color: var(--ink); font-size: 1.06rem; font-weight: 550; }
+.cmp-arrow { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--blue) 10%, transparent); color: var(--blue); }
+.cmp-arrow svg { width: 16px; height: 16px; }
+@media (max-width: 700px) {
+  .cmp-row { grid-template-columns: 1fr; gap: 6px; }
+  .cmp-head { display: none; }
+  .cmp-arrow { display: none; }
+  .cmp-b::before { content: "→ "; color: var(--blue); }
+}
+
+/* Getting started: three steps, the guarantee and the founder's note. */
+.start { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 5vw, 72px); align-items: start; padding: clamp(28px, 5vw, 64px); border-radius: var(--r-xl); background: var(--paper-2); border: 1px solid var(--line); }
+.start-steps { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 18px; }
+.start-steps li { display: grid; grid-template-columns: 52px 1fr; column-gap: 14px; }
+.start-n { grid-row: span 2; font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--blue); }
+.start-steps h3 { font-size: 1.08rem; font-weight: 650; color: var(--ink); }
+.start-steps p { margin-top: 4px; color: var(--ink-2); font-size: 0.95rem; max-width: 52ch; }
+.start .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.start .actions .btn svg { width: 16px; height: 16px; }
+.start-guarantee { margin-top: 18px; font-size: 0.92rem; line-height: 1.5; color: var(--mute); max-width: 56ch; }
+.start-guarantee svg { display: inline-block; width: 16px; height: 16px; color: var(--checklist); vertical-align: -3px; margin-right: 6px; }
+.start-guarantee a { color: var(--blue); font-weight: 600; }
+.start-founder { margin: 0; padding-left: clamp(0px, 3vw, 40px); border-left: 1px solid var(--line-2); }
+.start-founder blockquote { margin-top: 18px; font-family: var(--font-display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.28; letter-spacing: -0.01em; color: var(--ink); }
+.start-founder blockquote a { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line-2); }
+.start-founder .by { margin-top: 22px; font-size: 0.9rem; color: var(--mute); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+@media (max-width: 900px) { .start { grid-template-columns: 1fr; } .start-founder { padding-left: 0; border-left: 0; padding-top: 28px; border-top: 1px solid var(--line-2); } }
+
+/* Final card: the demo path beside the store buttons. */
+.final-demo { margin-top: 14px; display: flex; justify-content: center; }
+/* Getting started sits under the industry cards, in the "Made in Kathmandu" section. */
+.start-lead { margin-top: 14px; color: var(--ink-2); font-size: 1.02rem; max-width: 56ch; }
+.start-title { margin-top: 16px; font-size: clamp(1.9rem, 3.4vw, 2.8rem); }

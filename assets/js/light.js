@@ -1,11 +1,12 @@
 /* Clickt — a soft light that follows the mouse on every page.
    It eases toward the pointer, sits behind the content (see .mouse-light in
    base.css) and fades out when the mouse leaves the window. Mouse and pen only:
-   nothing on touch screens, and nothing with reduced motion. */
+   nothing on touch screens, with reduced motion, or in lite mode (ClicktPerf, theme.js). */
 (function () {
   'use strict';
   var mq = window.matchMedia;
-  if (!mq || !mq('(pointer: fine)').matches || mq('(prefers-reduced-motion: reduce)').matches) return;
+  var perf = window.ClicktPerf;
+  if (!mq || !mq('(pointer: fine)').matches || mq('(prefers-reduced-motion: reduce)').matches || (perf && perf.lite)) return;
   var light = document.createElement('div');
   light.className = 'mouse-light';
   light.setAttribute('aria-hidden', 'true');
@@ -17,8 +18,10 @@
     if (Math.abs(tx - x) > 0.4 || Math.abs(ty - y) > 0.4) requestAnimationFrame(tick);
     else running = false;
   }
+  var off = false;
+  document.addEventListener('clickt:lite', function () { off = true; light.remove(); });
   document.addEventListener('pointermove', function (e) {
-    if (e.pointerType === 'touch') return;
+    if (off || e.pointerType === 'touch') return;
     tx = e.clientX; ty = e.clientY;
     light.classList.add('is-on');
     if (!running) { running = true; requestAnimationFrame(tick); }

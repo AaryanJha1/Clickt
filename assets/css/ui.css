@@ -213,7 +213,7 @@ a.card:hover, .card--lift:hover { transform: translateY(-4px); box-shadow: var(-
 .prod-hero-copy .lead { margin-top: 24px; }
 .prod-hero-copy .actions { margin-top: 32px; }
 .prod-hero-device { position: relative; display: grid; justify-items: center; gap: 22px; }
-.prod-hero-device::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; top: 10%; left: 50%; transform: translateX(-50%); background: radial-gradient(circle, rgba(28, 25, 23, 0.16), transparent 65%); filter: blur(60px); z-index: 0; }
+.prod-hero-device::before { content: ""; position: absolute; width: 500px; height: 500px; border-radius: 50%; top: calc(10% - 60px); left: 50%; transform: translateX(-50%); background: radial-gradient(circle closest-side, rgba(28, 25, 23, 0.16), rgba(28, 25, 23, 0.07) 45%, transparent); z-index: 0; }
 .prod-hero-device .phone { z-index: 1; }
 .prod-hero-device figcaption { position: relative; z-index: 1; display: grid; gap: 2px; max-width: 320px; text-align: center; font-size: 0.88rem; color: var(--mute); }
 .prod-hero-device figcaption strong { color: var(--ink); }

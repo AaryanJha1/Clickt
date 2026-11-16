@@ -18,10 +18,12 @@
 .hero-top { --hfx-scrap: #fff6d6; --hfx-ok: #0e7f3f; position: relative; padding-bottom: 28px; }
 .hero-top .hero-in { position: relative; z-index: 1; }
 .hfx { position: absolute; inset: 0; pointer-events: none; }
-.hfx-glow { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.16; mix-blend-mode: multiply; animation: hfx-orbit 30s linear infinite; }
-.hfx-glow--a { width: 46vw; max-width: 720px; aspect-ratio: 1; left: -8%; top: -40%; background: var(--teams); }
-.hfx-glow--b { width: 40vw; max-width: 640px; aspect-ratio: 1; right: -8%; top: -30%; background: var(--presentation); animation-duration: 36s; animation-delay: -12s; }
-.hfx-glow--c { width: 34vw; max-width: 520px; aspect-ratio: 1; left: 36%; bottom: -40%; background: var(--builder); animation-duration: 26s; animation-delay: -6s; }
+/* Soft discs drawn as gradients (see .ambient-glow in base.css) instead of blur(80px) + a blend mode. */
+.hfx-glow { --gc: var(--teams); position: absolute; opacity: 0.16; will-change: transform; animation: hfx-orbit 30s linear infinite; }
+.hfx-glow::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(closest-side, var(--gc) 25%, color-mix(in srgb, var(--gc) 50%, transparent) 52%, transparent); }
+.hfx-glow--a { width: 46vw; max-width: 720px; aspect-ratio: 1; left: -8%; top: -40%; --gc: var(--teams); }
+.hfx-glow--b { width: 40vw; max-width: 640px; aspect-ratio: 1; right: -8%; top: -30%; --gc: var(--presentation); animation-duration: 36s; animation-delay: -12s; }
+.hfx-glow--c { width: 34vw; max-width: 520px; aspect-ratio: 1; left: 36%; bottom: -40%; --gc: var(--builder); animation-duration: 26s; animation-delay: -6s; }
 @keyframes hfx-orbit { from { transform: rotate(0deg) translateX(8%) rotate(0deg); } to { transform: rotate(360deg) translateX(8%) rotate(-360deg); } }
 .hfx-field { position: absolute; inset: 0; z-index: 0; }
 .hfx-card { --rawk: 1; --ap: 0; --cw: 212px; position: absolute; left: 0; top: 0; width: var(--cw); opacity: 0; will-change: transform, opacity; }
@@ -69,9 +71,10 @@
 .hero-stage-wrap { position: relative; margin-top: clamp(44px, 6vw, 84px); perspective: 1600px; }
 .hero-stage { --p: 0; width: 100%; transform: translate3d(0, calc((1 - var(--p)) * 40px), 0) scale(calc(0.94 + var(--p) * 0.06 + var(--pin) * 0.015)); transform-origin: 50% 0; will-change: transform; padding: clamp(28px, 4vw, 56px); min-height: 520px; }
 .stage-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 480px) 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
-.stage-glow { position: absolute; z-index: 0; border-radius: 50%; filter: blur(70px); pointer-events: none; opacity: calc(0.7 + var(--pin) * 0.3); }
-.stage-glow--a { width: 420px; height: 420px; right: 6%; top: -14%; background: radial-gradient(circle, rgba(28, 25, 23, 0.14), transparent 65%); }
-.stage-glow--b { width: 380px; height: 380px; left: 4%; bottom: -20%; background: radial-gradient(circle, rgba(28, 25, 23, 0.1), transparent 65%); }
+/* No filter: these brighten as you scroll, and a blurred element had to be re-blurred on every scroll frame. */
+.stage-glow { position: absolute; z-index: 0; border-radius: 50%; pointer-events: none; opacity: calc(0.7 + var(--pin) * 0.3); }
+.stage-glow--a { width: 560px; height: 560px; right: calc(6% - 70px); top: calc(-14% - 70px); background: radial-gradient(circle closest-side, rgba(28, 25, 23, 0.14), rgba(28, 25, 23, 0.06) 45%, transparent); }
+.stage-glow--b { width: 520px; height: 520px; left: calc(4% - 70px); bottom: calc(-20% - 70px); background: radial-gradient(circle closest-side, rgba(28, 25, 23, 0.1), rgba(28, 25, 23, 0.045) 45%, transparent); }
 .stage-phones { position: relative; height: 560px; display: flex; justify-content: center; align-items: center; }
 .stage-phones .phone { position: absolute; will-change: transform; }
 .stage-phones .phone:nth-child(1) { --w: 250px; transform: translate(calc(-58% - var(--pin) * 5%), calc(12px - var(--pin) * 18px)) rotate(calc(-6deg - var(--pin) * 8deg)); z-index: 1; }
@@ -106,7 +109,7 @@
 .story-step .step-shot { display: none; }
 .story-stage { position: sticky; top: max(84px, calc(50vh - 350px)); height: min(700px, calc(100vh - 100px)); display: grid; place-items: center; }
 .story-stage .phone { --w: min(316px, calc((100vh - 170px) * 0.46)); z-index: 2; }
-.story-glow { position: absolute; z-index: 0; width: 520px; height: 520px; border-radius: 50%; filter: blur(80px); opacity: 0.55; background: radial-gradient(circle, rgba(28, 25, 23, 0.22), transparent 65%); }
+.story-glow { position: absolute; z-index: 0; width: 680px; height: 680px; border-radius: 50%; opacity: 0.55; background: radial-gradient(circle closest-side, rgba(28, 25, 23, 0.22), rgba(28, 25, 23, 0.09) 45%, transparent); }
 .story-stage .phone .screen { background: #0b0e17; }
 .shot { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity 0.7s var(--ease), transform 0.9s var(--ease); }
 .shot.is-active { opacity: 1; transform: none; }

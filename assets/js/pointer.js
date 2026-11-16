@@ -5,11 +5,14 @@
    followed. One cursor at a time, once per section per visit.
    Target, in order: [data-cursor] → primary button → any button → an unselected
    tab → an "Explore" link → a question → a card link. A section opts out with
-   data-cursor="off". Skipped with reduced motion. */
+   data-cursor="off". Skipped with reduced motion and in lite mode (ClicktPerf, theme.js).
+   Per frame it only moves things (transform) and fades them (opacity). */
 (function () {
   'use strict';
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced || !('IntersectionObserver' in window)) return;
+  var perf = window.ClicktPerf;
+  var lite = function () { return !!(perf && perf.lite); };
+  if (reduced || lite() || !('IntersectionObserver' in window)) return;
   var doc = document;
 
   // The home hero has its own cursor animation, and the module story animates its
@@ -57,11 +60,15 @@
     busy = true;
     var radius = window.getComputedStyle(target).borderRadius || '12px';
     var t0 = performance.now();
+    var w = -1, h = -1;
+    // The press ring is styled once; each frame only moves it and changes its opacity.
+    press.style.cssText = 'left:0;top:0;border-radius:' + radius + ';box-shadow:0 0 0 6px color-mix(in srgb, var(--blue) 22%, transparent);opacity:0;will-change:transform,opacity';
     layer.classList.add('is-on');
     function tick(now) {
       var x = (now - t0) / 1000;
       // Follow the control while the page scrolls.
       var r = target.getBoundingClientRect();
+      if (r.width !== w || r.height !== h) { w = r.width; h = r.height; press.style.width = w.toFixed(1) + 'px'; press.style.height = h.toFixed(1) + 'px'; }
       var px = r.left + Math.min(r.width * 0.62, r.width - 10), py = r.top + r.height * 0.62;
       var go = outq(ramp(x, 0, 0.9)), tap = bump(x, 0.9, 1.15), away = ramp(x, 1.3, 2.1);
       cursor.style.opacity = (ramp(x, 0, 0.25) * (1 - ramp(x, 1.55, 2.1))).toFixed(3);
@@ -75,14 +82,16 @@
       var rp = ramp(x, 0.95, 1.4);
       rays.forEach(function (ray) { ray.style.opacity = (rp > 0 && rp < 1 ? 1 - rp : 0).toFixed(3); ray.style.transform = 'translateY(' + (16 + 14 * rp).toFixed(1) + 'px)'; });
       var pr = bump(x, 0.92, 1.6);
-      press.style.cssText = 'left:' + r.left.toFixed(1) + 'px;top:' + r.top.toFixed(1) + 'px;width:' + r.width.toFixed(1) + 'px;height:' + r.height.toFixed(1) + 'px;border-radius:' + radius + ';opacity:' + pr.toFixed(3) + ';box-shadow:0 0 0 ' + (2 + 7 * pr).toFixed(1) + 'px color-mix(in srgb, var(--blue) ' + Math.round(28 * pr) + '%, transparent)';
-      if (x < DUR) requestAnimationFrame(tick);
+      press.style.transform = 'translate(' + r.left.toFixed(1) + 'px,' + r.top.toFixed(1) + 'px) scale(' + (1 + 0.04 * pr).toFixed(3) + ')';
+      press.style.opacity = pr.toFixed(3);
+      if (x < DUR && !lite()) requestAnimationFrame(tick);
       else { layer.classList.remove('is-on'); busy = false; setTimeout(next, 350); }
     }
     requestAnimationFrame(tick);
   }
   function inView(el) { var r = el.getBoundingClientRect(); return r.top > 70 && r.bottom < window.innerHeight - 16; }
   function next() {
+    if (lite()) { queue.length = 0; return; }
     while (queue.length) {
       var item = queue.shift();
       if (inView(item)) { play(item); return; }

@@ -124,9 +124,47 @@
     else fn();
   }
 
+  /* ---------- frame-rate check ----------
+     Device hints miss many old laptops, so watch the page itself: ~2 s of frames once it
+     has loaded, and again on the first scroll. If it is visibly struggling (most frames
+     slower than ~38 fps, or one in five frames badly late) switch to lite mode — see
+     ClicktPerf in theme.js. Skipped with reduced motion (already calm) or ?fx=full. */
+  var perf = window.ClicktPerf;
+  function sampleFrames(ms, done) {
+    var t0 = 0, last = 0, deltas = [], spoiled = false;
+    var spoil = function () { spoiled = true; };
+    doc.addEventListener('visibilitychange', spoil);
+    function step(now) {
+      if (!t0) t0 = now; else deltas.push(now - last);
+      last = now;
+      if (now - t0 < ms) { requestAnimationFrame(step); return; }
+      doc.removeEventListener('visibilitychange', spoil);
+      if (!spoiled && !doc.hidden && deltas.length >= 10) done(deltas);
+    }
+    requestAnimationFrame(step);
+  }
+  function struggling(d) {
+    var sorted = d.slice().sort(function (a, b) { return a - b; });
+    var median = sorted[Math.floor(sorted.length / 2)];
+    var late = d.filter(function (x) { return x > 50; }).length / d.length;
+    return median > 26 || late > 0.2;
+  }
+  if (perf && !perf.lite && perf.forced !== 'full' && !reduced && window.requestAnimationFrame) {
+    var checkFps = function () { if (!perf.lite) sampleFrames(2000, function (d) { if (struggling(d)) perf.goLite('fps'); }); };
+    var afterLoad = function () { setTimeout(checkFps, 600); };
+    whenReady(function () {
+      if (doc.readyState === 'complete') afterLoad();
+      else window.addEventListener('load', afterLoad, { once: true });
+    });
+    var firstScroll = function () { window.removeEventListener('scroll', firstScroll); checkFps(); };
+    window.addEventListener('scroll', firstScroll, { passive: true });
+  }
+
   /* ---------- reveal ---------- */
   var reveals = qsa('[data-reveal]');
-  if (reduced || !('IntersectionObserver' in window)) {
+  // reveal-now: this script arrived late on a slow connection and the head timer has
+  // already shown everything (see shell.mjs); keep it shown rather than hiding it again.
+  if (reduced || !('IntersectionObserver' in window) || root.classList.contains('reveal-now')) {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {

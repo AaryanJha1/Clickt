@@ -18,7 +18,7 @@ html[data-theme="dark"] {
     --sh-2: 0 10px 30px rgba(0, 0, 0, .25);
     --sh-3: 0 24px 65px rgba(0, 0, 0, .38);
     --sh-device: 0 24px 70px rgba(0, 0, 0, .45);
-  }html[data-theme="dark"] body::after { opacity: .025; mix-blend-mode: screen; }html[data-theme="dark"] .brand img,
+  }html[data-theme="dark"] body::after { display: none; }html[data-theme="dark"] .brand img,
   html[data-theme="dark"] .footer-brand img,
   html[data-theme="dark"] .footer-mark img,
   html[data-theme="dark"] .splash-word { filter: brightness(0) invert(1); }html[data-theme="dark"] .site-header.is-scrolled,
@@ -69,7 +69,7 @@ html:not([data-theme]) {
     --sh-2: 0 10px 30px rgba(0, 0, 0, .25);
     --sh-3: 0 24px 65px rgba(0, 0, 0, .38);
     --sh-device: 0 24px 70px rgba(0, 0, 0, .45);
-  }html:not([data-theme]) body::after { opacity: .025; mix-blend-mode: screen; }html:not([data-theme]) .brand img,
+  }html:not([data-theme]) body::after { display: none; }html:not([data-theme]) .brand img,
   html:not([data-theme]) .footer-brand img,
   html:not([data-theme]) .footer-mark img,
   html:not([data-theme]) .splash-word { filter: brightness(0) invert(1); }html:not([data-theme]) .site-header.is-scrolled,
@@ -139,10 +139,10 @@ html[data-samsung-system] .endcard .title em {
 
 /* Hero background (hero-fx): dark scraps, brighter ticks, glows that add light. */
 html[data-theme="dark"] .hero-top { --hfx-scrap: #2f2a1f; --hfx-ok: #6fdc9b; }
-html[data-theme="dark"] .hfx-glow { opacity: 0.22; mix-blend-mode: screen; }
+html[data-theme="dark"] .hfx-glow { opacity: 0.22; }
 @media (prefers-color-scheme: dark) {
   html:not([data-theme]) .hero-top { --hfx-scrap: #2f2a1f; --hfx-ok: #6fdc9b; }
-  html:not([data-theme]) .hfx-glow { opacity: 0.22; mix-blend-mode: screen; }
+  html:not([data-theme]) .hfx-glow { opacity: 0.22; }
 }
 
 /* The mouse light is a touch stronger on the dark page. */
@@ -150,11 +150,11 @@ html[data-theme="dark"] { --light-c: color-mix(in srgb, #6b8cff 20%, transparent
 @media (prefers-color-scheme: dark) { html:not([data-theme]) { --light-c: color-mix(in srgb, #6b8cff 20%, transparent); } }
 
 /* The site background glows add light on the dark page. */
-html[data-theme="dark"] .ambient-glow { opacity: 0.16; mix-blend-mode: screen; }
+html[data-theme="dark"] .ambient-glow { opacity: 0.16; }
 html[data-theme="dark"] .ambient-glow--c { opacity: 0.12; }
 html[data-theme="dark"] .ambient-glow--d { opacity: 0.09; }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme]) .ambient-glow { opacity: 0.16; mix-blend-mode: screen; }
+  html:not([data-theme]) .ambient-glow { opacity: 0.16; }
   html:not([data-theme]) .ambient-glow--c { opacity: 0.12; }
   html:not([data-theme]) .ambient-glow--d { opacity: 0.09; }
 }

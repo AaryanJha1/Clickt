@@ -3,8 +3,10 @@
    draft tasks around the headline (never behind it), the Clickt cursor clicks the
    last word of the headline ("call") and every card is applied, nearest first.
    Each loop shows a different kind of organisation. Text is read by key through
-   Clickt.t, so the cards follow the language toggle. With reduced motion the hero
-   shows one still frame: the cards placed and applied. */
+   Clickt.t, so the cards follow the language toggle. With reduced motion, or in lite
+   mode (ClicktPerf, theme.js), the hero shows one still frame: the cards placed and
+   applied. Per frame it only writes transform and opacity (no blur filters), and the
+   loop stops completely while the hero is off screen. */
 (function () {
   'use strict';
   var C = window.Clickt;
@@ -16,6 +18,8 @@
 
   var LOOP = 8, STILL = 6.05;
   var reduced = C.reduced;
+  var perf = window.ClicktPerf;
+  var still = function () { return reduced || !!(perf && perf.lite); };
   var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
   var t = C.t;
 
@@ -37,7 +41,8 @@
   var rnd = function (seed) { var x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); };
 
   var W = 0, H = 0, ox = 0, oy = 0, sc = 0, start = 0, loopId = 0, cards = [];
-  var mx = 0.5, my = 0.42, visible = true, elapsed = 0, aimed = false;
+  var mx = 0.5, my = 0.42, visible = true, elapsed = 0, aimed = false, running = false, started = false;
+  var base = 0.3, glowEl = null, lastGlow = '';
 
   // Where an element will rest: the copy slides in on load (data-reveal), so its own
   // entrance offset is taken out, and even the first loop uses the final layout.
@@ -54,6 +59,7 @@
     var ems = title ? title.querySelectorAll('em') : [];
     var word = ems.length ? ems[ems.length - 1] : title;
     if (!word) return;
+    if (glowEl !== word) { if (glowEl) glowEl.style.removeProperty('--hfx-glow'); glowEl = word; lastGlow = ''; }
     var r = rel(word);
     ox = r.left + (r.right - r.left) * 0.45; oy = r.top + (r.bottom - r.top) * 0.62;
     origin.style.left = ox.toFixed(1) + 'px'; origin.style.top = oy.toFixed(1) + 'px';
@@ -93,6 +99,9 @@
   function build() {
     loopId++; aimed = false;
     field.textContent = '';
+    // Theme is read once per loop, not on every frame.
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark' || (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    base = dark ? 0.38 : 0.3;
     var S = DATA.loop[sc];
     aim();
     cards = slots().map(function (slot, i) {
@@ -120,8 +129,7 @@
   }
   function render(x) {
     if (!aimed && x >= 4) { aim(); aimed = true; }
-    var dark = document.documentElement.getAttribute('data-theme') === 'dark' || (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    var base = dark ? 0.38 : 0.3;
+    var calm = still();
     cards.forEach(function (c) {
       var i = c.i;
       var appear = smooth(ramp(x, 0.15 + i * 0.13, 0.9 + i * 0.13));
@@ -134,65 +142,82 @@
       var rot = c.from.r * (1 - prep);
       var scale = (0.9 + 0.1 * prep) * (0.86 + 0.14 * c.depth) * (1 + 0.04 * bump(x, apAt, apAt + 0.45));
       var op = appear * (1 - leave) * (base + (0.96 - base) * ap) * (0.75 + 0.25 * c.depth);
-      var blur = (1 - prep) * 2.2 + (1 - c.depth) * 3 * (1 - ap);
       var s = c.el.style;
       s.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) translate(-50%,-50%) rotate(' + rot.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
       s.opacity = op.toFixed(3);
-      s.filter = blur > 0.05 ? 'blur(' + blur.toFixed(2) + 'px)' : 'none';
       s.setProperty('--rawk', (1 - prep).toFixed(3));
       s.setProperty('--ap', ap.toFixed(3));
       c.el.classList.toggle('is-applied', ap > 0.5);
     });
     // The Clickt cursor glides in from below right and clicks.
     var go = outq(ramp(x, 4.2, 5.15)), press = bump(x, 5.12, 5.42), away = ramp(x, 5.5, 6.5);
-    cursor.style.opacity = reduced ? 0 : (ramp(x, 4.2, 4.5) * (1 - ramp(x, 5.9, 6.5))).toFixed(3);
+    cursor.style.opacity = calm ? 0 : (ramp(x, 4.2, 4.5) * (1 - ramp(x, 5.9, 6.5))).toFixed(3);
     cursor.style.transform = 'translate(' + ((1 - go) * 240 + away * 18).toFixed(1) + 'px,' + ((1 - go) * 170 + away * 14).toFixed(1) + 'px) scale(' + (1 - 0.16 * press).toFixed(3) + ')';
     rings.forEach(function (r, k) {
-      var p = reduced ? 0 : ramp(x, 5.22 + k * 0.16, 6.35 + k * 0.16);
+      var p = calm ? 0 : ramp(x, 5.22 + k * 0.16, 6.35 + k * 0.16);
       r.style.opacity = (p > 0 && p < 1 ? 0.6 * (1 - p) : 0).toFixed(3);
       r.style.transform = 'scale(' + (0.15 + 5.4 * outq(p)).toFixed(3) + ')';
     });
-    var rp = reduced ? 0 : ramp(x, 5.22, 5.75);
+    var rp = calm ? 0 : ramp(x, 5.22, 5.75);
     rays.forEach(function (r) { r.style.opacity = (rp > 0 && rp < 1 ? 1 - rp : 0).toFixed(3); r.style.transform = 'translateY(' + (24 + 20 * rp).toFixed(1) + 'px)'; });
-    root.style.setProperty('--hfx-glow', (reduced ? 0 : bump(x, 5.2, 6.2)).toFixed(3));
+    setGlow(calm ? 0 : bump(x, 5.2, 6.2));
+  }
+  // The headline word's glow lives on the word itself and is written only when it
+  // changes: a custom property set on the hero restyled the whole hero every frame.
+  function setGlow(v) {
+    var str = v.toFixed(3);
+    if (!glowEl || str === lastGlow) return;
+    lastGlow = str;
+    glowEl.style.setProperty('--hfx-glow', str);
   }
   // Hide the click (cursor, ripples, rays, word glow) so nothing stays frozen mid-fade.
   function clearClick() {
     cursor.style.opacity = 0;
     rings.forEach(function (r) { r.style.opacity = 0; });
     rays.forEach(function (r) { r.style.opacity = 0; });
-    root.style.setProperty('--hfx-glow', 0);
+    setGlow(0);
   }
   function frame(now) {
-    if (visible) {
-      var x = (now - start) / 1000;
-      if (x >= LOOP) { sc = (sc + 1) % DATA.loop.length; start = now; build(); x = 0; }
-      render(x);
-    }
+    if (!visible || still()) { running = false; return; }
+    var x = (now - start) / 1000;
+    if (x >= LOOP) { sc = (sc + 1) % DATA.loop.length; start = now; build(); x = 0; }
+    render(x);
+    requestAnimationFrame(frame);
+  }
+  function run() {
+    if (running || !started || !visible || still()) return;
+    running = true;
     requestAnimationFrame(frame);
   }
   function begin() {
     root.classList.add('hfx-on');
+    started = true;
     sc = 0; start = performance.now(); build();
-    if (reduced) { render(STILL); return; }
-    requestAnimationFrame(frame);
+    if (still()) { render(STILL); return; }
+    run();
   }
+  // Switched to lite mid-visit (the frame-rate check in app.js): settle on the still frame.
+  document.addEventListener('clickt:lite', function () {
+    if (!started) return;
+    running = false;
+    build(); render(STILL);
+  });
 
-  if (fine && !reduced) {
+  if (fine && !still()) {
     root.addEventListener('pointermove', function (e) { var R = root.getBoundingClientRect(); mx = (e.clientX - R.left) / R.width; my = (e.clientY - R.top) / R.height; });
     root.addEventListener('pointerleave', function () { mx = 0.5; my = 0.42; });
   }
   // Pause while the hero is off screen.
   if ('IntersectionObserver' in window && !reduced) new IntersectionObserver(function (es) {
     es.forEach(function (e) {
-      if (!e.isIntersecting && visible) { visible = false; elapsed = performance.now() - start; clearClick(); }
-      else if (e.isIntersecting && !visible) { visible = true; start = performance.now() - elapsed; }
+      if (!e.isIntersecting && visible) { visible = false; elapsed = performance.now() - start; if (!still()) clearClick(); }
+      else if (e.isIntersecting && !visible) { visible = true; start = performance.now() - elapsed; run(); }
     });
   }).observe(root);
   var rt;
-  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (reduced) render(STILL); }, 150); });
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (still()) render(STILL); }, 150); });
   // New language: rebuild the current cards in it (the headline may wrap differently too).
-  C.onLang(function () { setTimeout(function () { build(); if (reduced) render(STILL); }, 30); });
+  C.onLang(function () { setTimeout(function () { build(); if (still()) render(STILL); }, 30); });
   C.whenReady(function () {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(begin); else begin();
   });

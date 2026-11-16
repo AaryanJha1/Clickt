@@ -168,7 +168,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <link rel="stylesheet" href="/assets/css/ui.css">
 ${css.map((c) => `<link rel="stylesheet" href="/assets/css/${c}.css">`).join('\n')}
 <link rel="stylesheet" href="/assets/css/dark.css">
-<script>document.documentElement.classList.remove('no-js')</script>
+<script>(function(r){r.classList.remove('no-js');setTimeout(function(){if(!window.Clickt)r.classList.add('reveal-now')},2500)})(document.documentElement)</script>
 ${head}
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head>

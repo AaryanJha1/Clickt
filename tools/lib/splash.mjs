@@ -3,7 +3,9 @@
 // browsing session on the home page; skipped for reduced-motion. The head snippet locks the
 // page before first paint. The timeline lives in home.css; the mark is the logo redrawn in
 // its own pixel space (1105 × 360), and wordmark.webp is the logo's lettering on that canvas.
-export const splashHead = `<script>try{if(!sessionStorage.getItem('clickt-splash'))document.documentElement.classList.add('splash-lock')}catch(e){}</script>`;
+// Skipped too in lite mode or on a slow connection (window.ClicktPerf, set by theme.js which
+// runs earlier in the head): there it would only delay the page or play back choppy.
+export const splashHead = `<script>try{var P=window.ClicktPerf;if(!sessionStorage.getItem('clickt-splash')&&!(P&&(P.lite||P.slowNet)))document.documentElement.classList.add('splash-lock')}catch(e){}</script>`;
 
 export const splashBody = `<div class="splash" data-splash role="status" aria-live="polite" aria-label="Loading Clickt">
   <span class="glow glow--blue splash-glow splash-glow--a"></span><span class="glow glow--peach splash-glow splash-glow--b"></span>

@@ -215,7 +215,7 @@
 <section class="section" id="workspaces">
   <div class="wrap">
     <div class="story-head" data-story-head>
-      <span class="slate" data-reveal><b><span data-i18n="home.ch1.name">One team, one week</span></b></span>
+      <span class="slate" data-reveal><b><span data-i18n="home.ch1.name">One team, every week</span></b></span>
       <h2 class="title" data-reveal="wipe" data-i18n-html="home.ch1.title">A busy week, without the <em>chaos.</em></h2>
       <p class="lead" data-reveal style="--d:2" data-i18n="home.ch1.lead">Follow one team through a busy week. Every step is a real Clickt screen, and ClicktAI does the preparing.</p>
     </div>
@@ -390,23 +390,60 @@
   </div>
 </section>
 
-<section class="section" id="devices">
+<section class="section" id="week-film">
   <div class="wrap">
-    <div class="dev-head sec-head center" style="margin-inline:auto">
-      <span class="eyebrow" data-i18n="home.devices.kicker">Everywhere you work</span>
-      <h2 class="title" data-reveal="wipe" data-i18n-html="home.devices.title">One workspace, on every <em>screen.</em></h2>
-      <p class="lead" data-i18n="home.devices.lead">Clickt runs on Apple and Android. Sign in once and your work follows you.</p>
-      <div class="dev-controls">
-        <div class="seg" role="tablist" aria-label="Platform">
-          <button type="button" role="tab" data-plat="apple" aria-selected="true"><span data-i18n="home.devices.apple">Apple</span></button>
-          <button type="button" role="tab" data-plat="android" aria-selected="false"><span data-i18n="home.devices.android">Android</span></button>
+    <div class="film-head sec-head center" style="margin-inline:auto">
+      <span class="eyebrow" data-i18n="home.film.kicker">A real week, start to finish</span>
+      <h2 class="title" data-reveal="wipe" data-i18n-html="home.film.title">One team. Every week. One <em>workspace.</em></h2>
+    </div>
+    <div class="frame vignette film" data-film>
+      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+      <span class="glow glow--blue" style="width:480px;height:480px;left:6%;top:4%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:8%;bottom:-12%"></span>
+      <div class="film-grid">
+        <div class="film-screen" data-film-screen>
+          <video class="film-video" src="assets/media/open-day-week-720.mp4" data-lite-src="/assets/media/open-day-week-480.mp4" poster="/assets/media/open-day-week-poster.jpg" width="720" height="1280" preload="none" muted playsinline controls aria-label="Open Day Week: the complete story, a film about one team’s week in Clickt" data-i18n-attr="aria-label:home.film.label"></video>
+          <div class="film-play"><button type="button" class="btn" data-film-play><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M7 4.5v15l12-7.5-12-7.5z"/></svg><span data-i18n="home.film.play">Play the week</span></button></div>
+          <div class="film-end" data-film-end>
+            <p class="film-end-title" data-i18n="home.film.endTitle">Bring your team.</p>
+            <a class="btn btn--primary" href="pages/pricing.html"><span data-i18n="home.film.endCta">See Clickt Business</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <button type="button" class="btn btn--sm film-replay" data-film-replay><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4.5v4.2h4.2"/></svg><span data-i18n="home.film.replay">Watch again</span></button>
+          </div>
+          <span class="film-bar" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="film-side">
+          <ol class="film-rail" aria-label="Chapters" data-i18n-attr="aria-label:home.film.chapters">
+        <li style="--c:var(--notes)"><button type="button" class="film-ch is-active" data-film-ch="0">
+          <span class="film-when"><span data-i18n="home.film.ch1.when">Mon 9:00</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch1.mod">Notes</span></span><span class="film-h"><span data-i18n="home.film.ch1.h">One meeting, every task</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li><li style="--c:var(--teams)"><button type="button" class="film-ch" data-film-ch="36">
+          <span class="film-when"><span data-i18n="home.film.ch2.when">Mon</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch2.mod">Teams</span></span><span class="film-h"><span data-i18n="home.film.ch2.h">One message out, every update back</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li><li style="--c:var(--checklist)"><button type="button" class="film-ch" data-film-ch="69">
+          <span class="film-when"><span data-i18n="home.film.ch3.when">Tue 8:30</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch3.mod">Checklist</span></span><span class="film-h"><span data-i18n="home.film.ch3.h">A vague task becomes a plan</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li><li style="--c:var(--builder)"><button type="button" class="film-ch" data-film-ch="106">
+          <span class="film-when"><span data-i18n="home.film.ch4.when">Wed</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch4.mod">Builder</span></span><span class="film-h"><span data-i18n="home.film.ch4.h">Where the best applicants come from</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li><li style="--c:var(--presentation)"><button type="button" class="film-ch" data-film-ch="141">
+          <span class="film-when"><span data-i18n="home.film.ch5.when">Wed 3:30</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch5.mod">Decks Copilot</span></span><span class="film-h"><span data-i18n="home.film.ch5.h">A first draft before the coffee goes cold</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li><li style="--c:var(--presentation)"><button type="button" class="film-ch" data-film-ch="170">
+          <span class="film-when"><span data-i18n="home.film.ch6.when">Thu 9:48</span></span>
+          <span class="film-txt"><span class="film-mod"><span data-i18n="home.film.ch6.mod">Slide Copilot</span></span><span class="film-h"><span data-i18n="home.film.ch6.h">Changes, ten minutes before. Approved.</span></span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li>
+          </ol>
+          <div class="film-ctrl">
+            <button type="button" class="btn btn--ghost btn--sm" data-film-sound aria-pressed="false"><span class="when-muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></svg><span data-i18n="home.film.soundOn">Tap for sound</span></span><span class="when-sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span data-i18n="home.film.soundOff">Mute</span></span></button>
+            <button type="button" class="btn btn--ghost btn--sm" data-film-toggle><span class="when-paused"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M7 4.5v15l12-7.5-12-7.5z"/></svg><span data-i18n="home.film.resume">Play</span></span><span class="when-playing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" stroke-width="2.4"><path d="M8.5 5v14M15.5 5v14"/></svg><span data-i18n="home.film.pause">Pause</span></span></button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="frame vignette dev-stage" data-devices>
-      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
-      <span class="glow glow--blue" style="width:480px;height:480px;left:20%;top:10%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:14%;bottom:-10%"></span>
-      <div class="dev-panel is-active" data-platform="apple"><div class="dev-pair dev-pair--3"><div class="phone " style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/phone/notes.webp" alt="Clickt Notes recording a meeting on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="tablet" style="--w:min(330px,60vw)"><div class="screen"><img src="assets/img/tablet/ipad-home.webp" alt="Clickt home screen on iPad with Teams, Notes, Builder and Presentation" width="900" height="1306" decoding="async" loading="lazy"></div></div><div class="phone " style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/phone/ai-connect.webp" alt="Clickt Teams on iPhone" width="640" height="1391" decoding="async" loading="lazy"></div></div></div></div><div class="dev-panel" data-platform="android"><div class="dev-pair dev-pair--3"><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_homepage.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_team2.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div><div class="phone phone--android" style="--w:min(230px,44vw)"><div class="screen"><img src="assets/img/android/android_builder3.webp" alt="Clickt on Android" width="640" height="1391" decoding="async" loading="lazy"></div></div></div></div>
     </div>
   </div>
 </section>

@@ -30,7 +30,8 @@ Pages are generated. Edit the sources, then rebuild:
 ```sh
 node tools/build.mjs     # writes every page, the Nepali bundles, sitemap.xml and robots.txt
 node tools/check.mjs     # verifies every link, asset and anchor; lists unused assets
-python3 -m http.server 8000   # preview at http://localhost:8000
+node tools/serve.mjs     # preview at http://localhost:8000 (supports video seeking;
+                         # python3 -m http.server does not, so the home film restarts)
 ```
 
 - **Copy** (English + Nepali, side by side): `tools/content/*.mjs`. Older copy that has not been

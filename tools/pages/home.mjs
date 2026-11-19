@@ -95,12 +95,15 @@ export default function home(p) {
   const cardHtml = steps.map(([k], i) => `<div class="story-card${i === 0 ? ' is-active' : ''}" data-card>${cards[k]}</div>`).join('');
   const shots = steps.map(([k, src], i) => `<div class="shot${i === 0 ? ' is-active' : ''}" data-shot>${img(src, k, 640, 1391, i === 0 ? '' : 'loading="lazy"')}</div>`).join('');
 
-  const droid = (src, alt) => phoneEl(src, alt, '--w:min(230px,44vw)', 'phone--android');
-  // [platform, markup]
-  const panels = [
-    ['apple', `<div class="dev-pair dev-pair--3">${phoneEl('phone/notes.webp', p.text('home.devices.notesAlt'), '--w:min(230px,44vw)')}<div class="tablet" style="--w:min(330px,60vw)"><div class="screen">${img('tablet/ipad-home.webp', p.text('home.devices.ipadAltHome'), 900, 1306, 'loading="lazy"')}</div></div>${phoneEl('phone/ai-connect.webp', p.text('home.devices.iphoneAlt'), '--w:min(230px,44vw)')}</div>`],
-    ['android', `<div class="dev-pair dev-pair--3">${droid('android/android_homepage.webp', p.text('home.devices.androidAlt'))}${droid('android/android_team2.webp', p.text('home.devices.androidAlt'))}${droid('android/android_builder3.webp', p.text('home.devices.androidAlt'))}</div>`],
-  ];
+  // The Open Day Week film: plays muted while on screen, pauses when it leaves (assets/js/home.js).
+  // The chapter rail is page text, so it follows the language toggle; each button seeks the film.
+  // [start in seconds, module colour] — starts measured from the film; the last runs to the end.
+  const filmChapters = [[0, 'notes'], [36, 'teams'], [69, 'checklist'], [106, 'builder'], [141, 'presentation'], [170, 'presentation']];
+  const filmRail = filmChapters.map(([t, c], i) => `<li style="--c:var(--${c})"><button type="button" class="film-ch${i === 0 ? ' is-active' : ''}" data-film-ch="${t}">
+          <span class="film-when">${p.t(`home.film.ch${i + 1}.when`)}</span>
+          <span class="film-txt"><span class="film-mod">${p.t(`home.film.ch${i + 1}.mod`)}</span><span class="film-h">${p.t(`home.film.ch${i + 1}.h`)}</span></span>
+          <span class="film-prog" aria-hidden="true"><i></i></span>
+        </button></li>`).join('');
 
   // Hero background: work drifts in, ClicktAI turns it into draft tasks around the
   // headline, the Clickt cursor clicks "call" and every card is applied. Each loop is
@@ -205,23 +208,36 @@ export default function home(p) {
   </div>
 </section>
 
-<section class="section" id="devices">
+<section class="section" id="week-film">
   <div class="wrap">
-    <div class="dev-head sec-head center" style="margin-inline:auto">
-      ${p.e('span', 'home.devices.kicker', 'class="eyebrow"')}
-      ${p.e('h2', 'home.devices.title', 'class="title" data-reveal="wipe"')}
-      ${p.e('p', 'home.devices.lead', 'class="lead"')}
-      <div class="dev-controls">
-        <div class="seg" role="tablist" aria-label="Platform">
-          <button type="button" role="tab" data-plat="apple" aria-selected="true">${p.t('home.devices.apple')}</button>
-          <button type="button" role="tab" data-plat="android" aria-selected="false">${p.t('home.devices.android')}</button>
+    <div class="film-head sec-head center" style="margin-inline:auto">
+      ${p.e('span', 'home.film.kicker', 'class="eyebrow"')}
+      ${p.e('h2', 'home.film.title', 'class="title" data-reveal="wipe"')}
+    </div>
+    <div class="frame vignette film" data-film>
+      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
+      <span class="glow glow--blue" style="width:480px;height:480px;left:6%;top:4%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:8%;bottom:-12%"></span>
+      <div class="film-grid">
+        <div class="film-screen" data-film-screen>
+          <video class="film-video" src="/assets/media/open-day-week-720.mp4" data-lite-src="/assets/media/open-day-week-480.mp4" poster="/assets/media/open-day-week-poster.jpg" width="720" height="1280" preload="none" muted playsinline controls ${p.at({ 'aria-label': 'home.film.label' })}></video>
+          <div class="film-play"><button type="button" class="btn" data-film-play>${icon('play')}${p.t('home.film.play')}</button></div>
+          <div class="film-end" data-film-end>
+            ${p.e('p', 'home.film.endTitle', 'class="film-end-title"')}
+            <a class="btn btn--primary" href="${url('pricing')}">${p.t('home.film.endCta')}${icon('arrow')}</a>
+            <button type="button" class="btn btn--sm film-replay" data-film-replay>${icon('replay')}${p.t('home.film.replay')}</button>
+          </div>
+          <span class="film-bar" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="film-side">
+          <ol class="film-rail" ${p.at({ 'aria-label': 'home.film.chapters' })}>
+        ${filmRail}
+          </ol>
+          <div class="film-ctrl">
+            <button type="button" class="btn btn--ghost btn--sm" data-film-sound aria-pressed="false"><span class="when-muted">${icon('soundOff')}${p.t('home.film.soundOn')}</span><span class="when-sound">${icon('soundOn')}${p.t('home.film.soundOff')}</span></button>
+            <button type="button" class="btn btn--ghost btn--sm" data-film-toggle><span class="when-paused">${icon('play')}${p.t('home.film.resume')}</span><span class="when-playing">${icon('pause')}${p.t('home.film.pause')}</span></button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="frame vignette dev-stage" data-devices>
-      <i class="mk"></i><i class="mk"></i><i class="mk"></i><i class="mk"></i>
-      <span class="glow glow--blue" style="width:480px;height:480px;left:20%;top:10%"></span><span class="glow glow--peach" style="width:380px;height:380px;right:14%;bottom:-10%"></span>
-      ${panels.map(([pl, html], i) => `<div class="dev-panel${i === 0 ? ' is-active' : ''}" data-platform="${pl}">${html}</div>`).join('')}
     </div>
   </div>
 </section>

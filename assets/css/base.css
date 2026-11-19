@@ -59,6 +59,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: light dark; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
+/* Decorative glows sit partly off screen. Tablets and smart displays (iPad Pro, Nest Hub)
+   otherwise widen the whole page to fit them, pushing the header's right end off screen.
+   `clip` (unlike `hidden`) does not create a scroll container, so sticky sections still work;
+   body keeps `hidden` as the fallback for browsers without `clip`. */
+html { overflow-x: clip; }
 body {
   margin: 0;
   background: var(--paper);
@@ -70,6 +75,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 img, svg, video { max-width: 100%; display: block; }
 img { height: auto; }

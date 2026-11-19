@@ -79,6 +79,19 @@
 .stage-phones .phone { position: absolute; will-change: transform; }
 .stage-phones .phone:nth-child(1) { --w: 250px; transform: translate(calc(-58% - var(--pin) * 5%), calc(12px - var(--pin) * 18px)) rotate(calc(-6deg - var(--pin) * 8deg)); z-index: 1; }
 .stage-phones .phone:nth-child(2) { --w: 262px; transform: translate(calc(34% + var(--pin) * 5%), calc(-14px - var(--pin) * 18px)) rotate(calc(5deg + var(--pin) * 8deg)); z-index: 2; }
+/* Tablets and small laptops (iPad Pro, 1024–1320px): the two fixed-size phones were wider
+   than their column and slid under the ClicktAI card. Here the card column is a little
+   narrower and the phones are sized from their own column (cqi), so they never overlap
+   it or get clipped by the frame, even fully spread. Wider screens keep the full size. */
+.stage-phones { container-type: inline-size; }
+@media (min-width: 901px) and (max-width: 1320px) {
+  .stage-grid { grid-template-columns: minmax(0, 420px) minmax(0, 1fr); }
+  .stage-phones .phone:nth-child(1) { --w: min(250px, 40cqi); }
+  .stage-phones .phone:nth-child(2) { --w: min(262px, 42cqi); }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .stage-phones { height: 480px; }
+}
 @media (max-width: 900px) {
   .hero-pin { height: auto; }
   .hero-stage-wrap { position: static; }
@@ -137,6 +150,8 @@
   .story-mobile .story-step .step-shot { display: none; }
   .story-mobile .story-stage { display: grid; position: relative; top: auto; height: var(--story-panel); }
   .story-mobile .story-stage .phone { --w: min(185px, calc(var(--story-panel) * .43)); }
+  /* Sit the phone left of centre so the step's card (bottom right) covers less of the screen. */
+  .story-mobile .story-stage .phone { transform: translateX(-42%); }
   .story-mobile .story-glow { width: min(90vw, 350px); height: min(90vw, 350px); }
   .story-mobile .story-dots { display: none; }
 }
@@ -269,21 +284,96 @@
   .story-card, .story-card * { animation: none !important; transition: none !important; }
 }
 
-/* --- Devices ------------------------------------------------------------ */
-.dev-head { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.dev-stage { position: relative; margin-top: clamp(28px, 4vw, 48px); min-height: 640px; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 40px 20px 60px; }
-.dev-panel { min-width: 0; width: 100%; grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(18px) scale(0.98); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease), visibility 0.6s; display: grid; justify-items: center; }
-.dev-panel.is-active { opacity: 1; visibility: visible; transform: none; }
-.dev-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
-.seg--sub { background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); }
-.dev-pair { display: flex; gap: clamp(14px, 3vw, 36px); justify-content: center; align-items: flex-start; }
-.dev-pair .phone:nth-child(even) { margin-top: 44px; }
-.dev-pair--3 .phone:nth-child(2) { margin-top: 0; }
-.dev-pair--3 .phone:nth-child(odd) { margin-top: 44px; }
-.dev-panel .phone { --w: 290px; }
-.dev-panel .tablet { --w: 430px; }
-.dev-panel .mac { max-width: 860px; }
-@media (max-width: 700px) { .dev-stage { min-height: 560px; } .dev-panel .tablet { --w: 320px; } .dev-panel .phone { --w: 240px; } }
+/* --- Open Day Week film --------------------------------------------------
+   The film sits on the stage like part of the page: no player chrome, a chapter rail
+   in the site's own type, site buttons for sound and play. home.js plays it (muted)
+   only while it is on screen. Per frame it only writes transforms (the progress bars);
+   no blur or blend anywhere, so it is safe in lite mode. The film itself stays light
+   in dark mode, like a lit screen on the dark stage. */
+.film-head { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.film { margin-top: clamp(28px, 4vw, 48px); padding: clamp(32px, 4.5vw, 64px) clamp(16px, 4vw, 64px); }
+.film-grid { position: relative; z-index: 3; display: grid; grid-template-columns: auto minmax(0, 420px); justify-content: center; align-items: center; gap: clamp(28px, 5vw, 80px); }
+.film-screen {
+  --fw: clamp(240px, calc((100vh - 230px) * 0.5625), 372px);
+  --fw: clamp(240px, calc((100svh - 230px) * 0.5625), 372px);
+  position: relative; width: var(--fw); aspect-ratio: 9 / 16; border-radius: calc(var(--fw) * 0.075); overflow: hidden; isolation: isolate;
+  background: #f7f2ec url("/assets/media/open-day-week-poster.jpg") center / cover;
+  box-shadow: 0 0 0 1px rgba(28, 25, 23, 0.08), 0 2px 6px rgba(28, 25, 23, 0.08), 0 30px 70px -24px rgba(28, 25, 23, 0.34);
+}
+.film-video { display: block; width: 100%; height: 100%; object-fit: cover; background: transparent; }
+.film--js .film-video { cursor: pointer; }
+
+/* Big play button: shown when the film will not start by itself (lite mode, slow network,
+   reduced motion, or the browser refused autoplay), until it has played once. */
+.film-play { position: absolute; z-index: 3; left: 0; right: 0; bottom: 9%; display: flex; justify-content: center; transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0.35s; }
+.film-play .btn { box-shadow: 0 14px 30px -10px rgba(28, 25, 23, 0.55); }
+.film-play .btn svg { fill: currentColor; }
+.film:not(.film--js) .film-play,
+.film--auto:not(.is-blocked) .film-play,
+.film.is-started .film-play { opacity: 0; visibility: hidden; transform: translateY(8px); }
+
+/* End card: the site takes over from the film's last frame. Kept light in both themes. */
+.film-end {
+  position: absolute; z-index: 4; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center;
+  background: #f7f2ec; opacity: 0; visibility: hidden; transition: opacity 0.5s var(--ease), visibility 0.5s;
+}
+.film.is-ended .film-end { opacity: 1; visibility: visible; }
+.film-end-title { font-size: clamp(1.4rem, 2.4vw, 1.75rem); font-weight: 700; letter-spacing: -0.02em; color: #1c1917; margin: 0 0 6px; }
+.film .film-end .btn.film-replay { --bg: #fff; --fg: #1c1917; --bd: rgba(28, 25, 23, 0.16); box-shadow: none; }
+
+.film-bar { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(28, 25, 23, 0.08); }
+.film-bar i { display: block; height: 100%; background: var(--mc, var(--notes)); transform-origin: left; transform: scaleX(0); transition: background-color 0.4s; }
+.film:not(.film--js) .film-bar { display: none; }
+
+/* Chapter rail */
+.film-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.film-rail { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.film-ch {
+  display: grid; grid-template-columns: 78px minmax(0, 1fr); column-gap: 14px; row-gap: 9px; align-items: baseline;
+  width: 100%; padding: 12px 16px; border-radius: var(--r-md); text-align: left; color: var(--mute);
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+.film-ch:hover { background: rgba(28, 25, 23, 0.04); color: var(--ink-2); }
+.film-when { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.film-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.film-mod { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: color-mix(in srgb, var(--c) 82%, #1c1917); }
+.film-mod::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); opacity: 0.4; transition: opacity 0.3s, transform 0.3s var(--ease); }
+.film-h { font-size: 1rem; font-weight: 600; line-height: 1.35; color: inherit; }
+.film-prog { grid-column: 2; display: block; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; opacity: 0; transition: opacity 0.3s; }
+.film-prog i { display: block; height: 100%; background: var(--c); transform-origin: left; transform: scaleX(0); }
+.film-ch.is-done { color: var(--ink-2); }
+.film-ch.is-done .film-mod::before { opacity: 1; }
+.film-ch.is-active { background: var(--white); color: var(--ink); box-shadow: var(--sh-2), inset 0 0 0 1px var(--line); }
+.film-ch.is-active .film-mod::before { opacity: 1; transform: scale(1.35); }
+.film--js .film-ch.is-active .film-prog { opacity: 1; }
+
+.film-ctrl { display: flex; flex-wrap: wrap; gap: 10px; padding-left: 16px; }
+.film-ctrl .btn > span { align-items: center; gap: 8px; }
+.film-ctrl .btn svg { width: 16px; height: 16px; }
+.film-ctrl .when-paused svg { fill: currentColor; }
+.film .when-muted, .film .when-paused { display: inline-flex; }
+.film .when-sound, .film .when-playing { display: none; }
+.film.is-sound .when-muted, .film.is-playing .when-paused { display: none; }
+.film.is-sound .when-sound, .film.is-playing .when-playing { display: inline-flex; }
+.film:not(.film--js) .film-ctrl { display: none; }
+
+/* Phones and narrow tablets: the film on top, the chapters as a row of chips under it. */
+@media (max-width: 860px) {
+  .film { padding: 28px 12px 24px; }
+  .film-grid { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 18px; }
+  .film-screen { --fw: min(300px, 74vw, calc((100vh - 250px) * 0.5625)); --fw: min(300px, 74vw, calc((100svh - 250px) * 0.5625)); min-width: 200px; }
+  .film-side { width: 100%; align-items: center; gap: 14px; }
+  /* All six chapters on screen at once: a 3 x 2 grid of compact chips. */
+  .film-rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; width: 100%; max-width: 420px; }
+  .film-rail li { min-width: 0; display: flex; }
+  .film-ch { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 3px; width: 100%; padding: 8px 10px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); }
+  .film-when { font-size: 0.64rem; letter-spacing: 0.04em; }
+  .film-mod { gap: 5px; font-size: 0.62rem; letter-spacing: 0.04em; line-height: 1.25; align-items: flex-start; }
+  .film-mod::before { width: 6px; height: 6px; flex: none; margin-top: 0.22em; }
+  .film-h { display: none; }
+  .film-prog { width: 100%; margin-top: 4px; }
+  .film-ctrl { padding-left: 0; justify-content: center; }
+}
 
 /* --- Nepal / industries -------------------------------------------------- */
 .ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -389,21 +479,6 @@ html.splash-reveal .site-header, html.splash-reveal main { animation: page-in 1.
   .hero-stage { padding: 20px 14px; }
   .proof .kpi { font-size: 2.8rem; }
   .story-step .h-serif { font-size: 2rem; }
-  .dev-head .seg { max-width: 100%; }
-  .dev-controls { flex-direction: column; align-items: center; margin-top: 24px; }
-  .dev-controls .seg { max-width: 100%; }
-  .dev-stage { min-height: 0; padding: 24px 12px 28px; }
-  .dev-panel { max-width: 100%; }
-  .dev-panel .phone { --w: min(210px, 52vw); }
-  .dev-pair { max-width: 100%; }
-  .dev-pair .phone { --w: min(160px, 38vw) !important; }
-  .dev-pair--3 { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 8px 16px; margin-inline: -12px; width: calc(100% + 24px); -webkit-overflow-scrolling: touch; }
-  .dev-pair--3 .phone { --w: min(170px, 44vw) !important; scroll-snap-align: center; }
-  .dev-pair--3 .tablet { scroll-snap-align: center; flex: none; }
-  .dev-pair--3 .phone { flex: none; }
-  .dev-pair--3 .phone:nth-child(odd) { margin-top: 0; }
-  .dev-panel .tablet { --w: min(300px, 78vw); }
-  .dev-panel .mac { max-width: 100%; }
   .price-band { padding: 20px; }
   .custom { padding: 26px 20px; }
   .founder blockquote { font-size: 1.5rem; }
